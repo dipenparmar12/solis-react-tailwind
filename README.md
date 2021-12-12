@@ -52,4 +52,6 @@ import './styles/tailwind.css'
 "build:css": "cross-env NODE_ENV=production postcss build src/styles/tailwind.css -o src/styles/tailwind.prod.css"
 ```
 8. > yarn run dev
-9. 
+
+
+### TODO..
