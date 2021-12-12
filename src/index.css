@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .res_bg {
+    @apply bg-red-300 sm:bg-green-300 md:bg-blue-300 lg:bg-yellow-300 xl:bg-purple-300
+  }
+}
+
+/* 
+@layer components{
+  .sidebar_nav {
+    @apply absolute inset-y-0 left-0 w-48 px-2 space-y-6 bg-gray-100 transition duration-200 ease-in-out transform shadow-md sidebar py-7 md:relative md:translate-x-0 
+  }
+}
+
+@layer components {
+  .sidebar_nav__item {
+    @apply block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-black
+  }
+} */
