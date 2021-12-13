@@ -5,19 +5,20 @@ import { RequireAuth, useAuth } from './context/AuthContext'
 import LoginPage from './pages/LoginPage'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
+import ExamplesTemp from './temp/ExamplesTemp'
 
 function Private() {
-  let auth = useAuth()
+  const auth = useAuth()
   const navigate = useNavigate()
+
   return (
     <div>
       I am logged in as `{auth?.user}`
       <hr />
       <br />
       <button
-        onClick={() => {
-          auth.signOut(() => navigate('/'))
-        }}
+        className='btn btn-primary'
+        onClick={() => auth.signOut(() => navigate('/'))}
       >
         sing out{' '}
       </button>
@@ -38,7 +39,7 @@ export const routesPrivate = {
   projects: {
     label: 'Projects',
     path: `/` | '/Projects',
-    element: <Private />,
+    element: <div className='text-2xl'> Projects </div>,
     icon: <Svg.Plus />,
   },
   expenses: {
@@ -57,7 +58,19 @@ export const routesPrivate = {
     label: 'Users',
     path: `/users`,
     element: <div className='text-2xl'> Users </div>,
-    icon: <Svg.Plus />,
+    icon: <Svg.Users />,
+  },
+  profile: {
+    label: 'Profile',
+    path: `/profile`,
+    element: <Private />,
+    icon: <Svg.User />,
+  },
+  examples: {
+    label: 'Examples',
+    path: `/examples`,
+    element: <ExamplesTemp />,
+    icon: <Svg.InfoCircle />,
   },
 }
 
@@ -67,13 +80,7 @@ export const routesPublicArr = Object.entries(routesPublic)
 
 function App() {
   let auth = useAuth()
-  const navigate = useNavigate()
-
-  React.useEffect(() => {
-    if (auth?.user) {
-    }
-  }, [auth?.user, navigate])
-
+  
   return (
     <>
       {!auth?.user && (
@@ -86,6 +93,7 @@ function App() {
 
       {auth?.user && (
         <Layout>
+          <span className='hidden text-test'> I am </span>
           <Routes>
             {routesPrivateArr?.map(([k, route]) => (
               <Route
@@ -99,13 +107,6 @@ function App() {
               />
             ))}
           </Routes>
-
-          <br />
-          <h1 className='pb-1 '>
-            One content goes
-            <span> HERE </span>
-            <div>Two content goes here</div>
-          </h1>
         </Layout>
       )}
     </>

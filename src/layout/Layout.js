@@ -3,7 +3,8 @@ import LogoIMG from './../assets/img/logo.png'
 import Svg from '../lib/Svg/Svg'
 import cn from '../utils/classNames'
 import { NavLink } from 'react-router-dom'
-import { routesPrivate } from '../App'
+import { routes } from '../App'
+import { DarkModeToggle } from '../hooks/useDarkMode'
 
 function NavLinkItem({ route, label }) {
   if (!route) return null
@@ -12,12 +13,12 @@ function NavLinkItem({ route, label }) {
     <NavLink
       to={route?.path || '/'}
       className={({ isActive }) =>
-        cn('sidebar_nav__item', isActive && 'bg-gray-200 text-black')
+        cn('sidebar_nav__item', isActive && 'active')
       }
     >
-      <div className='flex items-center'>
-        <span className='w-5'>{route?.icon}</span>
-        <span className='ml-2'>{route?.label}</span>
+      <div className='flex items-center '>
+        <span className='w-5 pt-1'>{route?.icon}</span>
+        <span className='ml-3'>{route?.label}</span>
       </div>
     </NavLink>
   )
@@ -25,10 +26,11 @@ function NavLinkItem({ route, label }) {
 
 const Layout = ({ children }) => {
   const [isVisible, setIsVisible] = React.useState(false)
+
   return (
     <>
       {/* TOP NAVIGATION */}
-      <div className='flex items-center justify-between w-full p-3 px-4 text-xl border-b shadow h-14'>
+      <div className='relative z-10 flex items-center justify-between w-full p-3 px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14'>
         {/* logo */}
         <a href='#/' className='flex items-center space-x-1'>
           <img src={LogoIMG} className='h-8 mr-2 shadow-xl' alt='Logo' />
@@ -38,7 +40,11 @@ const Layout = ({ children }) => {
         </a>
 
         <div>
-          <div className='flex md:hidden' id='mobile_only'>
+          <DarkModeToggle />
+        </div>
+
+        <div className='flex md:hidden' id='mobile_only'>
+          <div>
             <button
               onClick={(e) => setIsVisible(!isVisible)}
               aria-controls='sidebar'
@@ -57,11 +63,13 @@ const Layout = ({ children }) => {
           className={cn(['sidebar_nav', !isVisible && '-translate-x-full'])}
           // ref={ref}
         >
-          <NavLinkItem route={routesPrivate?.projects} />
-          <NavLinkItem route={routesPrivate?.incomes} />
-          <NavLinkItem route={routesPrivate?.expenses} />
-          <NavLinkItem route={routesPrivate?.users} />
-          {/* <NavLinkItem route={routesPrivate?.login} /> */}
+          <NavLinkItem route={routes?.projects} />
+          <NavLinkItem route={routes?.incomes} />
+          <NavLinkItem route={routes?.expenses} />
+          <NavLinkItem route={routes?.users} />
+          <NavLinkItem route={routes?.profile} />
+          <NavLinkItem route={routes?.examples} />
+          {/* <NavLinkItem route={routes?.login} /> */}
         </nav>
 
         {/* content */}
