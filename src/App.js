@@ -10,34 +10,35 @@ function Private() {
   let auth = useAuth()
   const navigate = useNavigate()
   return (
-    <RequireAuth>
-      <div>
-        I am logged in as `{auth?.user}`
-        <hr />
-        <br />
-        <button
-          onClick={() => {
-            auth.signOut(() => navigate('/'))
-          }}
-        >
-          sing out{' '}
-        </button>
-      </div>
-    </RequireAuth>
+    <div>
+      I am logged in as `{auth?.user}`
+      <hr />
+      <br />
+      <button
+        onClick={() => {
+          auth.signOut(() => navigate('/'))
+        }}
+      >
+        sing out{' '}
+      </button>
+    </div>
   )
 }
 
-export const routes = {
+export const routesPublic = {
   login: {
     label: 'Login',
-    path: '/login',
+    path: '/' | '/login',
     element: <LoginPage />,
+    public: true,
   },
+}
+
+export const routesPrivate = {
   projects: {
     label: 'Projects',
     path: `/` | '/Projects',
     element: <Private />,
-    // element: <Layout1>  <div className='text-2xl'> Projects </div> </Layout1>, // Example
     icon: <Svg.Plus />,
   },
   expenses: {
@@ -60,34 +61,53 @@ export const routes = {
   },
 }
 
-export const routesArr = Object.entries(routes)
+export const routes = Object.assign({}, routesPrivate, routesPublic)
+export const routesPrivateArr = Object.entries(routesPrivate)
+export const routesPublicArr = Object.entries(routesPublic)
 
 function App() {
   let auth = useAuth()
   const navigate = useNavigate()
 
   React.useEffect(() => {
-    if (!auth.isAuthenticated) {
-      navigate('/login')
+    if (auth?.user) {
     }
-  }, [auth.isAuthenticated, navigate])
+  }, [auth?.user, navigate])
 
   return (
     <>
-      <Layout>
+      {!auth?.user && (
         <Routes>
-          {routesArr?.map(([k, route]) => (
-            <Route {...route} key={route.label + k} path={route?.path} />
+          {routesPublicArr?.map(([k, route]) => (
+            <Route {...route} key={route.label + k} />
           ))}
         </Routes>
+      )}
 
-        <br />
-        <h1 className='pb-1 '>
-          One content goes
-          <span> HERE </span>
-          <div>Two content goes here</div>
-        </h1>
-      </Layout>
+      {auth?.user && (
+        <Layout>
+          <Routes>
+            {routesPrivateArr?.map(([k, route]) => (
+              <Route
+                {...route}
+                key={route.label + k}
+                element={
+                  <>
+                    <RequireAuth>{route.element}</RequireAuth>
+                  </>
+                }
+              />
+            ))}
+          </Routes>
+
+          <br />
+          <h1 className='pb-1 '>
+            One content goes
+            <span> HERE </span>
+            <div>Two content goes here</div>
+          </h1>
+        </Layout>
+      )}
     </>
   )
 }

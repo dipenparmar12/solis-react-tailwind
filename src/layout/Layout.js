@@ -3,9 +3,11 @@ import LogoIMG from './../assets/img/logo.png'
 import Svg from '../lib/Svg/Svg'
 import cn from '../utils/classNames'
 import { NavLink } from 'react-router-dom'
-import { routes } from '../App'
+import { routesPrivate } from '../App'
 
 function NavLinkItem({ route, label }) {
+  if (!route) return null
+
   return (
     <NavLink
       to={route?.path || '/'}
@@ -55,11 +57,11 @@ const Layout = ({ children }) => {
           className={cn(['sidebar_nav', !isVisible && '-translate-x-full'])}
           // ref={ref}
         >
-          <NavLinkItem route={routes.projects} />
-          <NavLinkItem route={routes.incomes} />
-          <NavLinkItem route={routes.expenses} />
-          <NavLinkItem route={routes?.users} />
-          <NavLinkItem route={routes?.login} />
+          <NavLinkItem route={routesPrivate?.projects} />
+          <NavLinkItem route={routesPrivate?.incomes} />
+          <NavLinkItem route={routesPrivate?.expenses} />
+          <NavLinkItem route={routesPrivate?.users} />
+          {/* <NavLinkItem route={routesPrivate?.login} /> */}
         </nav>
 
         {/* content */}

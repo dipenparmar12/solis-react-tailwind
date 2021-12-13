@@ -52,6 +52,9 @@ export function useAuth() {
 export function RequireAuth({ children }) {
   let auth = React.useContext(AuthContext)
   let location = useLocation()
+  // React.useEffect(() => {
+  //   console.log('AuthContext.js::[55]', auth.user)
+  // }, [auth.user])
 
   if (!auth.user) {
     return <Navigate to={routes.login.path} state={{ from: location }} />
