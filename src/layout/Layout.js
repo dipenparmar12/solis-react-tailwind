@@ -20,12 +20,9 @@ const Layout = () => {
         <div>
           <div className='flex md:hidden' id='mobile_only'>
             <button
-              onClick={(e) => {
-                setIsVisible(!isVisible)
-              }}
-              id='toggleSidebarMobile'
+              onClick={(e) => setIsVisible(!isVisible)}
               aria-controls='sidebar'
-              className='p-2 ml-2 text-gray-600 rounded cursor-pointer lg:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100'
+              className='btn__hamburger'
             >
               <Svg.MenuAlt1 />
             </button>
@@ -34,34 +31,40 @@ const Layout = () => {
       </div>
 
       {/* SIDEBAR & CONTENT */}
-      <div className='h-[calc(100vh_-_3.5rem)] relative flex res_bg'>
+      <div className='h-[calc(100vh_-_3.5rem)] relative flex '>
         {/* sidebar */}
-        <div
-          className={cn([
-            'absolute inset-y-0 left-0 w-48 px-2 space-y-6 bg-gray-100 transition duration-200 ease-in-out transform shadow-md sidebar py-7 md:relative md:translate-x-0',
-            !isVisible && '-translate-x-full',
-          ])}
+        <nav
+          className={cn(['sidebar_nav', !isVisible && '-translate-x-full'])}
           // ref={ref}
         >
-          {/* nav */}
-          <nav className='space-y-2'>
-            <a
-              href='/#'
-              className={cn([
-                'block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 hover:text-black',
-              ])}
-            >
-              <SvgLabel title={'Plus'} label={'Projects'} />
-            </a>
+          <a href='/#' className={cn('sidebar_nav__item')}>
+            <SvgLabel title={'Plus'} label={'Projects'} />
+          </a>
 
-            {/* <a href='/#' className={cn('sidebar_nav__item', 'bg-white')}>
-              <SvgLabel as={Svg.Plus} label={'Incomes'} />
-            </a> */}
-          </nav>
-        </div>
+          <a
+            href='/#'
+            className={cn('sidebar_nav__item', 'bg-gray-200 text-black')}
+          >
+            <SvgLabel as={Svg.Plus} label={'Incomes'} />
+          </a>
+
+          <a href='/#' className={cn('sidebar_nav__item')}>
+            <SvgLabel as={Svg.Plus} label={'Expenses'} />
+          </a>
+
+          <a href='/#' className={cn('sidebar_nav__item')}>
+            <SvgLabel as={Svg.Plus} label={'Users'} />
+          </a>
+        </nav>
 
         {/* content */}
-        <div className='flex-1 px-5 py-8 lg:px-8 '>content goes here</div>
+        <div className='flex-1 px-5 py-8 lg:px-8 '>
+          <h1 className='bg h1'>
+            One content goes
+            <span> HERE </span>
+          </h1>
+          <h2>Two content goes here</h2>
+        </div>
       </div>
     </>
   )
