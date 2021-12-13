@@ -1,7 +1,26 @@
 import React from 'react'
 import LogoIMG from './../assets/img/logo.png'
-import Svg, { SvgLabel } from '../lib/Svg/Svg'
+import Svg from '../lib/Svg/Svg'
 import cn from '../utils/classNames'
+import { NavLink } from 'react-router-dom'
+import { routes, routesArr } from '../App'
+import { Routes, Route } from 'react-router-dom'
+
+function NavLinkItem({ route, label }) {
+  return (
+    <NavLink
+      to={route?.path || '/'}
+      className={({ isActive }) =>
+        cn('sidebar_nav__item', isActive && 'bg-gray-200 text-black')
+      }
+    >
+      <div className='flex items-center'>
+        <span className='w-5'>{route?.icon}</span>
+        <span className='ml-2'>{route?.label}</span>
+      </div>
+    </NavLink>
+  )
+}
 
 const Layout = () => {
   const [isVisible, setIsVisible] = React.useState(false)
@@ -37,33 +56,26 @@ const Layout = () => {
           className={cn(['sidebar_nav', !isVisible && '-translate-x-full'])}
           // ref={ref}
         >
-          <a href='/#' className={cn('sidebar_nav__item')}>
-            <SvgLabel title={'Plus'} label={'Projects'} />
-          </a>
-
-          <a
-            href='/#'
-            className={cn('sidebar_nav__item', 'bg-gray-200 text-black')}
-          >
-            <SvgLabel as={Svg.Plus} label={'Incomes'} />
-          </a>
-
-          <a href='/#' className={cn('sidebar_nav__item')}>
-            <SvgLabel as={Svg.Plus} label={'Expenses'} />
-          </a>
-
-          <a href='/#' className={cn('sidebar_nav__item')}>
-            <SvgLabel as={Svg.Plus} label={'Users'} />
-          </a>
+          <NavLinkItem route={routes.projects} />
+          <NavLinkItem route={routes.incomes} />
+          <NavLinkItem route={routes.expenses} />
+          <NavLinkItem route={routes?.users} />
         </nav>
 
         {/* content */}
-        <div className='flex-1 px-5 py-8 lg:px-8 '>
-          <h1 className='bg h1'>
+        <div className='flex-1 px-5 py-8 space-y-2 lg:px-8 '>
+          <Routes>
+            {routesArr?.map(([k, route]) => (
+              <Route {...route} key={route.label + k} path={route?.path} />
+            ))}
+          </Routes>
+          <div className='border-b border-gray-200 lg:px-8' />
+
+          <h1 className='pb-1 '>
             One content goes
             <span> HERE </span>
+            <div>Two content goes here</div>
           </h1>
-          <h2>Two content goes here</h2>
         </div>
       </div>
     </>
