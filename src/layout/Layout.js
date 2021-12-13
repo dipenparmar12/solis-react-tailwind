@@ -3,8 +3,7 @@ import LogoIMG from './../assets/img/logo.png'
 import Svg from '../lib/Svg/Svg'
 import cn from '../utils/classNames'
 import { NavLink } from 'react-router-dom'
-import { routes, routesArr } from '../App'
-import { Routes, Route } from 'react-router-dom'
+import { routes } from '../App'
 
 function NavLinkItem({ route, label }) {
   return (
@@ -22,7 +21,7 @@ function NavLinkItem({ route, label }) {
   )
 }
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const [isVisible, setIsVisible] = React.useState(false)
   return (
     <>
@@ -60,23 +59,11 @@ const Layout = () => {
           <NavLinkItem route={routes.incomes} />
           <NavLinkItem route={routes.expenses} />
           <NavLinkItem route={routes?.users} />
+          <NavLinkItem route={routes?.login} />
         </nav>
 
         {/* content */}
-        <div className='flex-1 px-5 py-8 space-y-2 lg:px-8 '>
-          <Routes>
-            {routesArr?.map(([k, route]) => (
-              <Route {...route} key={route.label + k} path={route?.path} />
-            ))}
-          </Routes>
-          <div className='border-b border-gray-200 lg:px-8' />
-
-          <h1 className='pb-1 '>
-            One content goes
-            <span> HERE </span>
-            <div>Two content goes here</div>
-          </h1>
-        </div>
+        <div className='flex-1 px-5 py-8 space-y-2 lg:px-8 '>{children}</div>
       </div>
     </>
   )
