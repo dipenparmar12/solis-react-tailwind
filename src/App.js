@@ -1,23 +1,23 @@
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import React from 'react'
 import Layout from './layout/Layout'
-import { Routes, Route } from 'react-router-dom'
 import Svg from './lib/Svg/Svg'
 import { RequireAuth, useAuth } from './context/AuthContext'
 import LoginPage from './pages/LoginPage'
-import { useNavigate } from 'react-router-dom'
-import React from 'react'
 import ExamplesTemp from './temp/ExamplesTemp'
 
-function Private() {
+const Private = function () {
   const auth = useAuth()
   const navigate = useNavigate()
 
   return (
     <div>
-      I am logged in as `{auth?.user}`
+      I am logged in as `{auth?.user}
+      `
       <hr />
       <br />
       <button
-        className='btn btn-primary'
+        className="btn btn-primary"
         onClick={() => auth.signOut(() => navigate('/'))}
       >
         sing out{' '}
@@ -29,7 +29,7 @@ function Private() {
 export const routesPublic = {
   login: {
     label: 'Login',
-    path: '/' | '/login',
+    path: '/' || '/login',
     element: <LoginPage />,
     public: true,
   },
@@ -38,49 +38,49 @@ export const routesPublic = {
 export const routesPrivate = {
   projects: {
     label: 'Projects',
-    path: `/` | '/Projects',
-    element: <div className='text-2xl'> Projects </div>,
+    path: '/' || '/Projects',
+    element: <div className="text-2xl"> Projects </div>,
     icon: <Svg.Plus />,
   },
   expenses: {
     label: 'Expenses',
-    path: `/expenses`,
-    element: <div className='text-2xl'> Expenses </div>,
+    path: '/expenses',
+    element: <div className="text-2xl"> Expenses </div>,
     icon: <Svg.Plus />,
   },
   incomes: {
     label: 'Incomes',
-    path: `/incomes`,
-    element: <div className='text-2xl'> Incomes </div>,
+    path: '/incomes',
+    element: <div className="text-2xl"> Incomes </div>,
     icon: <Svg.Plus />,
   },
   users: {
     label: 'Users',
-    path: `/users`,
-    element: <div className='text-2xl'> Users </div>,
+    path: '/users',
+    element: <div className="text-2xl"> Users </div>,
     icon: <Svg.Users />,
   },
   profile: {
     label: 'Profile',
-    path: `/profile`,
+    path: '/profile',
     element: <Private />,
     icon: <Svg.User />,
   },
   examples: {
     label: 'Examples',
-    path: `/examples`,
+    path: '/examples',
     element: <ExamplesTemp />,
     icon: <Svg.InfoCircle />,
   },
 }
 
-export const routes = Object.assign({}, routesPrivate, routesPublic)
+export const routes = { ...routesPrivate, ...routesPublic }
 export const routesPrivateArr = Object.entries(routesPrivate)
 export const routesPublicArr = Object.entries(routesPublic)
 
-function App() {
-  let auth = useAuth()
-  
+const App = function () {
+  const auth = useAuth()
+
   return (
     <>
       {!auth?.user && (
@@ -93,17 +93,13 @@ function App() {
 
       {auth?.user && (
         <Layout>
-          <span className='hidden text-test'> I am </span>
+          <span className="hidden text-test"> I am </span>
           <Routes>
             {routesPrivateArr?.map(([k, route]) => (
               <Route
                 {...route}
                 key={route.label + k}
-                element={
-                  <>
-                    <RequireAuth>{route.element}</RequireAuth>
-                  </>
-                }
+                element={<RequireAuth>{route.element}</RequireAuth>}
               />
             ))}
           </Routes>

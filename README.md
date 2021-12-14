@@ -1,70 +1,268 @@
-# Getting Started with Create React App
+## React App, features 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [x] Tailwind Theme, Config
+- [x] SASS with Tailwind
+- [x] Responsive Sidebar
+- [x] Dark Mode
+- [x] Auth Service
+- [x] Private and Public routes
+- [x] Prettier and EsLint
+- [ ] API 
+- [ ] Forms And Input Controls  
+- [ ] Notifications
+- [ ] WebHook
+- [ ] Redux
+- [ ] filter 
+- [ ] Table, Expandable, Sort, Search and Filters
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## MarkDown Cheatsheet
+Markdown Cheatsheet<a name="TOP"></a>
+===================
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- - - - 
+# Heading 1 #
 
-### `yarn test`
+    Markup :  # Heading 1 #
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    -OR-
 
-### `yarn build`
+    Markup :  ============= (below H1 text)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Heading 2 ##
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    Markup :  ## Heading 2 ##
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    -OR-
 
-### `yarn eject`
+    Markup: --------------- (below H2 text)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Heading 3 ###
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    Markup :  ### Heading 3 ###
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Heading 4 ####
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    Markup :  #### Heading 4 ####
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Common text
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    Markup :  Common text
 
-### Code Splitting
+_Emphasized text_
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    Markup :  _Emphasized text_ or *Emphasized text*
 
-### Analyzing the Bundle Size
+~~Strikethrough text~~
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    Markup :  ~~Strikethrough text~~
 
-### Making a Progressive Web App
+__Strong text__
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    Markup :  __Strong text__ or **Strong text**
 
-### Advanced Configuration
+___Strong emphasized text___
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    Markup :  ___Strong emphasized text___ or ***Strong emphasized text***
 
-### Deployment
+[Named Link](http://www.google.fr/ "Named link title") and http://www.google.fr/ or <http://example.com/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    Markup :  [Named Link](http://www.google.fr/ "Named link title") and http://www.google.fr/ or <http://example.com/>
 
-### `yarn build` fails to minify
+[heading-1](#heading-1 "Goto heading-1")
+    
+    Markup: [heading-1](#heading-1 "Goto heading-1")
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Table, like this one :
+
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
+```
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+```
+
+Adding a pipe `|` in a cell :
+
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | \|
+
+```
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  |  \| 
+```
+
+Left, right and center aligned table
+
+Left aligned Header | Right aligned Header | Center aligned Header
+| :--- | ---: | :---:
+Content Cell  | Content Cell | Content Cell
+Content Cell  | Content Cell | Content Cell
+
+```
+Left aligned Header | Right aligned Header | Center aligned Header
+| :--- | ---: | :---:
+Content Cell  | Content Cell | Content Cell
+Content Cell  | Content Cell | Content Cell
+```
+
+`code()`
+
+    Markup :  `code()`
+
+```javascript
+    var specificLanguage_code = 
+    {
+        "data": {
+            "lookedUpPlatform": 1,
+            "query": "Kasabian+Test+Transmission",
+            "lookedUpItem": {
+                "name": "Test Transmission",
+                "artist": "Kasabian",
+                "album": "Kasabian",
+                "picture": null,
+                "link": "http://open.spotify.com/track/5jhJur5n4fasblLSCOcrTp"
+            }
+        }
+    }
+```
+
+    Markup : ```javascript
+             ```
+
+* Bullet list
+    * Nested bullet
+        * Sub-nested bullet etc
+* Bullet list item 2
+
+~~~
+ Markup : * Bullet list
+              * Nested bullet
+                  * Sub-nested bullet etc
+          * Bullet list item 2
+
+-OR-
+
+ Markup : - Bullet list
+              - Nested bullet
+                  - Sub-nested bullet etc
+          - Bullet list item 2 
+~~~
+
+1. A numbered list
+    1. A nested numbered list
+    2. Which is numbered
+2. Which is numbered
+
+~~~
+ Markup : 1. A numbered list
+              1. A nested numbered list
+              2. Which is numbered
+          2. Which is numbered
+~~~
+
+- [ ] An uncompleted task
+- [x] A completed task
+
+~~~
+ Markup : - [ ] An uncompleted task
+          - [x] A completed task
+~~~
+
+- [ ] An uncompleted task
+    - [ ] A subtask
+
+~~~
+ Markup : - [ ] An uncompleted task
+              - [ ] A subtask
+~~~
+
+> Blockquote
+>> Nested blockquote
+
+    Markup :  > Blockquote
+              >> Nested Blockquote
+
+_Horizontal line :_
+- - - -
+
+    Markup :  - - - -
+
+_Image with alt :_
+
+![picture alt](http://via.placeholder.com/200x150 "Title is optional")
+
+    Markup : ![picture alt](http://via.placeholder.com/200x150 "Title is optional")
+
+Foldable text:
+
+<details>
+  <summary>Title 1</summary>
+  <p>Content 1 Content 1 Content 1 Content 1 Content 1</p>
+</details>
+<details>
+  <summary>Title 2</summary>
+  <p>Content 2 Content 2 Content 2 Content 2 Content 2</p>
+</details>
+
+    Markup : <details>
+               <summary>Title 1</summary>
+               <p>Content 1 Content 1 Content 1 Content 1 Content 1</p>
+             </details>
+
+```html
+<h3>HTML</h3>
+<p> Some HTML code here </p>
+```
+
+Link to a specific part of the page:
+
+[Go To TOP](#TOP)
+   
+    Markup : [text goes here](#section_name)
+              section_title<a name="section_name"></a>    
+
+Hotkey:
+
+<kbd>⌘F</kbd>
+
+<kbd>⇧⌘F</kbd>
+
+    Markup : <kbd>⌘F</kbd>
+
+Hotkey list:
+
+| Key | Symbol |
+| --- | --- |
+| Option | ⌥ |
+| Control | ⌃ |
+| Command | ⌘ |
+| Shift | ⇧ |
+| Caps Lock | ⇪ |
+| Tab | ⇥ |
+| Esc | ⎋ |
+| Power | ⌽ |
+| Return | ↩ |
+| Delete | ⌫ |
+| Up | ↑ |
+| Down | ↓ |
+| Left | ← |
+| Right | → |
+
+Emoji:
+
+:exclamation: Use emoji icons to enhance text. :+1:  Look up emoji codes at [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/)
+
+    Markup : Code appears between colons :EMOJICODE:
