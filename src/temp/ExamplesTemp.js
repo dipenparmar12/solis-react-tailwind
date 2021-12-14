@@ -13,6 +13,11 @@ export default function ExamplesTemp() {
         <button className="btn disabled"> Default disable</button>
       </div>
 
+      {/* Button disable */}
+      <div className="space-x-2 ">
+        <button className="link"> Button Link </button>
+      </div>
+
       {/* <div className='space-x-2 '>
         <button className='bg-emerald-200 btn'>Button </button>
         <button className='bg-red-200 btn'>Button </button>

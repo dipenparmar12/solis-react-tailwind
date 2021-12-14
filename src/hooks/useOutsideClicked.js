@@ -6,24 +6,20 @@ import { useState, useEffect, useRef } from 'react'
  * @src: https://medium.com/free-code-camp/how-to-detect-an-outside-click-with-react-and-hooks-25dbaa30abcd
  * @returns
  */
-export default function useComponentVisible() {
+export default function useOutsideClicked() {
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef(null)
 
-  const useOutsideClicked = (event) => {
-    console.log(
-      'useComponentVisible.js::[8] !ref.et)',
-      !ref.current.contains(event.target),
-    )
+  const handleOutsideClicked = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setIsVisible(!isVisible)
     }
   }
 
   useEffect(() => {
-    document.addEventListener('click', useOutsideClicked, !isVisible)
+    document.addEventListener('click', handleOutsideClicked, !isVisible)
     return () => {
-      document.removeEventListener('click', useOutsideClicked, !isVisible)
+      document.removeEventListener('click', handleOutsideClicked, !isVisible)
     }
   })
 

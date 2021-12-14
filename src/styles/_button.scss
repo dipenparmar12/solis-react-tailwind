@@ -3,7 +3,7 @@
 }
 
 .btn {
-  @apply shadow-md flex items-center px-3 py-2 space-x-3 transition-colors duration-200 transform border rounded  active:scale-95 focus:border-gray-900 ; 
+  @apply shadow-md px-3 py-2 space-x-3 transition-colors duration-200 transform border rounded  active:scale-95 focus:border-gray-900 ; 
 }
 
 .btn.btn-primary {
@@ -16,4 +16,8 @@
 
 .btn_test{
   @apply px-4 py-2 mt-2 text-gray-600 transition-colors duration-200 transform border rounded dark:text-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none;
+}
+
+.link {
+  @apply text-blue-600 hover:text-blue-700 focus:text-blue-900  underline;
 }
