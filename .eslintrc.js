@@ -14,7 +14,12 @@ module.exports = {
   },
   plugins: ['react', 'prettier'],
   rules: {
-    'prettier/prettier': 1,
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'no-undef': 1,
     'react/no-children-prop': 'warn',
     'no-case-declarations': 'warn',

@@ -128,7 +128,7 @@ const App = function () {
           <Route key={route.label + k} {...route} location={route.location} />
         ))}
         <Route path="/test" element={<div> Test Route login. </div>} />
-        <Route path="*" element={<NotFound />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>
   )

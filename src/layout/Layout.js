@@ -6,68 +6,62 @@ import cn from '../utils/classNames'
 import { routes } from '../App'
 import { DarkModeToggle } from '../hooks/useDarkMode'
 import useOutsideClicked from '../hooks/useOutsideClicked'
+import ProfilePic from '../assets/img/dipen.jpg'
+import { NavDropDownItem, NavLinkItem } from './_partials/NavLinkItem'
+import { useAuth } from '../context/AuthContext'
 
-const NavLinkItem = ({ route }) => {
-  if (!route) return null
-  return (
-    <NavLink
-      to={route?.path || '/'}
-      className={({ isActive }) =>
-        cn('sidebar_nav__item', isActive && 'active')
-      }
-    >
-      <div className="flex items-center ">
-        <span className="w-5 pt-1">{route?.icon}</span>
-        <span className="ml-3">{route?.label}</span>
-      </div>
-    </NavLink>
-  )
-}
+const Divider = () => (
+  <div className="my-2 border border-gray-100 dark:border-gray-800" />
+)
 
-const NavDropDown = ({ route }) => {
+const DropDownMenu = () => {
   const { ref, isVisible, setIsVisible } = useOutsideClicked()
-  if (!route) return null
+  const auth = useAuth()
   return (
-    <>
-      <ul
-        ref={ref}
-        className="max-h-full space-y-1 overflow-y-auto text-gray-700 divide-y dark:text-gray-400 sidebar_nav__list group"
+    <div ref={ref} className="relative text-base">
+      <button
+        className="block mt-1 overflow-hidden rounded-full w-7 h-7"
+        onClick={() => setIsVisible(!isVisible)}
+        // onMouseEnter={() => setIsVisible(true)}
       >
-        <button
-          onClick={() => setIsVisible(!isVisible)}
-          className="flex items-center w-full px-4 py-2 transition-transform transform rounded-md"
-        >
-          <span>{route?.icon}</span>
-          <span className="ml-2 font-medium">Dashboard</span>
-          <span className="ml-auto">
-            <Svg.ArrowDown
-              className={cn([
-                'transition-transform group-hover:',
-                isVisible ? 'rotate-0' : '-rotate-90',
-              ])}
-            />
-          </span>
-        </button>
+        <img src={ProfilePic} alt="Pic" className="w-full h-full" />
+      </button>
 
-        <ul
-          className={cn([
-            'pl-4 space-y-2 border-none',
-            isVisible ? 'block' : 'hidden',
-          ])}
-        >
-          {Object.values(route.children).map((child) => (
-            <li key={child.path}>
-              <NavLinkItem route={child} />
-            </li>
-          ))}
-        </ul>
+      <ul
+        className={cn(
+          'absolute z-30 right-0 mt-1 transform bg-white dark:bg-gray-900 dark:text-gray-100 py-3 pb-2 w-48 rounded-lg shadow-xl',
+          isVisible ? 'block' : 'hidden',
+        )}
+      >
+        <li className="px-4 py-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
+          <a href="#" className="block">
+            View Profile{' '}
+          </a>
+        </li>
+        <li className="px-4 py-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
+          <a href="#" className="block">
+            Exports
+          </a>
+        </li>
+        <li className="px-4 py-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
+          <a href="#" className="block">
+            Settings{' '}
+          </a>
+        </li>
+
+        <Divider />
+        <li className="px-4 py-2 text-gray-600 divide-y divide-yellow-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
+          <a href="#" className="block" onClick={() => auth.signOutRedirect()}>
+            Logout{' '}
+          </a>
+        </li>
       </ul>
-    </>
+    </div>
   )
 }
 
 const Layout = function ({ content, children }) {
-  const [isVisible, setIsVisible] = React.useState(false)
+  const { ref, isVisible, setIsVisible } = useOutsideClicked()
 
   return (
     <>
@@ -81,19 +75,22 @@ const Layout = function ({ content, children }) {
           </span>
         </a>
 
-        <div>
-          <DarkModeToggle />
-        </div>
+        <div className="flex">
+          <div className="flex items-center space-x-3">
+            <DarkModeToggle className={'h-7 w-7'} />
+            <DropDownMenu />
+          </div>
 
-        <div className="flex md:hidden" id="mobile_only">
-          <div>
-            <button
-              onClick={(e) => setIsVisible(!isVisible)}
-              aria-controls="sidebar"
-              className="btn__hamburger"
-            >
-              <Svg.MenuAlt1 />
-            </button>
+          <div className="flex md:hidden" id="mobile_only">
+            <div>
+              <button
+                onClick={(e) => setIsVisible(!isVisible)}
+                aria-controls="sidebar"
+                className="btn__hamburger"
+              >
+                <Svg.MenuAlt1 />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -111,7 +108,7 @@ const Layout = function ({ content, children }) {
           <NavLinkItem route={routes?.users} />
           <NavLinkItem route={routes?.profile} />
 
-          <NavDropDown route={routes?.dropdown} />
+          <NavDropDownItem route={routes?.dropdown} />
           <NavLinkItem route={routes?.examples} />
         </nav>
 

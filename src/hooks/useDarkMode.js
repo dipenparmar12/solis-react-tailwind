@@ -25,7 +25,7 @@ function useDarkMode() {
 
 export default useDarkMode
 
-export const DarkModeToggle = function () {
+export const DarkModeToggle = function ({ className }) {
   const [colorTheme, setTheme] = useDarkMode()
   return (
     <>
@@ -33,7 +33,7 @@ export const DarkModeToggle = function () {
         <svg
           onClick={() => setTheme('light')}
           xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6 cursor-pointer"
+          className={`w-6 h-6 cursor-pointer ${className}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -49,7 +49,7 @@ export const DarkModeToggle = function () {
         <svg
           onClick={() => setTheme('dark')}
           xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6 cursor-pointer"
+          className={`w-6 h-6 cursor-pointer ${className}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

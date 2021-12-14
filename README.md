@@ -3,10 +3,11 @@
 - [x] Tailwind Theme, Config
 - [x] SASS with Tailwind
 - [x] Responsive Sidebar
-- [x] Dark Mode
-- [x] Auth Service
+- [x] Dark Mode, +toggle button
+- [x] Auth Service (Without API)
 - [x] Private and Public routes
 - [x] Prettier and EsLint
+- [x] Custom dropdown button
 - [ ] API 
 - [ ] Forms And Input Controls  
 - [ ] Notifications
@@ -15,7 +16,13 @@
 - [ ] filter 
 - [ ] Table, Expandable, Sort, Search and Filters
 
+### HOOKS
+- [x] Use localStorage state 
+- [x] Click outside event 
 
+## 
+- React Context
+- Custom hooks
 
 
 ## MarkDown Cheatsheet

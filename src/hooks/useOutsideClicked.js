@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 // TODO::WIP Integrate with Sidebar
 /**
@@ -10,18 +10,34 @@ export default function useOutsideClicked() {
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef(null)
 
+  const hideOnEsc = useCallback(
+    (e) => {
+      if (e.keyCode === 27 || e.key === 'Escape' || e.key === 'Esc') {
+        setIsVisible(false)
+      }
+    },
+    [setIsVisible],
+  )
+
   const handleOutsideClicked = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
-      setIsVisible(!isVisible)
+      setIsVisible(false)
     }
   }
 
   useEffect(() => {
-    document.addEventListener('click', handleOutsideClicked, !isVisible)
+    document.addEventListener('click', handleOutsideClicked)
     return () => {
-      document.removeEventListener('click', handleOutsideClicked, !isVisible)
+      document.removeEventListener('click', handleOutsideClicked)
     }
-  })
+  }, [handleOutsideClicked])
+
+  useEffect(() => {
+    document.addEventListener('keydown', hideOnEsc)
+    return () => {
+      document.removeEventListener('keydown', hideOnEsc)
+    }
+  }, [hideOnEsc])
 
   return { ref, isVisible, setIsVisible }
 }
