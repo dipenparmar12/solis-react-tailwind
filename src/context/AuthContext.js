@@ -2,6 +2,7 @@ import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import useLocalStorage from '../hooks/useLocalStorage'
 import { routes } from '../App'
+import Api from '../services/ApiService'
 
 /**
  *
@@ -26,10 +27,10 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useLocalStorage('auth', false)
   const navigate = useNavigate()
 
-  const signIn = (newUser, callback) => {
+  const signIn = (userObj, callback) => {
     return authService.signIn(() => {
-      setUser(newUser)
-      callback()
+      setUser(userObj)
+      callback({ user: userObj })
     })
   }
 

@@ -1,3 +1,12 @@
+## PHP Laravel Front-end application
+
+## Development 
+1. Modify `src/config/config.dev.json` file as per requirement **REACT_APP_BASE_API** should must exact match with backend url
+2. `yarn install`
+3. `yarn start`
+
+## Deployment, Production
+
 ## React App, features 
 
 - [x] Tailwind Theme, Config
@@ -24,7 +33,6 @@
 - React Context
 - Custom hooks
 
-## Development & deployment 
 ### Tailwind init
 #### DOC: https://pomelozone.hashnode.dev/add-tailwind-jit-to-a-react-app-without-ejecting-or-using-craco 
 1. `yarn add autoprefixer postcss postcss-cli postcss-import tailwindcss`
