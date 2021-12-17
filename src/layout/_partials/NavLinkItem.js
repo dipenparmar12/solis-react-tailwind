@@ -1,20 +1,35 @@
 import { NavLink } from 'react-router-dom'
+import { useLayoutContext } from '../../context/LayoutContext'
+import { useWhichDevice } from '../../hooks/useMediaQuery'
 import useOutsideClicked from '../../hooks/useOutsideClicked'
 import Svg from '../../lib/Svg/Svg'
 import cn from '../../utils/classNames'
 
 export const NavLinkItem = ({ route }) => {
+  const { isMiniSidebar } = useLayoutContext()
+  const { ...Size } = useWhichDevice()
+
   if (!route) return null
   return (
     <NavLink
       to={route?.path || '/'}
-      className={({ isActive }) =>
-        cn('sidebar_nav__item', isActive && 'active')
-      }
+      className={({ isActive }) => {
+        return cn(
+          'group block rounded transition duration-200 hover:bg-gray-200 hover:text-black dark:text-gray-400 dark:hover:bg-sky-800',
+          isActive &&
+            'bg-gray-200 text-black dark:bg-sky-900 dark:text-gray-200 ',
+        )
+      }}
     >
-      <div className="flex items-center ">
+      <div className="flex items-center w-full px-3 py-2">
         <span className="w-5 pt-1">{route?.icon}</span>
-        <span className="ml-3">{route?.label}</span>
+        {!Size.isSm && isMiniSidebar ? (
+          <div className="relative hidden px-3 ml-3 text-black bg-gray-300 rounded left-5 group-hover:block">
+            {route?.label}
+          </div>
+        ) : (
+          <span className="w-full ml-3">{route?.label}</span>
+        )}
       </div>
     </NavLink>
   )
@@ -27,7 +42,7 @@ export const NavDropDownItem = ({ route }) => {
     <>
       <ul
         ref={ref}
-        className="max-h-full space-y-1 overflow-y-auto text-gray-700 divide-y dark:text-gray-400 sidebar_nav__list group"
+        className="block max-h-full space-y-1 overflow-y-auto text-gray-700 transition duration-200 divide-y rounded dark:text-gray-400 group"
       >
         <button
           onClick={() => setIsVisible(!isVisible)}

@@ -6,14 +6,17 @@ import reportWebVitals from './reportWebVitals'
 import './index.css'
 import './index.scss'
 import AuthProvider from './context/AuthContext'
+import LayoutProvider from './context/LayoutContext'
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
+    <LayoutProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </BrowserRouter>
+    </LayoutProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )

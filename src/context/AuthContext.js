@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
-import useLocalStorageState from '../hooks/useLocalStorageState'
+import useLocalStorage from '../hooks/useLocalStorage'
 import { routes } from '../App'
 
 /**
@@ -23,7 +23,7 @@ export const authService = {
 
 const AuthContext = React.createContext(null)
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorageState('auth', null)
+  const [user, setUser] = useLocalStorage('auth', false)
   const navigate = useNavigate()
 
   const signIn = (newUser, callback) => {

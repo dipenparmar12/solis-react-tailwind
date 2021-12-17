@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import LogoIMG from '../assets/img/logo.png'
 import Svg from '../lib/Svg/Svg'
@@ -8,6 +9,8 @@ import useOutsideClicked from '../hooks/useOutsideClicked'
 import ProfilePic from '../assets/img/dipen.jpg'
 import { NavDropDownItem, NavLinkItem } from './_partials/NavLinkItem'
 import { useAuth } from '../context/AuthContext'
+import { useLayoutContext } from '../context/LayoutContext'
+import { useWhichDevice } from '../hooks/useMediaQuery'
 
 /**
  *  @src https://codepen.io/chris__sev/pen/RwKWXpJ?editors=1000
@@ -17,19 +20,52 @@ import { useAuth } from '../context/AuthContext'
  *  @returns
  */
 const Layout = function ({ content, children }) {
-  const { ref, isVisible, setIsVisible } = useOutsideClicked()
+  // const { ref, isVisible, setIsVisible } = useOutsideClicked()
+  const {
+    isMiniSidebar,
+    setIsMiniSidebar,
+    sidebarRef,
+    sidebarIsVisible,
+    setSidebarIsVisible,
+  } = useLayoutContext()
+  const { ...Size } = useWhichDevice()
 
   return (
     <>
       {/* TOP NAVIGATION */}
-      <div className="relative z-10 flex items-center justify-between w-full p-3 px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14">
-        {/* logo */}
-        <a href="#/" className="flex items-center space-x-1">
-          <img src={LogoIMG} className="h-8 mr-2 shadow-xl" alt="Logo" />
-          <span className="self-center text-lg font-extrabold md:text-xl whitespace-nowrap">
-            Solis App
-          </span>
-        </a>
+      <div className="relative z-10 flex items-center justify-between w-full px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14">
+        <div
+          className={cn([
+            'flex items-center justify-between space-x-2 ',
+            !Size.isSm && isMiniSidebar ? 'w-16' : '',
+          ])}
+        >
+          {/* logo */}
+          <a
+            href="#/"
+            className={cn([
+              'flex items-center space-x-1',
+              !Size.isSm && isMiniSidebar ? 'w-16' : 'sm:w-16 md:w-60',
+            ])}
+          >
+            <img src={LogoIMG} className="h-8 mr-2 shadow-xl" alt="Logo" />
+            {!isMiniSidebar && (
+              <span className="self-center text-lg font-extrabold md:text-xl whitespace-nowrap">
+                Solis App
+              </span>
+            )}
+          </a>
+
+          {!Size.isSm && (
+            <button onClick={() => setIsMiniSidebar(!isMiniSidebar)}>
+              {isMiniSidebar ? (
+                <Svg.ChevronDoubleRight />
+              ) : (
+                <Svg.ChevronDoubleLeft />
+              )}
+            </button>
+          )}
+        </div>
 
         <div className="flex">
           <div className="flex items-center space-x-3">
@@ -40,7 +76,7 @@ const Layout = function ({ content, children }) {
           <div className="flex md:hidden" id="mobile_only">
             <div>
               <button
-                onClick={(e) => setIsVisible(!isVisible)}
+                onClick={(e) => setSidebarIsVisible(!sidebarIsVisible)}
                 aria-controls="sidebar"
                 className="btn__hamburger"
                 id="btn__hamburger"
@@ -56,8 +92,12 @@ const Layout = function ({ content, children }) {
       <div className="h-[calc(100vh_-_3.5rem)] relative flex ">
         {/* sidebar */}
         <nav
-          className={cn(['sidebar_nav', !isVisible && '-translate-x-full'])}
-          ref={ref}
+          className={cn([
+            'z-20 text-gray-700 absolute inset-y-0 left-0 px-2 space-y-2 transition duration-200 ease-in-out transform shadow-md py-7 md:relative md:translate-x-0 bg-white dark:bg-slate-900',
+            !sidebarIsVisible && '-translate-x-full',
+            !Size.isSm && isMiniSidebar ? 'w-16' : 'w-64',
+          ])}
+          ref={sidebarRef}
         >
           <NavLinkItem route={routes?.projects} />
           <NavLinkItem route={routes?.incomes} />
