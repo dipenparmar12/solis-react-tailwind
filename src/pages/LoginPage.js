@@ -25,17 +25,16 @@ export default function LoginPage() {
     const password = formData.get('password')
     const data = { email, password }
 
-    Api.auth.csrf().then(() => {
-      Api.auth.login(data).then(async (authRes) => {
-        const token = authRes?.data?.token
-        const authUser = authRes?.data?.data
-        if (token) {
-          Cookies.set('token', token)
-          auth.signIn(authUser, (arg) => {
-            navigate(from, { replace: true })
-          })
-        }
-      })
+    await Api.auth.csrf()
+    Api.auth.login(data).then(async (authRes) => {
+      const token = authRes?.data?.token
+      const authUser = authRes?.data?.data
+      if (token) {
+        Cookies.set('token', token)
+        auth.signIn(authUser, (arg) => {
+          navigate(from, { replace: true })
+        })
+      }
     })
   }
 

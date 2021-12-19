@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import LogoIMG from '../assets/img/logo.png'
-import Svg from '../lib/Svg/Svg'
+import Svg from '../components/Svg/Svg'
 import cn from '../utils/classNames'
 import { routes } from '../App'
 import { DarkModeToggle } from '../hooks/useDarkMode'

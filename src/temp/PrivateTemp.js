@@ -17,12 +17,7 @@ const PrivateTemp = () => {
   return (
     <div>
       I am logged in as `{auth?.user?.email}`
-      {data?.name && (
-        <div>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
-      )}
-      <hr />
+      <br />
       <br />
       <button className="btn btn-primary" onClick={fetchTestData}>
         Fetch Auth Info
@@ -33,6 +28,13 @@ const PrivateTemp = () => {
       >
         sing out{' '}
       </button>
+      <br />
+      <br />
+      {data?.name && (
+        <div>
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
+      )}
     </div>
   )
 }

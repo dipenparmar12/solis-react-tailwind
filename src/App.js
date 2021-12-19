@@ -1,14 +1,14 @@
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import React from 'react'
-import Layout from './layout/Layout'
-import Svg from './lib/Svg/Svg'
-import { RequireAuth, useAuth } from './context/AuthContext'
-import LoginPage from './pages/LoginPage'
-import ExamplesTemp from './temp/ExamplesTemp'
-import NotFound from './pages/NotFound'
-import PrivateTemp from './temp/PrivateTemp'
-import Env from './utils/environment'
-import ResponsiveBadgeHelper from './lib/dumb/ResponsiveBadgeHelper'
+import NotFound from '@/pages/NotFound'
+import UserList from '@/pages/Users/List'
+import ResponsiveBadgeHelper from '@/components/atoms/ResponsiveBadgeHelper'
+import Svg from '@/components/Svg/Svg'
+import PrivateTemp from '@/temp/PrivateTemp'
+import LoginPage from '@/pages/LoginPage'
+import { RequireAuth, useAuth } from '@/context/AuthContext'
+import Layout from '@/layout/Layout'
+import Env from '@/utils/environment'
 
 const testRoutes = {
   projects: {
@@ -32,7 +32,7 @@ const testRoutes = {
   users: {
     label: 'Users',
     path: '/users',
-    element: <div className="text-2xl"> Users </div>,
+    element: <UserList />,
     icon: <Svg.Users />,
   },
   profile: {
@@ -44,7 +44,7 @@ const testRoutes = {
   examples: {
     label: 'Examples',
     path: '/examples',
-    element: <ExamplesTemp />,
+    element: <NotFound />,
     icon: <Svg.InfoCircle />,
   },
   a: {
