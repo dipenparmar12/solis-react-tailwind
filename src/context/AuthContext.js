@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import useLocalStorage from '../hooks/useLocalStorage'
 import { routes } from '../App'
+import Api from '../services/ApiService'
+import Cookies from 'js-cookie'
 
 /**
  *
@@ -23,13 +25,13 @@ export const authService = {
 
 const AuthContext = React.createContext(null)
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorage('auth', false)
+  const [user, setUser] = useLocalStorage('authUser', false)
   const navigate = useNavigate()
 
-  const signIn = (newUser, callback) => {
+  const signIn = (userObj, callback) => {
     return authService.signIn(() => {
-      setUser(newUser)
-      callback()
+      setUser(userObj)
+      callback({ user: userObj })
     })
   }
 
@@ -41,11 +43,15 @@ export default function AuthProvider({ children }) {
   }
 
   const signOutRedirect = (newUser, callback) => {
-    return authService.signIn(() => {
+    return authService.signOut(() => {
       setUser(newUser)
       navigate(routes.login.path)
     })
   }
+
+  React.useEffect(() => {
+    if (!Cookies.get('token')) signOutRedirect()
+  }, [])
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = { user, signIn, signOut, signOutRedirect }

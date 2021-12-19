@@ -1,23 +1,40 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 import { useAuth } from '../context/AuthContext'
+import Api from '../services/ApiService'
+import { isDevEnv } from '../utils/environment'
+import useDarkMode from '../hooks/useDarkMode'
 
 /**
  * @src https://tailwindcomponents.com/component/simple-sign-in
  * @returns
  */
 export default function LoginPage() {
+  useDarkMode()
   const navigate = useNavigate()
   const location = useLocation()
   const auth = useAuth()
   const from = location.state?.from?.pathname || '/'
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const userEmail = formData.get('email')
-    auth.signIn(userEmail, () => {
-      navigate(from, { replace: true })
+    const email = formData.get('email')
+    const password = formData.get('password')
+    const data = { email, password }
+
+    await Api.auth.csrf()
+    Api.auth.login(data).then(async (authRes) => {
+      const token = authRes?.data?.token
+      const authUser = authRes?.data?.data
+      if (token) {
+        Cookies.set('token', token)
+        auth.signIn(authUser, (arg) => {
+          navigate(from, { replace: true })
+        })
+      }
     })
   }
 
@@ -37,11 +54,11 @@ export default function LoginPage() {
             <p className="text-gray-500 dark:text-gray-400">
               Sign in to access your account
             </p>
-            {from && from !== '/' && (
+            {/* {from && from !== '/' && (
               <p className="text-gray-500 dark:text-gray-400">
                 You must log in to view the page at {from}
               </p>
-            )}
+            )} */}
           </div>
           <div className="m-7">
             <form onSubmit={handleSubmit}>
@@ -57,8 +74,8 @@ export default function LoginPage() {
                   name="email"
                   id="email"
                   autoComplete="off"
-                  placeholder="your@company.com"
-                  defaultValue="your@company.com"
+                  placeholder="dipensavji@gmail.com"
+                  defaultValue={isDevEnv ? 'dipensavji@gmail.com' : ''}
                   className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                 />
               </div>
@@ -82,13 +99,14 @@ export default function LoginPage() {
                   name="password"
                   id="password"
                   placeholder="Your Password"
+                  defaultValue={isDevEnv ? 'Admin@123' : ''}
                   className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                 />
               </div>
               <div className="mb-6">
                 <button
                   type="submit"
-                  className="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none"
+                  className="w-full px-3 py-4 text-white bg-yellow-500 rounded-md focus:bg-yellow-600 focus:outline-none"
                 >
                   Sign in
                 </button>

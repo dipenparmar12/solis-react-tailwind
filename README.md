@@ -1,3 +1,12 @@
+## PHP Laravel Front-end application
+
+## Development 
+1. Modify `src/config/config.dev.json` file as per requirement **REACT_APP_BASE_API** should must exact match with backend url
+2. `yarn install`
+3. `yarn start`
+
+## Deployment, Production
+
 ## React App, features 
 
 - [x] Tailwind Theme, Config
@@ -24,7 +33,6 @@
 - React Context
 - Custom hooks
 
-## Development & deployment 
 ### Tailwind init
 #### DOC: https://pomelozone.hashnode.dev/add-tailwind-jit-to-a-react-app-without-ejecting-or-using-craco 
 1. `yarn add autoprefixer postcss postcss-cli postcss-import tailwindcss`
@@ -77,6 +85,63 @@ import './styles/tailwind.css'
 "build:css": "cross-env NODE_ENV=production postcss build src/styles/tailwind.css -o src/styles/tailwind.prod.css"
 ```
 8. > yarn run dev
+
+### React Path alias with craco
+ 1. [Src Medium](https://pomelozone.hashnode.dev/add-tailwind-jit-to-a-react-app-without-ejecting-or-using-craco) 
+ 2. [Src Stackoverflow](https://stackoverflow.com/a/65746792/8592918)
+
+> `yarn add @craco/craco`
+
+package.json
+```json
+"scripts": {
+    "start": "craco start",
+    "build": "craco build",
+}
+```
+craco.config.js
+```js
+// craco.config.js
+const path = require(`path`)
+module.exports = {
+  webpack: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    },
+  },
+}
+```
+jsconfig.json
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": [ "./src/*"]}
+  },
+  "include": ["src" ],
+  "exclude": [ "node_modules", "build",  "**/*.spec.ts"]
+}
+```
+Optional config for `Eslint`
+eslintrc.js
+```js
+module.exports = {
+  // ...
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', './src'],
+          // ['@/components, './src/components'],
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json'],
+      },
+    },
+  },
+}
+```
+
+
 
 ### Netlify Deploy
 
