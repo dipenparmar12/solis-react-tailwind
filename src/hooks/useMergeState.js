@@ -9,6 +9,7 @@ const useMergeState = (initialState = {}) => {
   const [value, setValue] = React.useState(initialState)
 
   const mergeState = (newState) => {
+    // eslint-disable-next-line no-param-reassign
     if (typeof newState === 'function') newState = newState(value)
     setValue({ ...value, ...newState })
   }

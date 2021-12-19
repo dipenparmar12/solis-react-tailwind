@@ -9,6 +9,7 @@ import LoginPage from '@/pages/LoginPage'
 import { RequireAuth, useAuth } from '@/context/AuthContext'
 import Layout from '@/layout/Layout'
 import Env from '@/utils/environment'
+import ExamplesTemp from './temp/ExamplesTemp'
 
 const testRoutes = {
   projects: {
@@ -44,7 +45,7 @@ const testRoutes = {
   examples: {
     label: 'Examples',
     path: '/examples',
-    element: <NotFound />,
+    element: <ExamplesTemp />,
     icon: <Svg.InfoCircle />,
   },
   a: {

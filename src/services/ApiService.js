@@ -1,45 +1,29 @@
-import qryString from '../utils/obj/qryString'
-import axiosApp, { StatusCode } from './AxiosService'
-
-const fetcher = {
-  get: async (url, params) => {
-    const query = qryString(params)
-    const response = await axiosApp.get(`${url}/?${query}`)
-    return response
-  },
-  post: async (url, id, data, config) => {
-    const response = await axiosApp.post(`${url}/${id}`, data, config)
-    return response
-  },
-  put: async (url, id, data, config) => {
-    const response = await axiosApp.put(`${url}/${id}`, data, config)
-    return response
-  },
-  delete: async (url, id, config) => {
-    const response = await axiosApp.delete(`${url}/${id}`, config)
-    return response
-  },
-}
+import encode from '../utils/obj/qryString'
+import _axios, { StatusCode } from './AxiosService'
 
 const auth = {
-  csrf: async () => axiosApp.get('/sanctum/csrf-cookie'),
-  login: async (d, c) => axiosApp.post(`/sanctum/login`, d, c),
-  logout: async () => axiosApp.get(`/sanctum/logout`),
-  me: async () => axiosApp.get(`/me`),
+  csrf: async () => _axios.get('/sanctum/csrf-cookie'),
+  login: async (d, c) => _axios.post(`/sanctum/login`, d, c),
+  logout: async () => _axios.get(`/sanctum/logout`),
+  me: async () => _axios.get(`/me`),
 }
 
 const users = {
-  // get: async (qry, c) => fetcher(`/users?${qryString(qry)}`, 'GET'),
-  get: async (qry, c) => fetcher.get('/users', qry, c),
-  getById: async (id, qry, c) => fetcher.get(`/users/${id}`, qry, c),
-  post: async (id, data, c) => fetcher.post(`/users`, id, data, c),
-  put: async (id, data, c) => fetcher.put(`/users/${id}`, null, data, c),
-  delete: async (id, c) => fetcher.delete(`/users/${id}`, c),
+  get: async ({ qry, config }) => _axios.get(`/users?${encode(qry)}`, config),
+  // getById: async ({ id, qry, config }) => _axios.get(`/users/${id}?${encode(qry)}`, config),
+  // post: async (id, data, config) => _axios.post(`/users/${id}`, data, config),
+  // put: async ({ id, data, config }) => _axios.put(`/users/${id}`, data, config),
+  // delete: async ({ id, config }) => _axios.delete(`/users/${id}`, config),
+}
+
+const test = {
+  get: async ({ qry, config }) => _axios.get(`/test?${encode(qry)}`, config),
 }
 
 const Api = {
   auth,
   users,
+  test,
 }
 
 export { StatusCode }

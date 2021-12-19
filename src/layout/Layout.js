@@ -11,6 +11,7 @@ import { NavDropDownItem, NavLinkItem } from './_partials/NavLinkItem'
 import { useAuth } from '../context/AuthContext'
 import { useLayoutContext } from '../context/LayoutContext'
 import { useWhichDevice } from '../hooks/useMediaQuery'
+import Divider from '@/components/atoms/Divider'
 
 /**
  *  @src https://codepen.io/chris__sev/pen/RwKWXpJ?editors=1000
@@ -20,95 +21,12 @@ import { useWhichDevice } from '../hooks/useMediaQuery'
  *  @returns
  */
 const Layout = function ({ content, children }) {
-  // const { ref, isVisible, setIsVisible } = useOutsideClicked()
-  const {
-    isMiniSidebar,
-    setIsMiniSidebar,
-    sidebarRef,
-    sidebarIsVisible,
-    setSidebarIsVisible,
-  } = useLayoutContext()
-  const { ...Size } = useWhichDevice()
-
   return (
     <>
-      {/* TOP NAVIGATION */}
-      <div className="relative z-10 flex items-center justify-between w-full px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14">
-        <div
-          className={cn([
-            'flex items-center justify-between space-x-2 ',
-            !Size.isSm && isMiniSidebar ? 'w-16' : '',
-          ])}
-        >
-          {/* logo */}
-          <a
-            href="#/"
-            className={cn([
-              'flex items-center space-x-1',
-              !Size.isSm && isMiniSidebar ? 'w-16' : 'sm:w-16 md:w-60',
-            ])}
-          >
-            <img src={LogoIMG} className="h-8 mr-2 shadow-xl" alt="Logo" />
-            {!isMiniSidebar && (
-              <span className="self-center text-lg font-extrabold md:text-xl whitespace-nowrap">
-                Solis App
-              </span>
-            )}
-          </a>
-
-          {!Size.isSm && (
-            <button onClick={() => setIsMiniSidebar(!isMiniSidebar)}>
-              {isMiniSidebar ? (
-                <Svg.ChevronDoubleRight />
-              ) : (
-                <Svg.ChevronDoubleLeft />
-              )}
-            </button>
-          )}
-        </div>
-
-        <div className="flex">
-          <div className="flex items-center space-x-3">
-            <DarkModeToggle className={'h-7 w-7'} />
-            <DropDownMenu />
-          </div>
-
-          <div className="flex md:hidden" id="mobile_only">
-            <div>
-              <button
-                onClick={(e) => setSidebarIsVisible(!sidebarIsVisible)}
-                aria-controls="sidebar"
-                className="btn__hamburger"
-                id="btn__hamburger"
-              >
-                <Svg.MenuAlt1 />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* SIDEBAR & CONTENT */}
+      <TopNav />
       <div className="h-[calc(100vh_-_3.5rem)] relative flex ">
         {/* sidebar */}
-        <nav
-          className={cn([
-            'z-20 text-gray-700 absolute inset-y-0 left-0 px-2 space-y-2 transition duration-200 ease-in-out transform shadow-md py-7 md:relative md:translate-x-0 bg-white dark:bg-slate-900',
-            !sidebarIsVisible && '-translate-x-full',
-            !Size.isSm && isMiniSidebar ? 'w-16' : 'w-64',
-          ])}
-          ref={sidebarRef}
-        >
-          <NavLinkItem route={routes?.projects} />
-          <NavLinkItem route={routes?.incomes} />
-          <NavLinkItem route={routes?.expenses} />
-          <NavLinkItem route={routes?.users} />
-          <NavLinkItem route={routes?.profile} />
-
-          <NavDropDownItem route={routes?.dropdown} />
-          <NavLinkItem route={routes?.examples} />
-        </nav>
-
+        <Sidebar />
         {/* content */}
         <div className="flex-1 px-5 py-8 space-y-2 lg:px-8 "> {children} </div>
       </div>
@@ -118,9 +36,96 @@ const Layout = function ({ content, children }) {
 
 export default Layout
 
-const Divider = () => (
-  <div className="my-2 border border-gray-100 dark:border-gray-800" />
-)
+const TopNav = () => {
+  const {
+    isMiniSidebar,
+    setIsMiniSidebar,
+    sidebarRef,
+    sidebarIsVisible,
+    setSidebarIsVisible,
+  } = useLayoutContext()
+  const { ...Size } = useWhichDevice()
+  return (
+    <div className="relative z-10 flex items-center justify-between w-full px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14">
+      <div
+        className={cn([
+          'flex items-center justify-between space-x-2 ',
+          !Size.isSm && isMiniSidebar ? 'w-16' : '',
+        ])}
+      >
+        {/* logo */}
+        <a
+          href="#/"
+          className={cn([
+            'flex items-center space-x-1',
+            !Size.isSm && isMiniSidebar ? 'w-16' : 'sm:w-16 md:w-60',
+          ])}
+        >
+          <img src={LogoIMG} className="h-8 mr-2 shadow-xl" alt="Logo" />
+          {!isMiniSidebar && (
+            <span className="self-center text-lg font-extrabold md:text-xl whitespace-nowrap">
+              Solis App
+            </span>
+          )}
+        </a>
+
+        {!Size.isSm && (
+          <button onClick={() => setIsMiniSidebar(!isMiniSidebar)}>
+            {isMiniSidebar ? (
+              <Svg.ChevronDoubleRight />
+            ) : (
+              <Svg.ChevronDoubleLeft />
+            )}
+          </button>
+        )}
+      </div>
+
+      <div className="flex">
+        <div className="flex items-center space-x-3">
+          <DarkModeToggle className={'h-7 w-7'} />
+          <DropDownMenu />
+        </div>
+
+        <div className="flex md:hidden" id="mobile_only">
+          <div>
+            <button
+              onClick={(e) => setSidebarIsVisible(!sidebarIsVisible)}
+              aria-controls="sidebar"
+              className="btn__hamburger"
+              id="btn__hamburger"
+            >
+              <Svg.MenuAlt1 />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const Sidebar = () => {
+  const { isMiniSidebar, sidebarRef, sidebarIsVisible } = useLayoutContext()
+  const { ...Size } = useWhichDevice()
+
+  return (
+    <nav
+      className={cn([
+        'z-20 text-gray-700 absolute inset-y-0 left-0 px-2 space-y-2 transition duration-200 ease-in-out transform shadow-md py-7 md:relative md:translate-x-0 bg-white dark:bg-slate-900',
+        !sidebarIsVisible && '-translate-x-full',
+        !Size.isSm && isMiniSidebar ? 'w-16' : 'w-64',
+      ])}
+      ref={sidebarRef}
+    >
+      <NavLinkItem route={routes?.projects} />
+      <NavLinkItem route={routes?.incomes} />
+      <NavLinkItem route={routes?.expenses} />
+      <NavLinkItem route={routes?.users} />
+      <NavLinkItem route={routes?.profile} />
+      {/* <NavDropDownItem route={routes?.dropdown} /> */}
+      <NavLinkItem route={routes?.examples} />
+    </nav>
+  )
+}
 
 const DropDownMenu = () => {
   const { ref, isVisible, setIsVisible } = useOutsideClicked()

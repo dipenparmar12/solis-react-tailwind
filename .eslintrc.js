@@ -63,6 +63,10 @@ module.exports = {
     'react/self-closing-comp': 'warn',
     'react/jsx-curly-brace-presence': 'off',
     'import/order': 'warn',
+    'no-underscore-dangle': 'warn',
+    'prefer-template': 'warn',
+    'object-shorthand': 'warn',
+    'no-shadow': 'warn',
     indent: [
       'warn',
       2,

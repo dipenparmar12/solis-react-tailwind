@@ -1,23 +1,22 @@
 import React from 'react'
+import ApiFetchExample from './Examples/ApiFetchExample'
 
 export default function ExamplesTemp() {
   return (
     <div className="flex flex-col space-y-4">
+      <hr />
       {/* Buttons  */}
       <div className="space-x-2 ">
         <button className="btn btn-primary">Button Default</button>
       </div>
-
       {/* Button disable */}
       <div className="space-x-2 ">
         <button className="btn disabled"> Default disable</button>
       </div>
-
       {/* Button disable */}
       <div className="space-x-2 ">
         <button className="link"> Button Link </button>
       </div>
-
       {/* <div className='space-x-2 '>
         <button className='bg-emerald-200 btn'>Button </button>
         <button className='bg-red-200 btn'>Button </button>
@@ -40,14 +39,19 @@ export default function ExamplesTemp() {
         <button className='bg-sky-200 btn'>Button </button>
         <button className='bg-amber-200 btn'>Button </button>
       </div> */}
-
-      {/* Button ETC */}
-      <div className="space-x-2 " />
-
       {/* Button Test */}
       <div>
         <button className="btn_test ">btn_test</button>
       </div>
+      <hr />
+      <br />
+      Fetch Data example
+      {/* Button ETC */}
+      <div className="space-x-2 ">
+        <ApiFetchExample />
+      </div>
+      <hr />
+      <br />
     </div>
   )
 }
