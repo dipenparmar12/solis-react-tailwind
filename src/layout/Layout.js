@@ -24,11 +24,13 @@ const Layout = function ({ content, children }) {
   return (
     <>
       <TopNav />
-      <div className="h-[calc(100vh_-_3.5rem)] relative flex ">
+      <div className="h-[calc(100vh_-_3.5rem)] relative flex">
         {/* sidebar */}
         <Sidebar />
         {/* content */}
-        <div className="flex-1 px-5 py-8 space-y-2 lg:px-8 "> {children} </div>
+        <div className="flex-1 px-3 py-4 space-y-2 sm:px-4 md:px-5 lg:px-6 ">
+          {children}{' '}
+        </div>
       </div>
     </>
   )

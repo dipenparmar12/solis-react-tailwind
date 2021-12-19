@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import config from '../config/config'
+import Notify, { appToast } from './NotifyService'
 // const config = { apiUrl: 'http://localhost:8000/api' }
 
 export const StatusCode = {
@@ -17,7 +18,7 @@ export const StatusCode = {
   INTERNAL_SERVER_ERROR: 500,
 }
 
-const baseURL = `${config.apiUrl}/api`
+const baseURL = `${config.apiUrl || ''}/api`
 const axiosApp = axios.create({
   baseURL,
   withCredentials: true, // required to handle the CSRF token
@@ -34,10 +35,18 @@ axiosApp.interceptors.request.use((axiosConfig) => {
 
 // // Response interceptor
 axiosApp.interceptors.response.use(null, (error) => {
-  console.log('AxiosService.js::[37] error status', error.response.status)
   if (error.response) {
     /// TODO::: Logger Service
-    console.log('AxiosService.js::[29] error response', error.response?.data)
+    config.NOTIFY_ERROR &&
+      Notify.error(error.response?.data?.message, {
+        position: 'top-center',
+      })
+
+    console.info(
+      'AxiosService.js::[29] error response',
+      `[${error.response.status}]`,
+      error.response?.data?.message || error.response?.data,
+    )
   }
 
   if (

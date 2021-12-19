@@ -14,7 +14,7 @@ module.exports = {
     enabled: true,
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     options: {
-      safelist: ['dark'], //specific classes
+      safelist: ['dark'], // specific classes
     },
   },
 }

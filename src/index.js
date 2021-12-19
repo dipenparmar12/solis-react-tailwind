@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import './index.scss'
 import AuthProvider from './context/AuthContext'
 import LayoutProvider from './context/LayoutContext'
+import 'react-toastify/dist/ReactToastify.min.css'
+import './index.scss'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +15,7 @@ ReactDOM.render(
       <BrowserRouter>
         <AuthProvider>
           <App />
+          <ToastContainer />
         </AuthProvider>
       </BrowserRouter>
     </LayoutProvider>

@@ -1,9 +1,33 @@
 import React from 'react'
 import ApiFetchExample from './Examples/ApiFetchExample'
+import Svg from '@/components/Svg/Svg'
+import Print from '@/components/atoms/Print'
+import Notify, { appToast } from '@/services/NotifyService'
 
 export default function ExamplesTemp() {
+  const notifyRef = React.useRef()
   return (
     <div className="flex flex-col space-y-4">
+      <h3>Notify </h3>
+      <div>
+        <button
+          className="btn btn-primary"
+          onClick={(e) => {
+            appToast('Default Notification', 'success')
+            Notify.success(<div className="text-2xl">success notify</div>, {
+              toastId: 'customId',
+            })
+            notifyRef.current = Notify.loading(
+              <button onClick={() => appToast.dismiss(notifyRef.current)}>
+                Click for Close...
+              </button>,
+              { toastId: 'load' },
+            )
+          }}
+        >
+          Show notification
+        </button>
+      </div>
       <hr />
       {/* Buttons  */}
       <div className="space-x-2 ">
@@ -49,6 +73,27 @@ export default function ExamplesTemp() {
       {/* Button ETC */}
       <div className="space-x-2 ">
         <ApiFetchExample />
+      </div>
+      <hr />
+      <br />
+      <h3 className="text-xl ">SVG's Example</h3>
+      {/* Button ETC */}
+      <div className="flex flex-wrap space-x-3 ">
+        {Object.entries(Svg).map(([name, SvgComponent]) => {
+          return (
+            <div
+              key={name}
+              className="flex flex-col items-center p-3 m-3 cursor-pointer hover:text-blue-700 dark:hover:text-green-600"
+            >
+              <SvgComponent
+                className={
+                  'hover:text-green-600 hover:scale-110  transition-all '
+                }
+              />
+              {name}
+            </div>
+          )
+        })}
       </div>
       <hr />
       <br />

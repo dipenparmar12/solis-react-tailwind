@@ -1,4 +1,5 @@
 {
-  "REACT_APP_BASE_API": "http://localhost:8000",
-  "REACT_APP_TITLE": "Solis App (Development)"
+  "REACT_APP_BASE_API": "http://solis.test",
+  "REACT_APP_TITLE": "Solis App (Development)",
+  "NOTIFY_ERROR": true
 }
