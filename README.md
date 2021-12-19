@@ -86,6 +86,63 @@ import './styles/tailwind.css'
 ```
 8. > yarn run dev
 
+### React Path alias with craco
+ 1. [Src Medium](https://pomelozone.hashnode.dev/add-tailwind-jit-to-a-react-app-without-ejecting-or-using-craco) 
+ 2. [Src Stackoverflow](https://stackoverflow.com/a/65746792/8592918)
+
+> `yarn add @craco/craco`
+
+package.json
+```json
+"scripts": {
+    "start": "craco start",
+    "build": "craco build",
+}
+```
+craco.config.js
+```js
+// craco.config.js
+const path = require(`path`)
+module.exports = {
+  webpack: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    },
+  },
+}
+```
+jsconfig.json
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@/*": [ "./src/*"]}
+  },
+  "include": ["src" ],
+  "exclude": [ "node_modules", "build",  "**/*.spec.ts"]
+}
+```
+Optional config for `Eslint`
+eslintrc.js
+```js
+module.exports = {
+  // ...
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', './src'],
+          // ['@/components, './src/components'],
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json'],
+      },
+    },
+  },
+}
+```
+
+
+
 ### Netlify Deploy
 
 1. `yarn global add netlify-cli`

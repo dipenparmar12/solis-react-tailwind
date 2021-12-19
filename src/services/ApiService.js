@@ -1,22 +1,25 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
-import config from '../config/config'
 import qryString from '../utils/obj/qryString'
+import axiosApp, { StatusCode } from './AxiosService'
 
-const baseURL = `${config.apiUrl}/api`
-const axiosApp = axios.create({
-  baseURL,
-  withCredentials: true, // required to handle the CSRF token
-})
-
-//  // Add a request interceptor
-axiosApp.interceptors.request.use(function (axiosConfig) {
-  if (Cookies.get('token')) {
-    // eslint-disable-next-line no-param-reassign
-    axiosConfig.headers.Authorization = `Bearer ${Cookies.get('token')}`
-  }
-  return axiosConfig
-})
+const fetcher = {
+  get: async (url, params) => {
+    const query = qryString(params)
+    const response = await axiosApp.get(`${url}/?${query}`)
+    return response
+  },
+  post: async (url, id, data, config) => {
+    const response = await axiosApp.post(`${url}/${id}`, data, config)
+    return response
+  },
+  put: async (url, id, data, config) => {
+    const response = await axiosApp.put(`${url}/${id}`, data, config)
+    return response
+  },
+  delete: async (url, id, config) => {
+    const response = await axiosApp.delete(`${url}/${id}`, config)
+    return response
+  },
+}
 
 const auth = {
   csrf: async () => axiosApp.get('/sanctum/csrf-cookie'),
@@ -25,25 +28,22 @@ const auth = {
   me: async () => axiosApp.get(`/me`),
 }
 
-const Api = {
-  auth,
-  axiosApp,
+const users = {
+  // get: async (qry, c) => fetcher(`/users?${qryString(qry)}`, 'GET'),
+  get: async (qry, c) => fetcher.get('/users', qry, c),
+  getById: async (id, qry, c) => fetcher.get(`/users/${id}`, qry, c),
+  post: async (id, data, c) => fetcher.post(`/users`, id, data, c),
+  put: async (id, data, c) => fetcher.put(`/users/${id}`, null, data, c),
+  delete: async (id, c) => fetcher.delete(`/users/${id}`, c),
 }
 
-export default Api
+const Api = {
+  auth,
+  users,
+}
 
-/*
- * Add a response interceptor
- */
-// axiosApp.interceptors.response.use(
-//   (response) => response,
-//   function (error) {
-//     if (error.response && [401, 419].includes(error.response.status)) {
-//       console.log('ApiService.js::[31] ', error?.response)
-//     }
-//     return Promise.reject(error)
-//   },
-// )
+export { StatusCode }
+export default Api
 
 /* 
 ========================================================

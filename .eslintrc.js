@@ -13,6 +13,18 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', 'prettier'],
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          // And all your import aliases
+          ['@', './src'],
+          // ['@/components, './src/components'],
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json'],
+      },
+    },
+  },
   rules: {
     'prettier/prettier': [
       'warn',
@@ -50,6 +62,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 'warn',
     'react/self-closing-comp': 'warn',
     'react/jsx-curly-brace-presence': 'off',
+    'import/order': 'warn',
     indent: [
       'warn',
       2,

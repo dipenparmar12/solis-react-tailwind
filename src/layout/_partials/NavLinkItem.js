@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useLayoutContext } from '../../context/LayoutContext'
 import { useWhichDevice } from '../../hooks/useMediaQuery'
 import useOutsideClicked from '../../hooks/useOutsideClicked'
-import Svg from '../../lib/Svg/Svg'
+import Svg from '../../components/Svg/Svg'
 import cn from '../../utils/classNames'
 
 export const NavLinkItem = ({ route }) => {
