@@ -84,7 +84,7 @@ const TopNav = () => {
 
       <div className="flex">
         <div className="flex items-center space-x-3">
-          <DarkModeToggle className={'h-7 w-7'} />
+          <DarkModeToggle className={'h-7 w-7 text-gray-400'} />
           <DropDownMenu />
         </div>
 

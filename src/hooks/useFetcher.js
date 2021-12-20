@@ -1,7 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-export default function useFetcher({ apiCall, qry, pagination }) {
+export default function useFetcher({
+  apiCall,
+  qry,
+  pagination,
+  immediateInvoke = true,
+}) {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -12,8 +17,9 @@ export default function useFetcher({ apiCall, qry, pagination }) {
     let isMounted = true
     const cancelSource = axios.CancelToken.source()
     const config = { cancelToken: cancelSource.token }
-    if (isMounted) {
+    if (isMounted && immediateInvoke) {
       setLoading(true)
+      setData([])
       apiCall({ qry, config })
         .then((res) => res?.data)
         .then((res) => {
