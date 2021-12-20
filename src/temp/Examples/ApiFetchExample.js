@@ -5,7 +5,17 @@ import Api from '@/services/ApiService'
 
 export default function ApiFetchExample() {
   const [qry, setQry] = React.useState({ page: 1, per_page: 1 })
-  const { data, error, loading } = useFetcher({ apiCall: Api.test.get, qry })
+  const { data, error, loading } = useFetcher({
+    apiCall: Api.test.get,
+    qry,
+    pagination: true,
+  })
+  const resPaginate = useFetcher({
+    apiCall: Api.test.paginate,
+    qry,
+    pagination: true,
+  })
+
   return (
     <div>
       <button
@@ -17,7 +27,10 @@ export default function ApiFetchExample() {
       {loading && <>Loading...</>}
       <br />
       Per Page: {qry?.per_page}, Page: {qry?.page},
-      <Print data={error || data} maxHeight={'300px'} />
+      <Print data={error || data} maxHeight={'200px'} />
+      <hr />
+      <div>Pagination INFO</div>
+      <Print data={resPaginate?.paginationInfo} maxHeight={'100px'} />
     </div>
   )
 }

@@ -9,12 +9,12 @@ export default function Print({
   ...rest
 }) {
   return (
-    <pre
+    <div
       className={`mb-2 text-gray-500 dark:text-gray-200 overflow-y-auto  ${className}`}
       style={{ maxHeight, ...style }}
       {...rest}
     >
-      {JSON.stringify(data, null, tab)}
-    </pre>
+      <pre>{JSON.stringify(data, null, tab)}</pre>
+    </div>
   )
 }

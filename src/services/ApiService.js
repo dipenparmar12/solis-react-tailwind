@@ -18,6 +18,9 @@ const users = {
 
 const test = {
   get: async ({ qry, config }) => _axios.get(`/test?${encode(qry)}`, config),
+  paginate: async ({ qry, config }) =>
+    _axios.get(`/test/paginate?${encode(qry)}`, config),
+  notFound: async () => _axios.get(`/notfound`),
 }
 
 const Api = {

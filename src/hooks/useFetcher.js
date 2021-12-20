@@ -1,10 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-export default function useFetcher({ apiCall, qry }) {
+export default function useFetcher({ apiCall, qry, pagination }) {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [paginationInfo, setPaginationInfo] = useState(null)
+  // const [metaInfo, setMetaInfo] = useState(null) // TODO::WHEN Required
 
   useEffect(() => {
     let isMounted = true
@@ -13,7 +15,16 @@ export default function useFetcher({ apiCall, qry }) {
     if (isMounted) {
       setLoading(true)
       apiCall({ qry, config })
-        .then((res) => res?.data?.data || res?.data || res)
+        .then((res) => res?.data)
+        .then((res) => {
+          if (pagination) {
+            const { results, ...meta } = res
+            const { data: resData, ...paginationData } = results
+            pagination && paginationData && setPaginationInfo(paginationData)
+            return resData || res?.results
+          }
+          return res?.results || res
+        })
         .then((res) => setData(isMounted ? res : []))
         .catch((err) => setError(isMounted && err))
         .finally(() => setLoading(false))
@@ -29,5 +40,6 @@ export default function useFetcher({ apiCall, qry }) {
     data,
     error,
     loading,
+    paginationInfo,
   }
 }

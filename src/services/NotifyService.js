@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
  * @param options
  */
 const NotifyManager = (options) => {
-  console.info('notificationService.js::9 Notify:::', options)
+  // console.warn('notificationService.js::9 Notify:::', options)
   const notifyOptions = {
     type: 'info', // info, success, warning, error, default, dark
     position: 'bottom-center',

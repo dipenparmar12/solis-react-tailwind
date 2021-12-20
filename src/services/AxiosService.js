@@ -37,10 +37,22 @@ axiosApp.interceptors.request.use((axiosConfig) => {
 axiosApp.interceptors.response.use(null, (error) => {
   if (error.response) {
     /// TODO::: Logger Service
-    config.NOTIFY_ERROR &&
-      Notify.error(error.response?.data?.message, {
-        position: 'top-center',
-      })
+
+    if (config.NOTIFY_ERROR) {
+      if (error.response?.data?.message) {
+        Notify.error(error.response?.data?.message, {
+          position: 'top-center',
+        })
+      }
+      if ([StatusCode.NOT_FOUND].includes(error.response.status)) {
+        Notify.error(
+          `${error.response.status} - ${error.response.statusText}`,
+          {
+            position: 'top-center',
+          },
+        )
+      }
+    }
 
     console.info(
       'AxiosService.js::[29] error response',
