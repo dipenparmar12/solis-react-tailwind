@@ -49,3 +49,18 @@ export default function useFetcher({
     paginationInfo,
   }
 }
+
+/**
+  const paginationHandler = React.useCallback(
+    (res) => {
+      if (pagination) {
+        const { results, ...meta } = res
+        const { data: resData, ...paginationData } = results
+        pagination && paginationData && setPaginationInfo(paginationData)
+        return resData || res?.results
+      }
+      return res?.results || res
+    },
+    [pagination],
+  )
+*/

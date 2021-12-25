@@ -5,6 +5,12 @@ import Random from '@/utils/faker/random'
 import Print from '@/components/atoms/Print'
 import cn from '@/utils/classNames'
 
+/**
+ *
+ * @param {*} param0
+ * @returns
+ * @src https://codepen.io/abhisheksarmah/full/GRJyXpG
+ */
 function ButtonPaginator({ children, onclick, active, disabled, ...rest }) {
   if (active) {
     return (

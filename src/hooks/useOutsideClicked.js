@@ -44,6 +44,12 @@ const useOutsideClicked = (isHideOnEsc = true) => {
 export default useOutsideClicked
 
 /*
+  const {
+    ref: sidebarRef,
+    isVisible: sidebarIsVisible,
+    setIsVisible: setSidebarIsVisible,
+  } = useOutsideClicked()
+  
   const { ref, isVisible, setIsVisible } = useOutsideClicked()
   <button
     onClick={(e) => setIsVisible(!isVisible)}

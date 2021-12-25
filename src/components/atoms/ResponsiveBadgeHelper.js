@@ -5,7 +5,7 @@ function ResponsiveBadgeHelper() {
   if (Env.IsProd) return null
   return (
     <>
-      <div className="fixed z-50 hidden py-2 text-sm font-bold text-center text-blue-900 bg-blue-200 rounded-full sm:block bottom-2 right-2 w-14">
+      <div className="fixed z-50 hidden py-2 text-sm font-bold text-center text-blue-900 bg-red-400 rounded-full sm:block bottom-2 right-2 w-14 sm:bg-green-400 md:bg-blue-500 lg:bg-yellow-300 xl:bg-purple-400 2xl:text-gray-400">
         <span className="hidden sm:block md:hidden">sm</span>
         <span className="hidden md:block lg:hidden">md</span>
         <span className="hidden lg:block xl:hidden">lg</span>
