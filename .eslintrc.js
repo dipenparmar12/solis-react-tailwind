@@ -64,6 +64,7 @@ module.exports = {
     'react/jsx-curly-brace-presence': 'off',
     'jsx-a11y/alt-text': 'warn',
     'react/no-array-index-key': 'warn',
+    camelcase: 'warn',
     'import/order': 'warn',
     'no-underscore-dangle': 'warn',
     'no-empty': 'warn',

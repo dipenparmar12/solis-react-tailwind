@@ -1,5 +1,5 @@
-import axios from 'axios'
-import store from '@/store'
+const axios = {}
+const store = {}
 
 export const authClient = axios.create({
   baseURL: process.env.VUE_APP_API_URL,

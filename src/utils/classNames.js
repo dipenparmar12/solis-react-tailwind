@@ -14,7 +14,7 @@ function flatten(arr, ...args) {
 }
 
 export default function cn(...args) {
-  return flatten(args).join(' ')
+  return flatten(args).filter(Boolean).join(' ')
 }
 
 // console.log(

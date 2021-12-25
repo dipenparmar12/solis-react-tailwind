@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function useFetcher({
   apiCall,
@@ -10,7 +10,7 @@ export default function useFetcher({
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [paginationInfo, setPaginationInfo] = useState(null)
+  const [paginationData, setPaginationData] = useState(pagination)
   // const [metaInfo, setMetaInfo] = useState(null) // TODO::WHEN Required
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export default function useFetcher({
         .then((res) => {
           if (pagination) {
             const { results, ...meta } = res
-            const { data: resData, ...paginationData } = results
-            pagination && paginationData && setPaginationInfo(paginationData)
+            const { data: resData, ...paginationInfo } = results
+            pagination && paginationInfo && setPaginationData(paginationInfo)
             return resData || res?.results
           }
           return res?.results || res
@@ -46,7 +46,7 @@ export default function useFetcher({
     data,
     error,
     loading,
-    paginationInfo,
+    paginationData,
   }
 }
 
