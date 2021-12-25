@@ -42,6 +42,7 @@ axiosApp.interceptors.response.use(null, (error) => {
       if (error.response?.data?.message) {
         Notify.error(error.response?.data?.message, {
           position: 'top-center',
+          toastId: error.response.status,
         })
       }
       if ([StatusCode.NOT_FOUND].includes(error.response.status)) {
@@ -49,6 +50,7 @@ axiosApp.interceptors.response.use(null, (error) => {
           `${error.response.status} - ${error.response.statusText}`,
           {
             position: 'top-center',
+            toastId: error.response.status,
           },
         )
       }

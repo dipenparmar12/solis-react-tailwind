@@ -31,6 +31,12 @@ const Random = {
       () => Math.floor(Math.random() * (max - min + 1)) + min,
     ),
 
+  /// // @src https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
+  range: (start, end) => {
+    const length = end - start + 1
+    return Array.from({ length }, (_, idx) => idx + start)
+  },
+
   itemsFromArr: (arr, count) =>
     arr
       .concat()

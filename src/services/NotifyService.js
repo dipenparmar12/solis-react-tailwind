@@ -14,6 +14,7 @@ const NotifyManager = (options) => {
     message: 'Solis',
     autoClose: 7000,
     theme: document.querySelector("[class='dark']") ? 'dark' : 'light',
+    toastId: undefined,
     ...options,
   }
   toast(notifyOptions.message, notifyOptions)

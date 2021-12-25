@@ -1,17 +1,28 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
+import React from 'react'
 import cn from '@/utils/classNames'
 import { spinnerMd } from '@/components/atoms/Spinner'
 import DropDownApp from '@/components/atoms/DropDownApp'
+import usePaginationV1, { DOTS } from './usePaginationV1'
 
 export default function PaginatorV1({
+  label,
   totalRecords,
-  pageLimit,
+  pageSize,
   currentPage,
   loading,
-  siblingCount = 1,
+  siblingCount = 2,
   setPage = () => {},
 }) {
-  const totalPages = Math.ceil(totalRecords / pageLimit)
+  const paginationRange = usePaginationV1({
+    totalRecords,
+    pageSize,
+    siblingCount,
+    currentPage,
+  })
+
+  const totalPages = Math.ceil(totalRecords / pageSize)
   const spinnerOrNull = loading ? spinnerMd : '-'
 
   const _nextPage = () => {
@@ -32,11 +43,15 @@ export default function PaginatorV1({
     // onSelect: onPageChange,
   }))
 
+  // React.useEffect(() => {
+  //   console.log('PaginatorV1.js::[46]', currentPage)
+  // }, [currentPage])
+  
   return (
     <>
       <div className="flex flex-wrap justify-between gap-3 my-5 text-gray-600 dark:text-gray-400">
         <div className="flex">
-          <div className="mx-1 ">Users</div>
+          <div className="mx-1 ">{label}</div>
           <div className="mx-1 font-semibold text-gray-700 dark:text-gray-300 ">
             {totalRecords || spinnerOrNull}
           </div>
@@ -47,6 +62,7 @@ export default function PaginatorV1({
 
           <div className="ml-1 mr-2"> Page </div>
           <div className="font-semibold text-gray-700 dark:text-gray-300 ">
+            {/* {currentPage} */}
             <DropDownApp
               label={currentPage}
               options={totalPages > 1 && pagesOptions}
@@ -63,13 +79,14 @@ export default function PaginatorV1({
             </ButtonP>
           </li>
 
-          {pagesOptions?.map((option) => (
-            <li key={option.value}>
+          {paginationRange?.map((page, inx) => (
+            <li key={`Page_val__${inx}${page}${pagesOptions[inx]}`}>
               <ButtonP
-                active={option?.value === currentPage}
-                onClick={() => setPage(option?.value)}
+                active={page === currentPage}
+                disabled={page === currentPage || page === DOTS}
+                onClick={() => setPage(page)}
               >
-                {option.label}
+                {page}
               </ButtonP>{' '}
             </li>
           ))}

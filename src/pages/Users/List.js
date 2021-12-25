@@ -4,12 +4,12 @@ import useFetcher from '@/hooks/useFetcher'
 import UserCard from './Card'
 import useMergeState from '@/hooks/useMergeState'
 import Print from '@/components/atoms/Print'
-import PaginatorV1 from '@/components/molecules/PaginatorV1'
+import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 
 export default function UserList() {
   const [apiQry, setApiQry] = useMergeState({
     page: 1,
-    per_page: 6,
+    per_page: 20,
   })
 
   const resUsers = useFetcher({
@@ -19,20 +19,16 @@ export default function UserList() {
     immediateInvoke: true,
   })
 
-  const onPageChange = (data) => {
-    console.log('List.js::[24] data', data)
-    setApiQry({ page: data?.currentPage })
-  }
-
   return (
     <>
       <div className={' '}>
         <PaginatorV1
+          label={'Users'}
           setPage={(option) => {
             setApiQry({ page: option?.value || option })
           }}
           totalRecords={resUsers.paginationData?.total || 0}
-          pageLimit={resUsers.paginationData?.per_page || 0}
+          pageSize={resUsers.paginationData?.per_page || 0}
           currentPage={resUsers.paginationData?.current_page || 0}
           loading={resUsers?.loading}
         />
