@@ -202,3 +202,4 @@ module.exports = {
 - Tailwindcss Overrides, Merge classes: 
   - https://github.com/dcastil/tailwind-merge
   - https://github.com/richardgill/tailwind-override#readme
+- Atomic Design Pattern: https://medium.com/@janelle.wg/atomic-design-pattern-how-to-structure-your-react-application-2bb4d9ca5f97

@@ -13,6 +13,16 @@ export default function useFetcher({
   const [paginationData, setPaginationData] = useState(pagination)
   // const [metaInfo, setMetaInfo] = useState(null) // TODO::WHEN Required
 
+  const paginationCb = (res) => {
+    if (pagination) {
+      const { results, ...meta } = res
+      const { data: resData, ...paginationInfo } = results
+      pagination && paginationInfo && setPaginationData(paginationInfo)
+      return resData || res?.results
+    }
+    return res?.results || res
+  }
+
   useEffect(() => {
     let isMounted = true
     const cancelSource = axios.CancelToken.source()
@@ -22,15 +32,7 @@ export default function useFetcher({
       setData([])
       apiCall({ qry, config })
         .then((res) => res?.data)
-        .then((res) => {
-          if (pagination) {
-            const { results, ...meta } = res
-            const { data: resData, ...paginationInfo } = results
-            pagination && paginationInfo && setPaginationData(paginationInfo)
-            return resData || res?.results
-          }
-          return res?.results || res
-        })
+        .then(paginationCb)
         .then((res) => setData(isMounted ? res : []))
         .catch((err) => setError(isMounted && err))
         .finally(() => setLoading(false))
@@ -49,18 +51,3 @@ export default function useFetcher({
     paginationData,
   }
 }
-
-/**
-  const paginationHandler = React.useCallback(
-    (res) => {
-      if (pagination) {
-        const { results, ...meta } = res
-        const { data: resData, ...paginationData } = results
-        pagination && paginationData && setPaginationInfo(paginationData)
-        return resData || res?.results
-      }
-      return res?.results || res
-    },
-    [pagination],
-  )
-*/

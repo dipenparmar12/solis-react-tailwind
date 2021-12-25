@@ -57,24 +57,25 @@ export default function DropDownApp({
             isVisible ? 'block' : 'hidden',
           )}
         >
-          {options?.map((option, i) => {
-            return (
-              <li
-                key={`option__${i + option}`}
-                className="text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
-              >
-                <a
-                  className="block px-3 py-2"
-                  onClick={() => {
-                    _onSelect(option)
-                    isFunctionAndCall(option?.onSelect)(option)
-                  }}
+          {options &&
+            options?.map((option, i) => {
+              return (
+                <li
+                  key={`option__${i + option}`}
+                  className="text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
                 >
-                  {option.label}
-                </a>
-              </li>
-            )
-          })}
+                  <a
+                    className="block px-3 py-2"
+                    onClick={() => {
+                      _onSelect(option)
+                      isFunctionAndCall(option?.onSelect)(option)
+                    }}
+                  >
+                    {option.label}
+                  </a>
+                </li>
+              )
+            })}
         </ul>
       </div>
     </>
