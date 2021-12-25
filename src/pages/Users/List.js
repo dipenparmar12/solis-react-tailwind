@@ -5,6 +5,8 @@ import cn from '@/utils/classNames'
 import UserCard from './Card'
 import Print from '@/components/atoms/Print'
 import { spinnerMd, spinnerSm } from '@/components/atoms/Spinner'
+import DropDownApp from '@/components/atoms/DropDownApp'
+import useMergeState from '@/hooks/useMergeState'
 
 /**
  *
@@ -56,6 +58,17 @@ function Paginator({ loading, data, state, setState }) {
   const { total, current_page: currentPage, per_page: perPage } = data || {}
   const totalPages = Math.ceil(total / perPage)
   const spinnerOrNull = loading ? spinnerMd : '-'
+
+  const onPageChange = (option) => {
+    setState({ page: option?.value })
+  }
+
+  const pagesOptions = Array.from({ length: totalPages }, (_, i) => ({
+    label: `${i + 1}`,
+    value: i + 1,
+    // onSelect: onPageChange,
+  }))
+
   return (
     <>
       <div className="flex flex-wrap justify-between gap-3 my-5 text-gray-600 dark:text-gray-400">
@@ -69,16 +82,13 @@ function Paginator({ loading, data, state, setState }) {
             <span className="border dark:border-gray-500" />
           </div>
 
-          <div className="mx-1 "> Page </div>
+          <div className="ml-1 mr-2"> Page </div>
           <div className="font-semibold text-gray-700 dark:text-gray-300 ">
-            <span className="px-1">
-              {currentPage || spinnerOrNull}
-              {/* <input
-                type="text"
-                className="w-10 px-1 font-semibold border border-gray-300 rounded dark:bg-transparent dark:border-gray-500"
-                value={currentPage || '-'}
-              /> */}
-            </span>
+            <DropDownApp
+              label={currentPage}
+              options={totalPages > 1 && pagesOptions}
+              onSelect={onPageChange}
+            />
             <span className="text-gray-400 dark:text-gray-400"> / </span>
             <span className="px-1">{totalPages || spinnerOrNull}</span>
           </div>
@@ -115,7 +125,7 @@ function Paginator({ loading, data, state, setState }) {
 }
 
 export default function UserList() {
-  const [apiQry, setApiQry] = React.useState({
+  const [apiQry, setApiQry] = useMergeState({
     page: 1,
     per_page: 20,
   })
@@ -143,9 +153,9 @@ export default function UserList() {
           ))}
         </div>
 
-        {resUsers?.loading && <div>Loading...</div>}
-        <Print data={resUsers?.loading} maxHeight={'450px'} />
-        <Print data={resUsers?.paginationData} maxHeight={'450px'} />
+        {resUsers?.sloading && <div>Loading...</div>}
+        {/* <Print data={resUsers?.loading} maxHeight={'450px'} />
+        <Print data={resUsers?.paginationData} maxHeight={'450px'} /> */}
       </div>
     </>
   )

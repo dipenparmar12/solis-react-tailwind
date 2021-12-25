@@ -1,5 +1,5 @@
-import Svg from '@/components/Svg/Svg'
 import React from 'react'
+import Svg from '@/components/Svg/Svg'
 
 export default function SvgExamples() {
   return (

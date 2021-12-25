@@ -206,3 +206,51 @@ export default {
 
 //   return { data, loading, error, trigger }
 //  */
+
+// <span className="px-2 py-1 rounded cursor-pointer bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-900 hover:bg-gray-200">
+//   {currentPage || spinnerOrNull}
+//   <input
+//     type="text"
+//     className="w-10 px-1 font-semibold border border-gray-300 rounded dark:bg-transparent dark:border-gray-500"
+//     value={currentPage || '-'}
+//   />
+// </span>
+
+/*!
+ * Check if an item is a plain object or not
+ * @param  {obj}  obj  The item to check
+ * @return {Boolean}  Returns true if the item is a plain object
+ * @example isPlainObject({}) // true
+ * @example isPlainObject(null) // false
+ * @example isPlainObject(new Date()) // false
+ * @example isPlainObject(new String('foo')) // false
+ * @example isPlainObject(new Number(1)) // false
+ * @example isPlainObject(new Boolean(true)) // false
+ * @example isPlainObject(new Array()) // false
+ * @example isPlainObject(new Array(1, 2, 3)) // false
+ * @example isPlainObject(new Function('return true;')) // false
+ * @example isPlainObject(new RegExp('/')) // false
+ * @example isPlainObject(new Error('foo')) // false
+ * @example isPlainObject(new Error()) // false
+ * @example isPlainObject(new Map()) // false
+ * @example isPlainObject(new Set()) // false
+ * @example isPlainObject(new WeakMap()) // false
+ * @example isPlainObject(new WeakSet()) // false
+ * @example isPlainObject(new Promise(() => {})) // false
+ * @example isPlainObject(new Proxy({}, {})) // false
+ * @example isPlainObject(new ArrayBuffer(8)) // false
+ * @example isPlainObject(new DataView(new ArrayBuffer(8))) // false
+ * @example isPlainObject(new Int8Array(8)) // false
+ * @example isPlainObject(new Uint8Array(8)) // false
+ * @example isPlainObject(new Uint8ClampedArray(8)) // false
+ * @example isPlainObject(new Int16Array(8)) // false
+ * @example isPlainObject(new Uint16Array(8)) // false
+ * @example isPlainObject(new Int32Array(8)) // false
+ * @example isPlainObject(new Uint32Array(8)) // false
+ * @example isPlainObject(new Float32Array(8)) // false
+ * @example isPlainObject(new Float64Array(8)) // false
+ * @example isPlainObject(new BigInt64Array(8)) // false
+ */
+function isPlainObject(obj) {
+  return Object.prototype.toString.call(obj) === '[object Object]'
+}

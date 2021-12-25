@@ -24,7 +24,7 @@ const Layout = function ({ content, children }) {
   return (
     <>
       <TopNav />
-      <div className="h-[calc(100vh_-_3.5rem)] relative flex">
+      <div className="h-[calc(100vh_-_3.5rem)] relative flex ">
         {/* sidebar */}
         <Sidebar />
         {/* content */}

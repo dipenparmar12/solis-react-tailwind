@@ -199,3 +199,6 @@ module.exports = {
 ### External resources and references
 - Icons: https://heroicons.dev/
 - How to use variants: https://gist.github.com/RobinMalfait/490a0560a7cfde985d435ad93f8094c5
+- Tailwindcss Overrides, Merge classes: 
+  - https://github.com/dcastil/tailwind-merge
+  - https://github.com/richardgill/tailwind-override#readme

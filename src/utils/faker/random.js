@@ -14,7 +14,8 @@ const Random = {
 
   arr: (len) => Array.from({ length: len }, Math.random),
 
-  arrRandom: (min, max) => new Array(Random.int(min || 0, max)).fill(null),
+  arrRandom: (min = 0, max = 10) =>
+    new Array(Random.int(min || 0, max)).fill(null),
 
   item: (arr) => arr[Math.random() * arr.length || 0],
 

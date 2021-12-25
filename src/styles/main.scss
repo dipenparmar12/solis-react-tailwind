@@ -1,13 +1,18 @@
-.res_bg {
-  @apply bg-red-300 sm:bg-green-300 md:bg-blue-300 lg:bg-yellow-300 xl:bg-purple-300;
-}
-
-// body{
-//    @apply bg-slate-50;
-// }
-
 @import './button';
 
 body{
   @apply bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-300;
+}
+
+/* 
+========================================================
+  Testing classes must be removed in PRODUCTION
+======================================================== 
+*/
+.res_bg {
+  @apply bg-red-300 sm:bg-green-300 md:bg-blue-300 lg:bg-yellow-300 xl:bg-purple-300;
+}
+
+._bg {
+  @apply bg-red-500;
 }
