@@ -22,13 +22,13 @@ export default function DropDownApp({
   ...props
 }) {
   const { ref, isVisible, setIsVisible } = useOutsideClicked()
-  const [selected, setSelected] = useState(null)
+  const [_selected, _setSelected] = useState(null)
 
   // eslint-disable-next-line no-underscore-dangle
   const _onSelect = (option) => {
-    setSelected(option)
+    _setSelected(option)
     onSelect(option)
-    onChange && onChange(option)
+    isFunctionAndCall(onChange, option)
     setIsVisible(false)
   }
 
@@ -48,7 +48,7 @@ export default function DropDownApp({
           className="block px-2 overflow-hidden border border-gray-300 rounded-md cursor-pointer dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-900 hover:bg-gray-200"
           onClick={() => setIsVisible(!isVisible)}
         >
-          {selected?.label || label}
+          {_selected?.label || label}
         </button>
 
         <ul

@@ -1,25 +1,28 @@
+/* eslint-disable no-underscore-dangle */
 import cn from '@/utils/classNames'
 import { spinnerMd } from '@/components/atoms/Spinner'
 import DropDownApp from '@/components/atoms/DropDownApp'
 
-export default function PaginatorApp({ loading, data, setState }) {
-  const { total, current_page: currentPage, per_page: perPage } = data || {}
-  const totalPages = Math.ceil(total / perPage)
+export default function PaginatorV1({
+  totalRecords,
+  pageLimit,
+  currentPage,
+  loading,
+  siblingCount = 1,
+  setPage = () => {},
+}) {
+  const totalPages = Math.ceil(totalRecords / pageLimit)
   const spinnerOrNull = loading ? spinnerMd : '-'
 
-  const setPage = (option) => {
-    setState({ page: option?.value || option })
-  }
-
-  const nextPage = () => {
+  const _nextPage = () => {
     if (currentPage < totalPages) {
-      setState({ page: currentPage + 1 })
+      setPage(currentPage + 1)
     }
   }
 
-  const prevPage = () => {
+  const _prevPage = () => {
     if (currentPage > 1) {
-      setState({ page: currentPage - 1 })
+      setPage(currentPage - 1)
     }
   }
 
@@ -35,7 +38,7 @@ export default function PaginatorApp({ loading, data, setState }) {
         <div className="flex">
           <div className="mx-1 ">Users</div>
           <div className="mx-1 font-semibold text-gray-700 dark:text-gray-300 ">
-            {total || spinnerOrNull}
+            {totalRecords || spinnerOrNull}
           </div>
 
           <div className="mx-3">
@@ -55,29 +58,26 @@ export default function PaginatorApp({ loading, data, setState }) {
         </div>
         <ul className="flex items-center rounded ">
           <li>
-            <ButtonPaginator onClick={prevPage} disabled={currentPage === 1}>
+            <ButtonP onClick={_prevPage} disabled={currentPage === 1}>
               Previous
-            </ButtonPaginator>
+            </ButtonP>
           </li>
 
           {pagesOptions?.map((option) => (
             <li key={option.value}>
-              <ButtonPaginator
+              <ButtonP
                 active={option?.value === currentPage}
-                onClick={() => setPage(option)}
+                onClick={() => setPage(option?.value)}
               >
                 {option.label}
-              </ButtonPaginator>{' '}
+              </ButtonP>{' '}
             </li>
           ))}
 
           <li>
-            <ButtonPaginator
-              disabled={currentPage === totalPages}
-              onClick={nextPage}
-            >
+            <ButtonP disabled={currentPage === totalPages} onClick={_nextPage}>
               Next
-            </ButtonPaginator>
+            </ButtonP>
           </li>
         </ul>
       </div>
@@ -91,7 +91,7 @@ export default function PaginatorApp({ loading, data, setState }) {
  * @returns
  * @src https://codepen.io/abhisheksarmah/full/GRJyXpG
  */
-function ButtonPaginator({ children, onClick, active, disabled, ...rest }) {
+function ButtonP({ children, onClick, active, disabled, ...rest }) {
   if (active) {
     return (
       <span className="px-3 py-1 text-blue-500 no-underline bg-blue-100 border border-blue-100 rounded-sm dark:bg-gray-900 dark:border-gray-600 dark:text-sky-500">

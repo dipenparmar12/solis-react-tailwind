@@ -4,12 +4,12 @@ import useFetcher from '@/hooks/useFetcher'
 import UserCard from './Card'
 import useMergeState from '@/hooks/useMergeState'
 import Print from '@/components/atoms/Print'
-import PaginatorApp from '@/components/molecules/PaginatorApp'
+import PaginatorV1 from '@/components/molecules/PaginatorV1'
 
 export default function UserList() {
   const [apiQry, setApiQry] = useMergeState({
     page: 1,
-    per_page: 20,
+    per_page: 6,
   })
 
   const resUsers = useFetcher({
@@ -19,14 +19,22 @@ export default function UserList() {
     immediateInvoke: true,
   })
 
+  const onPageChange = (data) => {
+    console.log('List.js::[24] data', data)
+    setApiQry({ page: data?.currentPage })
+  }
+
   return (
     <>
       <div className={' '}>
-        <PaginatorApp
-          data={resUsers?.paginationData}
+        <PaginatorV1
+          setPage={(option) => {
+            setApiQry({ page: option?.value || option })
+          }}
+          totalRecords={resUsers.paginationData?.total || 0}
+          pageLimit={resUsers.paginationData?.per_page || 0}
+          currentPage={resUsers.paginationData?.current_page || 0}
           loading={resUsers?.loading}
-          setState={setApiQry}
-          state={apiQry}
         />
 
         <div className="grid grid-cols-1 gap-3 gap-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
