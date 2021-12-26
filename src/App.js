@@ -33,7 +33,13 @@ const App = function () {
 
       <Routes>
         {routesPublicArr?.map(([k, route]) => (
-          <Route key={route.label + k} {...route} location={route.location} />
+          <Route
+            key={route.label + k}
+            path={route.path}
+            exact
+            // {...route}
+            location={route.location}
+          />
         ))}
         <Route path="/test" element={<div> Test Route login. </div>} />
         {/* <Route path="*" element={<NotFound />} /> */}

@@ -21,7 +21,7 @@ import FadeScaleAnim from '@/hoc/animation/FadeScaleAnim'
  *  @param {*}
  *  @returns
  */
-const Layout = function ({ content, children }) {
+const Layout = function ({ children }) {
   return (
     <>
       <TopNav />

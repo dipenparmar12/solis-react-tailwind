@@ -5,7 +5,6 @@ import UserCard, { UserCardLoading } from './Card'
 import useMergeState from '@/hooks/useMergeState'
 import Print from '@/components/atoms/Print'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
-import cn from '@/utils/classNames'
 import ErrorState from '@/components/atoms/ErrorState'
 import useQryParams from '@/hooks/useQryParams'
 
@@ -49,13 +48,13 @@ export default function UserList() {
         <ErrorState error={resUsers.error} />
 
         <div className="grid grid-cols-1 gap-3 gap-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {/* loading  */}
-          <UserCardLoading loading={resUsers?.loading} />
-
           {/* Data List */}
           {resUsers?.data?.map((user, i) => (
             <UserCard key={`user__${Math.random()}`} data={user} />
           ))}
+
+          {/* loading  */}
+          <UserCardLoading loading={resUsers?.loading} />
         </div>
 
         <Print data={resUsers?.paginationData} maxHeight={'250px'} />

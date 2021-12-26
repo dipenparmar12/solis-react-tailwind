@@ -60,7 +60,12 @@ export default function DropDownApp({
         </button>
 
         <FadeScaleAnim isVisible={isVisible}>
-          <div className="absolute right-0 z-10 py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl ">
+          <div
+            className={cn([
+              `absolute right-0 z-10 py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl `,
+              isVisible ? 'block' : 'hidden',
+            ])}
+          >
             {options &&
               options?.map((option, index) => (
                 <div

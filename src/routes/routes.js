@@ -24,12 +24,6 @@ export const testRoutes = {
     element: <div className="text-2xl"> Incomes </div>,
     icon: <Svg.Plus />,
   },
-  users: {
-    label: 'Users',
-    path: '/users',
-    element: <UserList />,
-    icon: <Svg.Users />,
-  },
   profile: {
     label: 'Profile',
     path: '/profile',
@@ -91,6 +85,13 @@ export const routesPrivate = {
     path: '/',
     element: <div className="text-2xl"> Home </div>,
     icon: <Svg.Plus />,
+  },
+
+  users: {
+    label: 'Users',
+    path: '/users',
+    element: <UserList />,
+    icon: <Svg.Users />,
   },
   ...(Env.IsDev ? testRoutes : {}),
 }
