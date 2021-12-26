@@ -7,11 +7,12 @@ import cn from '@/utils/classNames'
 import { spinnerMd } from '@/components/atoms/Spinner'
 import DropDownApp from '@/components/molecules/DropDownApp/DropDownApp'
 import usePaginationV1, { DOTS } from './usePaginationV1'
+import Svg from '@/components/Svg/Svg'
 
 const HDivider = React.memo(() => (
-  <div className="mx-3">
+  <span className="mx-3">
     <span className="border dark:border-gray-500" />
-  </div>
+  </span>
 ))
 
 export default function PaginatorV1({
@@ -55,8 +56,8 @@ export default function PaginatorV1({
 
   return (
     <>
-      <div className="flex flex-wrap justify-between gap-3 my-5 text-gray-600 dark:text-gray-400">
-        <div className="flex">
+      <div className="flex flex-wrap justify-between gap-2 my-5 text-gray-600 dark:text-gray-400">
+        <div className="flex flex-wrap">
           <div className="mx-1 ">{label}</div>
           <div className="mx-1 font-semibold text-gray-700 dark:text-gray-300 ">
             {totalRecords || spinnerOrNull}
@@ -76,21 +77,23 @@ export default function PaginatorV1({
           </div>
 
           <HDivider />
-          <div className="ml-1 mr-1"> Per Page </div>
-          <span className="px-1 text-gray-700 dark:text-gray-300">
-            <DropDownApp
-              label={pageSize}
-              options={[5, 10, 20, 50, 100, 200, 500]}
-              onSelect={setPerPage}
-            />
-          </span>
+          <div>
+            <span className="ml-1 mr-1"> Per Page </span>
+            <span className="px-1 text-gray-700 dark:text-gray-300">
+              <DropDownApp
+                label={pageSize}
+                options={[5, 10, 20, 50, 100, 200, 500]}
+                onSelect={setPerPage}
+              />
+            </span>
+          </div>
         </div>
 
         {/* Pagination Buttons */}
         <ul className="flex items-center rounded ">
           <li>
             <ButtonP onClick={_prevPage} disabled={currentPage === 1}>
-              Previous
+              <Svg.Previous />
             </ButtonP>
           </li>
 
@@ -108,7 +111,7 @@ export default function PaginatorV1({
 
           <li>
             <ButtonP disabled={currentPage === totalPages} onClick={_nextPage}>
-              Next
+              <Svg.Next />
             </ButtonP>
           </li>
         </ul>
@@ -126,22 +129,22 @@ export default function PaginatorV1({
 function ButtonP({ children, onClick, active, disabled, ...rest }) {
   if (active) {
     return (
-      <span className="px-3 py-1 text-blue-500 no-underline bg-blue-100 border border-blue-100 rounded-sm dark:bg-gray-900 dark:border-gray-600 dark:text-sky-500">
+      <div className="px-3 py-1 text-blue-500 no-underline bg-blue-100 border border-blue-100 rounded-sm dark:bg-gray-900 dark:border-gray-600 dark:text-sky-500">
         {children}
-      </span>
+      </div>
     )
   }
 
   if (disabled) {
     return (
-      <span
+      <div
         className={cn([
           `px-3 py-1 text-sm text-gray-600 no-underline border bg-gray-100 border-gray-100 rounded-sm  hover:bg-gray-100  `,
           'dark:bg-gray-800 dark:border-gray-700 text-gray-700 dark:text-gray-600',
         ])}
       >
         {children}
-      </span>
+      </div>
     )
   }
 

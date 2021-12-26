@@ -29,7 +29,7 @@ export default function UserList() {
 
   return (
     <>
-      <div className={' '}>
+      <div className={'container '}>
         <PaginatorV1
           label={'Users'}
           setPage={(option) => {
@@ -47,17 +47,17 @@ export default function UserList() {
 
         <ErrorState error={resUsers.error} />
 
-        <div className="grid grid-cols-1 gap-3 gap-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5 ">
           {/* Data List */}
-          {resUsers?.data?.map((user, i) => (
+          {/* {resUsers?.data?.map((user, i) => (
             <UserCard key={`user__${Math.random()}`} data={user} />
-          ))}
+          ))} */}
 
           {/* loading  */}
           <UserCardLoading loading={resUsers?.loading} />
         </div>
 
-        <Print data={resUsers?.paginationData} maxHeight={'250px'} />
+        {/* <Print data={resUsers?.paginationData} maxHeight={'250px'} /> */}
       </div>
     </>
   )
