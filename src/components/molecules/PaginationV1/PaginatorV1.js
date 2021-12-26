@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-unreachable */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
@@ -37,16 +39,18 @@ export default function PaginatorV1({
     }
   }
 
-  const pagesOptions = Array.from({ length: totalPages }, (_, i) => ({
-    label: `${i + 1}`,
-    value: i + 1,
-    // onSelect: onPageChange,
-  }))
+  // Memoized array of list of pages
+  const pagesOptions = React.useMemo(() => {
+    return Array.from({ length: totalPages }, (_, i) => ({
+      label: `${i + 1}`,
+      value: i + 1,
+    }))
+  }, [currentPage])
+  // const pagesOptions = Array.from({ length: totalPages }, (_, i) => ({
+  //   label: `${i + 1}`,
+  //   value: i + 1,
+  // }))
 
-  // React.useEffect(() => {
-  //   console.log('PaginatorV1.js::[46]', currentPage)
-  // }, [currentPage])
-  
   return (
     <>
       <div className="flex flex-wrap justify-between gap-3 my-5 text-gray-600 dark:text-gray-400">
@@ -87,7 +91,7 @@ export default function PaginatorV1({
                 onClick={() => setPage(page)}
               >
                 {page}
-              </ButtonP>{' '}
+              </ButtonP>
             </li>
           ))}
 

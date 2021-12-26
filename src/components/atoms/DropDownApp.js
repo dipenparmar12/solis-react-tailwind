@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useState } from 'react'
+import React, { useState } from 'react'
 import useOutsideClicked from '@/hooks/useOutsideClicked'
 import cn from '@/utils/classNames'
 import isFunctionAndCall from '@/utils/function/isFunctionAndCall'
@@ -22,15 +22,21 @@ export default function DropDownApp({
   ...props
 }) {
   const { ref, isVisible, setIsVisible } = useOutsideClicked()
-  const [_selected, _setSelected] = useState(null)
+  const [_label, _setLabel] = useState(label)
+  // const [_selected, _setSelected] = useState({})
 
   // eslint-disable-next-line no-underscore-dangle
   const _onSelect = (option) => {
-    _setSelected(option)
+    // _setSelected(option)
+    _setLabel(option?.label || option)
     onSelect(option)
-    isFunctionAndCall(onChange, option)
     setIsVisible(false)
+    isFunctionAndCall(onChange, option)
   }
+
+  React.useEffect(() => {
+    _setLabel(label)
+  }, [label])
 
   // Empty option for default
   if (options?.length === 0) {
@@ -48,7 +54,7 @@ export default function DropDownApp({
           className="block px-2 overflow-hidden border border-gray-300 rounded-md cursor-pointer dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-900 hover:bg-gray-200"
           onClick={() => setIsVisible(!isVisible)}
         >
-          {_selected?.label || label}
+          {_label}
         </button>
 
         <ul
