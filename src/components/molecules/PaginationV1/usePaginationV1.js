@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import Random from '@/utils/faker/random'
 
 const { range } = Random

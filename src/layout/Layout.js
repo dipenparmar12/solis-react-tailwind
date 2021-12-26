@@ -12,6 +12,7 @@ import { useAuth } from '../context/AuthContext'
 import { useLayoutContext } from '../context/LayoutContext'
 import { useWhichDevice } from '../hooks/useMediaQuery'
 import Divider from '@/components/atoms/Divider'
+import FadeScaleAnim from '@/hoc/animation/FadeScaleAnim'
 
 /**
  *  @src https://codepen.io/chris__sev/pen/RwKWXpJ?editors=1000
@@ -142,35 +143,41 @@ const DropDownMenu = () => {
         <img src={ProfilePic} alt="Pic" className="w-full h-full" />
       </button>
 
-      <ul
-        className={cn(
-          'absolute z-30 right-0 mt-1 transform bg-white dark:bg-gray-900 dark:text-gray-100 py-3 pb-2 w-48 rounded-lg shadow-xl',
-          isVisible ? 'block' : 'hidden',
-        )}
-      >
-        <li className="px-4 py-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
-          <a href="#" className="block">
-            View Profile{' '}
-          </a>
-        </li>
-        <li className="px-4 py-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
-          <a href="#" className="block">
-            Exports
-          </a>
-        </li>
-        <li className="px-4 py-2 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
-          <a href="#" className="block">
-            Settings{' '}
-          </a>
-        </li>
+      <FadeScaleAnim isVisible={isVisible}>
+        <ul
+          className={cn(
+            'absolute z-30 right-0 mt-1 transform bg-white dark:bg-gray-900 dark:text-gray-100 py-3 pb-2 w-48 rounded-lg shadow-xl',
+            isVisible ? 'block' : 'hidden',
+          )}
+        >
+          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
+            <a href="#" className="block">
+              View Profile{' '}
+            </a>
+          </li>
+          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
+            <a href="#" className="block">
+              Exports
+            </a>
+          </li>
+          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
+            <a href="#" className="block">
+              Settings{' '}
+            </a>
+          </li>
 
-        <Divider />
-        <li className="px-4 py-2 text-gray-600 divide-y divide-yellow-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
-          <a href="#" className="block" onClick={() => auth.signOutRedirect()}>
-            Logout{' '}
-          </a>
-        </li>
-      </ul>
+          <Divider />
+          <li className="px-4 py-2 text-gray-600 divide-y divide-yellow-500 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
+            <a
+              href="#"
+              className="block"
+              onClick={() => auth.signOutRedirect()}
+            >
+              Logout{' '}
+            </a>
+          </li>
+        </ul>
+      </FadeScaleAnim>
     </div>
   )
 }

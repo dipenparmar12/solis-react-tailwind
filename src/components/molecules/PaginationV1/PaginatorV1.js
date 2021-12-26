@@ -5,7 +5,7 @@
 import React from 'react'
 import cn from '@/utils/classNames'
 import { spinnerMd } from '@/components/atoms/Spinner'
-import DropDownApp from '@/components/atoms/DropDownApp'
+import DropDownApp from '@/components/molecules/DropDownApp/DropDownApp'
 import usePaginationV1, { DOTS } from './usePaginationV1'
 
 export default function PaginatorV1({
