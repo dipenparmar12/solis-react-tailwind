@@ -56,7 +56,7 @@ export default function PaginatorV1({
 
   return (
     <>
-      <div className="flex flex-wrap justify-between gap-2 my-5 text-gray-600 dark:text-gray-400">
+      <div className="flex flex-wrap justify-between gap-3 my-5 text-gray-600 dark:text-gray-400">
         <div className="flex flex-wrap">
           <div className="mx-1 ">{label}</div>
           <div className="mx-1 font-semibold text-gray-700 dark:text-gray-300 ">
@@ -90,7 +90,7 @@ export default function PaginatorV1({
         </div>
 
         {/* Pagination Buttons */}
-        <ul className="flex items-center rounded ">
+        <ul className="flex flex-wrap items-center rounded ">
           <li>
             <ButtonP onClick={_prevPage} disabled={currentPage === 1}>
               <Svg.Previous />
@@ -129,7 +129,7 @@ export default function PaginatorV1({
 function ButtonP({ children, onClick, active, disabled, ...rest }) {
   if (active) {
     return (
-      <div className="px-3 py-1 text-blue-500 no-underline bg-blue-100 border border-blue-100 rounded-sm dark:bg-gray-900 dark:border-gray-600 dark:text-sky-500">
+      <div className="px-3 py-1 text-sm text-blue-500 no-underline bg-blue-100 border border-blue-100 rounded-sm dark:bg-gray-900 dark:border-gray-600 dark:text-sky-500">
         {children}
       </div>
     )

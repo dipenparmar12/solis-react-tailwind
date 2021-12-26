@@ -13,7 +13,7 @@ export default function Print({
 
   return (
     <div
-      className={`my-2 text-gray-500 dark:text-gray-200 overflow-y-auto  ${className}`}
+      className={`my-2 text-gray-500 dark:text-gray-200 overflow-x-hidden overflow-y-scroll  ${className}`}
       style={{ maxHeight, ...style }}
       {...rest}
     >
