@@ -1,10 +1,12 @@
 import React from 'react'
 import Api from '@/services/ApiService'
 import useFetcher from '@/hooks/useFetcher'
-import UserCard from './Card'
+import UserCard, { UserCardLoading } from './Card'
 import useMergeState from '@/hooks/useMergeState'
 import Print from '@/components/atoms/Print'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
+import cn from '@/utils/classNames'
+import ErrorState from '@/components/atoms/ErrorState'
 
 export default function UserList() {
   const [apiQry, setApiQry] = useMergeState({
@@ -33,14 +35,18 @@ export default function UserList() {
           loading={resUsers?.loading}
         />
 
+        <ErrorState error={resUsers.error} />
+
         <div className="grid grid-cols-1 gap-3 gap-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {/* loading  */}
+          <UserCardLoading loading={resUsers?.loading} />
+
+          {/* Data List */}
           {resUsers?.data?.map((user, i) => (
             <UserCard key={`user__${Math.random()}`} data={user} />
           ))}
         </div>
 
-        {resUsers?.loading && <div>Loading...</div>}
-        {/* <Print data={resUsers?.loading} maxHeight={'450px'} /> */}
         <Print data={resUsers?.paginationData} maxHeight={'250px'} />
       </div>
     </>
