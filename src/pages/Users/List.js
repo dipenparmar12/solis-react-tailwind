@@ -7,11 +7,11 @@ import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import useQryParams from '@/hooks/useQryParams'
 import Button from '@/components/atoms/Button'
+import AddUser from './AddModal'
 
 export default function UserList() {
   const [apiQry, setApiQry] = useMergeState({ per_page: 15 })
   const qryParams = useQryParams({ setParams: setApiQry })
-
   const resUsers = useFetcher({
     apiCall: Api.users.get,
     qry: apiQry,
@@ -42,8 +42,12 @@ export default function UserList() {
         />
 
         <div className="my-3">
+<<<<<<< HEAD
           <Button size={'sm'} className={'mx-2'}>Add User</Button>
           <Button size={'md'}>Add User</Button>
+=======
+          <AddUser />
+>>>>>>> c7616f1 (wip)
         </div>
 
         <ErrorState error={resUsers.error} />

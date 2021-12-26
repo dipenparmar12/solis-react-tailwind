@@ -208,3 +208,8 @@ module.exports = {
 - Atomic Design Pattern: https://medium.com/@janelle.wg/atomic-design-pattern-how-to-structure-your-react-application-2bb4d9ca5f97
 - Tailwind Spinner: https://larainfo.com/blogs/tailwind-css-loading-spinner-example
 - Pagination Logic: https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
+- React modal
+  - https://imranhsayed.medium.com/create-modal-in-react-using-portal-48b3662a28b9
+  - https://blog.bitsrc.io/understanding-react-portals-ab79827732c7
+  - https://codesandbox.io/s/react-portals-l0sy5?file=/src/App.js:803-811
+  - https://dev.to/link2twenty/react-using-portals-to-make-a-modal-2kdf
