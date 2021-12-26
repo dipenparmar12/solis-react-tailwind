@@ -8,6 +8,12 @@ import { spinnerMd } from '@/components/atoms/Spinner'
 import DropDownApp from '@/components/molecules/DropDownApp/DropDownApp'
 import usePaginationV1, { DOTS } from './usePaginationV1'
 
+const HDivider = React.memo(() => (
+  <div className="mx-3">
+    <span className="border dark:border-gray-500" />
+  </div>
+))
+
 export default function PaginatorV1({
   label,
   totalRecords,
@@ -16,6 +22,7 @@ export default function PaginatorV1({
   loading,
   siblingCount = 2,
   setPage = () => {},
+  setPerPage = () => {},
 }) {
   const paginationRange = usePaginationV1({
     totalRecords,
@@ -23,7 +30,6 @@ export default function PaginatorV1({
     siblingCount,
     currentPage,
   })
-
   const totalPages = Math.ceil(totalRecords / pageSize)
   const spinnerOrNull = loading ? spinnerMd : '-'
 
@@ -46,10 +52,6 @@ export default function PaginatorV1({
       value: i + 1,
     }))
   }, [currentPage])
-  // const pagesOptions = Array.from({ length: totalPages }, (_, i) => ({
-  //   label: `${i + 1}`,
-  //   value: i + 1,
-  // }))
 
   return (
     <>
@@ -60,10 +62,7 @@ export default function PaginatorV1({
             {totalRecords || spinnerOrNull}
           </div>
 
-          <div className="mx-3">
-            <span className="border dark:border-gray-500" />
-          </div>
-
+          <HDivider />
           <div className="ml-1 mr-2"> Page </div>
           <div className="font-semibold text-gray-700 dark:text-gray-300 ">
             {/* {currentPage} */}
@@ -75,7 +74,19 @@ export default function PaginatorV1({
             <span className="text-gray-400 dark:text-gray-400"> / </span>
             <span className="px-1">{totalPages || spinnerOrNull}</span>
           </div>
+
+          <HDivider />
+          <div className="ml-1 mr-1"> Per Page </div>
+          <span className="px-1 text-gray-700 dark:text-gray-300">
+            <DropDownApp
+              label={pageSize}
+              options={[5, 10, 20, 50, 100, 200, 500]}
+              onSelect={setPerPage}
+            />
+          </span>
         </div>
+
+        {/* Pagination Buttons */}
         <ul className="flex items-center rounded ">
           <li>
             <ButtonP onClick={_prevPage} disabled={currentPage === 1}>

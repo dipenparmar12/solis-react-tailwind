@@ -9,7 +9,7 @@ export default function isFunctionAndCall(func, ...args) {
     return (...args2) => func(...args, ...args2)
   }
   return (...args1) => [...args, ...args1]
-  
+
   // return function curried(...args) {
   //   if (args.length >= func.length) {
   //     return func.apply(this, args)

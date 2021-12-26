@@ -6,6 +6,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "deploy:heroku": "git push heroku main:main",
     "_start": "react-scripts start",
     "_build": "react-scripts build",
     "format": "prettier --config ./prettier.config.js --write ./src/**/*.{js,jsx} && eslint --fix ./src/**/*.{js,jsx}",

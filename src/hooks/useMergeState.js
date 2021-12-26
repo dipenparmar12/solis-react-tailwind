@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react'
 /**
  *
@@ -6,15 +7,18 @@ import React from 'react'
  * @src https://www.30secondsofcode.org/react/s/use-merge-state
  */
 const useMergeState = (initialState = {}) => {
-  const [value, setValue] = React.useState(initialState)
+  const [values, setValues] = React.useState(initialState)
 
   const mergeState = (newState) => {
-    // eslint-disable-next-line no-param-reassign
-    if (typeof newState === 'function') newState = newState(value)
-    setValue({ ...value, ...newState })
+    if (typeof newState === 'function') newState = newState(values)
+    setValues({ ...values, ...newState })
   }
 
-  return [value, mergeState, setValue]
+  // const setValue = (key, value) => {
+  //   mergeState({ [key]: value })
+  // } // setValue('name', 'John')
+
+  return [values, mergeState, setValues]
 }
 
 export default useMergeState

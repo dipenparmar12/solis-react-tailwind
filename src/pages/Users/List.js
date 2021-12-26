@@ -7,12 +7,15 @@ import Print from '@/components/atoms/Print'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import cn from '@/utils/classNames'
 import ErrorState from '@/components/atoms/ErrorState'
+import useQryParams from '@/hooks/useQryParams'
 
 export default function UserList() {
   const [apiQry, setApiQry] = useMergeState({
     page: 1,
     per_page: 20,
   })
+
+  const qryParams = useQryParams({ setParams: setApiQry })
 
   const resUsers = useFetcher({
     apiCall: Api.users.get,
@@ -21,13 +24,21 @@ export default function UserList() {
     immediateInvoke: true,
   })
 
+  React.useEffect(() => {
+    qryParams.set(apiQry)
+  }, [apiQry])
+
   return (
     <>
       <div className={' '}>
         <PaginatorV1
           label={'Users'}
           setPage={(option) => {
+            console.log('List.js::[37] var', option)
             setApiQry({ page: option?.value || option })
+          }}
+          setPerPage={(option) => {
+            setApiQry({ page: 1, per_page: option?.value || option })
           }}
           totalRecords={resUsers.paginationData?.total || 0}
           pageSize={resUsers.paginationData?.per_page || 0}
