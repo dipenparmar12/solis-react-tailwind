@@ -1,4 +1,4 @@
 {
-  "REACT_APP_BASE_API": "http://solis.test",
-  "REACT_APP_TITLE": "Solis App (PROD)"
+  "REACT_APP_BASE_API": "https://solis-laravel-test.herokuapp.com",
+  "REACT_APP_TITLE": "Solis App (PROD HEROKU)"
 }

@@ -9,6 +9,8 @@ import LayoutProvider from './context/LayoutContext'
 import 'react-toastify/dist/ReactToastify.min.css'
 import './index.scss'
 
+console.info('index.js::[12] env', process.env.NODE_ENV)
+
 ReactDOM.render(
   <React.StrictMode>
     <LayoutProvider>

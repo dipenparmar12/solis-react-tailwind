@@ -18,7 +18,7 @@ export const StatusCode = {
   INTERNAL_SERVER_ERROR: 500,
 }
 
-const baseURL = `${config.apiUrl || ''}/api`
+const baseURL = `${config.REACT_APP_BASE_API || ''}/api`
 const axiosApp = axios.create({
   baseURL,
   withCredentials: true, // required to handle the CSRF token
