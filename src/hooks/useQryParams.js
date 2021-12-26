@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
 
-export default function useQryParams({ params, setParams = () => {} }) {
+export default function useQryParams({ setParams = () => {} }) {
   const set = React.useCallback((obj) => {
     const qry = { ...obj }
     window.history.pushState({}, '', `?${new URLSearchParams(qry).toString()}`)
@@ -29,10 +29,9 @@ export default function useQryParams({ params, setParams = () => {} }) {
   // }
 
   React.useEffect(() => {
-    const initQry = get()
-    setParams(initQry)
-    set(params)
-  }, [params])
+    const initUrlQryParams = get()
+    setParams(initUrlQryParams)
+  }, [])
 
   return React.useMemo(() => ({ set, get, clear }), [set, get, clear])
 }

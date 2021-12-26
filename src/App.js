@@ -13,22 +13,24 @@ const App = function () {
   return (
     <>
       <Routes>
-        {routesPrivateArr?.map(([k, route]) => (
-          <Route
-            // {...route}
-            key={route.label + k}
-            path={route.path}
-            exact
-            element={
-              <RequireAuth>
-                <Layout>
-                  <span className="hidden text-test"> I am </span>
-                  {route.element}
-                </Layout>
-              </RequireAuth>
-            }
-          />
-        ))}
+        {routesPrivateArr?.map(([k, route]) => {
+          return (
+            <Route
+              // {...route}
+              key={route.label + k}
+              path={route.path}
+              exact
+              element={
+                <RequireAuth>
+                  <Layout>
+                    <span className="hidden text-test"> I am </span>
+                    {route.element}
+                  </Layout>
+                </RequireAuth>
+              }
+            />
+          )
+        })}
       </Routes>
 
       <Routes>
@@ -36,8 +38,7 @@ const App = function () {
           <Route
             key={route.label + k}
             path={route.path}
-            exact
-            // {...route}
+            {...route}
             location={route.location}
           />
         ))}

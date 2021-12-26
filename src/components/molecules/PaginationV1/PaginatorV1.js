@@ -56,9 +56,9 @@ export default function PaginatorV1({
 
   return (
     <>
-      <div className="flex flex-wrap justify-between gap-3 my-5 text-gray-600 dark:text-gray-400">
+      <div className="flex flex-wrap justify-between my-3 text-gray-600 gap-y-3 dark:text-gray-400">
         <div className="flex flex-wrap">
-          <div className="mx-1 ">{label}</div>
+          <div className="">{label}</div>
           <div className="mx-1 font-semibold text-gray-700 dark:text-gray-300 ">
             {totalRecords || spinnerOrNull}
           </div>
@@ -139,8 +139,9 @@ function ButtonP({ children, onClick, active, disabled, ...rest }) {
     return (
       <div
         className={cn([
-          `px-3 py-1 text-sm text-gray-600 no-underline border bg-gray-100 border-gray-100 rounded-sm  hover:bg-gray-100  `,
-          'dark:bg-gray-800 dark:border-gray-700 text-gray-700 dark:text-gray-600',
+          `px-3 py-1 text-sm text-gray-600 no-underline border  border-gray-100 rounded-sm   `,
+          'dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 ',
+          // 'dark:bg-gray-800 dark:border-gray-700 text-gray-700 dark:text-gray-600',
         ])}
       >
         {children}

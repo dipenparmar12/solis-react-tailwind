@@ -59,6 +59,9 @@ View Heroku logs
 
 > `heroku logs --tail`
 
+Url: https://solis-react-app-test.herokuapp.com/
+
+
 ### Netlify Deploy
 
 1. `yarn global add netlify-cli`

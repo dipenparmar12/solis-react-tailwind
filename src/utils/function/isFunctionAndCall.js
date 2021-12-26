@@ -6,6 +6,7 @@
  */
 export default function isFunctionAndCall(func, ...args) {
   if (Object.prototype.toString.call(func) === '[object Function]') {
+    // console.log('isFunctionAndCall.js::[8] func=true', func, ...args)
     return (...args2) => func(...args, ...args2)
   }
   return (...args1) => [...args, ...args1]

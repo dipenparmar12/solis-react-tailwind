@@ -3,17 +3,14 @@ import Api from '@/services/ApiService'
 import useFetcher from '@/hooks/useFetcher'
 import UserCard, { UserCardLoading } from './Card'
 import useMergeState from '@/hooks/useMergeState'
-import Print from '@/components/atoms/Print'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import useQryParams from '@/hooks/useQryParams'
+import Button from '@/components/atoms/Button'
+import Svg, { SvgLabel } from '@/components/Svg/Svg'
 
 export default function UserList() {
-  const [apiQry, setApiQry] = useMergeState({
-    page: 1,
-    per_page: 20,
-  })
-
+  const [apiQry, setApiQry] = useMergeState({ per_page: 10 })
   const qryParams = useQryParams({ setParams: setApiQry })
 
   const resUsers = useFetcher({
@@ -45,6 +42,9 @@ export default function UserList() {
           loading={resUsers?.loading}
         />
 
+        <div className="my-3">
+          <Button onClick={() => {}}>Add User</Button>
+        </div>
         <ErrorState error={resUsers.error} />
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5 ">

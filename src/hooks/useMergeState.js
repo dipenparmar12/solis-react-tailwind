@@ -6,13 +6,15 @@ import React from 'react'
  * @returns
  * @src https://www.30secondsofcode.org/react/s/use-merge-state
  */
-const useMergeState = (initialState = {}) => {
+const useMergeState = (initialState = {}, cb = () => {}) => {
   const [values, setValues] = React.useState(initialState)
 
   const mergeState = (newState) => {
     if (typeof newState === 'function') newState = newState(values)
     setValues({ ...values, ...newState })
   }
+
+  // React.useEffect(() => cb(values), [values])
 
   // const setValue = (key, value) => {
   //   mergeState({ [key]: value })
