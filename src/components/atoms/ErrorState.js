@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ErrorState({ error }) {
+function ErrorStateUnMemoized({ error }) {
   if (!error) return null
   // Empty bin error SVG state
   return (
@@ -26,3 +26,5 @@ export default function ErrorState({ error }) {
     </>
   )
 }
+const ErrorState = React.memo(ErrorStateUnMemoized)
+export default ErrorState

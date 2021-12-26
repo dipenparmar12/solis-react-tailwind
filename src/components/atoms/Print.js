@@ -1,4 +1,5 @@
 import React from 'react'
+import config from '@/config/config'
 
 export default function Print({
   data,
@@ -8,9 +9,11 @@ export default function Print({
   tab = 2,
   ...rest
 }) {
+  if (!config.REACT_APP_DEBUG_PRINT) return null
+
   return (
     <div
-      className={`mb-2 text-gray-500 dark:text-gray-200 overflow-y-auto  ${className}`}
+      className={`my-2 text-gray-500 dark:text-gray-200 overflow-y-auto  ${className}`}
       style={{ maxHeight, ...style }}
       {...rest}
     >

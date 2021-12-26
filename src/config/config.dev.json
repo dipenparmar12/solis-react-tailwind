@@ -1,5 +1,6 @@
 {
   "REACT_APP_BASE_API": "http://solis.test",
   "REACT_APP_TITLE": "Solis App (Development)",
-  "NOTIFY_ERROR": true
+  "REACT_APP_NOTIFY_ERROR": true,
+  "REACT_APP_DEBUG_PRINT": true
 }

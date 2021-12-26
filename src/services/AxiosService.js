@@ -38,7 +38,7 @@ axiosApp.interceptors.response.use(null, (error) => {
   if (error.response) {
     /// TODO::: Logger Service
 
-    if (config.NOTIFY_ERROR) {
+    if (config.REACT_APP_NOTIFY_ERROR) {
       if (error.response?.data?.message) {
         Notify.error(error.response?.data?.message, {
           position: 'top-center',
