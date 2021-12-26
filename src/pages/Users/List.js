@@ -7,10 +7,9 @@ import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import useQryParams from '@/hooks/useQryParams'
 import Button from '@/components/atoms/Button'
-import Svg, { SvgLabel } from '@/components/Svg/Svg'
 
 export default function UserList() {
-  const [apiQry, setApiQry] = useMergeState({ per_page: 10 })
+  const [apiQry, setApiQry] = useMergeState({ per_page: 15 })
   const qryParams = useQryParams({ setParams: setApiQry })
 
   const resUsers = useFetcher({
@@ -43,8 +42,9 @@ export default function UserList() {
         />
 
         <div className="my-3">
-          <Button onClick={() => {}}>Add User</Button>
+          <Button size={'sm'}>Add User</Button>
         </div>
+
         <ErrorState error={resUsers.error} />
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5 ">
