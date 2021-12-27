@@ -44,7 +44,7 @@ export default function UserList() {
           <AddUser />
         </div>
 
-        <ErrorState error={resUsers.error} />
+        <ErrorState error={!resUsers?.loading && resUsers?.error} />
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5 ">
           {/* Data List */}

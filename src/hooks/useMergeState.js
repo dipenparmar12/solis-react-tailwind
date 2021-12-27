@@ -1,33 +1,48 @@
 /* eslint-disable no-param-reassign */
 import React from 'react'
+import Types from '@/utils/validation/Types'
+
+const { isFunction } = Types
+
 /**
  *
  * @param {*} initialState
  * @returns
+ * @src https://github.com/oldboyxx/jira_clone/blob/master/client/src/shared/hooks/mergeState.js
  * @src https://www.30secondsofcode.org/react/s/use-merge-state
  */
 const useMergeState = (initialState = {}, cb = () => {}) => {
-  const [values, setValues] = React.useState(initialState)
+  const [state, setState] = React.useState(initialState || {})
 
-  const mergeState = (newState) => {
-    if (typeof newState === 'function') newState = newState(values)
-    setValues({ ...values, ...newState })
-  }
+  const mergeState = React.useCallback((newState) => {
+    if (isFunction(newState)) {
+      setState((currentState) => ({
+        ...currentState,
+        ...newState(currentState),
+      }))
+    } else {
+      setState((currentState) => ({ ...currentState, ...newState }))
+    }
+  }, [])
 
-  // React.useEffect(() => cb(values), [values])
+  return [state, mergeState, setState]
 
-  // const setValue = (key, value) => {
-  //   mergeState({ [key]: value })
-  // } // setValue('name', 'John')
-
-  return [values, mergeState, setValues]
+  // const [values, setValues] = React.useState(initialState)
+  // const mergeState = (newState) => {
+  //   if (typeof newState === 'function') newState = newState(values)
+  //   setValues({ ...values, ...newState })
+  // }
+  // // React.useEffect(() => cb(values), [values])
+  // // const setValue = (key, value) => {
+  // //   mergeState({ [key]: value })
+  // // } // setValue('name', 'John')
+  // return [values, mergeState, setValues]
 }
 
 export default useMergeState
 
 // const MyApp = () => {
 //   const [data, setData] = useMergeState({ name: 'John', age: 20 });
-
 //   return (
 //     <>
 //       <input

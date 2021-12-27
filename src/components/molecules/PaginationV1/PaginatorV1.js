@@ -52,7 +52,7 @@ export default function PaginatorV1({
       label: `${i + 1}`,
       value: i + 1,
     }))
-  }, [currentPage])
+  }, [totalPages])
 
   return (
     <>

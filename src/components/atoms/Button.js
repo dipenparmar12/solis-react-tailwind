@@ -32,7 +32,9 @@ function ButtonUnMemo({
   return (
     <button
       type="button"
-      className={`${BtnSize[size] || size} ${BtnVariant[variant] || variant} ${className}`}
+      className={`${BtnSize[size] || size} ${
+        BtnVariant[variant] || variant
+      } ${className}`}
       onClick={onClick}
       {...props}
     >

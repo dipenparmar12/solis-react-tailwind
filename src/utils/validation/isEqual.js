@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @param {*} input
  * @param {*} input2
  * @returns {boolean} true if the two arrays are equal
