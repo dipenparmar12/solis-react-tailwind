@@ -10,7 +10,7 @@ export const BtnSize = {
 }
 
 export const BtnVariant = {
-  default: `text-gray-700 bg-gray-50 border border-gray-500 rounded-md shadow-sm hover:bg-gray-100  dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-900 active:bg-gray-200 dark:active:bg-gray-700 focus:outline-none focus:shadow-outline`,
+  default: `text-gray-700 bg-gray-50 border border-gray-500 rounded-md shadow-sm hover:bg-gray-100  dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-900 active:bg-gray-200 dark:active:bg-gray-700 focus:outline-none focus:shadow-outline focus:outline-none focus:ring focus:ring-offset-1 focus:ring-sky-200 dark:focus:ring-sky-800`,
 }
 
 function ButtonUnMemo({
