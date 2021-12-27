@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import useOutsideClicked from '@/hooks/useOutsideClicked'
+import useOutsideClicked from '@/hooks/useOutsideClickedV2'
 import Portal from './Portal'
 import Button from '@/components/atoms/Button'
 import Svg from '@/components/Svg/Svg'

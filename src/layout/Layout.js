@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, { useState } from 'react'
 import LogoIMG from '../assets/img/logo.png'
 import Svg from '../components/Svg/Svg'
 import cn from '../utils/classNames'
 import { routes } from '../App'
 import { DarkModeToggle } from '../hooks/useDarkMode'
-import useOutsideClicked from '../hooks/useOutsideClicked'
+import useOutsideClicked from '../hooks/useOutsideClickedV2'
 import ProfilePic from '../assets/img/dipen.jpg'
 import { NavDropDownItem, NavLinkItem } from './_partials/NavLinkItem'
 import { useAuth } from '../context/AuthContext'
@@ -13,6 +13,8 @@ import { useLayoutContext } from '../context/LayoutContext'
 import { useWhichDevice } from '../hooks/useMediaQuery'
 import Divider from '@/components/atoms/Divider'
 import FadeScaleAnim from '@/hoc/animation/FadeScaleAnim'
+import useOnOutsideClick from '@/hooks/useonOutsideClick'
+import useOnEscapeKeyDown from '@/hooks/useOnEscapeKeyDown'
 
 /**
  *  @src https://codepen.io/chris__sev/pen/RwKWXpJ?editors=1000
@@ -26,8 +28,8 @@ const Layout = function ({ children }) {
     <>
       <TopNav />
       <div className="h-[calc(100vh_-_3.5rem)] relative flex ">
-        {/* sidebar */}
         <Sidebar />
+
         {/* content */}
         <div className="flex-1 px-3 py-4 space-y-2 sm:px-4 md:px-5 lg:px-6 ">
           {children}{' '}
@@ -48,8 +50,13 @@ const TopNav = () => {
     setSidebarIsVisible,
   } = useLayoutContext()
   const { ...Size } = useWhichDevice()
+
+  const testRef = React.useRef()
   return (
-    <div className="relative z-10 flex items-center justify-between w-full px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14">
+    <div
+      ref={testRef}
+      className="relative z-10 flex items-center justify-between w-full px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14"
+    >
       <div
         className={cn([
           'flex items-center justify-between space-x-2 ',
@@ -86,7 +93,7 @@ const TopNav = () => {
       <div className="flex">
         <div className="flex items-center space-x-3">
           <DarkModeToggle className={'h-7 w-7 text-gray-400'} />
-          <DropDownMenu />
+          <DropDownMenuRef ref={testRef} />
         </div>
 
         <div className="flex md:hidden" id="mobile_only">
@@ -130,11 +137,17 @@ const Sidebar = () => {
   )
 }
 
-const DropDownMenu = () => {
-  const { ref, isVisible, setIsVisible } = useOutsideClicked()
+const DropDownMenu = ({ ...props }, forwardRef) => {
+  const [isVisible, setIsVisible] = useState(false)
+  const closeDropDown = () => setIsVisible(false)
+
+  const dropDownRef = React.useRef()
+  useOnOutsideClick([dropDownRef], isVisible, closeDropDown)
+  useOnEscapeKeyDown(isVisible, closeDropDown)
+
   const auth = useAuth()
   return (
-    <div ref={ref} className="relative text-base">
+    <div ref={dropDownRef} className="relative text-base">
       <button
         className="block mt-1 overflow-hidden rounded-full w-7 h-7"
         onClick={() => setIsVisible(!isVisible)}
@@ -181,3 +194,5 @@ const DropDownMenu = () => {
     </div>
   )
 }
+
+const DropDownMenuRef = React.forwardRef(DropDownMenu)
