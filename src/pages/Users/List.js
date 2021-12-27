@@ -29,7 +29,6 @@ export default function UserList() {
         <PaginatorV1
           label={'Users'}
           setPage={(option) => {
-            console.log('List.js::[37] var', option)
             setApiQry({ page: option?.value || option })
           }}
           setPerPage={(option) => {
@@ -42,12 +41,7 @@ export default function UserList() {
         />
 
         <div className="my-3">
-<<<<<<< HEAD
-          <Button size={'sm'} className={'mx-2'}>Add User</Button>
-          <Button size={'md'}>Add User</Button>
-=======
           <AddUser />
->>>>>>> c7616f1 (wip)
         </div>
 
         <ErrorState error={resUsers.error} />

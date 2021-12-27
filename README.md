@@ -213,3 +213,4 @@ module.exports = {
   - https://blog.bitsrc.io/understanding-react-portals-ab79827732c7
   - https://codesandbox.io/s/react-portals-l0sy5?file=/src/App.js:803-811
   - https://dev.to/link2twenty/react-using-portals-to-make-a-modal-2kdf
+- React Portal with hooks: https://www.jayfreestone.com/writing/react-portals-with-hooks/

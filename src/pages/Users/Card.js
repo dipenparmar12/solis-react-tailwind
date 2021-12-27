@@ -6,7 +6,7 @@ export default function UserCard({ data }) {
       {/* dark theme */}
       <div
         className={cn([
-          `px-2 lg:px-4 py-2 bg-white border shadow-md rounded-md hover:shadow-lg `,
+          `px-4 lg:px-4 py-2 bg-white border shadow-md rounded-md hover:shadow-lg `,
           `dark:bg-gray-900 dark:hover:bg-black hover:border-gray-400 dark:border-gray-900 dark:hover:border-gray-800 `,
         ])}
       >
