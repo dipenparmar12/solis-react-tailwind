@@ -42,7 +42,8 @@ export default function UserList() {
         />
 
         <div className="my-3">
-          <Button size={'sm'}>Add User</Button>
+          <Button size={'sm'} className={'mx-2'}>Add User</Button>
+          <Button size={'md'}>Add User</Button>
         </div>
 
         <ErrorState error={resUsers.error} />

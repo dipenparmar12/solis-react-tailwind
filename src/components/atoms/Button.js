@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
+import cn from '@/utils/classNames'
 
 export const BtnSize = {
   sm: `px-2 py-1 text-xs `,
@@ -10,7 +11,14 @@ export const BtnSize = {
 }
 
 export const BtnVariant = {
-  default: `text-gray-700 bg-gray-50 border border-gray-500 rounded-md shadow-sm hover:bg-gray-100  dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-900 active:bg-gray-200 dark:active:bg-gray-700 focus:outline-none focus:shadow-outline focus:outline-none focus:ring focus:ring-offset-1 focus:ring-sky-200 dark:focus:ring-sky-800`,
+  default: cn([
+    `rounded-md shadow-sm`,
+    `text-gray-700 dark:text-sky-300 focus:text-black`,
+    `border border-gray-500 dark:border-sky-900 dark:hover:border-sky-500 `,
+    `bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 active:bg-gray-200 dark:active:bg-gray-800`,
+    `focus:shadow-outline focus:outline-none focus:ring focus:ring-gray-200 dark:focus:ring-0 dark:focus:border-sky-500`,
+    `active:scale-95 transition ease-in-out duration-150`,
+  ]),
 }
 
 function ButtonUnMemo({
