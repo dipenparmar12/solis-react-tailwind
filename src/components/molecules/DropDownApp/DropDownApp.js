@@ -6,7 +6,9 @@ import React, { useState } from 'react'
 import cn from '@/utils/classNames'
 import isFunctionAndCall from '@/utils/function/isFunctionAndCall'
 import FadeScaleAnim from '@/hoc/animation/FadeScaleAnim'
-import useOnOutsideClick from '@/hooks/useonOutsideClick'
+import useOnOutsideClick, {
+  useOnOutsideClickWithState,
+} from '@/hooks/useonOutsideClick'
 import useOnEscapeKeyDown from '@/hooks/useOnEscapeKeyDown'
 
 export default function DropDownApp({
@@ -24,20 +26,20 @@ export default function DropDownApp({
   },
   ...props
 }) {
-  const [isOpen, setOpen] = useState(false)
   const [_label, _setLabel] = useState(label)
-  const closeDropDown = () => setOpen(false)
-
-  const dropDownRef = React.useRef()
-  useOnOutsideClick(dropDownRef, isOpen, closeDropDown)
-  useOnEscapeKeyDown(isOpen, closeDropDown)
+  const {
+    ref: dropDownContainerRef,
+    isOpen,
+    setOpen,
+  } = useOnOutsideClickWithState()
+  useOnEscapeKeyDown(isOpen, () => setOpen(false))
 
   // eslint-disable-next-line no-underscore-dangle
   const _onSelect = (option) => {
     // _setSelected(option)
     _setLabel(option?.label || option)
     onSelect(option)
-    closeDropDown()
+    setOpen(false)
     isFunctionAndCall(onChange, option)
   }
 
@@ -56,7 +58,7 @@ export default function DropDownApp({
 
   return (
     <>
-      <div ref={dropDownRef} className="relative inline-block">
+      <div ref={dropDownContainerRef} className="relative inline-block">
         <button
           className="block px-2 overflow-hidden border border-gray-300 rounded-md cursor-pointer dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-900 hover:bg-slate-100"
           onClick={() => setOpen(!isOpen)}
@@ -67,7 +69,7 @@ export default function DropDownApp({
         <FadeScaleAnim isVisible={isOpen}>
           <div
             className={cn([
-              `absolute right-0 z-10 py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl `,
+              `absolute right-0 z-20 py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl `,
               isOpen ? 'block' : 'hidden',
             ])}
           >

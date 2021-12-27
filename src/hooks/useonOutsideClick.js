@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { forwardRef, useEffect, useRef, useState } from 'react'
 import isEqual from '@/utils/validation/isEqual'
 
 export const useDeepCompareMemoize = (value) => {
@@ -38,8 +38,8 @@ const useOnOutsideClick = (
       const isAnyIgnoredElementAncestorOfTarget =
         $ignoredElementRefsMemoized.some(
           ($elementRef) =>
-            $elementRef.current.contains($mouseDownTargetRef.current) ||
-            $elementRef.current.contains(event.target),
+            $elementRef?.current?.contains($mouseDownTargetRef.current) ||
+            $elementRef?.current?.contains(event.target),
         )
       if (event.button === 0 && !isAnyIgnoredElementAncestorOfTarget) {
         onOutsideClick()
@@ -65,3 +65,22 @@ const useOnOutsideClick = (
 }
 
 export default useOnOutsideClick
+
+/**
+ *
+ * @param {String|String[]} ignoreRef
+ * @returns { ref, isOpen, setOpen }
+ * @example
+ * const { ref,isOpen,setOpen } = useOnOutsideClickWithState([OptionalRefs])
+ */
+export function useOnOutsideClickWithState(ignoreRef) {
+  const [isOpen, setOpen] = useState(false)
+  const ref = useRef()
+  const ignoreRefs = [ref, ignoreRef].flat()
+  useOnOutsideClick(ignoreRefs, isOpen, () => setOpen(false))
+  return {
+    ref,
+    isOpen,
+    setOpen,
+  }
+}

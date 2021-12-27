@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 
 /**
- * @param {*} isListening
- * @param {*} onEscapeKeyDown
+ * Fire event on escape key press
+ * @param {Boolean} isListening
+ * @param {Function} onEscapeKeyDown
  * @src https://github.com/oldboyxx/jira_clone/blob/master/client/src/shared/hooks/onEscapeKeyDown.js
  */
 const useOnEscapeKeyDown = (isListening, onEscapeKeyDown) => {
@@ -13,7 +14,7 @@ const useOnEscapeKeyDown = (isListening, onEscapeKeyDown) => {
         event.key === 'Escape' ||
         event.key === 'Esc'
       ) {
-        onEscapeKeyDown()
+        onEscapeKeyDown?.()
       }
     }
 
