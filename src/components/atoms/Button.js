@@ -1,7 +1,67 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-dupe-keys */
 /* eslint-disable prettier/prettier */
+import classNames from 'classnames'
 import React from 'react'
-import cn from '@/utils/classNames'
+import SpinnerV2 from './SpinnerV2'
 
+function ButtonUnMemo(
+  {
+    onClick = () => {},
+    children,
+    size = 'md',
+    // variant = 'default',
+    className,
+    label,
+    disabled,
+    isWorking,
+    icon,
+    iconSize,
+    ...buttonProps
+  },
+  forwardRef,
+) {
+  const handleClick = () => {
+    if (!disabled && !isWorking) {
+      onClick()
+    }
+  }
+
+  // button isWorking and disabled state
+  const _classNames = ['rounded-md shadow-sm', {
+    'shadow-lg ': true,
+    'px-2 py-1 text-xs font-semibold': size === 'sm',
+    'px-3 py-1 text-sm ': size === 'md',
+    'px-4 py-1 text-lg': size === 'lg',
+    'px-5 py-1 text-xl': size === 'xl',
+    'px-6 py-1 text-2xl': size === '2xl',
+    'active:scale-95 border border-gray-500 dark:border-sky-300': !disabled,
+    'bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 active:bg-gray-200 dark:active:bg-gray-800':!disabled,
+    'text-gray-400 bg-gray-200 dark:bg-gray-700 dark:text-gray-500 border border-gray-200 dark:border-sky-700': disabled,
+    'cursor-not-allowed':isWorking || disabled,
+    // 'focus:shadow-outline focus:outline-none focus:ring focus:ring-gray-200 dark:focus:ring-0 focus:border-black dark:focus:border-sky-500': true,
+    // 'focus:outline-none focus:ring focus:ring-gray-200 dark:focus:ring-sky-700': true,
+    // 'focus:ring hover:ring-sky-200 dark:hover:ring-sky-600': true,
+  }]
+
+  return (
+    <button
+      onClick={handleClick}
+      className={classNames(_classNames)}    
+      {...buttonProps}
+    >
+      {label || children} 
+      {isWorking && <SpinnerV2 size={size}/>}
+    </button>
+  )
+}
+
+export default React.memo(React.forwardRef(ButtonUnMemo))
+
+
+
+/**
+ 
 export const BtnSize = {
   sm: `px-2 py-1 text-xs `,
   md: `px-2 py-1 text-sm `,
@@ -20,27 +80,4 @@ export const BtnVariant = {
     `active:scale-95 transition ease-in-out duration-150`,
   ]),
 }
-
-function ButtonUnMemo({
-  onClick = () => {},
-  children,
-  size = 'md',
-  variant = 'default',
-  className,
-  ...props
-}) {
-  return (
-    <button
-      type="button"
-      className={`${BtnSize[size] || size} ${
-        BtnVariant[variant] || variant
-      } ${className}`}
-      onClick={onClick}
-      {...props}
-    >
-      {children}
-    </button>
-  )
-}
-
-export default React.memo(ButtonUnMemo)
+ */

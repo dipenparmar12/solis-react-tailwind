@@ -7,6 +7,7 @@ specifiers:
   '@testing-library/user-event': ^13.5.0
   autoprefixer: ^10.4.0
   axios: ^0.24.0
+  classnames: ^2.3.1
   eslint: ^8.4.1
   eslint-config-airbnb: ^19.0.2
   eslint-config-prettier: ^8.3.0
@@ -34,6 +35,7 @@ dependencies:
   '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
   '@testing-library/user-event': 13.5.0
   axios: 0.24.0
+  classnames: 2.3.1
   js-cookie: 3.0.1
   node-sass: 7.0.0
   react: 17.0.2
@@ -3329,6 +3331,10 @@ packages:
 
   /cjs-module-lexer/1.2.2:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
+    dev: false
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
     dev: false
 
   /clean-css/5.2.2:
