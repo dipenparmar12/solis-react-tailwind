@@ -1,6 +1,6 @@
 import React from 'react'
 import useOnEscapeKeyDown from '@/hooks/useOnEscapeKeyDown'
-import useOnOutsideClick from '@/hooks/useonOutsideClick'
+import useOnOutsideClick from '@/hooks/useOnOutsideClick'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useOutsideClicked from '../hooks/useOutsideClickedV2'
 

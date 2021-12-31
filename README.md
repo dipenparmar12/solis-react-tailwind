@@ -214,3 +214,4 @@ module.exports = {
   - https://codesandbox.io/s/react-portals-l0sy5?file=/src/App.js:803-811
   - https://dev.to/link2twenty/react-using-portals-to-make-a-modal-2kdf
 - React Portal with hooks: https://www.jayfreestone.com/writing/react-portals-with-hooks/
+- Modal https://jasonwatmore.com/post/2018/01/23/react-custom-modal-window-dialog-box

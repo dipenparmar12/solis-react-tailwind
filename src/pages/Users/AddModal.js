@@ -1,26 +1,18 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import Button from '@/components/atoms/Button'
-import Modal from './Modal'
+import Random from '@/utils/faker/random'
+import ModalV1 from '@/components/molecules/ModalV1/ModalV1'
 
 export default function AddUser() {
   return (
     <>
-      <Button label={'Add User'} isWorking size="sm" />
-      <Button label={'Add User'} isWorking size="md" />
-      <Button label={'Add User'} size="lg" />
-      <Button label={'Add User'} isWorking size="xl" />
-      <Button label={'Add User'} isWorking size="2xl" />
-
-      <Button label={'Add User'} disabled size="sm" />
-      <Button label={'Add User'} disabled size="md" />
-      <Button label={'Add User'} disabled size="lg" />
-      <Button label={'Add User'} disabled size="xl" />
-      <Button label={'Add User'} disabled size="2xl" />
-
-      <Modal
+      <ModalV1
         renderButton={(modal) => (
-          <Button onClick={modal.open} label={'Add User'} isWorking size="md" />
+          <Button onClick={modal.open} label={'Add User'} size="md" />
         )}
+        renderContent={(modal) => <> Empty </>}
       />
     </>
   )

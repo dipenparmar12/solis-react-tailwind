@@ -6,10 +6,14 @@ import Notify, { appToast } from '@/services/NotifyService'
 import NotifyExample from './Examples/NotifyExample'
 import ButtonsExample from './Examples/ButtonsExample'
 import SvgExamples from './Examples/SvgExamples'
+import ModalV1Example from './Examples/ModalV1Example'
 
 export default function ExamplesTemp() {
   return (
     <div className="flex flex-col space-y-4">
+      {/* ModalV1 example */}
+      <ModalV1Example />
+      <hr />
       {/* Notify example */}
       <NotifyExample />
       <hr />

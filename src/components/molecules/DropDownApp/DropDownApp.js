@@ -8,7 +8,7 @@ import isFunctionAndCall from '@/utils/function/isFunctionAndCall'
 import FadeScaleAnim from '@/hoc/animation/FadeScaleAnim'
 import useOnOutsideClick, {
   useOnOutsideClickWithState,
-} from '@/hooks/useonOutsideClick'
+} from '@/hooks/useOnOutsideClick'
 import useOnEscapeKeyDown from '@/hooks/useOnEscapeKeyDown'
 
 export default function DropDownApp({
