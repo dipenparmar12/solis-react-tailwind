@@ -10,11 +10,6 @@ import FormikForm from '@/components/molecules/FormicApp/FormFormik'
 import get from '@/utils/obj/get'
 import InputFormik from '@/components/molecules/FormicApp/Input'
 
-const validationSchema = yup.object().shape({
-  name: yup.string().required().label('Name'),
-  password: yup.number().required().positive().integer().label('Password'),
-})
-
 export default function AddUser() {
   React.useEffect(() => {}, [])
 
@@ -33,7 +28,15 @@ export default function AddUser() {
                   name: '',
                   password: '',
                 }}
-                validationSchema={validationSchema}
+                validationSchema={yup.object().shape({
+                  name: yup.string().min(5).required().label('Name'),
+                  password: yup
+                    .number()
+                    .required()
+                    .positive()
+                    .integer()
+                    .label('Password'),
+                })}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true)
                   console.log(values)

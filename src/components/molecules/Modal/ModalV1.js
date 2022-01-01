@@ -10,6 +10,7 @@ export default function ModalV1({
   renderContent = (modal) => {},
   className,
   children,
+  closeButton,
 }) {
   const [stateIsOpen, setStateOpen] = React.useState(false)
   const isControlled = typeof propsIsOpen === 'boolean'
@@ -45,6 +46,27 @@ export default function ModalV1({
                 className={`inline-block relative w-full rounded-sm ${className}`}
                 ref={$modalRef}
               >
+                {closeButton && (
+                  <div className="absolute top-0 right-0 p-3">
+                    <button
+                      className="text-gray-500 hover:text-gray-900 focus:outline-none"
+                      onClick={closeModal}
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                )}
+
                 {children ||
                   (renderContent && renderContent({ close: closeModal }))}
               </div>

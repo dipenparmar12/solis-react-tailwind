@@ -48,8 +48,10 @@ function InputV1(
           'active:bg-white',
           'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
           'transition duration-200 ease-in-out',
+          // error &&
+          //   ' text-red-400  bg-red-100/80 hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
           error &&
-            'bg-red-100/80 text-red-400  hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
+            '   bg-red-400/5 hover:bg-red-400/5 active:bg-red-400/5 focus:bg-red-400/5  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
           inputClassName,
         ])}
         name={name}

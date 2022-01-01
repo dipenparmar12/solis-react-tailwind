@@ -32,7 +32,7 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
-    'no-undef': 1,
+    // 'no-undef': 1,
     'react/no-children-prop': 'warn',
     'no-case-declarations': 'warn',
     'react/react-in-jsx-scope': 'off',
