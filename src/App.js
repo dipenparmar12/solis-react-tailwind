@@ -22,10 +22,7 @@ const App = function () {
               exact
               element={
                 <RequireAuth>
-                  <Layout>
-                    <span className="hidden text-test"> I am </span>
-                    {route.element}
-                  </Layout>
+                  <Layout> {route.element} </Layout>
                 </RequireAuth>
               }
             />

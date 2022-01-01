@@ -6,14 +6,18 @@ import Random from '@/utils/faker/random'
 import ModalV1 from '@/components/molecules/ModalV1/ModalV1'
 
 export default function AddUser() {
-  return (
-    <>
-      <ModalV1
-        renderButton={(modal) => (
-          <Button onClick={modal.open} label={'Add User'} size="md" />
-        )}
-        renderContent={(modal) => <> Empty </>}
-      />
-    </>
-  )
+  return <></>
 }
+
+/*
+ <ModalV1
+    renderButton={(modal) => (
+      <Button onClick={modal.open} label={'Add User'} size="md" />
+    )}
+    renderContent={(modal) => (
+      <>
+        <div className="w-48 px-5 py-10 bg-white rounded">Hello word</div>
+      </>
+    )}
+  />
+*/

@@ -126,6 +126,7 @@ const Sidebar = () => {
       ])}
       ref={sidebarRef}
     >
+      <NavLinkItem route={routes?.userCreate} />
       <NavLinkItem route={routes?.projects} />
       <NavLinkItem route={routes?.incomes} />
       <NavLinkItem route={routes?.expenses} />

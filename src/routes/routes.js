@@ -1,11 +1,18 @@
 import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
+import AddUser from '@/pages/Users/AddModal'
 import UserList from '@/pages/Users/List'
 import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
 import Env from '@/utils/environment'
 
 export const testRoutes = {
+  userCreate: {
+    label: 'User',
+    path: '/users/create',
+    element: <AddUser />,
+    icon: <Svg.Plus />,
+  },
   projects: {
     label: 'Projects',
     path: '/Projects',
@@ -48,6 +55,7 @@ export const testRoutes = {
     element: <div> path: /Route incomes </div>,
     icon: <Svg.InfoCircle />,
   },
+
   dropdown: {
     label: 'Dropdown',
     path: '/dropdown',
@@ -86,7 +94,6 @@ export const routesPrivate = {
     element: <div className="text-2xl"> Home </div>,
     icon: <Svg.Plus />,
   },
-
   users: {
     label: 'Users',
     path: '/users',
