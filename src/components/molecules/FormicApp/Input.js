@@ -10,12 +10,7 @@ import {
 import InputV1 from '../Form/InputV1'
 import get from '@/utils/obj/get'
 
-export default function InputFormik({
-  className,
-  name,
-  validate,
-  ...inputProps
-}) {
+export default function InputFormik({ name, validate, ...inputProps }) {
   const { setFieldValue, validateForm, ...formikProps } =
     useFormikContext?.() || {}
 

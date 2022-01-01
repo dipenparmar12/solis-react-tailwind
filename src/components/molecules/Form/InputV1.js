@@ -14,6 +14,7 @@ function InputV1(
     onBlur,
     onFocus,
     error,
+    className,
     classNames: {
       container: containerClassName = '',
       input: inputClassName = '',
@@ -26,7 +27,7 @@ function InputV1(
 ) {
   const [_, setTest] = React.useState(false)
   return (
-    <fieldset className={classNames(containerClassName)}>
+    <fieldset className={classNames(containerClassName, className)}>
       <label
         className={classNames(
           'flex items-center mb-1 text-gray-600 dark:text-gray-300',
@@ -51,7 +52,7 @@ function InputV1(
           // error &&
           //   ' text-red-400  bg-red-100/80 hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
           error &&
-            '   bg-red-400/5 hover:bg-red-400/5 active:bg-red-400/5 focus:bg-red-400/5  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
+            '  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
           inputClassName,
         ])}
         name={name}
