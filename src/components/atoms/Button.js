@@ -46,8 +46,9 @@ function ButtonUnMemo(
 
   return (
     <button
+      ref={forwardRef}
       onClick={handleClick}
-      className={classNames(_classNames)}    
+      className={classNames(_classNames, className)}    
       {...buttonProps}
     >
       {label || children} 

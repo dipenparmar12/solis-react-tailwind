@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import ModalV1 from '@/components/molecules/ModalV1/ModalV1'
+import ModalV1 from '@/components/molecules/Modal/ModalV1'
 import Random from '@/utils/faker/random'
 import Button from '@/components/atoms/Button'
 

@@ -1,1 +1,7 @@
-TODO:: modal animation: https://codesandbox.io/s/react-spring-animated-modal-sl19p?file=/src/index.js:253-489
+TODO:: 
+modal animation: https://codesandbox.io/s/react-spring-animated-modal-sl19p?file=/src/index.js:253-489
+
+
+
+REFERENCE: Form input
+https://dribbble.com/signup/new
