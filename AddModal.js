@@ -1,13 +1,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react'
-import classNames from 'classnames'
 import Button from '@/components/atoms/Button'
 import ModalV1 from '@/components/molecules/Modal/ModalV1'
 import InputV1 from '@/components/molecules/Form/InputV1'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
-import get from '@/utils/obj/get'
-import InputFormik from '@/components/molecules/FormicApp/Input'
 
 export default function AddUser() {
   React.useEffect(() => {}, [])
@@ -19,9 +16,7 @@ export default function AddUser() {
           <FormikForm
             initialValues={{
               name: '',
-              email: '',
               password: '',
-              passwordConfirm: '',
             }}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true)
@@ -29,20 +24,22 @@ export default function AddUser() {
               setSubmitting(false)
             }}
           >
-            <UserFields />
+            <>
+              <FormikForm.Input name="name" label="Name" type="text" />
+              <FormikForm.Input
+                name="password"
+                label="password"
+                type="password"
+              />
+              <hr />
+              <hr />
+              <br />
+              <Button>Submit</Button>
+              <hr />
+            </>
           </FormikForm>
         </div>
       </div>
-    </>
-  )
-}
-
-const UserFields = () => {
-  return (
-    <>
-      <InputFormik name="name" label="Name" type="text" />
-      <InputFormik name="password" label="password" type="password" />
-      <FormikForm.Debug />
     </>
   )
 }

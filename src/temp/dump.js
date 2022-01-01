@@ -1,3 +1,4 @@
+/* eslint-disable */
 const axios = {}
 const store = {}
 
@@ -254,3 +255,118 @@ export default {
 function isPlainObject(obj) {
   return Object.prototype.toString.call(obj) === '[object Object]'
 }
+
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+// import React from 'react'
+// import classNames from 'classnames'
+// import Button from '@/components/atoms/Button'
+// import ModalV1 from '@/components/molecules/Modal/ModalV1'
+// import InputV1 from '@/components/molecules/Form/InputV1'
+// import FormikForm from '@/components/molecules/FormicApp/FormFormik'
+// import get from '@/utils/obj/get'
+
+function AddUser() {
+  return (
+    <>
+      <div className="px-3 py-4 rounded shadow-md">
+        <div>
+          <FormikForm
+            initialValues={{
+              name: '',
+              email: '',
+              password: '',
+              passwordConfirm: '',
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+              setSubmitting(true)
+              console.log(values)
+              setSubmitting(false)
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+            }) => (
+              <>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5 ">
+                  <InputV1
+                    name="name"
+                    label="Name"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={get(touched, 'name') && get(errors, 'name')}
+                    type="text"
+                  />
+                  <InputV1
+                    name="email"
+                    label="Email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={get(touched, 'email') && get(errors, 'email')}
+                    type="text"
+                  />
+                  <InputV1
+                    name="password"
+                    label="Password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={get(touched, 'password') && get(errors, 'password')}
+                    type="password"
+                  />
+                  <InputV1
+                    name="passwordConfirm"
+                    label="Confirm Password"
+                    value={values.passwordConfirm}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={
+                      get(touched, 'passwordConfirm') &&
+                      get(errors, 'passwordConfirm')
+                    }
+                    type="password"
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <Button
+                    className={classNames(
+                      'bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline',
+                      {
+                        'opacity-50 cursor-not-allowed': isSubmitting,
+                      },
+                    )}
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    Add User
+                  </Button>
+                </div>
+              </>
+            )}
+          </FormikForm>
+        </div>
+      </div>
+    </>
+  )
+}
+
+/*
+ <ModalV1
+    renderButton={(modal) => (
+      <Button onClick={modal.open} label={'Add User'} size="md" />
+    )}
+    renderContent={(modal) => (
+      <>
+        <div className="w-48 px-5 py-10 bg-white rounded">Hello word</div>
+      </>
+    )}
+  />
+*/
