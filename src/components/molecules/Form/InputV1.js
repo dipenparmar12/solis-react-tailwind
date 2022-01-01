@@ -40,10 +40,6 @@ function InputV1(
       </label>
       <input
         ref={inputRef}
-        autoComplete="name"
-        type="text"
-        name="username"
-        defaultValue={'dipen parmar12'}
         className={classNames([
           'outline-none w-full ',
           'block rounded-lg border border-transparent text-gray-700',
@@ -56,6 +52,12 @@ function InputV1(
             'bg-red-100/80 text-red-400  hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
           inputClassName,
         ])}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        placeholder={placeholder}
         {...inputProps}
       />
       {error && (

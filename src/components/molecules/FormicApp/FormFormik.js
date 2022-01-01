@@ -7,13 +7,19 @@ import InputFormik from './Input'
 function FormikForm({
   debug,
   initialValues,
+  validationSchema,
   onSubmit,
   children,
   ...formProps
 }) {
   React.useEffect(() => {}, [])
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit} {...formProps}>
+    <Formik
+      validationSchema={validationSchema}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      {...formProps}
+    >
       {() => (
         <Form>
           {children}
@@ -27,10 +33,17 @@ function FormikForm({
 FormikForm.Input = InputFormik
 
 FormikForm.Debug = () => {
-  const formikProps = useFormikContext()
+  const { errors, values, ...formikProps } = useFormikContext()
   if (isProdEnv) return null
   return (
-    <Print data={{ error: formikProps.errors, values: formikProps.values }} />
+    <Print
+      data={{
+        errors,
+        values,
+        ...formikProps,
+      }}
+      className={'max-w-2xl overflow-x-auto'}
+    />
   )
 }
 

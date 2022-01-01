@@ -18,6 +18,11 @@ export default function InputFormik({
 }) {
   const { setFieldValue, validateForm, ...formikProps } =
     useFormikContext?.() || {}
+
+  // React.useEffect(() => {
+  //   console.log('Input.js::[22] formikProps', formikProps)
+  // }, [formikProps.values[name]])
+
   return (
     <Field name={name}>
       {({ field, form }) => (
@@ -27,8 +32,12 @@ export default function InputFormik({
             {...inputProps}
             form={form}
             onChange={(e) => {
-              setFieldValue(name, e.target.value)
+              setFieldValue(name, e?.target?.value || '')
             }}
+            error={
+              get(formikProps, `touched.${name}`) &&
+              get(formikProps, `errors.${name}`)
+            }
           />
         </>
       )}
