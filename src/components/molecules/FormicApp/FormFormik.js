@@ -4,11 +4,22 @@ import Print from '@/components/atoms/Print'
 import { isProdEnv } from '@/utils/environment'
 import InputFormik from './Input'
 
-function FormikForm({ initialValues, onSubmit, children, ...formProps }) {
+function FormikForm({
+  debug,
+  initialValues,
+  onSubmit,
+  children,
+  ...formProps
+}) {
   React.useEffect(() => {}, [])
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit} {...formProps}>
-      {() => <Form>{children}</Form>}
+      {() => (
+        <Form>
+          {children}
+          {debug && <FormikForm.Debug />}
+        </Form>
+      )}
     </Formik>
   )
 }

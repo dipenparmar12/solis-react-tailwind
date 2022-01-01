@@ -28,21 +28,13 @@ export default function AddUser() {
               console.log(values)
               setSubmitting(false)
             }}
+            debug
           >
-            <UserFields />
+            <InputFormik name="name" label="Name" type="text" />
+            <InputFormik name="password" label="password" type="password" />
           </FormikForm>
         </div>
       </div>
-    </>
-  )
-}
-
-const UserFields = () => {
-  return (
-    <>
-      <InputFormik name="name" label="Name" type="text" />
-      <InputFormik name="password" label="password" type="password" />
-      <FormikForm.Debug />
     </>
   )
 }
