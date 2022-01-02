@@ -85,5 +85,5 @@ function InputApp(
 export default React.forwardRef(InputApp)
 
 export const InputFormik = ({ ...props }, ...rest) => (
-  <WithFormik as={InputApp} {...props} /> // {...(rest || {})}
+  <WithFormik inputAs={InputApp} {...props} /> // {...(rest || {})}
 )

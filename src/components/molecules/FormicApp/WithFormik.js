@@ -2,15 +2,15 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react'
 import {
-  Field as FormikField,
-  ErrorMessage,
   Field,
   useFormikContext,
+  Field as FormikField,
+  ErrorMessage,
 } from 'formik'
 import get from '@/utils/obj/get'
 
 function WithFormik(
-  { as: Component, name, validate, onChange, ...inputProps },
+  { inputAs: Component, name, validate, onChange, ...inputProps },
   ref,
 ) {
   const { setFieldValue, validateForm, ...formikProps } =

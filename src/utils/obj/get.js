@@ -26,7 +26,7 @@
  * // => 3
  * ```
  */
-function get(object, path, defaultValue) {
+function get(object, path, defaultValue = undefined) {
   const isString = typeof path === 'string'
   const paths = isString ? path.replace(/\[(\d+)\]/g, '.$1').split('.') : path
   let result = object

@@ -86,5 +86,5 @@ function InputDate(
 export default React.forwardRef(InputDate)
 
 export const DateFormik = ({ ...props }) => (
-  <WithFormik as={InputDate} {...props} />
+  <WithFormik inputAs={InputDate} {...props} />
 )
