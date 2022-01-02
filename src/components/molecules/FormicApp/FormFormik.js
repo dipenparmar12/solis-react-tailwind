@@ -1,11 +1,14 @@
+/* eslint-disable no-nested-ternary */
 import { Formik, Form, Field as FormikField, useFormikContext } from 'formik'
 import React from 'react'
 import Print from '@/components/atoms/Print'
 import { isProdEnv } from '@/utils/environment'
 import InputFormik from './Input'
+import Types from '@/utils/validation/Types'
+import pick from '@/utils/obj/pick'
 
 function FormikForm({
-  debug,
+  debug, // '*' | true | false | ['errors'] | ['values', 'errors', 'touched']
   initialValues,
   validationSchema,
   onSubmit,
@@ -23,7 +26,7 @@ function FormikForm({
       {() => (
         <Form>
           {children}
-          {debug && <FormikForm.Debug />}
+          {debug && <FormikForm.Debug config={debug === true ? true : debug} />}
         </Form>
       )}
     </Formik>
@@ -32,15 +35,18 @@ function FormikForm({
 
 FormikForm.Input = InputFormik
 
-FormikForm.Debug = () => {
-  const { errors, values, ...formikProps } = useFormikContext()
+FormikForm.Debug = ({ config }) => {
+  const formikProps = useFormikContext()
   if (isProdEnv) return null
+
   return (
     <Print
       data={{
-        errors,
-        values,
-        ...formikProps,
+        ...(config === true
+          ? pick(formikProps, 'values', 'errors')
+          : config === '*'
+          ? formikProps
+          : pick(formikProps, ...config)),
       }}
       className={'max-w-2xl overflow-x-auto'}
     />

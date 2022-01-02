@@ -66,6 +66,7 @@ module.exports = {
     'react/no-array-index-key': 'warn',
     'react/no-unstable-nested-components': 'warn',
     'no-unreachable': 'warn',
+    'no-nested-ternary': 'warn',
     camelcase: 'warn',
     'import/order': 'warn',
     'no-underscore-dangle': 'warn',
