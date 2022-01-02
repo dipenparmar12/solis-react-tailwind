@@ -6,8 +6,6 @@ import useMergeState from '@/hooks/useMergeState'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import useQryParams from '@/hooks/useQryParams'
-import Button from '@/components/atoms/Button'
-import AddUser from './AddModal'
 
 export default function UserList() {
   const [apiQry, setApiQry] = useMergeState({ per_page: 15 })
@@ -39,10 +37,6 @@ export default function UserList() {
           currentPage={resUsers.paginationData?.current_page || 0}
           loading={resUsers?.loading}
         />
-
-        <div className="my-3">
-          <AddUser />
-        </div>
 
         <ErrorState error={!resUsers?.loading && resUsers?.error} />
 

@@ -1,6 +1,6 @@
 import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
-import AddUser from '@/pages/Users/AddModal'
+import UserAddForm from '@/pages/Users/AddForm'
 import UserList from '@/pages/Users/List'
 import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
@@ -10,7 +10,7 @@ export const testRoutes = {
   userCreate: {
     label: 'User',
     path: '/users/create',
-    element: <AddUser />,
+    element: <UserAddForm />,
     icon: <Svg.Plus />,
   },
   projects: {

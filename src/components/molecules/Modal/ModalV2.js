@@ -2,6 +2,7 @@ import React from 'react'
 import Dialog, { DialogContent, DialogOverlay } from '@reach/dialog'
 import { useTransition, animated } from 'react-spring'
 import '@reach/dialog/styles.css'
+import classNames from 'classnames'
 
 function ModalV2({
   isOpen: propsIsOpen,
@@ -10,7 +11,7 @@ function ModalV2({
   renderContent = (modal) => {},
   className,
   children,
-  closeButton,
+  size: propsSize,
 }) {
   const [stateIsOpen, setStateOpen] = React.useState(false)
   const isControlled = typeof propsIsOpen === 'boolean'
@@ -18,6 +19,8 @@ function ModalV2({
 
   const $modalRef = React.useRef()
   const $clickableOverlayRef = React.useRef()
+
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full']
 
   const closeModal = React.useCallback(() => {
     if (!isControlled) {
@@ -35,10 +38,12 @@ function ModalV2({
         style={{ zIndex: 10 }}
         isOpen={isOpen}
         onDismiss={closeModal}
-        className=" bg-black/50"
+        className="bg-black/50"
       >
+        {/* Sizes */}
         <DialogContent
-          className="p-0"
+          aria-label="Modal"
+          className={classNames('', 'p-0', className)}
           style={{ boxShadow: '0px 10px 50px hsla(0, 0%, 0%, 0.1)' }}
         >
           {children || (renderContent && renderContent({ close: closeModal }))}
