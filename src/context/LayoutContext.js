@@ -1,7 +1,7 @@
 import React from 'react'
-import useOnEscapeKeyDown from '@/hooks/useOnEscapeKeyDown'
-// import useOnOutsideClick from '@/hooks/useOnOutsideClick'
 import useLocalStorage from '@/hooks/useLocalStorage'
+import useOnEscapeKeyDown from '@/hooks/useOnEscapeKeyDown'
+import useOnOutsideClick from '@/hooks/useOnOutsideClick'
 
 const LayoutContext = React.createContext(null)
 export default function LayoutProvider({ children }) {
@@ -14,7 +14,7 @@ export default function LayoutProvider({ children }) {
   const [isSidebarVisible, setIsSidebarVisible] = React.useState(false)
   const handleUnVisibleSideBar = () => setIsSidebarVisible(false)
   const sidebarRef = React.useRef()
-  // useOnOutsideClick(sidebarRef, isSidebarVisible, handleUnVisibleSideBar)
+  useOnOutsideClick(sidebarRef, isSidebarVisible, handleUnVisibleSideBar)
   useOnEscapeKeyDown(isSidebarVisible, handleUnVisibleSideBar)
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
