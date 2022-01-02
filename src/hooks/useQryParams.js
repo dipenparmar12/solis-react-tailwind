@@ -8,12 +8,12 @@ export default function useQryParams({ setParams = () => {} }) {
   }, [])
 
   const get = React.useCallback(() => {
-    const qry = new URLSearchParams(window.location.search)
+    const qry = new URLSearchParams(window?.location?.search)
     return Object.fromEntries(qry)
   }, [])
 
   const clear = React.useCallback(() => {
-    window.history.pushState({}, '', window.location.pathname)
+    window.history.pushState({}, '', window?.location?.pathname || '/')
   }, [])
 
   // const setParam = (key, value) => {

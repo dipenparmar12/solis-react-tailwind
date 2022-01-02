@@ -44,7 +44,7 @@ export default function AuthProvider({ children }) {
   const signOutRedirect = (newUser, callback) => {
     return authService.signOut(() => {
       setUser(newUser)
-      navigate(routes.login.path)
+      navigate(routes?.login?.path)
     })
   }
 
@@ -70,7 +70,7 @@ export const RequireAuth = function ({ children }) {
   // }, [auth.user])
 
   if (!auth.user) {
-    return <Navigate to={routes.login.path} state={{ from: location }} />
+    return <Navigate to={routes?.login?.path} state={{ from: location }} />
   }
 
   return children

@@ -79,6 +79,12 @@ export const testRoutes = {
 }
 
 export const routesPublic = {
+  root: {
+    label: 'Login',
+    path: '/',
+    element: <LoginPage />,
+    public: true,
+  },
   login: {
     label: 'Login',
     path: '/login',

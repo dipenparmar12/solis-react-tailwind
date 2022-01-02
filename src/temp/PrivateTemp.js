@@ -24,7 +24,7 @@ const PrivateTemp = () => {
       </button>
       <button
         className="ml-3 text-gray-200 bg-red-500 btn"
-        onClick={() => auth.signOut(() => navigate(routes.login.path))}
+        onClick={() => auth.signOut(() => navigate(routes?.login?.path))}
       >
         sing out{' '}
       </button>
