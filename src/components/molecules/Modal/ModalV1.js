@@ -41,36 +41,35 @@ export default function ModalV1({
       {isOpen && (
         <Portal>
           <ScrollOverlay>
-            <ClickableOverlay clickRef={$clickableOverlayRef}>
-              <div
-                className={`inline-block relative w-full rounded-sm ${className}`}
-                ref={$modalRef}
-              >
-                {closeButton && (
-                  <div className="absolute top-0 right-0 p-3">
-                    <button
-                      className="text-gray-500 hover:text-gray-900 focus:outline-none"
-                      onClick={closeModal}
+            <div
+              className={`inline-block relative w-auto rounded-sm ${className}`}
+              ref={$modalRef}
+            >
+              {closeButton && (
+                <div className="absolute top-0 right-0 p-3">
+                  <button
+                    className="text-gray-500 hover:text-gray-900 focus:outline-none"
+                    onClick={closeModal}
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </div>
-                )}
+                      <path d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              )}
 
-                {children ||
-                  (renderContent && renderContent({ close: closeModal }))}
-              </div>
-            </ClickableOverlay>
+              {children ||
+                (renderContent && renderContent({ close: closeModal }))}
+            </div>
+            {/* <ClickableOverlay clickRef={$clickableOverlayRef}> </ClickableOverlay> */}
           </ScrollOverlay>
         </Portal>
       )}
@@ -94,7 +93,8 @@ const ClickableOverlay = React.forwardRef(({ children }, clickRef) => {
     <>
       <div
         // ref={clickRef}
-        className="flex items-center justify-center min-h-full m-auto"
+        className="absolute"
+        style={{ inset: '40px', overflow: 'auto' }}
       >
         {children}
       </div>

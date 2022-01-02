@@ -54,7 +54,8 @@ const TopNav = () => {
   return (
     <div
       ref={testRef}
-      className="relative z-10 flex items-center justify-between w-full px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14"
+      className="relative flex items-center justify-between w-full px-4 text-xl bg-white border-b shadow dark:bg-slate-700 dark:border-gray-800 h-14"
+      // style={{ zIndex: '2' }}
     >
       <div
         className={cn([
@@ -147,7 +148,7 @@ const DropDownMenu = ({ ...props }, forwardRef) => {
 
   const auth = useAuth()
   return (
-    <div ref={dropDownRef} className="relative text-base">
+    <div ref={dropDownRef} className="relative text-base" style={{ zIndex: 5 }}>
       <button
         className="block mt-1 overflow-hidden rounded-full w-7 h-7"
         onClick={() => setIsVisible(!isVisible)}
