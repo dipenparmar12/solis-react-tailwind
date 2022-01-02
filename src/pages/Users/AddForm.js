@@ -79,6 +79,21 @@ export default function UserAddForm() {
             <div className="flex flex-col gap-3 md:flex-row">
               <InputFormik
                 className={'flex-1'}
+                name="dob"
+                label="Date of birth"
+                type="date"
+              />
+              <InputFormik
+                className={'flex-1'}
+                name="doj"
+                label="Date of joining"
+                type="date"
+              />
+            </div>
+
+            <div className="flex flex-col gap-3 md:flex-row">
+              <InputFormik
+                className={'flex-1'}
                 as="textarea"
                 name="address"
                 label="Address and Notes"

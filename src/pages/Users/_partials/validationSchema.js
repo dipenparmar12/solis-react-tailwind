@@ -27,9 +27,20 @@ function addUserSchema(init) {
       .typeError('Salary must be a number')
       .label('Salary'),
 
-    dob: yup.string().nullable().required().label('Date of birth'),
-    doj: yup.string().nullable().required().label('Date of joining'),
-    user_type: yup.string().nullable().required().label('User type'),
+    dob: yup
+      .date()
+      .nullable()
+      .max(new Date(), 'Date of birth can not be future date') // Date can be future date
+      .typeError('Invalid date')
+      .label('Date of birth'),
+    doj: yup
+      .date()
+      .nullable()
+      .max(new Date(), 'Date of joining can not be future date') // Date can be future date
+      .typeError('Invalid date')
+      .label('Date of joining'),
+
+    user_type: yup.string().nullable().label('User type'),
 
     address: yup.string().nullable().label('Address'),
     active: yup.string().nullable().label('Active'),
