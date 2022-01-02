@@ -59,8 +59,11 @@ View Heroku logs
 
 > `heroku logs --tail`
 
-Url: https://solis-react-app-test.herokuapp.com/
+Cancel heroku running build
 
+> `heroku builds:cancel -a your-app-name`
+
+Url: https://solis-react-app-test.herokuapp.com/
 
 ### Netlify Deploy
 
@@ -200,9 +203,10 @@ module.exports = {
 ```
 
 ### External resources and references
+
 - Icons: https://heroicons.dev/
 - How to use variants: https://gist.github.com/RobinMalfait/490a0560a7cfde985d435ad93f8094c5
-- Tailwindcss Overrides, Merge classes: 
+- Tailwindcss Overrides, Merge classes:
   - https://github.com/dcastil/tailwind-merge
   - https://github.com/richardgill/tailwind-override#readme
 - Atomic Design Pattern: https://medium.com/@janelle.wg/atomic-design-pattern-how-to-structure-your-react-application-2bb4d9ca5f97
