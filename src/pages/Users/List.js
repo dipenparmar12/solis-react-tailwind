@@ -36,6 +36,7 @@ export default function UserList() {
           pageSize={resUsers.paginationData?.per_page || 0}
           currentPage={resUsers.paginationData?.current_page || 0}
           loading={resUsers?.loading}
+          siblingCount={1}
         />
 
         <ErrorState error={!resUsers?.loading && resUsers?.error} />

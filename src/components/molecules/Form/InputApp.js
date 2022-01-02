@@ -5,14 +5,17 @@ import React from 'react'
 import useMergeRefs from '@/hooks/useMergeRefs'
 // import { BiError } from 'react-icons/bi'
 
-function InputV1(
+function InputApp(
   {
+    as: Input = 'input',
     name,
+    type,
     label,
     placeholder,
     value,
     onChange,
     error,
+    isRequired,
     className,
     classNames: {
       container: containerClassName = '',
@@ -40,9 +43,9 @@ function InputV1(
           ownRef.current?.focus()
         }}
       >
-        {label}
+        {label} {isRequired && <span className="pl-1 text-red-300"> *</span>}
       </label>
-      <input
+      <Input
         ref={mergedRef}
         className={classNames([
           'outline-none w-full ',
@@ -59,6 +62,7 @@ function InputV1(
           inputClassName,
         ])}
         name={name}
+        type={type}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
@@ -77,4 +81,4 @@ function InputV1(
     </fieldset>
   )
 }
-export default React.forwardRef(InputV1)
+export default React.forwardRef(InputApp)
