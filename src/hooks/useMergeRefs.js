@@ -20,8 +20,9 @@ export default function useMergeRefs(refs) {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {
         ref(node)
-      } else if (ref) {
+      } else if (ref && ref.current) {
         /* eslint-disable no-param-reassign */
+
         ref.current = node
       }
     })

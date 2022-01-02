@@ -7,30 +7,34 @@ import {
   Field,
   useFormikContext,
 } from 'formik'
-import InputApp from '../Form/InputApp'
 import get from '@/utils/obj/get'
 
-function InputFormik({ name, type, validate, ...inputProps }, ref) {
+function WithFormik(
+  { as: Component, name, validate, onChange, ...inputProps },
+  ref,
+) {
   const { setFieldValue, validateForm, ...formikProps } =
     useFormikContext?.() || {}
 
-  // React.useEffect(() => {
-  //   console.log('Input.js::[22] formikProps', formikProps)
-  // }, [formikProps.values[name]])
+  const handleChange = React.useCallback(
+    (e) => {
+      const value = e?.target ? get(e, 'target.value') : e
+      setFieldValue(name, value)
+      if (onChange) onChange(e, value)
+    },
+    [name, onChange, setFieldValue],
+  )
 
   return (
     <Field name={name}>
       {({ field, form }) => (
         <>
-          <InputApp
+          <Component
             ref={ref}
             {...field}
             {...inputProps}
             form={form}
-            type={type}
-            onChange={(e) => {
-              setFieldValue(name, e?.target?.value || '')
-            }}
+            onChange={handleChange}
             error={
               get(formikProps, `touched.${name}`) &&
               get(formikProps, `errors.${name}`)
@@ -42,4 +46,4 @@ function InputFormik({ name, type, validate, ...inputProps }, ref) {
   )
 }
 
-export default React.forwardRef(InputFormik)
+export default React.forwardRef(WithFormik)

@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals'
 import AuthProvider from './context/AuthContext'
 import LayoutProvider from './context/LayoutContext'
 import 'react-toastify/dist/ReactToastify.min.css'
+import 'react-datepicker/dist/react-datepicker.css'
+import '@reach/dialog/styles.css'
 import './index.scss'
 
 console.info('index.js::[12] env', process.env.NODE_ENV)

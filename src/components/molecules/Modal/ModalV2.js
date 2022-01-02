@@ -1,7 +1,6 @@
 import React from 'react'
 import Dialog, { DialogContent, DialogOverlay } from '@reach/dialog'
 import { useTransition, animated } from 'react-spring'
-import '@reach/dialog/styles.css'
 import classNames from 'classnames'
 
 function ModalV2({

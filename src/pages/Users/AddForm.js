@@ -3,8 +3,9 @@
 import React from 'react'
 import Button from '@/components/atoms/Button'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
-import InputFormik from '@/components/molecules/FormicApp/Input'
 import addUserSchema from './_partials/validationSchema'
+import { InputFormik } from '@/components/molecules/Form/InputApp'
+import { DateFormik } from '@/components/molecules/Form/InputDate'
 
 export default function UserAddForm() {
   return (
@@ -77,13 +78,14 @@ export default function UserAddForm() {
             </div>
 
             <div className="flex flex-col gap-3 md:flex-row">
-              <InputFormik
-                className={'flex-1'}
+              <DateFormik
+                className={'flex-1 text-red-700'}
                 name="dob"
                 label="Date of birth"
                 type="date"
               />
-              <InputFormik
+
+              <DateFormik
                 className={'flex-1'}
                 name="doj"
                 label="Date of joining"

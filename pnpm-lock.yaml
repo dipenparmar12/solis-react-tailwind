@@ -22,6 +22,7 @@ specifiers:
   postcss: ^8.4.4
   prettier: ^2.5.1
   react: ^17.0.2
+  react-datepicker: ^4.5.0
   react-dom: ^17.0.2
   react-router-dom: ^6.1.1
   react-scripts: 5.0.0-next.58
@@ -44,6 +45,7 @@ dependencies:
   js-cookie: 3.0.1
   node-sass: 7.0.0
   react: 17.0.2
+  react-datepicker: 4.5.0_react-dom@17.0.2+react@17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-router-dom: 6.1.1_react-dom@17.0.2+react@17.0.2
   react-scripts: 5.0.0-next.58_node-sass@7.0.0+react@17.0.2
@@ -1748,6 +1750,10 @@ packages:
       source-map: 0.7.3
       webpack: 5.65.0
       webpack-dev-server: 4.6.0_webpack@5.65.0
+    dev: false
+
+  /@popperjs/core/2.11.0:
+    resolution: {integrity: sha512-zrsUxjLOKAzdewIDRWy9nsV1GQsKBCWaGwsZQlCgr6/q+vjyZhFgqedLfFBuI9anTPEUT4APq9Mu0SZBTzIcGQ==}
     dev: false
 
   /@reach/dialog/0.16.2_react-dom@17.0.2+react@17.0.2:
@@ -3908,6 +3914,11 @@ packages:
       abab: 2.0.5
       whatwg-mimetype: 2.3.0
       whatwg-url: 8.7.0
+    dev: false
+
+  /date-fns/2.28.0:
+    resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==}
+    engines: {node: '>=0.11'}
     dev: false
 
   /debug/2.6.9:
@@ -8383,6 +8394,22 @@ packages:
       react: 17.0.2
     dev: false
 
+  /react-datepicker/4.5.0_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-mFP/SbtFSXx21Wx3Nfv+RREwd/x0q14x7QL79ZCi/PVkHSFLwLWhXyOtj3OIzi1AcVYb/fMMcvi8e5b12n8/sg==}
+    peerDependencies:
+      react: ^16.9.0 || ^17
+      react-dom: ^16.9.0 || ^17
+    dependencies:
+      '@popperjs/core': 2.11.0
+      classnames: 2.3.1
+      date-fns: 2.28.0
+      prop-types: 15.7.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-onclickoutside: 6.12.1_react-dom@17.0.2+react@17.0.2
+      react-popper: 2.2.5_dc71eca6f47a6289504c8be4d8a96e45
+    dev: false
+
   /react-dev-utils/12.0.0-next.58_eslint@8.4.1+webpack@5.65.0:
     resolution: {integrity: sha512-EE1ZBMahzN+sF5oXZgA0Iim2oPluEuAi4K9W2/f98oPFLhCFA2ZytW3NIZayKPoeGFCAUy2fI/PD8tyw7KxBOw==}
     engines: {node: '>=14'}
@@ -8437,6 +8464,10 @@ packages:
     resolution: {integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==}
     dev: false
 
+  /react-fast-compare/3.2.0:
+    resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
+    dev: false
+
   /react-focus-lock/2.7.1_react@17.0.2:
     resolution: {integrity: sha512-ImSeVmcrLKNMqzUsIdqOkXwTVltj79OPu43oT8tVun7eIckA4VdM7UmYUFo3H/UC2nRVgagMZGFnAOQEDiDYcA==}
     peerDependencies:
@@ -8458,6 +8489,28 @@ packages:
 
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
+    dev: false
+
+  /react-onclickoutside/6.12.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-a5Q7CkWznBRUWPmocCvE8b6lEYw1s6+opp/60dCunhO+G6E4tDTO2Sd2jKE+leEnnrLAE2Wj5DlDHNqj5wPv1Q==}
+    peerDependencies:
+      react: ^15.5.x || ^16.x || ^17.x
+      react-dom: ^15.5.x || ^16.x || ^17.x
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /react-popper/2.2.5_dc71eca6f47a6289504c8be4d8a96e45:
+    resolution: {integrity: sha512-kxGkS80eQGtLl18+uig1UIf9MKixFSyPxglsgLBxlYnyDf65BiY9B3nZSc6C9XUNDgStROB0fMQlTEz1KxGddw==}
+    peerDependencies:
+      '@popperjs/core': ^2.0.0
+      react: ^16.8.0 || ^17
+    dependencies:
+      '@popperjs/core': 2.11.0
+      react: 17.0.2
+      react-fast-compare: 3.2.0
+      warning: 4.0.3
     dev: false
 
   /react-refresh/0.11.0:
@@ -10198,6 +10251,12 @@ packages:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}
     dependencies:
       makeerror: 1.0.12
+    dev: false
+
+  /warning/4.0.3:
+    resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
+    dependencies:
+      loose-envify: 1.4.0
     dev: false
 
   /watchpack/2.3.1:

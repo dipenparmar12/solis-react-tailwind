@@ -4,8 +4,9 @@ import { Formik, Form, Field as FormikField, useFormikContext } from 'formik'
 import React from 'react'
 import Print from '@/components/atoms/Print'
 import { isProdEnv } from '@/utils/environment'
-import InputFormik from './Input'
 import pick from '@/utils/obj/pick'
+import { InputFormik } from '../Form/InputApp'
+import { DateFormik } from '../Form/InputDate'
 
 function FormikForm({
   debug, // '*' | true | false | ['errors'] | ['values', 'errors', 'touched']
@@ -34,6 +35,7 @@ function FormikForm({
 }
 
 FormikForm.Input = InputFormik
+FormikForm.DATE = DateFormik
 
 FormikForm.Debug = ({ config }) => {
   const formikProps = useFormikContext()

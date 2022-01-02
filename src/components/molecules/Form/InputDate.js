@@ -2,11 +2,11 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import classNames from 'classnames'
 import React from 'react'
+import DatePicker from 'react-datepicker'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
-// import { BiError } from 'react-icons/bi'
 
-function InputApp(
+function InputDate(
   {
     as: Input = 'input',
     name,
@@ -46,8 +46,14 @@ function InputApp(
       >
         {label} {isRequired && <span className="pl-1 text-red-300"> *</span>}
       </label>
-      <Input
+      <DatePicker
         ref={mergedRef}
+        name={name}
+        type={type}
+        value={value}
+        selected={value}
+        onChange={onChange}
+        placeholder={placeholder}
         className={classNames([
           'outline-none w-full ',
           'block rounded-lg border border-transparent text-gray-700',
@@ -62,11 +68,6 @@ function InputApp(
           //   '  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
           inputClassName,
         ])}
-        name={name}
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
         {...inputProps}
       />
       {error && (
@@ -82,8 +83,8 @@ function InputApp(
     </fieldset>
   )
 }
-export default React.forwardRef(InputApp)
+export default React.forwardRef(InputDate)
 
-export const InputFormik = ({ ...props }, ...rest) => (
-  <WithFormik as={InputApp} {...props} /> // {...(rest || {})}
+export const DateFormik = ({ ...props }) => (
+  <WithFormik as={InputDate} {...props} />
 )
