@@ -2,7 +2,7 @@ import React from 'react'
 
 /**
  * Merges two or more refs together providing a single interface to set their value
- * @param {RefObject|Ref} refs
+ * @param {(*|React.MutableRefObject<null>)[]} refs
  * @returns {MutableRefObject} - a new ref, which translates all changes to {refs}
  *
  * @see {@link mergeRefs} a version without buit-in memoization

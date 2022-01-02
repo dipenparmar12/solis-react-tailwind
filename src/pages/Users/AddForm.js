@@ -104,6 +104,10 @@ export default function UserAddForm() {
                 rows="3"
               />
             </div>
+
+            <div className="flex flex-col gap-3 md:flex-row">
+              TODO:: Radio Button
+            </div>
           </div>
 
           <Button className="mt-5 " type="submit">

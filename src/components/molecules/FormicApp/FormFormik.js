@@ -7,6 +7,7 @@ import { isProdEnv } from '@/utils/environment'
 import pick from '@/utils/obj/pick'
 import { InputFormik } from '../Form/InputApp'
 import { DateFormik } from '../Form/InputDate'
+import Debug from './Debug'
 
 function FormikForm({
   debug, // '*' | true | false | ['errors'] | ['values', 'errors', 'touched']
@@ -34,25 +35,8 @@ function FormikForm({
   )
 }
 
+export default FormikForm
+
 FormikForm.Input = InputFormik
 FormikForm.DATE = DateFormik
-
-FormikForm.Debug = ({ config }) => {
-  const formikProps = useFormikContext()
-  if (isProdEnv) return null
-
-  return (
-    <Print
-      data={{
-        ...(config === true
-          ? pick(formikProps, 'values', 'errors')
-          : config === '*'
-            ? formikProps
-            : pick(formikProps, ...config)),
-      }}
-      className={'max-w-2xl overflow-x-auto'}
-    />
-  )
-}
-
-export default FormikForm
+FormikForm.Debug = Debug
