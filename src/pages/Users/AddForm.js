@@ -14,7 +14,14 @@ export default function UserAddForm() {
           debug={'*'}
           initialValues={{
             name: '',
+            email: '',
             password: '',
+            profile_pic: '',
+            role: '',
+            mobile: '',
+            salary: '',
+            dob: '',
+            doj: '',
           }}
           validationSchema={yup.object().shape({
             name: yup.string().min(5).required().label('Name'),
@@ -26,20 +33,53 @@ export default function UserAddForm() {
             setSubmitting(false)
           }}
         >
-          <div className="flex flex-col gap-3 md:flex-row">
-            <InputFormik
-              name="name"
-              label="Name"
-              type="text"
-              className={'flex-1'}
-            />
+          <div className="space-y-3">
+            <div className="flex flex-col gap-3 md:flex-row">
+              <InputFormik
+                name="email"
+                label="Email"
+                placeholder="User Email"
+                type="email"
+                className={'flex-1'}
+              />
+              <InputFormik
+                name="password"
+                label="Password"
+                type="password"
+                placeholder="Login Password"
+                className={'flex-1'}
+              />
+            </div>
 
-            <InputFormik
-              name="password"
-              label="Password"
-              type="password"
-              className={'flex-1'}
-            />
+            <div className="flex flex-col gap-3 md:flex-row">
+              <InputFormik
+                name="name"
+                label="Full Name"
+                type="text"
+                className={'flex-1'}
+              />
+              <InputFormik
+                name="mobile"
+                label="Mobile number"
+                type="text"
+                className={'flex-1'}
+              />
+              <InputFormik
+                name="salary"
+                label="Salary"
+                type="number"
+                className={'flex-1'}
+              />
+            </div>
+
+            <div className="flex flex-col gap-3 md:flex-row">
+              <InputFormik
+                name="salary"
+                label="Salary"
+                type="number"
+                className={'flex-1'}
+              />
+            </div>
           </div>
           <Button className="mt-5 " type="submit">
             Register

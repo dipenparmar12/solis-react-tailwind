@@ -1,10 +1,10 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-nested-ternary */
 import { Formik, Form, Field as FormikField, useFormikContext } from 'formik'
 import React from 'react'
 import Print from '@/components/atoms/Print'
 import { isProdEnv } from '@/utils/environment'
 import InputFormik from './Input'
-import Types from '@/utils/validation/Types'
 import pick from '@/utils/obj/pick'
 
 function FormikForm({
@@ -45,8 +45,8 @@ FormikForm.Debug = ({ config }) => {
         ...(config === true
           ? pick(formikProps, 'values', 'errors')
           : config === '*'
-          ? formikProps
-          : pick(formikProps, ...config)),
+            ? formikProps
+            : pick(formikProps, ...config)),
       }}
       className={'max-w-2xl overflow-x-auto'}
     />

@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import classNames from 'classnames'
 import React from 'react'
+import useMergeRefs from '@/hooks/useMergeRefs'
 // import { BiError } from 'react-icons/bi'
 
 function InputV1(
@@ -11,8 +12,6 @@ function InputV1(
     placeholder,
     value,
     onChange,
-    onBlur,
-    onFocus,
     error,
     className,
     classNames: {
@@ -25,7 +24,9 @@ function InputV1(
   },
   inputRef,
 ) {
-  const [_, setTest] = React.useState(false)
+  const ownRef = React.useRef(null)
+  const mergedRef = useMergeRefs([inputRef, ownRef])
+
   return (
     <fieldset className={classNames(containerClassName, className)}>
       <label
@@ -34,13 +35,15 @@ function InputV1(
           // isError && 'text-red-400',
           labelClassName,
         )}
-        htmlFor="user_name"
-        onClick={() => setTest(!error)}
+        htmlFor={name}
+        onClick={() => {
+          ownRef.current?.focus()
+        }}
       >
         {label}
       </label>
       <input
-        ref={inputRef}
+        ref={mergedRef}
         className={classNames([
           'outline-none w-full ',
           'block rounded-lg border border-transparent text-gray-700',
@@ -51,15 +54,13 @@ function InputV1(
           'transition duration-200 ease-in-out',
           // error &&
           //   ' text-red-400  bg-red-100/80 hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
-          error &&
-            '  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
+          // error &&
+          //   '  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
           inputClassName,
         ])}
         name={name}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
         placeholder={placeholder}
         {...inputProps}
       />

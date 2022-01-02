@@ -10,7 +10,7 @@ import {
 import InputV1 from '../Form/InputV1'
 import get from '@/utils/obj/get'
 
-export default function InputFormik({ name, validate, ...inputProps }) {
+function InputFormik({ name, validate, ...inputProps }, ref) {
   const { setFieldValue, validateForm, ...formikProps } =
     useFormikContext?.() || {}
 
@@ -23,6 +23,7 @@ export default function InputFormik({ name, validate, ...inputProps }) {
       {({ field, form }) => (
         <>
           <InputV1
+            ref={ref}
             {...field}
             {...inputProps}
             form={form}
@@ -39,3 +40,5 @@ export default function InputFormik({ name, validate, ...inputProps }) {
     </Field>
   )
 }
+
+export default React.forwardRef(InputFormik)
