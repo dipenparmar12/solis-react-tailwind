@@ -1,8 +1,7 @@
 import React from 'react'
 import useOnEscapeKeyDown from '@/hooks/useOnEscapeKeyDown'
 import useOnOutsideClick from '@/hooks/useOnOutsideClick'
-import useLocalStorage from '../hooks/useLocalStorage'
-import useOutsideClicked from '../hooks/useOutsideClickedV2'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
 const LayoutContext = React.createContext(null)
 export default function LayoutProvider({ children }) {

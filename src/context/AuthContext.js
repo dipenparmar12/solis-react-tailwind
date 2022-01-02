@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import useLocalStorage from '../hooks/useLocalStorage'
-import { routes } from '../App'
-import Api from '../services/ApiService'
+import useLocalStorage from '@/hooks/useLocalStorage'
+import routes from '@/routes/routes'
 
 /**
  *
