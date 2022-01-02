@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import routes from '@/routes/routes'
+import routes, { routesPublic } from '@/routes/routes'
 
 /**
  *
@@ -70,7 +70,7 @@ export const RequireAuth = function ({ children }) {
   // }, [auth.user])
 
   if (!auth.user) {
-    return <Navigate to={routes?.login?.path} state={{ from: location }} />
+    return <Navigate to={routesPublic?.login.path} state={{ from: location }} />
   }
 
   return children
