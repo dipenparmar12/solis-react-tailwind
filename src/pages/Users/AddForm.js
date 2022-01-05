@@ -30,10 +30,14 @@ export default function UserAddForm() {
         dataURLtoFile(image, values?.profile_pic?.name),
     }
 
-    Api.users.create(actions?.getFormData(postData)).catch((e) => {
-      actions?.setErrors(e?.response?.data?.errors)
-    })
-    actions?.setSubmitting(false)
+    Api.users
+      .create(actions?.getFormData(postData))
+      // .then(Api.utils.getRes)
+      .then(Api.utils.successMessage)
+      .then(actions.resetForm)
+      .catch((e) => actions?.setErrors(e?.response?.data?.errors))
+      .finally(() => actions?.setSubmitting(false))
+
     wait(1000).then(() => {})
   }
 

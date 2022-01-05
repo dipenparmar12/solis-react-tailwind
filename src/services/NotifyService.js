@@ -9,7 +9,7 @@ const NotifyManager = (options) => {
   // console.warn('notificationService.js::9 Notify:::', options)
   const notifyOptions = {
     type: 'info', // info, success, warning, error, default, dark
-    position: 'bottom-center',
+    position: 'top-right',
     delay: 7,
     message: 'Solis',
     autoClose: 7000,

@@ -1,5 +1,6 @@
 import encode from '../utils/obj/qryString'
 import _axios, { StatusCode } from './AxiosService'
+import Notify from './NotifyService'
 
 const auth = {
   csrf: async () => _axios.get('/sanctum/csrf-cookie'),
@@ -23,9 +24,25 @@ const test = {
   notFound: async () => _axios.get(`/notfound`),
 }
 
+const utils = {
+  getRes: (res) => res?.data,
+  successMessage: (res) => {
+    Notify.success(res?.data?.successMessage || res?.successMessage, {
+      toastId: res?.path,
+    })
+    return res
+  },
+  // catchError: (error) => {
+  //   Notify.error(<div className="">{error?.response?.data?.message}</div>, {
+  //     toastId: 'API_ERROR',
+  //   })
+  // },
+}
+
 const Api = {
   auth,
   users,
+  utils,
   test,
 }
 
