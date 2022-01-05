@@ -17,10 +17,10 @@ function WithFormik(
     useFormikContext?.() || {}
 
   const handleChange = React.useCallback(
-    (e) => {
+    (e, ...args) => {
       const value = e?.target ? get(e, 'target.value') : e
       setFieldValue(name, value)
-      if (onChange) onChange(e, value)
+      if (onChange) onChange(e, value, ...args)
     },
     [name, onChange, setFieldValue],
   )

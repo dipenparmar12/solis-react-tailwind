@@ -13,6 +13,12 @@ import { ImageUploadFormik } from '@/components/molecules/Form/ImageUpload'
 import { DateFormik } from '@/components/molecules/Form/InputDate'
 
 export default function UserAddForm() {
+  const [image, setImage] = React.useState()
+
+  const handleImageChange = (base64, file) => {
+    setImage(base64)
+  }
+
   return (
     <>
       <div className="px-5 py-8 bg-white border shadow-md ">
@@ -134,6 +140,7 @@ export default function UserAddForm() {
                 name="profile_pic"
                 placeholder="Drop your image here"
                 label="Select Profile Picture"
+                getBase64={handleImageChange}
               />
             </div>
           </div>

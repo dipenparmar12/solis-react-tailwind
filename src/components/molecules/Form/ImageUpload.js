@@ -7,6 +7,7 @@ import WithFormik from '../FormicApp/WithFormik'
  * @param {*} param0
  * @returns
  * @src https://tailwindcomponents.com/component/tailwind-file-upload
+ * @src https://codepen.io/simonswiss/pen/bprJmw
  */
 function ImageUpload({
   name,
@@ -18,6 +19,7 @@ function ImageUpload({
   maxSize,
   minSize,
   onChange = () => {},
+  getBase64 = (uri, file) => {},
   ...inputProps
 }) {
   const [file, setFile] = React.useState({})
@@ -25,26 +27,15 @@ function ImageUpload({
 
   React.useEffect(() => {
     onChange(file, selectedImageUri)
-  }, [selectedImageUri, onChange])
-
-  // File validation
-  const validateFile = (_file) => {
-    if (maxSize && _file.size > maxSize) {
-      return false
-    }
-    if (minSize && _file.size < minSize) {
-      return false
-    }
-    return true
-  }
+    getBase64(selectedImageUri, file)
+  }, [file, onChange, selectedImageUri])
 
   const handleFileChange = React.useCallback(
     (e) => {
       e.preventDefault()
       e.stopPropagation()
-      const files = e?.target?.files || e?.dataTransfer?.files
-      const uploadedFile = files?.[0] || {}
-      if (uploadedFile && validateFile(uploadedFile)) {
+      const uploadedFile = (e?.target?.files || e?.dataTransfer?.files)?.[0]
+      if (uploadedFile) {
         setFile({
           file: uploadedFile,
           name: uploadedFile.name,
@@ -64,7 +55,7 @@ function ImageUpload({
   const handleRemoveImage = React.useCallback(() => {
     setFile({})
     setSelectedImageUri(null)
-  }, [])
+  }, [setFile, setSelectedImageUri])
 
   return (
     <div className={classNames('flex flex-col mt-2 ', className)}>
