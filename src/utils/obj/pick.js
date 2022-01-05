@@ -23,6 +23,7 @@
  * ```
  */
 function pick(object, keys, ...args) {
+  // eslint-disable-next-line no-param-reassign
   Array.isArray(keys) || (keys = [keys])
   if (args) keys.splice(keys.length, 0, ...args) // merge two keys
 

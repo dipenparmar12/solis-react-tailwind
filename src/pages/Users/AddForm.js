@@ -9,14 +9,17 @@ import addUserSchema from './_partials/validationSchema'
 import { InputFormik } from '@/components/molecules/Form/InputApp'
 import { DateFormik } from '@/components/molecules/Form/InputDate'
 import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
+import RadioButton, {
+  RadioButtonFormik,
+} from '@/components/molecules/Form/RadioButton'
 
 export default function UserAddForm() {
   return (
     <>
       <div className="px-5 py-8 bg-white border shadow-md ">
         <FormikForm
-          // debug={'*'}
-          debug={['isSubmitting']}
+          debug={'*'}
+          // debug={['isSubmitting']}
           initialValues={{
             name: '',
             email: '',
@@ -26,9 +29,9 @@ export default function UserAddForm() {
             dob: '',
             doj: '',
             address: '',
+            role: '',
             // profile_pic: '',
             // user_type: '',
-            // role: '',
             // active: '',
             // education: '',
           }}
@@ -41,6 +44,20 @@ export default function UserAddForm() {
           }}
         >
           <div className="space-y-3">
+            <div className="flex flex-col gap-3 md:flex-row">
+              <RadioButtonFormik
+                className={'flex-1'}
+                name="role"
+                label="User Role"
+                options={[
+                  { value: 'admin', label: 'Admin' },
+                  { value: 'team', label: 'Team' },
+                  { value: 'accountant', label: 'Accountant' },
+                  { value: 'executive', label: 'Executive' },
+                ]}
+              />
+            </div>
+
             <div className="flex flex-col gap-3 md:flex-row">
               <InputFormik
                 isRequired
@@ -101,7 +118,7 @@ export default function UserAddForm() {
             </div>
 
             <div className="flex flex-col gap-3 md:flex-row">
-              <InputFormik
+              {/* <InputFormik
                 className={'flex-1'}
                 as="textarea"
                 name="address"
@@ -109,11 +126,7 @@ export default function UserAddForm() {
                 placeholder="Full Address"
                 type="textarea"
                 rows="3"
-              />
-            </div>
-
-            <div className="flex flex-col gap-3 md:flex-row">
-              TODO:: Radio Button
+              /> */}
             </div>
           </div>
 
