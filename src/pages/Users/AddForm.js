@@ -12,12 +12,29 @@ import { RadioButtonFormik } from '@/components/molecules/Form/RadioButton'
 import { ImageUploadFormik } from '@/components/molecules/Form/ImageUpload'
 import { DateFormik } from '@/components/molecules/Form/InputDate'
 import Api from '@/services/ApiService'
+import dataURLtoFile from '@/utils/miscellaneous/dataURLtoFile'
 
 export default function UserAddForm() {
   const [image, setImage] = React.useState()
 
   const handleImageChange = (base64, file) => {
     setImage(base64)
+  }
+
+  const handleSubmit = async (values, actions) => {
+    console.log('AddForm.js::[25] values', values)
+    const postData = {
+      ...values,
+      profile_pic:
+        values?.profile_pic?.name &&
+        dataURLtoFile(image, values?.profile_pic?.name),
+    }
+
+    Api.users.create(actions?.getFormData(postData)).catch((e) => {
+      actions?.setErrors(e?.response?.data?.errors)
+    })
+    actions?.setSubmitting(false)
+    wait(1000).then(() => {})
   }
 
   return (
@@ -42,19 +59,7 @@ export default function UserAddForm() {
             // education: '',
           }}
           validationSchema={addUserSchema()}
-          onSubmit={async (
-            values,
-            { setSubmitting, getFormData, setErrors },
-          ) => {
-            wait(1000).then(() => {
-              console.log('AddForm.js::[47] values', values)
-              // TODO:::setErrors
-              Api.users.create(getFormData()).catch((e) => {
-                console.log('AddForm.js::[53] e.response', e.response)
-              })
-              setSubmitting(false)
-            })
-          }}
+          onSubmit={handleSubmit}
         >
           <div className="space-y-3">
             <div className="flex flex-col gap-3 md:flex-row">

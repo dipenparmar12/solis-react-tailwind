@@ -19,7 +19,7 @@ function FormikForm({
   const handleValuesToFormData = React.useCallback((values) => {
     const formData = new FormData()
     Object.keys(values).forEach((key) => {
-      formData.append(key, values[key])
+      values[key] !== undefined && formData.append(key, values[key])
     })
     return formData
   }, [])
@@ -29,7 +29,7 @@ function FormikForm({
       actions.setSubmitting(true)
       onSubmit(values, {
         ...actions,
-        getFormData: () => handleValuesToFormData(values),
+        getFormData: (_values) => handleValuesToFormData(_values || values),
       })
     },
     [onSubmit],
