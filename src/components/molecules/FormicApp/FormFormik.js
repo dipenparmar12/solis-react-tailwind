@@ -1,13 +1,8 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-nested-ternary */
-import { Formik, Form, Field as FormikField, useFormikContext } from 'formik'
+import { Formik, Form } from 'formik'
 import React from 'react'
-import Print from '@/components/atoms/Print'
-import { isProdEnv } from '@/utils/environment'
-import pick from '@/utils/obj/pick'
 import { InputFormik } from '../Form/InputApp'
 import { DateFormik } from '../Form/InputDate'
-import Debug from './Debug'
+import Debug from './DebugFormik'
 
 function FormikForm({
   debug, // '*' | true | false | ['errors'] | ['values', 'errors', 'touched']
@@ -17,21 +12,35 @@ function FormikForm({
   children,
   ...formProps
 }) {
+  // React.useEffect(() => {
+  //   console.log('FormFormik.js::[18]', isSubmitting)
+  // }, [isSubmitting])
+
+  const handleSubmit = React.useCallback(
+    (values, actions) => {
+      actions.setSubmitting(true)
+      onSubmit(values, actions)
+    },
+    [onSubmit],
+  )
+
   React.useEffect(() => {}, [])
   return (
-    <Formik
-      validationSchema={validationSchema}
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      {...formProps}
-    >
-      {() => (
-        <Form>
-          {children}
-          {debug && <FormikForm.Debug config={debug === true ? true : debug} />}
-        </Form>
-      )}
-    </Formik>
+    <>
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        {...formProps}
+      >
+        {() => (
+          <Form>
+            {children}
+            {debug && <FormikForm.Debug config={debug} />}
+          </Form>
+        )}
+      </Formik>{' '}
+    </>
   )
 }
 

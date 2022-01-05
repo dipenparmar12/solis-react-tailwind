@@ -1,23 +1,27 @@
+/* eslint-disable no-promise-executor-return */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react'
+import { wait } from '@testing-library/user-event/dist/utils'
 import Button from '@/components/atoms/Button'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
 import addUserSchema from './_partials/validationSchema'
 import { InputFormik } from '@/components/molecules/Form/InputApp'
 import { DateFormik } from '@/components/molecules/Form/InputDate'
+import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
 
 export default function UserAddForm() {
   return (
     <>
       <div className="px-5 py-8 bg-white border shadow-md ">
         <FormikForm
-          debug={'*'}
+          // debug={'*'}
+          debug={['isSubmitting']}
           initialValues={{
             name: '',
             email: '',
             password: '',
-            mobile: '',
+            mobile: '9871231233',
             salary: '',
             dob: '',
             doj: '',
@@ -29,10 +33,11 @@ export default function UserAddForm() {
             // education: '',
           }}
           validationSchema={addUserSchema()}
-          onSubmit={(values, { setSubmitting }) => {
-            setSubmitting(true)
-            console.log(values)
-            setSubmitting(false)
+          onSubmit={async (values, { setSubmitting }) => {
+            // console.log('FormFormik.js::[25] submit', new Date().getTime())
+            wait(2000).then(() => {
+              setSubmitting(false)
+            })
           }}
         >
           <div className="space-y-3">
@@ -67,18 +72,20 @@ export default function UserAddForm() {
                 isRequired
                 name="mobile"
                 label="Mobile number"
-                type="text"
+                type="number"
+                min="6000000000"
+                max="9999999999"
               />
               <InputFormik
                 className={'flex-1'}
                 name="salary"
                 label="Salary"
-                type="text"
+                type="number"
               />
             </div>
 
             <div className="flex flex-col gap-3 md:flex-row">
-              <DateFormik
+              {/* <DateFormik
                 className={'flex-1 text-red-700'}
                 name="dob"
                 label="Date of birth"
@@ -90,7 +97,7 @@ export default function UserAddForm() {
                 name="doj"
                 label="Date of joining"
                 type="date"
-              />
+              /> */}
             </div>
 
             <div className="flex flex-col gap-3 md:flex-row">
@@ -110,9 +117,13 @@ export default function UserAddForm() {
             </div>
           </div>
 
-          <Button className="mt-5 " type="submit">
+          <ButtonFormik as={Button} className="mt-5">
             Register
-          </Button>
+          </ButtonFormik>
+
+          {/* <Button className="mt-5 " type="submit">
+            Register
+          </Button> */}
         </FormikForm>
       </div>
     </>

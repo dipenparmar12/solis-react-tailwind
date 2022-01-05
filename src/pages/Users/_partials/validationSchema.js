@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import regExp from '@/utils/regExp'
 
 function addUserSchema(init) {
-  console.log('addUserSchema.js::[4] Add user schema', init)
+  // console.log('addUserSchema.js::[4] Add user schema', init)
   return yup.object().shape({
     email: yup.string().email().required().nullable().label('Email'),
     password: yup.string().min(4).required().nullable().label('Password'),

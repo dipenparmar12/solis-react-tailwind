@@ -7,6 +7,7 @@ export default function Print({
   style,
   maxHeight,
   tab = 2,
+  children,
   ...rest
 }) {
   if (!config.REACT_APP_DEBUG_PRINT) return null
@@ -17,7 +18,7 @@ export default function Print({
       style={{ maxHeight, ...style }}
       {...rest}
     >
-      <pre>{JSON.stringify(data, null, tab)}</pre>
+      <pre>{JSON.stringify(data || children, null, tab)}</pre>
     </div>
   )
 }
