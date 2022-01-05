@@ -2,11 +2,12 @@ import classNames from 'classnames'
 import React from 'react'
 import get from '@/utils/obj/get'
 import WithFormik from '../FormicApp/WithFormik'
-
 /*
  *
- * @returns
+ * RadioButton
  * @src https://freefrontend.com/css-radio-buttons/
+ * @src3 https://codepen.io/Metty/pen/MWjOavR
+ * @src2 https://codepen.io/simonswiss/pen/bprJmw
  * @todo variants: https://codepen.io/azhsetiawan/pen/ExPNBxb
  */
 function RadioButton({
@@ -16,7 +17,7 @@ function RadioButton({
   error,
   isRequired,
   className,
-  type = 'radio', // 'radio', 'checkbox'
+  type = 'radio', // 'radio', TODO:: ->'checkbox'
   onChange = () => {},
   ...radioProps
 }) {

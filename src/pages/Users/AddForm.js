@@ -7,11 +7,8 @@ import Button from '@/components/atoms/Button'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
 import addUserSchema from './_partials/validationSchema'
 import { InputFormik } from '@/components/molecules/Form/InputApp'
-import { DateFormik } from '@/components/molecules/Form/InputDate'
 import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
-import RadioButton, {
-  RadioButtonFormik,
-} from '@/components/molecules/Form/RadioButton'
+import { RadioButtonFormik } from '@/components/molecules/Form/RadioButton'
 
 export default function UserAddForm() {
   return (
