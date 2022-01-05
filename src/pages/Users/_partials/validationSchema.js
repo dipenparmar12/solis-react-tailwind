@@ -46,6 +46,16 @@ function addUserSchema(init) {
     active: yup.string().nullable().label('Active'),
 
     role: yup.string().required().nullable().label('Role'),
+
+    // profile_pic must be a image data uri base64
+    profile_pic: yup
+      .string()
+      .nullable()
+      .label('Profile pic')
+      .matches(regExp.base64Image, {
+        message: 'Invalid image, must be a jpeg, jpg or png',
+        excludeEmptyString: false,
+      }),
   })
 }
 

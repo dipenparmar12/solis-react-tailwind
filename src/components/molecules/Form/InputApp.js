@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import classNames from 'classnames'
 import React from 'react'
+import classNames from 'classnames'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
-// import { BiError } from 'react-icons/bi'
 
 function InputApp(
   {

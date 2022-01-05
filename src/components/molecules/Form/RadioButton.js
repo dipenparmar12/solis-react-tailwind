@@ -76,7 +76,7 @@ function RadioButton({
         </div>
 
         {error && (
-          <div className={classNames('text-red-500 text-sm font-medium')}>
+          <div className={classNames('text-red-500 mt-1 text-sm font-medium')}>
             {error}
           </div>
         )}

@@ -6,9 +6,11 @@ import { wait } from '@testing-library/user-event/dist/utils'
 import Button from '@/components/atoms/Button'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
 import addUserSchema from './_partials/validationSchema'
-import { InputFormik } from '@/components/molecules/Form/InputApp'
 import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
+import { InputFormik } from '@/components/molecules/Form/InputApp'
 import { RadioButtonFormik } from '@/components/molecules/Form/RadioButton'
+import { ImageUploadFormik } from '@/components/molecules/Form/ImageUpload'
+import { DateFormik } from '@/components/molecules/Form/InputDate'
 
 export default function UserAddForm() {
   return (
@@ -27,7 +29,7 @@ export default function UserAddForm() {
             doj: '',
             address: '',
             role: '',
-            // profile_pic: '',
+            profile_pic: '',
             // user_type: '',
             // active: '',
             // education: '',
@@ -85,7 +87,7 @@ export default function UserAddForm() {
             </div>
 
             <div className="flex flex-col gap-3 md:flex-row">
-              {/* <DateFormik
+              <DateFormik
                 className={'flex-1 text-red-700'}
                 name="dob"
                 label="Date of birth"
@@ -97,7 +99,7 @@ export default function UserAddForm() {
                 name="doj"
                 label="Date of joining"
                 type="date"
-              /> */}
+              />
             </div>
 
             <div className="flex flex-col gap-3 md:flex-row">
@@ -123,6 +125,15 @@ export default function UserAddForm() {
                   { value: 'accountant', label: 'Accountant' },
                   { value: 'executive', label: 'Executive' },
                 ]}
+              />
+            </div>
+
+            <div className="flex flex-col gap-3 md:flex-row">
+              <ImageUploadFormik
+                className={'flex-1'}
+                name="profile_pic"
+                placeholder="Drop your image here"
+                label="Select Profile Picture"
               />
             </div>
           </div>
