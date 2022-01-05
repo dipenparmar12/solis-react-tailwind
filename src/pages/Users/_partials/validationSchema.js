@@ -44,6 +44,8 @@ function addUserSchema(init) {
 
     address: yup.string().nullable().label('Address'),
     active: yup.string().nullable().label('Active'),
+
+    role: yup.string().required().nullable().label('Role'),
   })
 }
 

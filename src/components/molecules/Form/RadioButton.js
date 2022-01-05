@@ -33,19 +33,19 @@ function RadioButton({
   return (
     <>
       <fieldset>
-        <div className={classNames(['flex flex-wrap overflow-hidden'])}>
-          {label && (
-            <label className="flex items-center py-2 my-auto mr-3 text-gray-600 dark:text-gray-300 title">
-              {label}
-            </label>
-          )}
+        {label && (
+          <label className="flex items-center py-2 my-auto mr-3 text-gray-600 dark:text-gray-300 title">
+            {label}
+          </label>
+        )}
 
+        <div className={classNames(['flex gap-2 flex-wrap overflow-hidden'])}>
           {options.map((option, index) => (
             <React.Fragment key={option?.value}>
               <label
                 className={classNames(
                   [
-                    'flex items-center outline-none py-1 mx-1 px-2 ',
+                    'flex items-center outline-none py-1 px-2 ',
                     'rounded-lg border border-gray-300  text-gray-700',
                     'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
                     'transition duration-100 ease-in-out',

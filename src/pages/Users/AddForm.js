@@ -45,20 +45,6 @@ export default function UserAddForm() {
         >
           <div className="space-y-3">
             <div className="flex flex-col gap-3 md:flex-row">
-              <RadioButtonFormik
-                className={'flex-1'}
-                name="role"
-                label="User Role"
-                options={[
-                  { value: 'admin', label: 'Admin' },
-                  { value: 'team', label: 'Team' },
-                  { value: 'accountant', label: 'Accountant' },
-                  { value: 'executive', label: 'Executive' },
-                ]}
-              />
-            </div>
-
-            <div className="flex flex-col gap-3 md:flex-row">
               <InputFormik
                 isRequired
                 className={'flex-1'}
@@ -118,7 +104,7 @@ export default function UserAddForm() {
             </div>
 
             <div className="flex flex-col gap-3 md:flex-row">
-              {/* <InputFormik
+              <InputFormik
                 className={'flex-1'}
                 as="textarea"
                 name="address"
@@ -126,7 +112,21 @@ export default function UserAddForm() {
                 placeholder="Full Address"
                 type="textarea"
                 rows="3"
-              /> */}
+              />
+            </div>
+
+            <div className="flex flex-col gap-3 md:flex-row">
+              <RadioButtonFormik
+                className={'flex-1'}
+                name="role"
+                label="User Role"
+                options={[
+                  { value: 'admin', label: 'Admin' },
+                  { value: 'team', label: 'Team' },
+                  { value: 'accountant', label: 'Accountant' },
+                  { value: 'executive', label: 'Executive' },
+                ]}
+              />
             </div>
           </div>
 

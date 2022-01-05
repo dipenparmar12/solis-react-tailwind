@@ -13,11 +13,11 @@ function ButtonFormik({
 
   const isWorking = formikProps?.isSubmitting
   const isValid = formikProps?.isValid
-  const isDisabled = !isValid || isWorking
+  const isDisabled = isWorking
 
   const handleOnClick = React.useCallback(
     (e) => {
-      if (!isDisabled && onClick) {
+      if (!isWorking && isValid && onClick) {
         onClick(e)
       }
     },
@@ -29,7 +29,7 @@ function ButtonFormik({
       onClick={handleOnClick}
       disabled={isDisabled}
       isWorking={isWorking}
-      type={isDisabled ? 'button' : type}
+      type={isWorking ? 'button' : type}
       {...props}
     >
       {children}
