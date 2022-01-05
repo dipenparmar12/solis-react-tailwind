@@ -2,6 +2,13 @@
 import * as yup from 'yup'
 import regExp from '@/utils/regExp'
 
+export const SUPPORTED_IMG_FORMATS = [
+  'image/jpg',
+  'image/jpeg',
+  'image/gif',
+  'image/png',
+]
+
 function addUserSchema(init) {
   // console.log('addUserSchema.js::[4] Add user schema', init)
   return yup.object().shape({
@@ -47,15 +54,39 @@ function addUserSchema(init) {
 
     role: yup.string().required().nullable().label('Role'),
 
-    // profile_pic must be a image data uri base64
+    // Js file object validations
     profile_pic: yup
-      .string()
+      .mixed()
       .nullable()
       .label('Profile pic')
-      .matches(regExp.base64Image, {
-        message: 'Invalid image, must be a jpeg, jpg or png',
-        excludeEmptyString: false,
-      }),
+      .test(
+        'fileSize',
+        'File size too large, please pick a smaller one (2mb max)',
+        (file) => {
+          // console.log('addUserSchema.js::[10] fileSize', file)
+          const maxSize = 1024 * 1024 * 2 // 2MB
+          if (!file?.name) return true
+          return file.size <= maxSize
+        },
+      )
+      .test(
+        'fileType',
+        'Invalid file type, image must be a jpeg, jpg or png ',
+        (file) => {
+          // console.log('addUserSchema.js::[12] fileType', file)
+          if (!file?.name) return true
+          return SUPPORTED_IMG_FORMATS.includes(file.type)
+        },
+      ),
+    // profile_pic must be a image data uri base64
+    // profile_pic: yup
+    //   .string()
+    //   .nullable()
+    //   .label('Profile pic')
+    //   .matches(regExp.base64Image, {
+    //     message: 'Invalid image, must be a jpeg, jpg or png',
+    //     excludeEmptyString: false,
+    //   }),
   })
 }
 

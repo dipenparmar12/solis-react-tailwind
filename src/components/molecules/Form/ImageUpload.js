@@ -14,59 +14,57 @@ function ImageUpload({
   error,
   className,
   isRequired,
-  onChange,
   placeholder,
   maxSize,
   minSize,
+  onChange = () => {},
   ...inputProps
 }) {
-  const [file, setFile] = React.useState({
-    file: null,
-    name: null,
-    size: null,
-    type: null,
-  })
+  const [file, setFile] = React.useState({})
   const [selectedImageUri, setSelectedImageUri] = React.useState(null)
 
   React.useEffect(() => {
-    onChange(selectedImageUri)
-  }, [selectedImageUri])
+    onChange(file, selectedImageUri)
+  }, [selectedImageUri, onChange])
 
-  const handleChange = React.useCallback(
+  // File validation
+  const validateFile = (_file) => {
+    if (maxSize && _file.size > maxSize) {
+      return false
+    }
+    if (minSize && _file.size < minSize) {
+      return false
+    }
+    return true
+  }
+
+  const handleFileChange = React.useCallback(
     (e) => {
-      const file = e.target.files[0]
-      if (file) {
+      e.preventDefault()
+      e.stopPropagation()
+      const files = e?.target?.files || e?.dataTransfer?.files
+      const uploadedFile = files?.[0] || {}
+      if (uploadedFile && validateFile(uploadedFile)) {
+        setFile({
+          file: uploadedFile,
+          name: uploadedFile.name,
+          size: uploadedFile.size,
+          type: uploadedFile.type,
+        })
         const reader = new FileReader()
-        reader.onload = (e) => {
-          setSelectedImageUri(e.target.result)
-        }
-        reader.readAsDataURL(file)
+        reader.addEventListener('load', () =>
+          setSelectedImageUri(reader.result),
+        )
+        reader.readAsDataURL(uploadedFile)
       }
     },
-    [setSelectedImageUri],
+    [setFile, setSelectedImageUri],
   )
 
-  const handleImageChange = (e) => {
-    if (e?.target?.files && e.target.files?.length > 0) {
-      const reader = new FileReader()
-      reader.addEventListener('load', () => setSelectedImageUri(reader.result))
-      reader.readAsDataURL(e.target.files[0])
-    }
-  }
-
-  const handleFileDragged = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (e?.dataTransfer?.files && e.dataTransfer.files?.length > 0) {
-      const reader = new FileReader()
-      reader.addEventListener('load', () => setSelectedImageUri(reader.result))
-      reader.readAsDataURL(e.dataTransfer.files[0])
-    }
-  }
-
-  const handleImageRemove = () => {
+  const handleRemoveImage = React.useCallback(() => {
+    setFile({})
     setSelectedImageUri(null)
-  }
+  }, [])
 
   return (
     <div className={classNames('flex flex-col mt-2 ', className)}>
@@ -82,14 +80,14 @@ function ImageUpload({
       <div>
         <label
           onDragOver={(e) => e.preventDefault()}
-          onDrop={handleFileDragged}
+          onDrop={handleFileChange}
           className={classNames([
             'relative flex flex-col items-center w-64 px-4 py-4 tracking-wide text-gray-600 bg-white border rounded-lg shadow-md cursor-pointer dark:text-gray-300 text-blue border-blue hover:bg-blue hover:text-gray-800',
             error &&
               'text-red-400  bg-red-100/80 hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
           ])}
         >
-          <input type="file" className="hidden" onChange={handleImageChange} />
+          <input type="file" className="hidden" onChange={handleFileChange} />
 
           {selectedImageUri && (
             <div className="w-24 ">
@@ -100,7 +98,7 @@ function ImageUpload({
               />
               <button
                 className="absolute top-0 right-0 p-2 text-gray-400 rounded-lg hover:text-gray-700 "
-                onClick={handleImageRemove}
+                onClick={handleRemoveImage}
               >
                 <svg
                   className="w-6 h-6 fill-current"
@@ -142,3 +140,10 @@ export default ImageUpload
 export const ImageUploadFormik = ({ ...props }, ...rest) => (
   <WithFormik inputAs={ImageUpload} {...props} /> // {...(rest || {})}
 )
+
+// const fileInit = {
+//   file: null,
+//   name: null,
+//   size: null,
+//   type: null,
+// }
