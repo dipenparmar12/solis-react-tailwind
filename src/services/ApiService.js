@@ -10,8 +10,8 @@ const auth = {
 
 const users = {
   get: async ({ qry, config }) => _axios.get(`/users?${encode(qry)}`, config),
+  create: async (data, config) => _axios.post(`/users`, data, config),
   // getById: async ({ id, qry, config }) => _axios.get(`/users/${id}?${encode(qry)}`, config),
-  // post: async (id, data, config) => _axios.post(`/users/${id}`, data, config),
   // put: async ({ id, data, config }) => _axios.put(`/users/${id}`, data, config),
   // delete: async ({ id, config }) => _axios.delete(`/users/${id}`, config),
 }

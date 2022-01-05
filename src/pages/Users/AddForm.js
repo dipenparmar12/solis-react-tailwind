@@ -11,6 +11,7 @@ import { InputFormik } from '@/components/molecules/Form/InputApp'
 import { RadioButtonFormik } from '@/components/molecules/Form/RadioButton'
 import { ImageUploadFormik } from '@/components/molecules/Form/ImageUpload'
 import { DateFormik } from '@/components/molecules/Form/InputDate'
+import Api from '@/services/ApiService'
 
 export default function UserAddForm() {
   const [image, setImage] = React.useState()
@@ -41,9 +42,16 @@ export default function UserAddForm() {
             // education: '',
           }}
           validationSchema={addUserSchema()}
-          onSubmit={async (values, { setSubmitting }) => {
-            // console.log('FormFormik.js::[25] submit', new Date().getTime())
-            wait(2000).then(() => {
+          onSubmit={async (
+            values,
+            { setSubmitting, getFormData, setErrors },
+          ) => {
+            wait(1000).then(() => {
+              console.log('AddForm.js::[47] values', values)
+              // TODO:::setErrors
+              Api.users.create(getFormData()).catch((e) => {
+                console.log('AddForm.js::[53] e.response', e.response)
+              })
               setSubmitting(false)
             })
           }}

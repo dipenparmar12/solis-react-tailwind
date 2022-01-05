@@ -16,10 +16,21 @@ function FormikForm({
   //   console.log('FormFormik.js::[18]', isSubmitting)
   // }, [isSubmitting])
 
+  const handleValuesToFormData = React.useCallback((values) => {
+    const formData = new FormData()
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key])
+    })
+    return formData
+  }, [])
+
   const handleSubmit = React.useCallback(
     (values, actions) => {
       actions.setSubmitting(true)
-      onSubmit(values, actions)
+      onSubmit(values, {
+        ...actions,
+        getFormData: () => handleValuesToFormData(values),
+      })
     },
     [onSubmit],
   )
