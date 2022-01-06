@@ -25,9 +25,9 @@ export default function UserAddForm() {
     console.log('AddForm.js::[25] values', values)
     const postData = {
       ...values,
-      // profile_pic:
-      //   values?.profile_pic?.name &&
-      //   dataURLtoFile(image, values?.profile_pic?.name),
+      profile_pic:
+        values?.profile_pic?.name &&
+        dataURLtoFile(image, values?.profile_pic?.name),
     }
 
     Api.users

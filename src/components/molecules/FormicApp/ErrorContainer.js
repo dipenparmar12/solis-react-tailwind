@@ -12,11 +12,11 @@ export default function ErrorContainer({
   //   console.log('ErrorContainer.js::[5]', errors, touched)
   // }, [errors, touched])
 
-  if (touched.length < 0) return null
-  if (errors.length < 0) return null
+  if (touched && touched?.length < 0) return null
+  if (errors && errors?.length < 0) return null
 
   const formErrors = React.useMemo(() => {
-    const errorKeys = Object.keys(errors)
+    const errorKeys = Object.keys(errors || {})
     return errorKeys.map((eKey) => {
       const displayLabel = inputLabels[eKey] || eKey || ''
       const errorsList = [errors[eKey]].flat()
