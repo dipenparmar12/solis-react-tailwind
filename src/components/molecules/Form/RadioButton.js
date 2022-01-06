@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import get from '@/utils/obj/get'
 import WithFormik from '../FormicApp/WithFormik'
+import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 /*
  *
  * RadioButton
@@ -75,11 +76,7 @@ function RadioButton({
           ))}
         </div>
 
-        {error && (
-          <div className={classNames('text-red-500 mt-1 text-sm font-medium')}>
-            {error}
-          </div>
-        )}
+        <ErrorFeedback error={error} />
       </fieldset>
     </>
   )

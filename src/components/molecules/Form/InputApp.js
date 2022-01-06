@@ -4,6 +4,7 @@ import React from 'react'
 import classNames from 'classnames'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
+import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 
 function InputApp(
   {
@@ -68,16 +69,8 @@ function InputApp(
         placeholder={placeholder}
         {...inputProps}
       />
-      {error && (
-        <div
-          className={classNames(
-            'text-red-500 text-sm font-medium',
-            errorClassName,
-          )}
-        >
-          {error}
-        </div>
-      )}
+
+      <ErrorFeedback error={error} />
     </fieldset>
   )
 }

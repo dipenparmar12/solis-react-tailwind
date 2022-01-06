@@ -25,9 +25,9 @@ export default function UserAddForm() {
     console.log('AddForm.js::[25] values', values)
     const postData = {
       ...values,
-      profile_pic:
-        values?.profile_pic?.name &&
-        dataURLtoFile(image, values?.profile_pic?.name),
+      // profile_pic:
+      //   values?.profile_pic?.name &&
+      //   dataURLtoFile(image, values?.profile_pic?.name),
     }
 
     Api.users
@@ -45,7 +45,7 @@ export default function UserAddForm() {
     <>
       <div className="px-5 py-8 bg-white border shadow-md ">
         <FormikForm
-          debug={'*'}
+          // debug={'*'}
           // debug={['isSubmitting']}
           initialValues={{
             name: '',
@@ -64,6 +64,21 @@ export default function UserAddForm() {
           }}
           validationSchema={addUserSchema()}
           onSubmit={handleSubmit}
+          inputLabels={{
+            name: 'Name',
+            email: 'Email',
+            password: 'Password',
+            mobile: 'Mobile',
+            salary: 'Salary',
+            dob: 'Date of Birth',
+            doj: 'Date of Joining',
+            address: 'Address',
+            role: 'Role',
+            profile_pic: 'Profile Pic',
+            // user_type: 'User Type',
+            // active: 'Active',
+            // education: 'Education',
+          }}
         >
           <div className="space-y-3">
             <div className="flex flex-col gap-3 md:flex-row">

@@ -5,6 +5,7 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
+import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 
 function InputDate(
   {
@@ -66,16 +67,8 @@ function InputDate(
         ])}
         {...inputProps}
       />
-      {error && (
-        <div
-          className={classNames(
-            'text-red-500 text-sm font-medium',
-            errorClassName,
-          )}
-        >
-          {error}
-        </div>
-      )}
+
+      <ErrorFeedback error={error} />
     </fieldset>
   )
 }

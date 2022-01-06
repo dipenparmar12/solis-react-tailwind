@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import WithFormik from '../FormicApp/WithFormik'
+import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 
 /**
  *
@@ -117,11 +118,8 @@ function ImageUpload({
           )}
         </label>
       </div>
-      {error && (
-        <div className={classNames('text-red-400 mt-1 text-sm font-medium')}>
-          {error}
-        </div>
-      )}
+
+      <ErrorFeedback error={error} />
     </div>
   )
 }

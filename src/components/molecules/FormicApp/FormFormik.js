@@ -3,6 +3,8 @@ import React from 'react'
 import { InputFormik } from '../Form/InputApp'
 import { DateFormik } from '../Form/InputDate'
 import Debug from './DebugFormik'
+import ErrorContainer from './ErrorContainer'
+import Print from '@/components/atoms/Print'
 
 function FormikForm({
   debug, // '*' | true | false | ['errors'] | ['values', 'errors', 'touched']
@@ -10,6 +12,7 @@ function FormikForm({
   validationSchema,
   onSubmit,
   children,
+  inputLabels,
   ...formProps
 }) {
   // React.useEffect(() => {
@@ -44,11 +47,19 @@ function FormikForm({
         onSubmit={handleSubmit}
         {...formProps}
       >
-        {() => (
-          <Form>
-            {children}
-            {debug && <FormikForm.Debug config={debug} />}
-          </Form>
+        {(props) => (
+          <>
+            <Form>
+              {children}
+              {debug && <FormikForm.Debug config={debug} />}
+            </Form>
+
+            <ErrorContainer
+              inputLabels={inputLabels}
+              errors={props.errors}
+              touched={props.touched}
+            />
+          </>
         )}
       </Formik>{' '}
     </>
