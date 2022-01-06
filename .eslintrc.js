@@ -67,6 +67,7 @@ module.exports = {
     'react/no-unstable-nested-components': 'warn',
     'no-unreachable': 'warn',
     'no-nested-ternary': 'warn',
+    'react/destructuring-assignment': 'warn',
     camelcase: 'warn',
     'import/order': 'warn',
     'no-underscore-dangle': 'warn',
