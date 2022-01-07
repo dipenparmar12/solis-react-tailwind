@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-useless-escape */
 import * as yup from 'yup'
 import regExp from '@/utils/regExp'
@@ -9,12 +10,23 @@ export const SUPPORTED_IMG_FORMATS = [
   'image/png',
 ]
 
-function addUserSchema(init) {
-  // console.log('addUserSchema.js::[4] Add user schema', init)
+function addUserSchema(isEdit) {
   return yup.object().shape({
     email: yup.string().email().required().nullable().label('Email'),
-    password: yup.string().min(4).required().nullable().label('Password'),
     name: yup.string().min(2).max(50).nullable().label('Name'),
+    password: yup
+      .string()
+      .when('isEdit', () => {
+        if (!isEdit)
+          return yup
+            .string()
+            .min(6)
+            .max(50)
+            .nullable()
+            .required('Password is required')
+      })
+      .nullable()
+      .label('Password'),
     mobile: yup
       .string()
       .nullable()

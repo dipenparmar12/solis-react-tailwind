@@ -35,6 +35,7 @@ const inputLabels = {
 }
 
 const initialValues = {
+  id: '',
   name: '',
   email: '',
   password: '',
@@ -97,6 +98,7 @@ export default function UserAddForm({
 
   const handleSubmit = async (values, actions, rowValues) => {
     // console.log('AddForm.js::[75] values', values, rowValues)
+    const apiCall = isEdit ? Api.users.update : Api.users.create // TODO::START
 
     Api.users
       .create(values)
@@ -117,7 +119,7 @@ export default function UserAddForm({
         // debug={['isSubmitting']}
         // castFormData
         initialValues={deepMerge(initialValues, initialData)}
-        validationSchema={addUserSchema()}
+        validationSchema={addUserSchema(isEdit)}
         onSubmit={handleSubmit}
         transformValues={transformValues}
         inputLabels={inputLabels}
@@ -133,7 +135,7 @@ export default function UserAddForm({
               type="email"
             />
             <InputFormik
-              isRequired
+              isRequired={!isEdit}
               className={'flex-1'}
               name="password"
               label="Password"

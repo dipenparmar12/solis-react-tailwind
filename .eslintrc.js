@@ -70,6 +70,7 @@ module.exports = {
     'react/destructuring-assignment': 'warn',
     camelcase: 'warn',
     eqeqeq: 'warn',
+    'no-useless-escape': 'off',
     'import/order': 'warn',
     'no-underscore-dangle': 'warn',
     'no-empty': 'warn',
