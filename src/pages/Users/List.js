@@ -16,8 +16,7 @@ export default function UserList() {
   const resUsers = useFetcher({
     apiCall: Api.users.get,
     qry: apiQry,
-    pagination: true,
-    immediateInvoke: true,
+    pagination: true, // TODO::10 Throw's error if api has pagination and ui doesn't
   })
 
   React.useEffect(() => {

@@ -69,6 +69,7 @@ module.exports = {
     'no-nested-ternary': 'warn',
     'react/destructuring-assignment': 'warn',
     camelcase: 'warn',
+    eqeqeq: 'warn',
     'import/order': 'warn',
     'no-underscore-dangle': 'warn',
     'no-empty': 'warn',

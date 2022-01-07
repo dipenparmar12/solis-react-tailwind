@@ -19,5 +19,5 @@ const config = {
   ...(process.env || {}),
 }
 
-console.info('AxiosService.js::[6] config', config)
+console.debug('config.js::[22] config', config)
 export default config

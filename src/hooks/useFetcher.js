@@ -1,6 +1,11 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
+/**
+ *
+ * @param {Object} props - { apiCall, qry, pagination } - apiCall: api call to be made, qry: query params, pagination: boolean
+ * @returns {Object} - { data, loading, error } - data: response data, loading: boolean, error: error object
+ */
 export default function useFetcher({
   apiCall,
   qry,

@@ -17,6 +17,11 @@ const users = {
   // delete: async ({ id, config }) => _axios.delete(`/users/${id}`, config),
 }
 
+const staticData = {
+  fetch: async ({ resource, qry, config }) =>
+    _axios.get(`/static/${resource}?${encode(qry)}`, config),
+}
+
 const test = {
   get: async ({ qry, config }) => _axios.get(`/test?${encode(qry)}`, config),
   paginate: async ({ qry, config }) =>
@@ -43,6 +48,7 @@ const Api = {
   auth,
   users,
   utils,
+  staticData,
   test,
 }
 

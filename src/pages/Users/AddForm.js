@@ -16,6 +16,7 @@ import dataURLtoFile from '@/utils/miscellaneous/dataURLtoFile'
 
 import deepMerge from '@/utils/obj/deepMerge'
 import formatDate from '@/utils/date/formatDate'
+import useMergeState from '@/hooks/useMergeState'
 
 const inputLabels = {
   name: 'Name',
@@ -42,7 +43,7 @@ const initialValues = {
   dob: '',
   doj: '',
   address: '',
-  role: '',
+  role_id: '',
   profile_pic: '',
   // user_type: '',
   // active: '',
@@ -55,6 +56,29 @@ export default function UserAddForm({
   onSuccess = () => {},
 }) {
   const [image, setImage] = React.useState()
+
+  // TODO::latter global context for static data
+  const [staticData, setStaticData] = useMergeState({
+    roles: [],
+    permissions: [],
+  })
+
+  React.useEffect(() => {
+    Api.staticData
+      .fetch({ resource: 'roles' })
+      .then(Api.utils.getRes)
+      .then(({ results = [] }) => {
+        const roles = results?.map((role) => ({
+          value: role.id,
+          label: role?.display_name || role?.name,
+        }))
+        setStaticData({ roles })
+      })
+  }, [])
+
+  // React.useEffect(() => {
+  //   console.log('AddForm.js::[77]', staticData.roles)
+  // }, [staticData])
 
   const handleImageChange = (base64, file) => {
     setImage(base64)
@@ -175,14 +199,15 @@ export default function UserAddForm({
           <div className="flex flex-col gap-3 md:flex-row">
             <RadioButtonFormik
               className={'flex-1'}
-              name="role"
+              name="role_id"
               label="User Role"
-              options={[
-                { value: 'admin', label: 'Admin' },
-                { value: 'team', label: 'Team' },
-                { value: 'accountant', label: 'Accountant' },
-                { value: 'executive', label: 'Executive' },
-              ]}
+              options={staticData?.roles || []}
+              // options={[
+              //   { value: 'admin', label: 'Admin' },
+              //   { value: 'team', label: 'Team' },
+              //   { value: 'accountant', label: 'Accountant' },
+              //   { value: 'executive', label: 'Executive' },
+              // ]}
             />
           </div>
 

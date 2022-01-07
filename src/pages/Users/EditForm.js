@@ -5,7 +5,12 @@ import UserAddForm from './AddForm'
 function UserEditForm({ data, ...props }) {
   const modalCtx = useModalContext()
   return (
-    <UserAddForm {...props} initialData={data} onSuccess={modalCtx.onClose} />
+    <UserAddForm
+      {...props}
+      isEdit
+      initialData={data}
+      onSuccess={modalCtx.onClose}
+    />
   )
 }
 
