@@ -55,6 +55,7 @@ function InputDate(
         selected={value}
         onChange={onChange}
         placeholder={placeholder}
+        placeholderText={placeholder}
         className={classNames([
           'outline-none w-full ',
           'block rounded-lg border border-transparent text-gray-700',

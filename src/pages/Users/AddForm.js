@@ -14,25 +14,64 @@ import { DateFormik } from '@/components/molecules/Form/InputDate'
 import Api from '@/services/ApiService'
 import dataURLtoFile from '@/utils/miscellaneous/dataURLtoFile'
 
-export default function UserAddForm() {
+import deepMerge from '@/utils/obj/deepMerge'
+
+const inputLabels = {
+  name: 'Name',
+  email: 'Email',
+  password: 'Password',
+  mobile: 'Mobile',
+  salary: 'Salary',
+  dob: 'Date of Birth',
+  doj: 'Date of Joining',
+  address: 'Address',
+  role: 'Role',
+  profile_pic: 'Profile Pic',
+  // user_type: 'User Type',
+  // active: 'Active',
+  // education: 'Education',
+}
+
+const initialValues = {
+  name: '',
+  email: '',
+  password: '',
+  mobile: '9871231233',
+  salary: '',
+  dob: '',
+  doj: '',
+  address: '',
+  role: '',
+  profile_pic: '',
+  // user_type: '',
+  // active: '',
+  // education: '',
+}
+
+export default function UserAddForm({ isEdit, initialUser }) {
   const [image, setImage] = React.useState()
 
   const handleImageChange = (base64, file) => {
     setImage(base64)
   }
 
-  const handleSubmit = async (values, actions) => {
-    console.log('AddForm.js::[25] values', values)
-    const postData = {
+  const transformValues = (values) => {
+    return {
       ...values,
+      dob: values.dob.toISOString(),
+      doj: values.doj.toISOString(),
       profile_pic:
         values?.profile_pic?.name &&
         dataURLtoFile(image, values?.profile_pic?.name),
     }
+  }
+
+  const handleSubmit = async (values, actions, rowValues) => {
+    console.log('AddForm.js::[25] values', values, rowValues)
 
     Api.users
-      .create(actions?.getFormData(postData))
-      // .then(Api.utils.getRes)
+      .create(values)
+      .then(Api.utils.getRes)
       .then(Api.utils.successMessage)
       .then(actions.resetForm)
       .catch((e) => actions?.setErrors(e?.response?.data?.errors))
@@ -44,40 +83,14 @@ export default function UserAddForm() {
   return (
     <>
       <FormikForm
-        // debug={'*'}
+        debug={'*'}
         // debug={['isSubmitting']}
-        initialValues={{
-          name: '',
-          email: '',
-          password: '',
-          mobile: '9871231233',
-          salary: '',
-          dob: '',
-          doj: '',
-          address: '',
-          role: '',
-          profile_pic: '',
-          // user_type: '',
-          // active: '',
-          // education: '',
-        }}
+        castFormData
+        initialValues={initialValues}
         validationSchema={addUserSchema()}
         onSubmit={handleSubmit}
-        inputLabels={{
-          name: 'Name',
-          email: 'Email',
-          password: 'Password',
-          mobile: 'Mobile',
-          salary: 'Salary',
-          dob: 'Date of Birth',
-          doj: 'Date of Joining',
-          address: 'Address',
-          role: 'Role',
-          profile_pic: 'Profile Pic',
-          // user_type: 'User Type',
-          // active: 'Active',
-          // education: 'Education',
-        }}
+        transformValues={transformValues}
+        inputLabels={inputLabels}
       >
         <div className="space-y-3">
           <div className="flex flex-col gap-3 md:flex-row">
@@ -126,16 +139,18 @@ export default function UserAddForm() {
           <div className="flex flex-col gap-3 md:flex-row">
             <DateFormik
               className={'flex-1 text-red-700'}
+              type="date"
               name="dob"
               label="Date of birth"
-              type="date"
+              placeholder="mm/dd/yyyy"
             />
 
             <DateFormik
               className={'flex-1'}
+              type="date"
               name="doj"
               label="Date of joining"
-              type="date"
+              placeholder="mm/dd/yyyy"
             />
           </div>
 
@@ -143,10 +158,10 @@ export default function UserAddForm() {
             <InputFormik
               className={'flex-1'}
               as="textarea"
-              name="address"
-              label="Address and Notes"
-              placeholder="Full Address"
               type="textarea"
+              name="address"
+              label="Address and notes"
+              placeholder="Full Address"
               rows="3"
             />
           </div>

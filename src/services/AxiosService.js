@@ -36,8 +36,8 @@ axiosApp.interceptors.request.use((axiosConfig) => {
 // // Response interceptor
 axiosApp.interceptors.response.use(null, (error) => {
   if (error.response) {
+    // console.log('AxiosService.js::[39] error.response', error.response?.data)
     /// TODO::: Logger Service
-
     if (config.REACT_APP_NOTIFY_ERROR) {
       if (error.response?.data?.message) {
         Notify.error(error.response?.data?.message, {

@@ -47,7 +47,6 @@ export default function UserCard({ data }) {
               )}
             >
               <h2 className="mb-3 mr-10 text-2xl"> {data?.name} </h2>
-              <UserAddForm />
             </ModalV3>
           </h3>
           <div className="flex-auto my-1 text-sm text-gray-600 dark:text-gray-500">

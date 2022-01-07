@@ -27,8 +27,8 @@ const test = {
 const utils = {
   getRes: (res) => res?.data,
   successMessage: (res) => {
-    Notify.success(res?.data?.successMessage || res?.successMessage, {
-      toastId: res?.path,
+    Notify.success(res?.data?.message || res?.message, {
+      toastId: `${res?.path}${res?.message}`,
     })
     return res
   },
