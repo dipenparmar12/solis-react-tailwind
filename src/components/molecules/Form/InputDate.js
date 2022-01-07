@@ -30,7 +30,7 @@ function InputDate(
   },
   inputRef,
 ) {
-  const [date, setDate] = React.useState(value)
+  const [date, setDate] = React.useState()
 
   const ownRef = React.useRef(null)
   const mergedRef = useMergeRefs([inputRef, ownRef])
@@ -45,8 +45,12 @@ function InputDate(
   }, [dateFromProp])
 
   React.useEffect(() => {
-    console.log('InputDate.js::[45]')
-  }, [])
+    if (value) {
+      const dd = Types.isDate(value) ? value : new Date(value)
+      return setDate(dd)
+    }
+    return setDate(null)
+  }, [value])
 
   return (
     <fieldset className={classNames(containerClassName, className)}>
@@ -68,7 +72,7 @@ function InputDate(
         name={name}
         type={type}
         // value={value} // Not supported by react-datepicker
-        selected={dateValue}
+        selected={date}
         onChange={onChange}
         placeholder={placeholder}
         placeholderText={placeholder}
