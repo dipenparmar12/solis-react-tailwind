@@ -49,7 +49,11 @@ const initialValues = {
   // education: '',
 }
 
-export default function UserAddForm({ isEdit, initialData }) {
+export default function UserAddForm({
+  isEdit,
+  initialData,
+  onSuccess = () => {},
+}) {
   const [image, setImage] = React.useState()
 
   const handleImageChange = (base64, file) => {
@@ -57,7 +61,6 @@ export default function UserAddForm({ isEdit, initialData }) {
   }
 
   const transformValues = (values) => {
-    console.log('AddForm.js::[60] DOB', values.dob)
     return {
       ...values,
       dob: values.dob && formatDate(values.dob, 'yyyy-MM-dd'),
@@ -69,12 +72,13 @@ export default function UserAddForm({ isEdit, initialData }) {
   }
 
   const handleSubmit = async (values, actions, rowValues) => {
-    console.log('AddForm.js::[25] values', values, rowValues)
+    // console.log('AddForm.js::[75] values', values, rowValues)
 
     Api.users
       .create(values)
       .then(Api.utils.getRes)
-      .then(Api.utils.successMessage)
+      .then(Api.utils.notifySuccess)
+      .then(onSuccess)
       .then(actions.resetForm)
       .catch((e) => actions?.setErrors(e?.response?.data?.errors))
       .finally(() => actions?.setSubmitting(false))

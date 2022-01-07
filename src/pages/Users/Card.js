@@ -7,6 +7,7 @@ import cn from '@/utils/classNames'
 import UserAddForm from './AddForm'
 import Print from '@/components/atoms/Print'
 import omit from '@/utils/obj/omit'
+import UserEditForm from './EditForm'
 
 export default function UserCard({ data }) {
   return (
@@ -48,7 +49,7 @@ export default function UserCard({ data }) {
               )}
             >
               <h2 className="mb-3 mr-10 text-2xl"> {data?.name} </h2>
-              <UserAddForm initialData={data} />
+              <UserEditForm data={data} />
             </ModalV3>
           </h3>
           <div className="flex-auto my-1 text-sm text-gray-600 dark:text-gray-500">
