@@ -48,7 +48,7 @@ const initialValues = {
   // education: '',
 }
 
-export default function UserAddForm({ isEdit, initialUser }) {
+export default function UserAddForm({ isEdit, initialData }) {
   const [image, setImage] = React.useState()
 
   const handleImageChange = (base64, file) => {
@@ -86,7 +86,7 @@ export default function UserAddForm({ isEdit, initialUser }) {
         debug={'*'}
         // debug={['isSubmitting']}
         castFormData
-        initialValues={initialValues}
+        initialValues={deepMerge(initialValues, initialData)}
         validationSchema={addUserSchema()}
         onSubmit={handleSubmit}
         transformValues={transformValues}

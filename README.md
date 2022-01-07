@@ -206,11 +206,12 @@ module.exports = {
 
 - Animation, Transitions [Doc](https://react-spring.io/basics)
 - [x] React modal, Dialog [Doc](https://react-responsive-modal.leopradel.com)
-- Date Picker [Doc](https://github.com/Hacker0x01/react-datepicker)
+- Date Picker [Doc](https://reactdatepicker.com/)
 - Yup, Validation [Doc](https://github.com/jquense/yup)
 - Formik handling forms [Doc](https://formik.org/docs/guides/validation)
 - Date helper methods [Doc](https://date-fns.org/v2.28.0/docs/format)
-- 
+-
+
 ### External resources and references
 
 - Icons: https://heroicons.dev/

@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
 import ErrorFeedback from '@/components/atoms/ErrorFeedback'
+import Types from '@/utils/validation/Types'
 
 function InputDate(
   {
@@ -29,8 +30,23 @@ function InputDate(
   },
   inputRef,
 ) {
+  const [date, setDate] = React.useState(value)
+
   const ownRef = React.useRef(null)
   const mergedRef = useMergeRefs([inputRef, ownRef])
+
+  // value is not date object but string
+  const dateFromProp = React.useRef(value).current
+  const dateValue = React.useMemo(() => {
+    if (value) {
+      return Types.isDate(dateFromProp) ? dateFromProp : new Date(dateFromProp)
+    }
+    return null
+  }, [dateFromProp])
+
+  React.useEffect(() => {
+    console.log('InputDate.js::[45]')
+  }, [])
 
   return (
     <fieldset className={classNames(containerClassName, className)}>
@@ -51,8 +67,8 @@ function InputDate(
         ref={mergedRef}
         name={name}
         type={type}
-        value={value}
-        selected={value}
+        // value={value} // Not supported by react-datepicker
+        selected={dateValue}
         onChange={onChange}
         placeholder={placeholder}
         placeholderText={placeholder}
