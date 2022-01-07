@@ -6,6 +6,9 @@ import useMergeState from '@/hooks/useMergeState'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import useQryParams from '@/hooks/useQryParams'
+import ModalV3 from '@/components/molecules/Modal/ModalV3'
+import UserAddForm from './AddForm'
+import Button from '@/components/atoms/Button'
 
 export default function UserList() {
   const [apiQry, setApiQry] = useMergeState({ per_page: 15 })
@@ -38,6 +41,21 @@ export default function UserList() {
           loading={resUsers?.loading}
           siblingCount={1}
         />
+
+        <div className="my-3">
+          <ModalV3
+            renderButton={({ setOpen }) => (
+              <Button size="md" onClick={setOpen}>
+                Add User
+              </Button>
+            )}
+          >
+            <div className="px-3">
+              <h3 className="mb-2 text-lg ">Create new user</h3>
+              <UserAddForm />
+            </div>
+          </ModalV3>
+        </div>
 
         <ErrorState error={!resUsers?.loading && resUsers?.error} />
 

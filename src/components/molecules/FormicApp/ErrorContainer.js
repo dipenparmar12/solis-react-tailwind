@@ -1,4 +1,3 @@
-import { useFormikContext } from 'formik'
 import React from 'react'
 import Print from '@/components/atoms/Print'
 
@@ -15,7 +14,7 @@ export default function ErrorContainer({
   if (touched && touched?.length < 0) return null
   if (errors && errors?.length < 0) return null
 
-  const formErrors = React.useMemo(() => {
+  const formErrorsList = React.useMemo(() => {
     const errorKeys = Object.keys(errors || {})
     return errorKeys.map((eKey) => {
       const displayLabel = inputLabels[eKey] || eKey || ''
@@ -37,7 +36,7 @@ export default function ErrorContainer({
   return (
     <>
       <ul className="my-3 text-red-400 list-decimal list-inside">
-        {formErrors}
+        {formErrorsList}
       </ul>
     </>
   )

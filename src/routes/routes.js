@@ -1,6 +1,6 @@
 import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
-import UserAddForm from '@/pages/Users/AddForm'
+import UserAddForm, { UserAddFormContainer } from '@/pages/Users/AddForm'
 import UserList from '@/pages/Users/List'
 import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
@@ -10,7 +10,7 @@ export const testRoutes = {
   userCreate: {
     label: 'User',
     path: '/users/create',
-    element: <UserAddForm />,
+    element: <UserAddFormContainer />,
     icon: <Svg.Plus />,
   },
   projects: {

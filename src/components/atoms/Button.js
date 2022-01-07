@@ -9,7 +9,7 @@ function ButtonUnMemo(
   {
     onClick = () => {},
     children,
-    size = 'lg',
+    size = 'lg', // md, lg, xl or 2xl
     // variant = 'default',
     className,
     label,
