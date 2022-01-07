@@ -15,6 +15,7 @@ import Api from '@/services/ApiService'
 import dataURLtoFile from '@/utils/miscellaneous/dataURLtoFile'
 
 import deepMerge from '@/utils/obj/deepMerge'
+import formatDate from '@/utils/date/formatDate'
 
 const inputLabels = {
   name: 'Name',
@@ -56,10 +57,11 @@ export default function UserAddForm({ isEdit, initialData }) {
   }
 
   const transformValues = (values) => {
+    console.log('AddForm.js::[60] DOB', values.dob)
     return {
       ...values,
-      dob: values.dob.toISOString(),
-      doj: values.doj.toISOString(),
+      dob: values.dob && formatDate(values.dob, 'yyyy-MM-dd'),
+      doj: values.doj && formatDate(values.doj, 'yyyy-MM-dd'),
       profile_pic:
         values?.profile_pic?.name &&
         dataURLtoFile(image, values?.profile_pic?.name),
@@ -85,7 +87,7 @@ export default function UserAddForm({ isEdit, initialData }) {
       <FormikForm
         debug={'*'}
         // debug={['isSubmitting']}
-        castFormData
+        // castFormData
         initialValues={deepMerge(initialValues, initialData)}
         validationSchema={addUserSchema()}
         onSubmit={handleSubmit}
