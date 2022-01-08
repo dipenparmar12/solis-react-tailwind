@@ -19,6 +19,7 @@ import formatDate from '@/utils/date/formatDate'
 import useMergeState from '@/hooks/useMergeState'
 import { useModalContext } from '@/components/molecules/Modal/ModalV3'
 import { useAppContext } from '@/context/AppContext'
+import omitVal from '@/utils/obj/omitVal'
 
 const inputLabels = {
   name: 'Name',
@@ -115,7 +116,7 @@ export default function UserAddForm({
         debug={'*'}
         // debug={['isSubmitting']}
         // castFormData
-        initialValues={deepMerge(initialValues, initialData)}
+        initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         validationSchema={addUserSchema(isEdit)}
         onSubmit={handleSubmit}
         transformValues={transformValues}
