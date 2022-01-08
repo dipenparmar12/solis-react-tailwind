@@ -17,6 +17,7 @@ import dataURLtoFile from '@/utils/miscellaneous/dataURLtoFile'
 import deepMerge from '@/utils/obj/deepMerge'
 import formatDate from '@/utils/date/formatDate'
 import useMergeState from '@/hooks/useMergeState'
+import { useModalContext } from '@/components/molecules/Modal/ModalV3'
 
 const inputLabels = {
   name: 'Name',
@@ -56,6 +57,7 @@ export default function UserAddForm({
   initialData,
   onSuccess = () => {},
 }) {
+  const modalCtx = useModalContext()
   const [image, setImage] = React.useState()
 
   // TODO::latter global context for static data
@@ -76,10 +78,6 @@ export default function UserAddForm({
         setStaticData({ roles })
       })
   }, [])
-
-  // React.useEffect(() => {
-  //   console.log('AddForm.js::[77]', staticData.roles)
-  // }, [staticData])
 
   const handleImageChange = (base64, file) => {
     setImage(base64)
@@ -111,7 +109,10 @@ export default function UserAddForm({
     apiCall()
       .then(Api.utils.getRes)
       .then(Api.utils.notifySuccess)
-      .then(onSuccess)
+      .then((e) => {
+        onSuccess(e)
+        modalCtx?.onClose()
+      })
       .then(actions.resetForm)
       .catch((e) => actions?.setErrors(e?.response?.data?.errors))
       .finally(() => actions?.setSubmitting(false))
@@ -232,7 +233,7 @@ export default function UserAddForm({
         </div>
 
         <ButtonFormik as={Button} className="mt-5">
-          Register
+          {isEdit ? 'Update' : 'Register'}
         </ButtonFormik>
 
         {/* <Button className="mt-5 " type="submit">

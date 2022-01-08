@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import React from 'react'
 
 /**
  *
@@ -12,11 +12,16 @@ export default function useFetcher({
   pagination,
   immediateInvoke = true,
 }) {
-  const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [paginationData, setPaginationData] = useState(pagination)
-  // const [metaInfo, setMetaInfo] = useState(null) // TODO::WHEN Required
+  const [data, setData] = React.useState(null)
+  const [error, setError] = React.useState(null)
+  const [loading, setLoading] = React.useState(false)
+  const [paginationData, setPaginationData] = React.useState(pagination)
+  // const [metaInfo, setMetaInfo] = React.useState(null) // TODO::WHEN Required
+  const [refresh, setRefresh] = React.useState(0)
+
+  const reload = React.useCallback(() => {
+    setRefresh((prev) => prev + 1)
+  }, [])
 
   const paginationCb = (res) => {
     if (pagination) {
@@ -28,7 +33,7 @@ export default function useFetcher({
     return res?.results || res
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     let isMounted = true
     const cancelSource = axios.CancelToken.source()
     const config = { cancelToken: cancelSource.token }
@@ -47,12 +52,13 @@ export default function useFetcher({
       cancelSource?.cancel()
       setLoading(false)
     }
-  }, [apiCall, qry])
+  }, [apiCall, qry, refresh])
 
   return {
     data,
     error,
     loading,
     paginationData,
+    reload,
   }
 }

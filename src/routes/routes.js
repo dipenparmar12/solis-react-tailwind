@@ -2,6 +2,7 @@ import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
 import UserAddForm, { UserAddFormContainer } from '@/pages/Users/AddForm'
 import UserList from '@/pages/Users/List'
+import UserContainer from '@/pages/Users/UserContext'
 import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
 import Env from '@/utils/environment'
@@ -103,7 +104,7 @@ export const routesPrivate = {
   users: {
     label: 'Users',
     path: '/users',
-    element: <UserList />,
+    element: <UserContainer />,
     icon: <Svg.Users />,
   },
   ...(Env.IsDev ? testRoutes : {}),

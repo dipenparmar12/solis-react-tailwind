@@ -4,10 +4,8 @@ import { MdModeEditOutline } from 'react-icons/md'
 
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import cn from '@/utils/classNames'
-import UserAddForm from './AddForm'
 import Print from '@/components/atoms/Print'
-import omit from '@/utils/obj/omit'
-import UserEditForm from './EditForm'
+import UserEditForm from './Edit'
 
 export default function UserCard({ data }) {
   return (
