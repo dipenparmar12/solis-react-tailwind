@@ -18,6 +18,7 @@ import deepMerge from '@/utils/obj/deepMerge'
 import formatDate from '@/utils/date/formatDate'
 import useMergeState from '@/hooks/useMergeState'
 import { useModalContext } from '@/components/molecules/Modal/ModalV3'
+import { useAppContext } from '@/context/AppContext'
 
 const inputLabels = {
   name: 'Name',
@@ -57,26 +58,14 @@ export default function UserAddForm({
   initialData,
   onSuccess = () => {},
 }) {
-  const modalCtx = useModalContext()
   const [image, setImage] = React.useState()
-
-  // TODO::latter global context for static data
-  const [staticData, setStaticData] = useMergeState({
-    roles: [],
-    permissions: [],
-  })
+  const modalCtx = useModalContext()
+  const appContext = useAppContext()
 
   React.useEffect(() => {
-    Api.staticData
-      .fetch({ resource: 'roles' })
-      .then(Api.utils.getRes)
-      .then(({ results = [] }) => {
-        const roles = results?.map((role) => ({
-          value: role.id,
-          label: role?.display_name || role?.name,
-        }))
-        setStaticData({ roles })
-      })
+    if (!appContext?.staticData?.roles?.length) {
+      appContext?.fetchRoles()
+    }
   }, [])
 
   const handleImageChange = (base64, file) => {
@@ -211,7 +200,7 @@ export default function UserAddForm({
               className={'flex-1'}
               name="role_id"
               label="User Role"
-              options={staticData?.roles || []}
+              options={appContext?.staticData?.roles || []}
               // options={[
               //   { value: 'admin', label: 'Admin' },
               //   { value: 'team', label: 'Team' },

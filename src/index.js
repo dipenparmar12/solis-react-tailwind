@@ -6,6 +6,8 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import AuthProvider from './context/AuthContext'
 import LayoutProvider from './context/LayoutContext'
+import AppContextProvider from './context/AppContext'
+
 import 'react-toastify/dist/ReactToastify.min.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-responsive-modal/styles.css'
@@ -15,14 +17,16 @@ console.info('index.js::[12] env', process.env.NODE_ENV)
 
 ReactDOM.render(
   <React.StrictMode>
-    <LayoutProvider>
-      <BrowserRouter>
-        <AuthProvider>
-          <App />
-          <ToastContainer />
-        </AuthProvider>
-      </BrowserRouter>
-    </LayoutProvider>
+    <AppContextProvider>
+      <LayoutProvider>
+        <BrowserRouter>
+          <AuthProvider>
+            <App />
+            <ToastContainer />
+          </AuthProvider>
+        </BrowserRouter>
+      </LayoutProvider>
+    </AppContextProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )
