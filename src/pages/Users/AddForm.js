@@ -98,10 +98,17 @@ export default function UserAddForm({
 
   const handleSubmit = async (values, actions, rowValues) => {
     // console.log('AddForm.js::[75] values', values, rowValues)
-    const apiCall = isEdit ? Api.users.update : Api.users.create // TODO::START
+    const apiCall = () => {
+      if (isEdit && values?.id) {
+        return Api.users.update({
+          id: values.id,
+          data: values,
+        })
+      }
+      return Api.users.create(values)
+    }
 
-    Api.users
-      .create(values)
+    apiCall()
       .then(Api.utils.getRes)
       .then(Api.utils.notifySuccess)
       .then(onSuccess)
