@@ -2,21 +2,25 @@
 import { FaRegUser, FaRegEdit } from 'react-icons/fa'
 import { MdModeEditOutline } from 'react-icons/md'
 
+import classNames from 'classnames'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
-import cn from '@/utils/classNames'
+// import cn from '@/utils/classNames'
 import Print from '@/components/atoms/Print'
 import UserEditForm from './Edit'
+import Button from '@/components/atoms/Button'
 
 export default function UserCard({ data }) {
   return (
     <>
       {/* dark theme */}
       <div
-        className={cn([
+        className={classNames([
           `group`,
           `px-4 lg:px-4 py-2 bg-white border shadow-md rounded-md hover:shadow-lg `,
-          `dark:bg-gray-900 dark:hover:bg-black hover:border-gray-400 dark:border-gray-900 dark:hover:border-gray-800 `,
+          `dark:bg-gray-900 dark:hover:bg-black hover:border-gray-400 dark:border-gray-900  `,
           `flex justify-start items-center`,
+          data?.active === 0 &&
+            `bg-red-50 border border-red-400 dark:border-red-700`,
         ])}
       >
         <div className="w-16 h-16 mr-3 rounded-full ">
@@ -55,14 +59,26 @@ export default function UserCard({ data }) {
             {/* <span className="mr-3 border-r border-gray-400 max-h-0" />
             <span>Cochin, IND</span> */}
           </div>
+
           <div className="flex justify-between pb-1">
             <div className="text-xs ">Salary: {data?.salary || '00.0'}</div>
+          </div>
+
+          <div className="flex justify-end pb-1 group">
             <div className="">
+              <Button size="sm" className="hidden group-hover:inline-block">
+                Permission
+              </Button>
+
               <ModalV3
                 renderButton={({ setOpen }) => (
-                  <button className="text-sm" onClick={setOpen}>
+                  <Button
+                    size="sm"
+                    className="px-5 mx-2 text-sm"
+                    onClick={setOpen}
+                  >
                     View
-                  </button>
+                  </Button>
                 )}
               >
                 {' '}

@@ -14,7 +14,7 @@ import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 function RadioButton({
   name,
   label,
-  options,
+  options, // [{ value: '', label: '' }]
   error,
   isRequired,
   className,

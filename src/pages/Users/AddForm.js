@@ -20,6 +20,9 @@ import useMergeState from '@/hooks/useMergeState'
 import { useModalContext } from '@/components/molecules/Modal/ModalV3'
 import { useAppContext } from '@/context/AppContext'
 import omitVal from '@/utils/obj/omitVal'
+import SwitchSlide, {
+  SwitchSlideFormik,
+} from '@/components/molecules/Form/SwitchSlide'
 
 const inputLabels = {
   name: 'Name',
@@ -32,8 +35,8 @@ const inputLabels = {
   address: 'Address',
   role: 'Role',
   profile_pic: 'Profile Pic',
+  active: 'User status',
   // user_type: 'User Type',
-  // active: 'Active',
   // education: 'Education',
 }
 
@@ -49,8 +52,8 @@ const initialValues = {
   address: '',
   role_id: '',
   profile_pic: '',
+  active: '1',
   // user_type: '',
-  // active: '',
   // education: '',
 }
 
@@ -212,12 +215,26 @@ export default function UserAddForm({
           </div>
 
           <div className="flex flex-col gap-3 md:flex-row">
-            <ImageUploadFormik
+            <div className="mb-4">
+              <ImageUploadFormik
+                className={'flex-1'}
+                name="profile_pic"
+                placeholder="Drop your image here"
+                label="Select Profile Picture"
+                getBase64={handleImageChange}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 md:flex-row">
+            <SwitchSlideFormik
               className={'flex-1'}
-              name="profile_pic"
-              placeholder="Drop your image here"
-              label="Select Profile Picture"
-              getBase64={handleImageChange}
+              name="active"
+              label="User Status"
+              options={[
+                { value: 1, label: 'Active' },
+                { value: 0, label: 'Deactivate' },
+              ]}
             />
           </div>
         </div>
