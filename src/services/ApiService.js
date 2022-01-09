@@ -2,32 +2,39 @@ import encode from '../utils/obj/qryString'
 import _axios, { StatusCode } from './AxiosService'
 import Notify from './NotifyService'
 
-const auth = {
-  csrf: async () => _axios.get('/sanctum/csrf-cookie'),
-  login: async (d, c) => _axios.post(`/sanctum/login`, d, c),
-  logout: async () => _axios.get(`/sanctum/logout`),
-  me: async () => _axios.get(`/me`),
-}
+const resources = {
+  auth: {
+    csrf: async () => _axios.get('/sanctum/csrf-cookie'),
+    login: async (d, c) => _axios.post(`/sanctum/login`, d, c),
+    logout: async () => _axios.get(`/sanctum/logout`),
+    me: async () => _axios.get(`/me`),
+  },
 
-const users = {
-  get: async ({ qry, config }) => _axios.get(`/users?${encode(qry)}`, config),
-  create: async (data, config) => _axios.post(`/users`, data, config),
-  update: async ({ id, data, config }) =>
-    _axios.put(`/users/${id}`, data, config),
-  // getById: async ({ id, qry, config }) => _axios.get(`/users/${id}?${encode(qry)}`, config),
-  // delete: async ({ id, config }) => _axios.delete(`/users/${id}`, config),
-}
+  users: {
+    get: async ({ qry, config }) => _axios.get(`/users?${encode(qry)}`, config),
+    create: async (data, config) => _axios.post(`/users`, data, config),
+    update: async ({ id, data, config }) =>
+      _axios.put(`/users/${id}`, data, config),
+    // getById: async ({ id, qry, config }) => _axios.get(`/users/${id}?${encode(qry)}`, config),
+    // delete: async ({ id, config }) => _axios.delete(`/users/${id}`, config),
+  },
 
-const staticData = {
-  fetch: async ({ resource, qry, config }) =>
-    _axios.get(`/static/${resource}?${encode(qry)}`, config),
-}
+  projects: {
+    get: async ({ qry, config }) =>
+      _axios.get(`/projects?${encode(qry)}`, config),
+  },
 
-const test = {
-  get: async ({ qry, config }) => _axios.get(`/test?${encode(qry)}`, config),
-  paginate: async ({ qry, config }) =>
-    _axios.get(`/test/paginate?${encode(qry)}`, config),
-  notFound: async () => _axios.get(`/notfound`),
+  staticData: {
+    fetch: async ({ resource, qry, config }) =>
+      _axios.get(`/static/${resource}?${encode(qry)}`, config),
+  },
+
+  test: {
+    get: async ({ qry, config }) => _axios.get(`/test?${encode(qry)}`, config),
+    paginate: async ({ qry, config }) =>
+      _axios.get(`/test/paginate?${encode(qry)}`, config),
+    notFound: async () => _axios.get(`/notfound`),
+  },
 }
 
 const utils = {
@@ -46,11 +53,8 @@ const utils = {
 }
 
 const Api = {
-  auth,
-  users,
+  ...(resources || {}),
   utils,
-  staticData,
-  test,
 }
 
 export { StatusCode }

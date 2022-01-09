@@ -26,11 +26,11 @@ const Layout = function ({ children }) {
   return (
     <>
       <TopNav />
-      <div className="h-[calc(100vh_-_3.5rem)] relative flex ">
+      <div className="fixed flex w-full h-screen ">
         <Sidebar />
 
         {/* content */}
-        <div className="flex-1 px-3 py-4 space-y-2 sm:px-4 md:px-5 lg:px-6 ">
+        <div className="w-full px-3 py-4 space-y-2 overflow-y-auto sm:px-4 md:px-5 lg:px-6 ">
           {children}{' '}
         </div>
       </div>
@@ -127,13 +127,13 @@ const Sidebar = () => {
       ref={sidebarRef}
     >
       <NavLinkItem route={routes?.userCreate} />
-      <NavLinkItem route={routes?.projects} />
       <NavLinkItem route={routes?.incomes} />
       <NavLinkItem route={routes?.expenses} />
+      <NavLinkItem route={routes?.projects} />
       <NavLinkItem route={routes?.users} />
       <NavLinkItem route={routes?.profile} />
-      {/* <NavDropDownItem route={routes?.dropdown} /> */}
       <NavLinkItem route={routes?.examples} />
+      {/* <NavDropDownItem route={routes?.dropdown} /> */}
     </nav>
   )
 }

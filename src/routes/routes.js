@@ -1,7 +1,14 @@
+import {
+  RiBuilding2Line,
+  RiUserFollowLine,
+  RiInformationLine,
+  RiAddLine,
+} from 'react-icons/ri'
+import { FiUsers } from 'react-icons/fi'
 import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
-import UserAddForm, { UserAddFormContainer } from '@/pages/Users/AddForm'
-import UserList from '@/pages/Users/List'
+import ProjectContainer from '@/pages/Projects/ProjectContainer'
+import { UserAddFormContainer } from '@/pages/Users/AddForm'
 import UserContainer from '@/pages/Users/UserContainer'
 import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
@@ -12,37 +19,31 @@ export const testRoutes = {
     label: 'User',
     path: '/users/create',
     element: <UserAddFormContainer />,
-    icon: <Svg.Plus />,
-  },
-  projects: {
-    label: 'Projects',
-    path: '/Projects',
-    element: <div className="text-2xl"> Projects </div>,
-    icon: <Svg.Plus />,
+    icon: <RiAddLine />,
   },
   expenses: {
     label: 'Expenses',
     path: '/expenses',
     element: <div className="text-2xl"> Expenses </div>,
-    icon: <Svg.Plus />,
+    icon: <RiAddLine />,
   },
   incomes: {
     label: 'Incomes',
     path: '/incomes',
     element: <div className="text-2xl"> Incomes </div>,
-    icon: <Svg.Plus />,
+    icon: <RiAddLine />,
   },
   profile: {
     label: 'Profile',
     path: '/profile',
     element: <PrivateTemp />,
-    icon: <Svg.User />,
+    icon: <RiUserFollowLine />,
   },
   examples: {
     label: 'Examples',
     path: '/examples',
     element: <ExamplesTemp />,
-    icon: <Svg.InfoCircle />,
+    icon: <RiInformationLine />,
   },
   a: {
     label: 'Route expenses',
@@ -99,13 +100,19 @@ export const routesPrivate = {
     label: 'Home',
     path: '/',
     element: <div className="text-2xl"> Home </div>,
-    icon: <Svg.Plus />,
+    icon: <RiBuilding2Line />,
+  },
+  projects: {
+    label: 'Projects',
+    path: '/projects',
+    element: <ProjectContainer />,
+    icon: <RiBuilding2Line />,
   },
   users: {
     label: 'Users',
     path: '/users',
     element: <UserContainer />,
-    icon: <Svg.Users />,
+    icon: <FiUsers />,
   },
   ...(Env.IsDev ? testRoutes : {}),
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import UserCard, { UserCardLoading } from './Card'
+import UserCard from './Card'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
@@ -7,13 +7,14 @@ import UserAddForm from './AddForm'
 import Button from '@/components/atoms/Button'
 import { useUserContext } from './UserContainer'
 import Print from '@/components/atoms/Print'
+import { CardLoading } from '@/components/atoms/LoadingSkeleton'
 
 export default function UserList() {
   const { UsersState = {}, setApiQry } = useUserContext()
 
   return (
     <>
-      <div className={'container'}>
+      <div className={'container pb-20'}>
         <PaginatorV1
           label={'Users'}
           setPage={(option) => {
@@ -52,7 +53,7 @@ export default function UserList() {
           ))}
 
           {/* loading  */}
-          <UserCardLoading loading={UsersState?.loading} />
+          <CardLoading loading={UsersState?.loading} />
         </div>
 
         {/* <Print data={resUsers?.paginationData} maxHeight={'250px'} /> */}

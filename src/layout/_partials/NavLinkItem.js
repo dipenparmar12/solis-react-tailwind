@@ -15,20 +15,20 @@ export const NavLinkItem = ({ route }) => {
       to={route?.path || '/'}
       className={({ isActive }) => {
         return cn(
-          'group block rounded transition duration-200 hover:bg-gray-200 hover:text-black dark:text-gray-400 dark:hover:bg-sky-800',
+          'group flex rounded transition duration-200 hover:bg-gray-200 hover:text-black dark:text-gray-400 dark:hover:bg-sky-800',
           isActive &&
             'bg-gray-200 text-black dark:bg-sky-900 dark:text-gray-200 ',
         )
       }}
     >
       <div className="flex items-center w-full px-3 py-2">
-        <span className="w-5 pt-1">{route?.icon}</span>
+        <span className="w-5 ">{route?.icon}</span>
         {!Size.isSm && isMiniSidebar ? (
-          <div className="relative hidden px-3 ml-3 text-black bg-gray-300 rounded left-5 group-hover:block">
+          <div className="relative hidden px-2 ml-2 text-black bg-gray-300 rounded left-5 group-hover:block">
             {route?.label}
           </div>
         ) : (
-          <span className="w-full ml-3">{route?.label}</span>
+          <span className="w-full px-2 ml-2">{route?.label}</span>
         )}
       </div>
     </NavLink>
