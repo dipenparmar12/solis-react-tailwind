@@ -22,6 +22,10 @@ const resources = {
   projects: {
     get: async ({ qry, config }) =>
       _axios.get(`/projects?${encode(qry)}`, config),
+    create: async (data, config) => _axios.post(`/projects`, data, config),
+    update: async ({ id, data, config }) =>
+      _axios.put(`/projects/${id}`, data, config),
+    // getById: async ({ id, qry, config }) => _axios.get(`/projects/${id}?${encode(qry)}`, config),
   },
 
   staticData: {

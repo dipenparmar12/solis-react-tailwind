@@ -8,13 +8,15 @@ import Button from '@/components/atoms/Button'
 import CardV1 from '@/components/atoms/CardV1'
 import Badge from '@/components/atoms/Badge'
 import formatRs from '@/utils/str/formatRs'
+import capitalize from '@/utils/str/capitalize'
+import ProjectEditForm from './Edit'
 
 export default function ProjectCard({ data }) {
   return (
     <>
       <CardV1 className={'px-7 py-3'}>
         <div className="flex justify-between text-xl y-2 text-sky-500">
-          {data?.title}
+          {capitalize(data?.client)}
           <ModalV3
             renderButton={({ setOpen }) => (
               <button
@@ -28,7 +30,7 @@ export default function ProjectCard({ data }) {
             )}
           >
             <h2 className="mb-3 mr-10 "> {data?.title} </h2>
-            {/* <UserEditForm data={data} /> */}
+            <ProjectEditForm data={data} />
           </ModalV3>
         </div>
         <div className="flex items-center justify-start my-2 ">
@@ -45,19 +47,19 @@ export default function ProjectCard({ data }) {
 
           <div className="flex-1">
             <h3 className="flex justify-between text-md">
-              {data?.title || '-'}
+              {capitalize(data?.title) || '-'}
             </h3>
 
-            <div className="my-1 text-gray-600 dark:text-gray-500">
+            <div className="text-gray-600 dark:text-gray-500">
               Income: {data?.income}
             </div>
 
-            <div className="my-1 text-gray-600 dark:text-gray-500">
-              Expenses: {data?.fund}
+            <div className="text-gray-600 dark:text-gray-500">
+              Expenses: {data?.expense}
             </div>
 
-            <div className="my-1 text-gray-600 dark:text-gray-500">
-              Location: {data?.fund}
+            <div className="text-gray-600 dark:text-gray-500">
+              Location: {data?.location}
             </div>
           </div>
         </div>
@@ -68,7 +70,7 @@ export default function ProjectCard({ data }) {
             <Badge variant={'yellow'}> {formatRs(data?.sqft || 0)} Sqft</Badge>
           </div>
 
-          <div className="space-x-1">
+          <div className="space-x-1 ">
             <Button size="sm" className="hidden group-hover:inline-block">
               Incomes
             </Button>

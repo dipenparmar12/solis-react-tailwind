@@ -230,3 +230,4 @@ module.exports = {
 - React Portal with hooks: https://www.jayfreestone.com/writing/react-portals-with-hooks/
 - Modal https://jasonwatmore.com/post/2018/01/23/react-custom-modal-window-dialog-box
 - Tailwind config reference https://github.com/tailwindlabs/tailwindcss/blob/v1/stubs/defaultConfig.stub.js#L5
+- Tailwind Badge https://codepen.io/oidre/pen/jOqNpKQ

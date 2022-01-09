@@ -8,6 +8,7 @@ import { useProjectContext } from './ProjectContainer'
 import { CardLoading } from '@/components/atoms/LoadingSkeleton'
 import Print from '@/components/atoms/Print'
 import ProjectCard from './Card'
+import ProjectForm from './ProjectForm'
 
 export default function UserList() {
   const { State: ProjectState = {}, setApiQry } = useProjectContext()
@@ -39,9 +40,8 @@ export default function UserList() {
             )}
           >
             <div className="px-2">
-              <h3 className="mb-2 text-lg ">Create Project</h3>
-              <div>TODO:: Project form</div>
-              {/* <UserAddForm onSuccess={ProjectState?.reload} /> */}
+              <h3 className="mb-2 text-xl ">Add new project</h3>
+              <ProjectForm onSuccess={ProjectState?.reload} />
             </div>
           </ModalV3>
         </div>

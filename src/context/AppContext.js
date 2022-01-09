@@ -10,19 +10,30 @@ const AppContextProvider = ({ children }) => {
   const [staticData, setStaticData] = useMergeState({
     roles: [],
     permissions: [],
+    propertyTypes: [],
   })
 
-  const fetchRoles = () => {
+  const fetchData = (qry, mapper = () => {}) => {
     Api.staticData
-      .fetch({ resource: 'roles' })
+      .fetch(qry)
       .then(Api.utils.getRes)
       .then(({ results = [] }) => {
-        const roles = results?.map((role) => ({
-          value: role.id,
-          label: role?.display_name || role?.name,
-        }))
-        setStaticData({ roles })
+        setStaticData({ [qry?.resource]: results?.map(mapper) })
       })
+  }
+
+  const fetchRoles = () => {
+    fetchData({ resource: 'roles' }, (role) => ({
+      value: role.id,
+      label: role?.display_name || role?.name,
+    }))
+  }
+
+  const fetchPropertyTypes = () => {
+    fetchData({ resource: 'property_types' }, (item) => ({
+      value: item,
+      label: item,
+    }))
   }
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -30,6 +41,7 @@ const AppContextProvider = ({ children }) => {
     staticData,
     setStaticData,
     fetchRoles,
+    fetchPropertyTypes,
   }
 
   return (

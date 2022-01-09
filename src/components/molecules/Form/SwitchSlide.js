@@ -28,7 +28,7 @@ function SwitchSlide({
   )
 
   return (
-    <fieldset className="flex ">
+    <fieldset className="flex">
       {label && (
         <label className="flex items-center py-2 my-auto mr-3 text-gray-600 dark:text-gray-300 ">
           {label}
@@ -64,6 +64,7 @@ function SwitchSlide({
                   name={name}
                   value={option?.value}
                   checked={active == option?.value}
+                  onChange={(e) => {}}
                   {...props}
                 />
               </button>

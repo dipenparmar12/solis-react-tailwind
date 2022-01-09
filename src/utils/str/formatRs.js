@@ -1,7 +1,7 @@
 /**
  *
  * @param {Number}
- * @returns {string} - formatted string
+ * @returns {String} - formatted string
  * @src https://stackoverflow.com/a/2901298/8592918
  * @example
  * formatRs(13467890) // '1,34,67,890'

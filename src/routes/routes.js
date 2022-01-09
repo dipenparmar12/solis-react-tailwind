@@ -13,14 +13,9 @@ import UserContainer from '@/pages/Users/UserContainer'
 import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
 import Env from '@/utils/environment'
+import { ProjectFormContainer } from '@/pages/Projects/ProjectForm'
 
 export const testRoutes = {
-  userCreate: {
-    label: 'User',
-    path: '/users/create',
-    element: <UserAddFormContainer />,
-    icon: <RiAddLine />,
-  },
   expenses: {
     label: 'Expenses',
     path: '/expenses',
@@ -96,6 +91,18 @@ export const routesPublic = {
 }
 
 export const routesPrivate = {
+  userCreate: {
+    label: 'User',
+    path: '/users/create',
+    element: <UserAddFormContainer />,
+    icon: <RiAddLine />,
+  },
+  projectCreate: {
+    label: 'New Project',
+    path: '/projects/create',
+    element: <ProjectFormContainer />,
+    icon: <RiAddLine />,
+  },
   home: {
     label: 'Home',
     path: '/',

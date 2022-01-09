@@ -127,7 +127,7 @@ const Sidebar = () => {
       ref={sidebarRef}
     >
       <NavLinkItem route={routes?.userCreate} />
-      <NavLinkItem route={routes?.incomes} />
+      <NavLinkItem route={routes?.projectCreate} />
       <NavLinkItem route={routes?.expenses} />
       <NavLinkItem route={routes?.projects} />
       <NavLinkItem route={routes?.users} />

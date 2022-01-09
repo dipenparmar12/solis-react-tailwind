@@ -39,7 +39,7 @@ export default function UserList() {
             )}
           >
             <div className="px-3">
-              <h3 className="mb-2 text-lg ">Create new user</h3>
+              <h3 className="mb-2 text-xl ">Create new user</h3>
               <UserAddForm onSuccess={UsersState?.reload} />
             </div>
           </ModalV3>
