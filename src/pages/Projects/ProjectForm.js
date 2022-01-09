@@ -25,6 +25,7 @@ import SwitchSlide, {
 import validationSchemaCb, {
   projectInputLabels,
 } from './_partials/validationSchemaCb'
+import capitalize from '@/utils/str/capitalize'
 
 const initialValues = {
   id: '',
@@ -47,7 +48,6 @@ export default function ProjectForm({
   initialData,
   onSuccess = () => {},
 }) {
-  const [image, setImage] = React.useState()
   const modalCtx = useModalContext()
   const appContext = useAppContext()
 
@@ -56,21 +56,6 @@ export default function ProjectForm({
       appContext?.fetchPropertyTypes()
     }
   }, [])
-
-  const handleImageChange = (base64, file) => {
-    setImage(base64)
-  }
-
-  const transformValues = (values) => {
-    return {
-      ...values,
-      dob: values.dob && formatDate(values.dob, 'yyyy-MM-dd'),
-      doj: values.doj && formatDate(values.doj, 'yyyy-MM-dd'),
-      profile_pic:
-        values?.profile_pic?.name &&
-        dataURLtoFile(image, values?.profile_pic?.name),
-    }
-  }
 
   const handleSubmit = async (values, actions, rowValues) => {
     // console.log('AddForm.js::[75] values', values, rowValues)
@@ -102,13 +87,12 @@ export default function ProjectForm({
     <>
       <FormikForm
         debug={'*'}
-        // debug={['isSubmitting']}
-        // castFormData
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         validationSchema={validationSchemaCb(isEdit)}
         onSubmit={handleSubmit}
-        transformValues={transformValues}
         inputLabels={projectInputLabels}
+        // castFormData
+        // transformValues={transformValues}
       >
         <div className="space-y-3">
           <div className="flex flex-col gap-3 md:flex-row">

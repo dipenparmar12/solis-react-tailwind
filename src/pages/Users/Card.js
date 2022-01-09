@@ -7,6 +7,7 @@ import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 // import UserEditForm from './Edit'
 import Button from '@/components/atoms/Button'
+import UserEditForm from './Edit'
 
 export default function UserCard({ data }) {
   return (
@@ -52,7 +53,7 @@ export default function UserCard({ data }) {
               )}
             >
               <h2 className="mb-3 mr-10 text-2xl"> {data?.name} </h2>
-              {/* <UserEditForm data={data} /> */}
+              <UserEditForm data={data} />
             </ModalV3>
           </h3>
           <div className="flex-auto my-1 text-sm text-gray-600 dark:text-gray-500">

@@ -14,7 +14,13 @@ import ProjectEditForm from './Edit'
 export default function ProjectCard({ data }) {
   return (
     <>
-      <CardV1 className={'px-7 py-3'}>
+      <CardV1
+        className={[
+          'px-7 py-3',
+          data?.wip === 0 &&
+            `bg-green-50 border border-green-400 dark:border-2 dark:border-green-700`,
+        ]}
+      >
         <div className="flex justify-between text-xl y-2 text-sky-500">
           {capitalize(data?.client)}
           <ModalV3

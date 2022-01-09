@@ -16,18 +16,6 @@ import Env from '@/utils/environment'
 import { ProjectFormContainer } from '@/pages/Projects/ProjectForm'
 
 export const testRoutes = {
-  expenses: {
-    label: 'Expenses',
-    path: '/expenses',
-    element: <div className="text-2xl"> Expenses </div>,
-    icon: <RiAddLine />,
-  },
-  incomes: {
-    label: 'Incomes',
-    path: '/incomes',
-    element: <div className="text-2xl"> Incomes </div>,
-    icon: <RiAddLine />,
-  },
   profile: {
     label: 'Profile',
     path: '/profile',

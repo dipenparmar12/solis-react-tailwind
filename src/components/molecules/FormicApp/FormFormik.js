@@ -15,7 +15,7 @@ function FormikForm({
   children,
   inputLabels,
   castFormData: castFormDataProp,
-  transformValues = (values) => values,
+  transformValues = (values) => values, // values.map(val => val.toUpperCase())
   ...formProps
 }) {
   // React.useEffect(() => {
