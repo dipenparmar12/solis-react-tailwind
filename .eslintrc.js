@@ -68,6 +68,7 @@ module.exports = {
     'no-unreachable': 'warn',
     'no-nested-ternary': 'warn',
     'react/destructuring-assignment': 'warn',
+    'jsx-a11y/alt-text': 'warn',
     camelcase: 'warn',
     eqeqeq: 'warn',
     'no-useless-escape': 'off',

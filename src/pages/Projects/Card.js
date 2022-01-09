@@ -1,19 +1,20 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable jsx-a11y/alt-text */
 import { RiBuildingLine } from 'react-icons/ri'
 import { MdModeEditOutline } from 'react-icons/md'
-import classNames from 'classnames'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import Button from '@/components/atoms/Button'
 import CardV1 from '@/components/atoms/CardV1'
+import Badge from '@/components/atoms/Badge'
+import formatRs from '@/utils/str/formatRs'
 
 export default function ProjectCard({ data }) {
   return (
     <>
-      <CardV1 className={'px-4 py-3'}>
-        <div className="flex justify-between py-2 text-xl text-sky-500">
-          {' '}
-          {data?.title}{' '}
+      <CardV1 className={'px-7 py-3'}>
+        <div className="flex justify-between text-xl y-2 text-sky-500">
+          {data?.title}
           <ModalV3
             renderButton={({ setOpen }) => (
               <button
@@ -30,7 +31,7 @@ export default function ProjectCard({ data }) {
             {/* <UserEditForm data={data} /> */}
           </ModalV3>
         </div>
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-start my-2 ">
           <div className="w-20 h-16 mr-3 rounded-full ">
             {data?.pic ? (
               <img
@@ -42,13 +43,13 @@ export default function ProjectCard({ data }) {
             )}
           </div>
 
-          <div className="flex-1 mt-2">
+          <div className="flex-1">
             <h3 className="flex justify-between text-md">
               {data?.title || '-'}
             </h3>
 
             <div className="my-1 text-gray-600 dark:text-gray-500">
-              Income: {data?.fund}
+              Income: {data?.income}
             </div>
 
             <div className="my-1 text-gray-600 dark:text-gray-500">
@@ -58,33 +59,38 @@ export default function ProjectCard({ data }) {
             <div className="my-1 text-gray-600 dark:text-gray-500">
               Location: {data?.fund}
             </div>
+          </div>
+        </div>
 
-            <div className="flex justify-end py-1 group">
-              <div className="space-x-1">
-                <Button size="sm" className="hidden group-hover:inline-block">
-                  Incomes
-                </Button>
-                <Button size="sm" className="hidden group-hover:inline-block">
-                  Incomes
-                </Button>
+        <div className="flex justify-between py-1 group">
+          <div className="flex space-x-1 text-xs">
+            <Badge variant={'green'}> {formatRs(data?.budget || 0)} </Badge>
+            <Badge variant={'yellow'}> {formatRs(data?.sqft || 0)} Sqft</Badge>
+          </div>
 
-                <ModalV3
-                  renderButton={({ setOpen }) => (
-                    <Button
-                      size="sm"
-                      className="px-5 mx-2 text-sm"
-                      onClick={setOpen}
-                    >
-                      View
-                    </Button>
-                  )}
+          <div className="space-x-1">
+            <Button size="sm" className="hidden group-hover:inline-block">
+              Incomes
+            </Button>
+            <Button size="sm" className="hidden group-hover:inline-block">
+              Incomes
+            </Button>
+
+            <ModalV3
+              renderButton={({ setOpen }) => (
+                <Button
+                  size="sm"
+                  className="px-5 mx-2 text-sm"
+                  onClick={setOpen}
                 >
-                  {' '}
-                  <h2 className="mb-3 mr-10 text-2xl"> {data?.title} </h2>
-                  <Print>{data}</Print>
-                </ModalV3>
-              </div>
-            </div>
+                  View
+                </Button>
+              )}
+            >
+              {' '}
+              <h2 className="mb-3 mr-10 text-2xl"> {data?.title} </h2>
+              <Print>{data}</Print>
+            </ModalV3>
           </div>
         </div>
       </CardV1>

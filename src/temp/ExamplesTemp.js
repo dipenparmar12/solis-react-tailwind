@@ -7,10 +7,11 @@ import NotifyExample from './Examples/NotifyExample'
 import ButtonsExample from './Examples/ButtonsExample'
 import SvgExamples from './Examples/SvgExamples'
 import ModalV1Example from './Examples/ModalV1Example'
+import BadgeExamples1 from './Examples/BadgeExamples1'
 
 export default function ExamplesTemp() {
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col pb-20 space-y-4">
       {/* ModalV1 example */}
       <ModalV1Example />
       <hr />
@@ -29,8 +30,13 @@ export default function ExamplesTemp() {
       <hr />
       <br />
       <h3 className="text-xl ">SVG's Example</h3>
-      {/* SVGs ETC */}
+      {/* SVGs All */}
       <SvgExamples />
+      <hr />
+      <br />
+      <br />
+      {/* Badges */}
+      <BadgeExamples1 />
       <hr />
       <br />
     </div>
