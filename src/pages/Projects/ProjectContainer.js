@@ -10,21 +10,22 @@ const Context = React.createContext(null)
 export const useProjectContext = () => React.useContext(Context)
 
 const ProjectContainer = ({ children }) => {
-  const [apiQry, setApiQry] = useMergeState({ per_page: 15 })
-  const qryParams = useQryParams({ setParams: setApiQry })
+  const [qry, setQry] = useMergeState({ per_page: 15 })
+  const qryParams = useQryParams({ setParams: setQry })
   const resProjects = useFetcher({
     apiCall: Api.projects.get,
-    qry: apiQry,
+    qry,
     pagination: true, // TODO::10 Throw's error if api has pagination and ui doesn't
   })
 
   React.useEffect(() => {
-    qryParams.set(apiQry)
-  }, [apiQry])
+    qryParams.set(qry)
+  }, [qry])
 
   const contextValue = {
     State: resProjects,
-    setApiQry,
+    qry,
+    setQry,
   }
 
   return (

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
-import { RiFilter3Line } from 'react-icons/ri'
+import { RiFilter3Line, RiCloseFill, RiCloseLine } from 'react-icons/ri'
+import classNames from 'classnames'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
@@ -16,9 +17,12 @@ import ToggleAnim, { TestAnimExample } from '@/hoc/animation/ToggleAnim'
 import useToggle from '@/hooks/useToggle'
 import SwitchSlide from '@/components/molecules/Form/SwitchSlide'
 import ProjectFilters from './Filters'
+import capitalize from '@/utils/str/capitalize'
+import Badge from '@/components/atoms/Badge'
+import BadgeButton from '@/components/atoms/BadgeButton'
 
 export default function UserList() {
-  const { State: ProjectState = {}, setApiQry } = useProjectContext()
+  const { State: ProjectState = {}, setQry, qry } = useProjectContext()
   const [filtersVisible, setFilterVisible] = useToggle(true)
 
   return (
@@ -27,10 +31,10 @@ export default function UserList() {
         <PaginatorV1
           label={'Projects'}
           setPage={(option) => {
-            setApiQry({ page: option?.value || option })
+            setQry({ page: option?.value || option })
           }}
           setPerPage={(option) => {
-            setApiQry({ page: 1, per_page: option?.value || option })
+            setQry({ page: 1, per_page: option?.value || option })
           }}
           totalRecords={ProjectState?.paginationData?.total || 0}
           pageSize={ProjectState?.paginationData?.per_page || 0}
@@ -58,6 +62,21 @@ export default function UserList() {
         </div>
 
         <ProjectFilters isVisible={filtersVisible} />
+
+        <div className="flex gap-2 pt-2">
+          {/* Filter Badges */}
+          {Object.entries(qry || {}).map(([filterKey, value]) => (
+            <div key={filterKey} className="">
+              <BadgeButton
+                variant="green"
+                icon={RiCloseLine}
+                onClick={() => {}}
+              >
+                {capitalize(filterKey)}: {value}
+              </BadgeButton>
+            </div>
+          ))}
+        </div>
 
         <ErrorState error={!ProjectState?.loading && ProjectState?.error} />
 

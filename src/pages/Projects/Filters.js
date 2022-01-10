@@ -6,7 +6,8 @@ import SwitchSlide from '@/components/molecules/Form/SwitchSlide'
 function ProjectFilters({ isVisible }) {
   return (
     <ToggleAnim isVisible={isVisible}>
-      <div className="my-4 space-y-2 ">
+      <div className="p-5 py-3 my-4 space-y-2 border">
+        <div className="py-2 text-xl">Project Filters </div>
         <div className="flex gap-4">
           <InputApp isClearable className="flex-1" label="Title " />
           <InputApp className="flex-1" label="Client " />

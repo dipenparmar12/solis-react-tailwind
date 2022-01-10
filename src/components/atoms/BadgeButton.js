@@ -21,11 +21,21 @@ const variants = {
  * @param {*} { children, className, variant, size, ...rest } - props
  * @see https://codepen.io/oidre/pen/jOqNpKQ
  */
-function Badge({ variant, className = 'px-2 py-1', children, ...rest }) {
+function BadgeButton({
+  variant,
+  className,
+  children,
+  icon: Icon = 'span',
+  onClick,
+  ...rest
+}) {
   return (
     <span
       className={classNames([
         'inline-block items-center max-w-full rounded-lg align-middle',
+        'flex py-1 pl-4 text-sm shadow-md',
+        'font-semibold',
+        'transition-all duration-200 ease-in-out transform',
         variants[variant],
         className,
       ])}
@@ -33,8 +43,23 @@ function Badge({ variant, className = 'px-2 py-1', children, ...rest }) {
       {...rest}
     >
       {children}
+      <button
+        className={classNames([
+          'px-2 py-1 rounded-full cursor-pointer group-hover:inline-block ',
+          'hover:text-black',
+          '',
+        ])}
+        onClick={onClick}
+      >
+        <Icon
+          className={classNames([
+            'w-4 h-4  hover:text-black',
+            variants[variant],
+          ])}
+        />
+      </button>
     </span>
   )
 }
 
-export default Badge
+export default BadgeButton
