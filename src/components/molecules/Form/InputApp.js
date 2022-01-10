@@ -14,8 +14,8 @@ function InputApp(
     type,
     label,
     placeholder,
-    value,
-    onChange,
+    value = '',
+    onChange = () => {},
     error,
     isRequired,
     className,
@@ -78,10 +78,10 @@ function InputApp(
           {...inputProps}
         />
 
-        {isClearable && value !== undefined && (
+        {isClearable && value && (
           <button
             onClick={onClear}
-            className="p-1 -translate-x-8 rounded-full cursor-pointer hover:text-red-500"
+            className="p-1 text-gray-400 -translate-x-8 rounded-full cursor-pointer hover:text-black"
           >
             <RiCloseLine />
           </button>

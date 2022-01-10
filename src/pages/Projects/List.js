@@ -31,10 +31,10 @@ export default function UserList() {
         <PaginatorV1
           label={'Projects'}
           setPage={(option) => {
-            setQry({ page: option?.value || option })
+            setQry?.merge({ page: option?.value || option })
           }}
           setPerPage={(option) => {
-            setQry({ page: 1, per_page: option?.value || option })
+            setQry?.merge({ page: 1, per_page: option?.value || option })
           }}
           totalRecords={ProjectState?.paginationData?.total || 0}
           pageSize={ProjectState?.paginationData?.per_page || 0}
@@ -70,7 +70,7 @@ export default function UserList() {
               <BadgeButton
                 variant="green"
                 icon={RiCloseLine}
-                onClick={() => {}}
+                onClick={() => setQry?.omit(filterKey)}
               >
                 {capitalize(filterKey)}: {value}
               </BadgeButton>
@@ -84,7 +84,9 @@ export default function UserList() {
           {/* Data List */}
           {ProjectState?.data?.map((project, i) => {
             return (
-              <React.Fragment key={`project__${project?.id}${i}`}>
+              <React.Fragment
+                key={`project__${project?.id}${i}${Math.random()}`}
+              >
                 <ProjectCard key={`user__${Math.random()}`} data={project} />
                 {/* <Print> {project} </Print> */}
               </React.Fragment>

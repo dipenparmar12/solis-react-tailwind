@@ -49,7 +49,7 @@ function SwitchSlide({
                 type="button"
                 className={classNames([
                   ` flex-1 z-10 px-3 py-2 rounded-full text-gray-400`,
-                  active == option?.value &&
+                  active === option?.value &&
                     `bg-white shadow-lg dark:bg-black text-gray-600`,
                 ])}
                 onClick={(e) =>
@@ -63,7 +63,7 @@ function SwitchSlide({
                   className={'hidden'}
                   name={name}
                   value={option?.value}
-                  checked={active == option?.value}
+                  checked={active === option?.value}
                   onChange={(e) => {}}
                   {...props}
                 />

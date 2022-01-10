@@ -5,13 +5,14 @@ import useMergeState from '@/hooks/useMergeState'
 import useQryParams from '@/hooks/useQryParams'
 import Api from '@/services/ApiService'
 import ProjectList from './List'
+import useObject from '@/hooks/useObject'
 
 const Context = React.createContext(null)
 export const useProjectContext = () => React.useContext(Context)
 
 const ProjectContainer = ({ children }) => {
-  const [qry, setQry] = useMergeState({ per_page: 15 })
-  const qryParams = useQryParams({ setParams: setQry })
+  const [qry, setQry] = useObject({ per_page: 15 })
+  const qryParams = useQryParams({ setParams: setQry.merge })
   const resProjects = useFetcher({
     apiCall: Api.projects.get,
     qry,
