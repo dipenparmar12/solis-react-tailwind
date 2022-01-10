@@ -24,12 +24,15 @@ const useObject = (initialState = {}, cb = () => {}) => {
   }, [])
 
   const updateValue = React.useRef({
-    merge: mergeState,
-    omit: omitState,
+    reset: () => setState(initialState), // state.reset()
+    merge: mergeState, // state.merge({ myKey: value })
+    omit: omitState, // state.omit('myKey')
   })
 
   return [state, updateValue.current, setState]
 }
+
+// TODO::whenever required= Map, Filter, Reduce, Find, FindIndex, Every, Some
 
 export default useObject
 

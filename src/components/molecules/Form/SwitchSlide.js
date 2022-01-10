@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import WithFormik from '../FormicApp/WithFormik'
 
 function SwitchSlide({
-  options = [], // [{ value: '', label: '' }]
+  options = [], // [{ value: '', label: '', onSet: () => {} }]
   value: propsValue,
   onChange: tellParentToChange = () => {},
   name,
@@ -52,9 +52,10 @@ function SwitchSlide({
                   active === option?.value &&
                     `bg-white shadow-lg dark:bg-black text-gray-600`,
                 ])}
-                onClick={(e) =>
+                onClick={(e) => {
                   option?.value !== active && handleChange(option?.value, e)
-                }
+                  option?.onSet(option?.value, e)
+                }}
                 id={`radio-button-${option?.value}`}
               >
                 {option?.label}
