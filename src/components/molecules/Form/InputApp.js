@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react'
 import classNames from 'classnames'
+import { RiCloseLine } from 'react-icons/ri'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
 import ErrorFeedback from '@/components/atoms/ErrorFeedback'
@@ -24,12 +25,17 @@ function InputApp(
       label: labelClassName = '',
       error: errorClassName = '',
     } = {},
+    isClearable,
     ...inputProps
   },
   inputRef,
 ) {
   const ownRef = React.useRef(null)
   const mergedRef = useMergeRefs([inputRef, ownRef])
+
+  const onClear = () => {
+    onChange('')
+  }
 
   return (
     <fieldset className={classNames(containerClassName, className)}>
@@ -46,29 +52,41 @@ function InputApp(
       >
         {label} {isRequired && <span className="pl-1 text-red-300"> *</span>}
       </label>
-      <Input
-        ref={mergedRef}
-        className={classNames([
-          'outline-none w-full ',
-          'block rounded-lg border border-transparent text-gray-700',
-          'py-2 px-4 bg-gray-100',
-          'hover:bg-white hover:border-blue-300 hover:shadow-outline-blue',
-          'active:bg-white',
-          'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
-          'transition duration-200 ease-in-out',
-          // error &&
-          //   ' text-red-400  bg-red-100/80 hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
-          // error &&
-          //   '  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
-          inputClassName,
-        ])}
-        name={name}
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        {...inputProps}
-      />
+      <div className="relative flex items-center">
+        <Input
+          ref={mergedRef}
+          className={classNames([
+            'pr-7',
+            'outline-none w-full ',
+            'block rounded-lg border border-transparent text-gray-700',
+            'py-2 px-4 bg-gray-100',
+            'hover:bg-white hover:border-blue-300 hover:shadow-outline-blue',
+            'active:bg-white',
+            'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
+            'transition duration-200 ease-in-out',
+            // error &&
+            //   ' text-red-400  bg-red-100/80 hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
+            // error &&
+            //   '  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
+            inputClassName,
+          ])}
+          name={name}
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          {...inputProps}
+        />
+
+        {isClearable && value !== undefined && (
+          <button
+            onClick={onClear}
+            className="p-1 -translate-x-8 rounded-full cursor-pointer hover:text-red-500"
+          >
+            <RiCloseLine />
+          </button>
+        )}
+      </div>
 
       <ErrorFeedback error={error} />
     </fieldset>

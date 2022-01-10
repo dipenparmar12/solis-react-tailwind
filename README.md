@@ -231,3 +231,4 @@ module.exports = {
 - Modal https://jasonwatmore.com/post/2018/01/23/react-custom-modal-window-dialog-box
 - Tailwind config reference https://github.com/tailwindlabs/tailwindcss/blob/v1/stubs/defaultConfig.stub.js#L5
 - Tailwind Badge https://codepen.io/oidre/pen/jOqNpKQ
+- React Toggle Animation https://medium.com/clever-franke/create-a-react-slidetoggle-component-with-hooks-and-react-spring-748919c38667

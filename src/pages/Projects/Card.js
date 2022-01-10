@@ -40,17 +40,6 @@ export default function ProjectCard({ data }) {
           </ModalV3>
         </div>
         <div className="flex items-center justify-start my-2 ">
-          <div className="w-20 h-16 mr-3 rounded-full ">
-            {data?.pic ? (
-              <img
-                src={data?.pic}
-                className="w-full h-full border rounded-full"
-              />
-            ) : (
-              <RiBuildingLine className="w-full h-full text-gray-300 dark:text-gray-700" />
-            )}
-          </div>
-
           <div className="flex-1">
             <h3 className="flex justify-between text-md">
               {capitalize(data?.title) || '-'}
@@ -68,6 +57,16 @@ export default function ProjectCard({ data }) {
               Location: {data?.location}
             </div>
           </div>
+          <div className="w-20 h-16 mr-3 rounded-full ">
+            {data?.pic ? (
+              <img
+                src={data?.pic}
+                className="w-full h-full border rounded-full"
+              />
+            ) : (
+              <RiBuildingLine className="w-full h-full text-gray-300 dark:text-gray-700" />
+            )}
+          </div>
         </div>
 
         <div className="flex justify-between py-1 group">
@@ -77,9 +76,6 @@ export default function ProjectCard({ data }) {
           </div>
 
           <div className="space-x-1 ">
-            <Button size="sm" className="hidden group-hover:inline-block">
-              Incomes
-            </Button>
             <Button size="sm" className="hidden group-hover:inline-block">
               Incomes
             </Button>

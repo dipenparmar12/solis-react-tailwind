@@ -58,7 +58,7 @@ export default function DropDownApp({
 
   return (
     <>
-      <div ref={dropDownContainerRef} className="relative inline-block">
+      <div ref={dropDownContainerRef} className="relative z-20 inline-block">
         <button
           className="block px-2 overflow-hidden border border-gray-300 rounded-md cursor-pointer dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-900 hover:bg-slate-100"
           onClick={() => setOpen(!isOpen)}

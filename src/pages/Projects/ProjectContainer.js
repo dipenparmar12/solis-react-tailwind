@@ -6,8 +6,8 @@ import useQryParams from '@/hooks/useQryParams'
 import Api from '@/services/ApiService'
 import ProjectList from './List'
 
-const context = React.createContext(null)
-export const useProjectContext = () => React.useContext(context)
+const Context = React.createContext(null)
+export const useProjectContext = () => React.useContext(Context)
 
 const ProjectContainer = ({ children }) => {
   const [apiQry, setApiQry] = useMergeState({ per_page: 15 })
@@ -28,9 +28,9 @@ const ProjectContainer = ({ children }) => {
   }
 
   return (
-    <context.Provider value={contextValue}>
+    <Context.Provider value={contextValue}>
       <ProjectList />
-    </context.Provider>
+    </Context.Provider>
   )
 }
 

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
+import { RiFilter3Line } from 'react-icons/ri'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
@@ -9,9 +10,16 @@ import { CardLoading } from '@/components/atoms/LoadingSkeleton'
 import Print from '@/components/atoms/Print'
 import ProjectCard from './Card'
 import ProjectForm from './ProjectForm'
+import CardV1 from '@/components/atoms/CardV1'
+import InputApp from '@/components/molecules/Form/InputApp'
+import ToggleAnim, { TestAnimExample } from '@/hoc/animation/ToggleAnim'
+import useToggle from '@/hooks/useToggle'
+import SwitchSlide from '@/components/molecules/Form/SwitchSlide'
+import ProjectFilters from './Filters'
 
 export default function UserList() {
   const { State: ProjectState = {}, setApiQry } = useProjectContext()
+  const [filtersVisible, setFilterVisible] = useToggle(true)
 
   return (
     <>
@@ -31,7 +39,7 @@ export default function UserList() {
           siblingCount={1}
         />
 
-        <div className="my-3">
+        <div className="flex justify-between my-4">
           <ModalV3
             renderButton={({ setOpen }) => (
               <Button size="md" onClick={setOpen}>
@@ -44,10 +52,16 @@ export default function UserList() {
               <ProjectForm onSuccess={ProjectState?.reload} />
             </div>
           </ModalV3>
+          <Button onClick={setFilterVisible.toggle}>
+            <RiFilter3Line className="inline-block mb-1" /> Filters
+          </Button>
         </div>
+
+        <ProjectFilters isVisible={filtersVisible} />
+
         <ErrorState error={!ProjectState?.loading && ProjectState?.error} />
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-5 ">
+        <div className="grid grid-cols-1 gap-4 mt-5 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-5 ">
           {/* Data List */}
           {ProjectState?.data?.map((project, i) => {
             return (
