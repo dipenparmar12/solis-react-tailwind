@@ -1,6 +1,7 @@
 // @src/hooks/useMediaQuery.js
 import React, { useEffect, useState } from 'react'
-import debounce from '../utils/debounce'
+import debounce from '@/utils/function/debounce'
+// import debounce from '../utils/debounce'
 
 const useMediaQuery = (minWidth) => {
   const [state, setState] = useState({

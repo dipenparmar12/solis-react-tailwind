@@ -33,10 +33,6 @@ function InputApp(
   const ownRef = React.useRef(null)
   const mergedRef = useMergeRefs([inputRef, ownRef])
 
-  const onClear = () => {
-    onChange('')
-  }
-
   return (
     <fieldset className={classNames(containerClassName, className)}>
       <label
@@ -46,9 +42,7 @@ function InputApp(
           labelClassName,
         )}
         htmlFor={name}
-        onClick={() => {
-          ownRef.current?.focus()
-        }}
+        onClick={ownRef.current?.focus}
       >
         {label} {isRequired && <span className="pl-1 text-red-300"> *</span>}
       </label>
@@ -70,6 +64,7 @@ function InputApp(
             //   '  border-red-200 hover:border-red-200 active:border-red-200 focus:border-red-200 ',
             inputClassName,
           ])}
+          id={name}
           name={name}
           type={type}
           value={value}
@@ -80,7 +75,7 @@ function InputApp(
 
         {isClearable && value && (
           <button
-            onClick={onClear}
+            // onClick={onClear}
             className="p-1 text-gray-400 -translate-x-8 rounded-full cursor-pointer hover:text-black"
           >
             <RiCloseLine />

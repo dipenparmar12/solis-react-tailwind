@@ -21,7 +21,7 @@ export default function ToggleAnim({ isVisible, children }) {
     leave: { height: 0, overflow: 'hidden' },
   })
 
-  return isVisible ? children : null
+  return <div className={isVisible ? 'block' : 'hidden'}> {children}</div>
 }
 
 export const TestAnimExample = () => {

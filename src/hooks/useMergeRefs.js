@@ -16,13 +16,13 @@ import React from 'react'
  * }
  */
 export default function useMergeRefs(refs) {
+  // console.log('useMergeRefs.js::[19] ref', refs)
   const mergedRef = React.useCallback((node) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {
         ref(node)
       } else if (ref && ref.current) {
         /* eslint-disable no-param-reassign */
-
         ref.current = node
       }
     })

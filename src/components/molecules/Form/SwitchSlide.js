@@ -54,7 +54,7 @@ function SwitchSlide({
                 ])}
                 onClick={(e) => {
                   option?.value !== active && handleChange(option?.value, e)
-                  option?.onSet(option?.value, e)
+                  option?.onSet?.(option?.value, e)
                 }}
                 id={`radio-button-${option?.value}`}
               >

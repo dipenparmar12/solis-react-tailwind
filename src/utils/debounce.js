@@ -1,4 +1,5 @@
 /**
+ * TODO::REMOVE
  * debounce method for primitives values and functions
  * @param {function|number|string} value
  * @param {number} delay - delay in milliseconds

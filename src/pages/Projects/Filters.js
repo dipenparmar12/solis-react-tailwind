@@ -3,19 +3,28 @@ import InputApp from '@/components/molecules/Form/InputApp'
 import ToggleAnim from '@/hoc/animation/ToggleAnim'
 import SwitchSlide from '@/components/molecules/Form/SwitchSlide'
 import { useProjectContext } from './ProjectContainer'
+import InputDebounce from '@/components/molecules/Form/InputDebounce'
 
 function ProjectFilters({ isVisible }) {
   const { State: ProjectState = {}, setQry, qry } = useProjectContext()
-
   return (
     <ToggleAnim isVisible={isVisible}>
       <div className="p-5 py-3 my-4 space-y-2 border">
         <div className="py-2 text-xl">Project Filters </div>
         <div className="flex gap-4">
-          <InputApp value="" isClearable className="flex-1" label="Title " />
-          <InputApp value="" className="flex-1" label="Client " />
-          <InputApp
-            value=""
+          <InputDebounce
+            isClearable
+            className="flex-1"
+            label="Title"
+            onChangeDebounced={(e) => {
+              const { value } = e.target
+              value === ''
+                ? setQry.omit('title')
+                : setQry.merge({ title: e.target.value })
+            }}
+          />
+          <InputDebounce className="flex-1" label="Client" />
+          <InputDebounce
             type="number"
             className="flex-1"
             label="Project Value "
