@@ -3,17 +3,17 @@ import React from 'react'
 import useFetcher from '@/hooks/useFetcher'
 import useQryParams from '@/hooks/useQryParams'
 import Api from '@/services/ApiService'
-import ProjectList from './List'
+import TransactionsList from './List'
 import useObject from '@/hooks/useObject'
 
 const Context = React.createContext(null)
-export const useProjectContext = () => React.useContext(Context)
+export const useTransactionContext = () => React.useContext(Context)
 
-const ProjectContainer = ({ children }) => {
+const TransactionsContainer = ({ children }) => {
   const [qry, setQry] = useObject({ per_page: 15 })
   const qryParams = useQryParams({ setParams: setQry.merge })
   const resProjects = useFetcher({
-    apiCall: Api.projects.get,
+    apiCall: Api.transactions.get,
     qry,
     pagination: true, // TODO::10 Throw's error if api has pagination and ui doesn't
   })
@@ -30,9 +30,9 @@ const ProjectContainer = ({ children }) => {
 
   return (
     <Context.Provider value={contextValue}>
-      <ProjectList />
+      <TransactionsList />
     </Context.Provider>
   )
 }
 
-export default ProjectContainer
+export default TransactionsContainer

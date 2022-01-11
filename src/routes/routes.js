@@ -3,6 +3,7 @@ import {
   RiUserFollowLine,
   RiInformationLine,
   RiAddLine,
+  RiBankCardLine,
 } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
 import Svg from '@/components/Svg/Svg'
@@ -14,6 +15,7 @@ import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
 import Env from '@/utils/environment'
 import { ProjectFormContainer } from '@/pages/Projects/ProjectForm'
+import TransactionsContainer from '@/pages/Transactions/Transactions'
 
 export const testRoutes = {
   profile: {
@@ -108,6 +110,12 @@ export const routesPrivate = {
     path: '/users',
     element: <UserContainer />,
     icon: <FiUsers />,
+  },
+  transaction: {
+    label: 'Transaction',
+    path: '/transaction',
+    element: <TransactionsContainer />,
+    icon: <RiBankCardLine />,
   },
   ...(Env.IsDev ? testRoutes : {}),
 }

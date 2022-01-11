@@ -1,29 +1,22 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
-import { RiFilter3Line, RiCloseFill, RiCloseLine } from 'react-icons/ri'
-import classNames from 'classnames'
+import { RiFilter3Line, RiCloseLine } from 'react-icons/ri'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import ErrorState from '@/components/atoms/ErrorState'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Button from '@/components/atoms/Button'
 import { useProjectContext } from './ProjectContainer'
 import { CardLoading } from '@/components/atoms/LoadingSkeleton'
-import Print from '@/components/atoms/Print'
 import ProjectCard from './Card'
 import ProjectForm from './ProjectForm'
-import CardV1 from '@/components/atoms/CardV1'
-import InputApp from '@/components/molecules/Form/InputApp'
-import ToggleAnim, { TestAnimExample } from '@/hoc/animation/ToggleAnim'
 import useToggle from '@/hooks/useToggle'
-import SwitchSlide from '@/components/molecules/Form/SwitchSlide'
 import ProjectFilters from './Filters'
 import capitalize from '@/utils/str/capitalize'
 import BadgeButton from '@/components/atoms/BadgeButton'
-import Badge from '@/components/atoms/Badge'
 
 export default function ProjectList() {
   const { State: ProjectState = {}, setQry, qry } = useProjectContext()
-  const [filtersVisible, setFilterVisible] = useToggle(true)
+  const [filtersVisible, setFilterVisible] = useToggle(false)
 
   return (
     <>

@@ -13,6 +13,16 @@ function ProjectFilters({ isVisible }) {
         <div className="py-2 text-xl">Project Filters </div>
         <div className="flex gap-4 ">
           <InputDebounce
+            className="flex-1"
+            label="Client"
+            onChangeDebounced={(e) => {
+              const { value } = e.target
+              value === ''
+                ? setQry.omit('client')
+                : setQry.merge({ client: value })
+            }}
+          />
+          <InputDebounce
             isClearable
             className="flex-1"
             label="Title"
@@ -21,16 +31,6 @@ function ProjectFilters({ isVisible }) {
               value === ''
                 ? setQry.omit('title')
                 : setQry.merge({ title: value })
-            }}
-          />
-          <InputDebounce
-            className="flex-1"
-            label="Client"
-            onChangeDebounced={(e) => {
-              const { value } = e.target
-              value === ''
-                ? setQry.omit('client')
-                : setQry.merge({ client: value })
             }}
           />
         </div>
