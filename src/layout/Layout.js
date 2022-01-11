@@ -30,7 +30,7 @@ const Layout = function ({ children }) {
         <Sidebar />
 
         {/* content */}
-        <div className="w-full px-3 py-4 space-y-2 overflow-y-auto sm:px-4 md:px-5 lg:px-6 ">
+        <div className="w-full px-2 py-4 pb-10 space-y-2 overflow-y-auto sm:px-4 md:px-5 lg:px-4 ">
           {children}{' '}
         </div>
       </div>

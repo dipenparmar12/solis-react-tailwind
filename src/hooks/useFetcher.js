@@ -12,7 +12,7 @@ export default function useFetcher({
   pagination,
   immediateInvoke = true,
 }) {
-  const [data, setData] = React.useState(null)
+  const [data, setData] = React.useState([])
   const [error, setError] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [paginationData, setPaginationData] = React.useState(pagination)
