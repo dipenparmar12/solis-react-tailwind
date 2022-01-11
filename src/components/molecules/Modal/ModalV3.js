@@ -19,6 +19,7 @@ function ModalV3(
   const [stateIsOpen, setStateOpen] = React.useState(false)
   const isControlled = typeof propsIsOpen === 'boolean'
   const isOpen = isControlled ? propsIsOpen : stateIsOpen
+  const modalRef = React.useRef(null) // TODO::: mergeRef(modalRef, forwardRef)
 
   const onOpen = () => setStateOpen(true)
   const onClose = React.useCallback(() => {
@@ -41,7 +42,13 @@ function ModalV3(
   return (
     <>
       {!isControlled && renderButton({ setOpen: () => setStateOpen(true) })}
-      <Modal open={isOpen} onClose={onClose} center {...modalProps}>
+      <Modal
+        open={isOpen}
+        onClose={onClose}
+        initialFocusRef={modalRef}
+        center
+        {...modalProps}
+      >
         <ModalContext.Provider value={contextValues}>
           {children}
         </ModalContext.Provider>

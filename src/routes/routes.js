@@ -112,8 +112,8 @@ export const routesPrivate = {
     icon: <FiUsers />,
   },
   transaction: {
-    label: 'Transaction',
-    path: '/transaction',
+    label: 'Transactions',
+    path: '/transactions',
     element: <TransactionsContainer />,
     icon: <RiBankCardLine />,
   },

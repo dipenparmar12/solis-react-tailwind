@@ -31,9 +31,9 @@ const resources = {
   transactions: {
     get: async ({ qry, config }) =>
       _axios.get(`/transactions?${encode(qry)}`, config),
-    // create: async (data, config) => _axios.post(`/transactions`, data, config),
-    // update: async ({ id, data, config }) =>
-    // _axios.put(`/transactions/${id}`, data, config),
+    create: async (data, config) => _axios.post(`/transactions`, data, config),
+    update: async ({ id, data, config }) =>
+      _axios.put(`/transactions/${id}`, data, config),
     // getById: async ({ id, qry, config }) => _axios.get(`/transactions/${id}?${encode(qry)}`, config),
   },
 

@@ -17,7 +17,7 @@ export default function ErrorContainer({
   const formErrorsList = React.useMemo(() => {
     const errorKeys = Object.keys(errors || {})
     return errorKeys.map((eKey) => {
-      const displayLabel = inputLabels[eKey] || eKey || ''
+      const displayLabel = (inputLabels && inputLabels[eKey]) || eKey || ''
       const errorsList = [errors[eKey]].flat()
       if (!touched[eKey]) return null
       return (

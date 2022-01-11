@@ -9,6 +9,7 @@ import useToggle from '@/hooks/useToggle'
 import { useTransactionContext } from './Transactions'
 import Print from '@/components/atoms/Print'
 import TransactionCard from './Card'
+import TransactionForm from './TranForm'
 
 export default function ProjectList() {
   const { State: TransactionState = {}, setQry, qry } = useTransactionContext()
@@ -25,8 +26,8 @@ export default function ProjectList() {
             )}
           >
             <div className="px-2">
-              <h3 className="mb-2 text-xl ">Add new transaction type</h3>
-              {/* <ProjectForm onSuccess={TransactionState?.reload} /> */}
+              <h3 className="mb-2 text-xl ">New transaction type</h3>
+              <TransactionForm onSuccess={TransactionState?.reload} />
             </div>
           </ModalV3>
         </div>
