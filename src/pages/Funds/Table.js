@@ -2,8 +2,11 @@
 import React from 'react'
 import { useTable } from 'react-table'
 import classNames from 'classnames'
-import Print from '@/components/atoms/Print'
 import { useFundContext } from './Funds'
+import TableV1 from '@/components/molecules/Table/TableV1'
+import Print from '@/components/atoms/Print'
+
+const { Thead, Th, Tbody, Tr, Td } = TableV1
 
 export default function FundTable() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
@@ -12,56 +15,32 @@ export default function FundTable() {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data: FundState?.data })
 
-  React.useEffect(() => {
-    console.log('Table.js::[14]', FundState?.data)
-  }, [FundState?.data])
   return (
     <>
-      <table
-        {...getTableProps()}
-        className="w-full border-collapse rounded-sm "
-      >
-        <thead className="shadow">
+      <TableV1 {...getTableProps()}>
+        <Thead>
           {headerGroups.map((hGroup) => (
             <tr {...hGroup.getHeaderGroupProps()}>
               {hGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  className="px-2 py-3 font-semibold text-left text-gray-600 border-b dark:text-gray-400 dark:border-sky-800"
-                >
-                  {column.render('Header')}
-                </th>
+                <Th {...column.getHeaderProps()}>{column.render('Header')}</Th>
               ))}
             </tr>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps}>
+        </Thead>
+
+        <Tbody {...getTableBodyProps}>
           {rows?.map((row, i) => {
             prepareRow(row)
             return (
-              <tr
-                {...row.getRowProps()}
-                className={classNames([
-                  'border-b test-left dark:border-gray-700',
-                  'bg-white hover:bg-sky-50',
-                  'text-gray-500 dark:text-gray-400 hover:dark:text-blue-300 hover:text-gray-700',
-                  'transition duration-200 ease-in-out',
-                ])}
-              >
+              <Tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()} className="px-2 py-2.5 ">
-                      {cell.render('Cell')}
-                    </td>
-                  )
+                  return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                 })}
-              </tr>
+              </Tr>
             )
           })}
-        </tbody>
-      </table>
-
-      {/* <Print>{FundState?.data}</Print> */}
+        </Tbody>
+      </TableV1>
     </>
   )
 }
