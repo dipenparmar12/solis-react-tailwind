@@ -39,10 +39,10 @@ function InputDebounce(
   // }
 
   return (
-    <fieldset>
+    <fieldset className={className}>
       <label
         className={classNames(
-          'flex items-center mb-1 text-gray-600 dark:text-gray-300',
+          'flex items-center mb-1 text-gray-500 dark:text-gray-400',
           // isError && 'text-red-400',
         )}
         htmlFor={name}
@@ -56,11 +56,12 @@ function InputDebounce(
         className={classNames([
           'pr-7',
           'outline-none w-full ',
-          'block rounded-lg border border-transparent text-gray-700',
+          'block rounded-lg border border-transparent text-gray-700 ',
           'py-2 px-4 bg-gray-100',
           'hover:bg-white hover:border-blue-300 hover:shadow-outline-blue',
           'active:bg-white',
           'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
+          'dark:bg-gray-700 dark:text-gray-300 focus:dark:border-blue-500',
           'transition duration-200 ease-in-out',
         ])}
         id={name}

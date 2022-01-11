@@ -9,9 +9,9 @@ function ProjectFilters({ isVisible }) {
   const { State: ProjectState = {}, setQry, qry } = useProjectContext()
   return (
     <ToggleAnim isVisible={isVisible}>
-      <div className="p-5 py-3 my-4 space-y-2 border">
+      <div className="p-5 py-3 my-4 space-y-2 text-gray-400 border dark:border-gray-600">
         <div className="py-2 text-xl">Project Filters </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 ">
           <InputDebounce
             isClearable
             className="flex-1"
@@ -20,7 +20,7 @@ function ProjectFilters({ isVisible }) {
               const { value } = e.target
               value === ''
                 ? setQry.omit('title')
-                : setQry.merge({ title: e.target.value })
+                : setQry.merge({ title: e?.target?.value })
             }}
           />
           <InputDebounce className="flex-1" label="Client" />

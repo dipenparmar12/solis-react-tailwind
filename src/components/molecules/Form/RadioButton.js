@@ -42,7 +42,7 @@ function RadioButton({
     <>
       <fieldset>
         {label && (
-          <label className="flex items-center py-2 my-auto mr-3 text-gray-600 dark:text-gray-300 title">
+          <label className="flex items-center py-2 my-auto mr-3 text-gray-500 dark:text-gray-300 title">
             {label}
           </label>
         )}

@@ -37,7 +37,7 @@ function InputApp(
     <fieldset className={classNames(containerClassName, className)}>
       <label
         className={classNames(
-          'flex items-center mb-1 text-gray-600 dark:text-gray-300',
+          'flex items-center mb-1 text-gray-500 dark:text-gray-400',
           // isError && 'text-red-400',
           labelClassName,
         )}
@@ -58,6 +58,7 @@ function InputApp(
             'active:bg-white',
             'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
             'transition duration-200 ease-in-out',
+            'dark:bg-gray-700 dark:text-gray-300 focus:dark:border-blue-500',
             // error &&
             //   ' text-red-400  bg-red-100/80 hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
             // error &&

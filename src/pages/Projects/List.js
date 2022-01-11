@@ -18,10 +18,10 @@ import useToggle from '@/hooks/useToggle'
 import SwitchSlide from '@/components/molecules/Form/SwitchSlide'
 import ProjectFilters from './Filters'
 import capitalize from '@/utils/str/capitalize'
-import Badge from '@/components/atoms/Badge'
 import BadgeButton from '@/components/atoms/BadgeButton'
+import Badge from '@/components/atoms/Badge'
 
-export default function UserList() {
+export default function ProjectList() {
   const { State: ProjectState = {}, setQry, qry } = useProjectContext()
   const [filtersVisible, setFilterVisible] = useToggle(true)
 

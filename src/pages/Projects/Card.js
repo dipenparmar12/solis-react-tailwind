@@ -45,16 +45,16 @@ export default function ProjectCard({ data }) {
               {capitalize(data?.title) || '-'}
             </h3>
 
-            <div className="text-gray-600 dark:text-gray-500">
-              Income: {data?.income}
+            <div className="text-gray-700 dark:text-gray-400">
+              <span className="text-gray-500">Income:</span> {data?.income}
             </div>
 
-            <div className="text-gray-600 dark:text-gray-500">
-              Expenses: {data?.expense}
+            <div className="text-gray-700 dark:text-gray-400">
+              <span className="text-gray-500">Expenses:</span> {data?.expense}
             </div>
 
-            <div className="text-gray-600 dark:text-gray-500">
-              Location: {data?.location}
+            <div className="text-gray-700 dark:text-gray-400">
+              <span className="text-gray-500">Location:</span> {data?.location}
             </div>
           </div>
           <div className="w-20 h-16 mr-3 rounded-full ">
