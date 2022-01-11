@@ -28,6 +28,10 @@ const resources = {
     // getById: async ({ id, qry, config }) => _axios.get(`/projects/${id}?${encode(qry)}`, config),
   },
 
+  funds: {
+    get: async ({ qry, config }) => _axios.get(`/funds?${encode(qry)}`, config),
+  },
+
   transactions: {
     get: async ({ qry, config }) =>
       _axios.get(`/transactions?${encode(qry)}`, config),

@@ -4,6 +4,7 @@ import {
   RiInformationLine,
   RiAddLine,
   RiBankCardLine,
+  RiRefund2Line,
 } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
 import Svg from '@/components/Svg/Svg'
@@ -16,6 +17,7 @@ import PrivateTemp from '@/temp/PrivateTemp'
 import Env from '@/utils/environment'
 import { ProjectFormContainer } from '@/pages/Projects/ProjectForm'
 import TransactionsContainer from '@/pages/Transactions/Transactions'
+import FundContainer from '@/pages/Funds/Funds'
 
 export const testRoutes = {
   profile: {
@@ -98,6 +100,12 @@ export const routesPrivate = {
     path: '/',
     element: <div className="text-2xl"> Home </div>,
     icon: <RiBuilding2Line />,
+  },
+  funds: {
+    label: 'PettyCase',
+    path: '/funds',
+    element: <FundContainer />,
+    icon: <RiRefund2Line />,
   },
   projects: {
     label: 'Projects',

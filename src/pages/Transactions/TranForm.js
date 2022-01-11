@@ -57,7 +57,7 @@ export default function TransactionForm({
   return (
     <>
       <FormikForm
-        debug={'*'}
+        debug
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         validationSchema={yup.object().shape({
           type: yup.string().nullable().required('Type is required'),
