@@ -20,14 +20,18 @@ function ProjectFilters({ isVisible }) {
               const { value } = e.target
               value === ''
                 ? setQry.omit('title')
-                : setQry.merge({ title: e?.target?.value })
+                : setQry.merge({ title: value })
             }}
           />
-          <InputDebounce className="flex-1" label="Client" />
           <InputDebounce
-            type="number"
             className="flex-1"
-            label="Project Value "
+            label="Client"
+            onChangeDebounced={(e) => {
+              const { value } = e.target
+              value === ''
+                ? setQry.omit('client')
+                : setQry.merge({ client: value })
+            }}
           />
         </div>
         <div className="pt-3">

@@ -13,7 +13,7 @@ export const SUPPORTED_IMG_FORMATS = [
 export const projectInputLabels = {
   id: 'ID',
   client: 'Client Name',
-  title: 'Project Title (Site name)',
+  title: 'Site name',
   budget: 'Project Value (in RS)',
   s_date: 'Start Date',
   e_date: 'End Date',
