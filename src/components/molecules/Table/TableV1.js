@@ -1,3 +1,4 @@
+import { spinnerLg, spinnerMd } from '@/components/atoms/Spinner'
 import classNames from 'classnames'
 import React from 'react'
 
@@ -83,7 +84,7 @@ const TLoading = React.memo(({ loading }) => {
         colSpan="10000 "
         className="flex items-center justify-center font-semibold tracking-widest text-md"
       >
-        {loading && <span className="mr-2">Loading...</span>}
+        {spinnerLg} <span className="ml-2">Loading...</span>
       </td>
     </tr>
   )

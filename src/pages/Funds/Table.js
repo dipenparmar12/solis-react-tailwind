@@ -108,11 +108,20 @@ const useFundColumns = () => {
       {
         Header: 'Given To',
         accessor: 'given_to.name',
+        Cell: ({ value }) => (
+          <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
+            {value}
+          </span>
+        ),
       },
       {
         Header: 'Amount',
         accessor: 'amount',
-        Cell: ({ value }) => formatRs(value),
+        Cell: ({ value }) => (
+          <span className="font-semibold text-green-600">
+            {formatRs(value)}
+          </span>
+        ),
       },
       {
         Header: 'Date',
