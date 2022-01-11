@@ -39,7 +39,7 @@ export default function useFetcher({
     const config = { cancelToken: cancelSource.token }
     if (isMounted && immediateInvoke) {
       setLoading(true)
-      setData([])
+      // setData([])
       apiCall({ qry, config })
         .then((res) => res?.data)
         .then(paginationCb)

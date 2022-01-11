@@ -70,6 +70,7 @@ export default function DropDownApp({
           <div
             className={cn([
               `absolute right-0 z-20 py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl `,
+              `border dark:border-sky-900`,
               isOpen ? 'block' : 'hidden',
             ])}
           >
@@ -79,19 +80,7 @@ export default function DropDownApp({
                   key={`${Math.random()}`}
                   className={cn([
                     'block px-4 py-2 text-sm cursor-pointer dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-white hover:bg-slate-100',
-                    // {
-                    //   'bg-gray-50 dark:bg-gray-700': option?.disabled,
-                    //   'bg-slate-100 dark:bg-gray-900': option?.selected,
-                    //   'bg-gray-100 dark:bg-gray-700': option?.active,
-                    //   'bg-gray-200 dark:bg-gray-700':
-                    //     option?.disabled && option?.selected,
-                    //   'bg-gray-200 dark:bg-gray-700':
-                    //     option?.disabled && option?.active,
-                    //   'bg-gray-200 dark:bg-gray-700':
-                    //     option?.selected && option?.active,
-                    //   'bg-gray-200 dark:bg-gray-700':
-                    //     option?.disabled && option?.selected && option?.active,
-                    // },
+                    option?.label === _label && 'bg-sky-100 text-sky-500', // TODO::1
                   ])}
                   onClick={() => _onSelect(option)}
                 >

@@ -210,7 +210,7 @@ module.exports = {
 - Yup, Validation [Doc](https://github.com/jquense/yup)
 - Formik handling forms [Doc](https://formik.org/docs/guides/validation)
 - Date helper methods [Doc](https://date-fns.org/v2.28.0/docs/format)
--
+- Table [doc](https://react-table.tanstack.com/)
 
 ### External resources and references
 
@@ -232,3 +232,4 @@ module.exports = {
 - Tailwind config reference https://github.com/tailwindlabs/tailwindcss/blob/v1/stubs/defaultConfig.stub.js#L5
 - Tailwind Badge https://codepen.io/oidre/pen/jOqNpKQ
 - React Toggle Animation https://medium.com/clever-franke/create-a-react-slidetoggle-component-with-hooks-and-react-spring-748919c38667
+- Table custom pagination example https://react-table.tanstack.com/docs/examples/pagination-controlled

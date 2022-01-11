@@ -23,7 +23,7 @@ const FundContainer = ({ children }) => {
   }, [qry])
 
   const contextValue = {
-    State: resProjects,
+    State: resProjects, // data, error, loading, paginationData, reload,
     qry,
     setQry,
   }

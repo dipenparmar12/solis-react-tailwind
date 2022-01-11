@@ -41,7 +41,10 @@ function Th({ children, className, ...rest }) {
 
 function Tbody({ children, className, ...rest }) {
   return (
-    <tbody className={classNames(['', className])} {...rest}>
+    <tbody
+      className={classNames(['text-gray-500 dark:text-gray-400', className])}
+      {...rest}
+    >
       {children}
     </tbody>
   )
@@ -72,10 +75,27 @@ function Td({ children, className, ...rest }) {
   )
 }
 
+const TLoading = React.memo(({ loading }) => {
+  if (!loading) return null
+  return (
+    <tr className="absolute top-0 w-full h-full pt-6 text-gray-700 dark:text-gray-300 bg-white/60 dark:bg-black/40">
+      <td
+        colSpan="10000 "
+        className="flex items-center justify-center font-semibold tracking-widest text-md"
+      >
+        {loading && <span className="mr-2">Loading...</span>}
+      </td>
+    </tr>
+  )
+})
+
 TableV1.Thead = Thead
 TableV1.Th = Th
 TableV1.Tbody = Tbody
 TableV1.Tr = Tr
 TableV1.Td = Td
+TableV1.TLoading = TLoading
 
 export default TableV1
+
+export { Thead, Th, Tbody, Tr, Td, TLoading }
