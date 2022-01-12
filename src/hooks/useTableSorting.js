@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import { useCallback } from 'react'
+import { BsChevronExpand } from 'react-icons/bs'
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri'
 
 /**
@@ -18,6 +19,7 @@ export default function useTableSorting(
   icons = {
     ASC: <RiArrowUpSLine className="inline-block text-sky-500" />,
     DESC: <RiArrowDownSLine className="inline-block text-sky-500" />,
+    SORT: <BsChevronExpand className="inline-block px-0.5 " />,
   },
 ) {
   const handleTableSorting = useCallback((col, sortByState = []) => {
@@ -62,7 +64,7 @@ export default function useTableSorting(
   }, [])
 
   const getSortingIcon = useCallback((columnId, sortByState = []) => {
-    if (!sortByState) return null
+    if (!sortByState) return icons.SORT
 
     const sortBy = Array.isArray(sortByState)
       ? sortByState
@@ -73,7 +75,7 @@ export default function useTableSorting(
 
     if (isSortByAsc) return icons.ASC
     if (isSortByDesc) return icons.DESC
-    return null
+    return icons.SORT
   }, [])
 
   return { handleTableSorting, getSortingIcon }

@@ -10,7 +10,7 @@ const Context = React.createContext(null)
 export const useFundContext = () => React.useContext(Context)
 
 const FundContainer = ({ children }) => {
-  const [qry, setQry] = useObject({ per_page: 2 })
+  const [qry, setQry] = useObject({ per_page: 10 })
   // // Enable query params
   const qryParams = useQryParams({ setParams: setQry.merge })
   React.useEffect(() => {

@@ -97,7 +97,7 @@ export default function FundTable() {
 
       // Sorting
       manualSortBy: true,
-      defaultCanSort: false,
+      defaultCanSort: true,
 
       // Pagination
       initialState: { pageIndex: 0 }, // Pass our hoisted table state
@@ -121,12 +121,17 @@ export default function FundTable() {
               {hGroup.headers.map((column) => (
                 <Th
                   {...column.getHeaderProps(column?.getSortByToggleProps())}
-                  onClick={() => handleTableSorting(column?.id, qry.sortBy)}
+                  onClick={() => {
+                    column?.isSortable &&
+                      handleTableSorting(column?.id, qry.sortBy)
+                  }}
                 >
                   {column.render('Header')}
 
                   <span className="px-1 mb-1">
-                    {getSortingIcon(column?.id, qry.sortBy)}
+                    {/* {getSortingIcon(column?.id, qry.sortBy)} */}
+                    {column?.isSortable &&
+                      getSortingIcon(column?.id, qry.sortBy)}
                     {/* {column.isSorted ? (
                       column.sortDirection === 'DESC' ? (
                         <RiArrowDownSLine className="inline-block text-sky-500" />
@@ -188,10 +193,12 @@ const useFundColumns = () => {
       {
         Header: 'id',
         accessor: 'id', // accessor is the "key" in the data
+        isSortable: true,
       },
       {
         Header: 'Given To',
         accessor: 'given_to.name',
+        isSortable: true,
         Cell: ({ value }) => (
           <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
             {value}
@@ -201,6 +208,7 @@ const useFundColumns = () => {
       {
         Header: 'Amount',
         accessor: 'amount',
+        isSortable: true,
         Cell: ({ value }) => (
           <span className="font-semibold text-green-600">
             {formatRs(value)}
@@ -210,6 +218,7 @@ const useFundColumns = () => {
       {
         Header: 'Date',
         accessor: 'date',
+        isSortable: true,
         Cell: ({ value }) => formatDate(value),
       },
       {
