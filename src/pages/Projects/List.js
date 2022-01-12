@@ -8,11 +8,12 @@ import Button from '@/components/atoms/Button'
 import { useProjectContext } from './ProjectContainer'
 import { CardLoading } from '@/components/atoms/LoadingSkeleton'
 import ProjectCard from './Card'
-import ProjectForm from './ProjectForm'
+import ProjectForm from './Form'
 import useToggle from '@/hooks/useToggle'
 import ProjectFilters from './Filters'
 import capitalize from '@/utils/str/capitalize'
 import BadgeButton from '@/components/atoms/BadgeButton'
+import BadgeList from '@/components/atoms/BadgeList'
 
 export default function ProjectList() {
   const { State: ProjectState = {}, setQry, qry } = useProjectContext()
@@ -56,20 +57,7 @@ export default function ProjectList() {
 
         <ProjectFilters isVisible={filtersVisible} />
 
-        <div className="flex gap-2 pt-2">
-          {/* Filter Badges */}
-          {Object.entries(qry || {}).map(([filterKey, value]) => (
-            <div key={filterKey} className="">
-              <BadgeButton
-                variant="green"
-                icon={RiCloseLine}
-                onClick={() => setQry?.omit(filterKey)}
-              >
-                {capitalize(filterKey)}: {value}
-              </BadgeButton>
-            </div>
-          ))}
-        </div>
+        <BadgeList qry={qry} setQry={setQry} />
 
         <ErrorState error={!ProjectState?.loading && ProjectState?.error} />
 

@@ -130,31 +130,9 @@ export default function FundTable() {
                   {column.render('Header')}
 
                   <span className="px-1 mb-1">
-                    {/* {getSortingIcon(column?.id, qry.sortBy)} */}
                     {column?.isSortable &&
                       getSortingIcon(column?.id, qry.sortBy)}
-                    {/* {column.isSorted ? (
-                      column.sortDirection === 'DESC' ? (
-                        <RiArrowDownSLine className="inline-block text-sky-500" />
-                      ) : column.sortDirection === 'ASC' ? (
-                        <RiArrowUpSLine className="inline-block text-sky-500" />
-                      ) : (
-                        <BsChevronExpand className="inline-block px-0.5 " />
-                      )
-                    ) : null} */}
                   </span>
-
-                  {/* <span className="px-1 mb-1">
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <RiArrowDownSLine className="inline-block text-sky-500" />
-                      ) : (
-                        <RiArrowUpSLine className="inline-block text-sky-500" />
-                      )
-                    ) : (
-                      <BsChevronExpand className="inline-block px-0.5 " />
-                    )}
-                  </span> */}
                 </Th>
               ))}
             </tr>

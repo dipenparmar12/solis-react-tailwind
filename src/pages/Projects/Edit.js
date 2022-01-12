@@ -1,6 +1,6 @@
 import React from 'react'
 import { useModalContext } from '@/components/molecules/Modal/ModalV3'
-import ProjectForm from './ProjectForm'
+import ProjectForm from './Form'
 import { useProjectContext } from './ProjectContainer'
 
 function ProjectEditForm({ data, ...props }) {

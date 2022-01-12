@@ -15,7 +15,7 @@ import UserContainer from '@/pages/Users/UserContainer'
 import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
 import Env from '@/utils/environment'
-import { ProjectFormContainer } from '@/pages/Projects/ProjectForm'
+import { ProjectFormContainer } from '@/pages/Projects/Form'
 import TransactionsContainer from '@/pages/Transactions/Transactions'
 import FundContainer from '@/pages/Funds/Funds'
 

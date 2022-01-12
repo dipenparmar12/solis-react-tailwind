@@ -6,6 +6,7 @@ import { RiCloseLine } from 'react-icons/ri'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
 import ErrorFeedback from '@/components/atoms/ErrorFeedback'
+import debounce from '@/utils/function/debounce'
 
 function InputApp(
   {
@@ -16,6 +17,7 @@ function InputApp(
     placeholder,
     value = '',
     onChange = () => {},
+    delay = 100,
     error,
     isRequired,
     className,
@@ -32,6 +34,11 @@ function InputApp(
 ) {
   const ownRef = React.useRef(null)
   const mergedRef = useMergeRefs([inputRef, ownRef])
+
+  const onChangeDebounced = debounce(onChange, delay)
+  const onChangeDebouncedWrapper = (e) => {
+    onChangeDebounced(e)
+  }
 
   return (
     <fieldset className={classNames(containerClassName, className)}>
@@ -68,8 +75,9 @@ function InputApp(
           id={name}
           name={name}
           type={type}
-          value={value}
-          onChange={onChange}
+          // value={value}
+          defaultValue={value}
+          onChange={onChangeDebouncedWrapper}
           placeholder={placeholder}
           {...inputProps}
         />

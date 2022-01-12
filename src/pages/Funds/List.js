@@ -1,20 +1,34 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
+import { RiFilter3Line } from 'react-icons/ri'
 import { useFundContext } from './Funds'
 import FundTable from './Table'
 import CardV2 from '@/components/atoms/CardV2'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import Print from '@/components/atoms/Print'
+import useToggle from '@/hooks/useToggle'
+import Button from '@/components/atoms/Button'
+import FundFilters from './Filters'
+import BadgeList from '@/components/atoms/BadgeList'
 
 export default function FundsList() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
+  const [filtersVisible, setFilterVisible] = useToggle(false)
+
   return (
     <>
       <div className={'pb-20'}>
         <CardV2>
-          <h1 className="pt-2 mb-3 text-xl font-semibold text-gray-600 dark:text-gray-400">
-            Users PettyCash
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="pt-2 mb-3 text-xl font-semibold text-gray-600 dark:text-gray-400">
+              Users PettyCash
+            </h1>
+            <div>
+              <Button size="md" onClick={setFilterVisible.toggle}>
+                <RiFilter3Line className="inline-block mb-1" /> Filters
+              </Button>
+            </div>
+          </div>
 
           <PaginatorV1
             label={'Total '}
@@ -30,6 +44,10 @@ export default function FundsList() {
             loading={FundState?.loading}
             siblingCount={1}
           />
+
+          <FundFilters isVisible={filtersVisible} />
+
+          {/* <BadgeList qry={qry} setQry={setQry} /> */}
 
           <FundTable />
         </CardV2>

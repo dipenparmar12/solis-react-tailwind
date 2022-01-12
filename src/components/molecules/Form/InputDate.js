@@ -2,11 +2,23 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import classNames from 'classnames'
 import React from 'react'
-import DatePicker from 'react-datepicker'
+import ReactDatePicker from 'react-datepicker'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
 import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 import Types from '@/utils/validation/Types'
+import debounce from '@/utils/function/debounce'
+
+export const inputDateStyles = classNames([
+  'outline-none w-full ',
+  'block rounded-lg border border-transparent text-gray-700',
+  'py-2 px-4 bg-gray-100',
+  'hover:bg-white hover:border-blue-300 hover:shadow-outline-blue',
+  'active:bg-white',
+  'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
+  'dark:bg-gray-700 dark:text-gray-300 focus:dark:border-blue-500',
+  'transition duration-200 ease-in-out',
+])
 
 function InputDate(
   {
@@ -17,6 +29,7 @@ function InputDate(
     placeholder,
     value,
     onChange,
+    delay = 10,
     error,
     isRequired,
     className,
@@ -34,6 +47,11 @@ function InputDate(
 
   const ownRef = React.useRef(null)
   const mergedRef = useMergeRefs([inputRef, ownRef])
+
+  const onChangeDebounced = debounce(onChange, delay)
+  const onChangeDebouncedWrapper = (e) => {
+    onChangeDebounced(e)
+  }
 
   // value is not date object but string
   const dateFromProp = React.useRef(value).current
@@ -57,7 +75,6 @@ function InputDate(
       <label
         className={classNames(
           'flex items-center mb-1 text-gray-500 dark:text-gray-300',
-          // isError && 'text-red-400',
           labelClassName,
         )}
         htmlFor={name}
@@ -67,26 +84,17 @@ function InputDate(
       >
         {label} {isRequired && <span className="pl-1 text-red-300"> *</span>}
       </label>
-      <DatePicker
+      <ReactDatePicker
         ref={mergedRef}
         name={name}
         type={type}
         // value={value} // Not supported by react-datepicker
         selected={date}
-        onChange={onChange}
+        defaultSelected={date}
+        onChange={onChangeDebouncedWrapper}
         placeholder={placeholder}
         placeholderText={placeholder}
-        className={classNames([
-          'outline-none w-full ',
-          'block rounded-lg border border-transparent text-gray-700',
-          'py-2 px-4 bg-gray-100',
-          'hover:bg-white hover:border-blue-300 hover:shadow-outline-blue',
-          'active:bg-white',
-          'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
-          'dark:bg-gray-700 dark:text-gray-300 focus:dark:border-blue-500',
-          'transition duration-200 ease-in-out',
-          inputClassName,
-        ])}
+        className={classNames(inputDateStyles)}
         {...inputProps}
       />
 
