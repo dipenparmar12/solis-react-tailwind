@@ -16,7 +16,7 @@ export default function ProjectList() {
 
   return (
     <>
-      <div className={'container pb-20'}>
+      <div className={' pb-20'}>
         <div className="flex justify-between my-4">
           <ModalV3
             renderButton={({ setOpen }) => (

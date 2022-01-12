@@ -10,18 +10,18 @@ const Context = React.createContext(null)
 export const useFundContext = () => React.useContext(Context)
 
 const FundContainer = ({ children }) => {
-  const [qry, setQry] = useObject({ per_page: 10 })
+  const [qry, setQry] = useObject({ per_page: 2 })
+  // // Enable query params
   const qryParams = useQryParams({ setParams: setQry.merge })
+  React.useEffect(() => {
+    qryParams.set(qry)
+  }, [qry])
+
   const resProjects = useFetcher({
     apiCall: Api.funds.get,
     qry,
     pagination: true, // TODO::10 Throw's error if api has pagination and ui doesn't
   })
-
-  React.useEffect(() => {
-    qryParams.set(qry)
-  }, [qry])
-
   const contextValue = {
     State: resProjects, // data, error, loading, paginationData, reload,
     qry,

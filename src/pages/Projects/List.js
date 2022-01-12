@@ -20,7 +20,7 @@ export default function ProjectList() {
 
   return (
     <>
-      <div className={'container pb-20'}>
+      <div className={' pb-20'}>
         <PaginatorV1
           label={'Projects'}
           setPage={(option) => {

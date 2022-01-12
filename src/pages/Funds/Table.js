@@ -1,9 +1,21 @@
+/* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-use-before-define */
 import React from 'react'
-import { usePagination, useTable } from 'react-table'
-import classNames from 'classnames'
-import { RiDeleteBin7Line, RiEditLine, RiEyeLine } from 'react-icons/ri'
+import { useTable, usePagination, useSortBy } from 'react-table'
+import {
+  RiArrowDownLine,
+  RiArrowDownSLine,
+  RiArrowUpDownLine,
+  RiArrowUpLine,
+  RiArrowUpSLine,
+  RiDeleteBin7Line,
+  RiEditLine,
+  RiEyeLine,
+} from 'react-icons/ri'
+import { BsChevronExpand, BsSortUpAlt } from 'react-icons/bs'
+
 import { useFundContext } from './Funds'
 import TableV1, {
   Thead,
@@ -13,12 +25,12 @@ import TableV1, {
   Td,
   TLoading,
 } from '@/components/molecules/Table/TableV1'
-import { spinnerLg, spinnerMd } from '@/components/atoms/Spinner'
 import formatDate from '@/utils/date/formatDate'
 import formatRs from '@/utils/str/formatRs'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import Button from '@/components/atoms/Button'
+import useTableSorting from '@/hooks/useTableSorting'
 
 export default function FundTable() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
@@ -31,6 +43,7 @@ export default function FundTable() {
     return FundState?.paginationData?.total || 0
   }, [FundState?.paginationData?.total])
 
+  const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
   const tableColumnHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => {
       return [
@@ -73,15 +86,7 @@ export default function FundTable() {
     headerGroups,
     prepareRow,
     // rows,
-    // Pagination
     page,
-    // canPreviousPage,
-    // canNextPage,
-    // pageOptions,
-    // pageCount,
-    // gotoPage,
-    // nextPage,
-    // previousPage,
     // setPageSize,
     // Get the state from the instance
     state: { pageIndex, pageSize },
@@ -89,6 +94,12 @@ export default function FundTable() {
     {
       columns: fundColumns,
       data: fundRows,
+
+      // Sorting
+      manualSortBy: true,
+      defaultCanSort: false,
+
+      // Pagination
       initialState: { pageIndex: 0 }, // Pass our hoisted table state
       manualPagination: true, // Tell the usePagination
       // hook that we'll handle our own data fetching
@@ -96,8 +107,9 @@ export default function FundTable() {
       // pageCount.
       pageCount: controlledPageCount,
     },
+    useSortBy,
     usePagination,
-    tableColumnHooks,
+    // tableColumnHooks,
   )
 
   return (
@@ -107,7 +119,37 @@ export default function FundTable() {
           {headerGroups.map((hGroup) => (
             <tr {...hGroup.getHeaderGroupProps()}>
               {hGroup.headers.map((column) => (
-                <Th {...column.getHeaderProps()}>{column.render('Header')}</Th>
+                <Th
+                  {...column.getHeaderProps(column?.getSortByToggleProps())}
+                  onClick={() => handleTableSorting(column?.id, qry.sortBy)}
+                >
+                  {column.render('Header')}
+
+                  <span className="px-1 mb-1">
+                    {getSortingIcon(column?.id, qry.sortBy)}
+                    {/* {column.isSorted ? (
+                      column.sortDirection === 'DESC' ? (
+                        <RiArrowDownSLine className="inline-block text-sky-500" />
+                      ) : column.sortDirection === 'ASC' ? (
+                        <RiArrowUpSLine className="inline-block text-sky-500" />
+                      ) : (
+                        <BsChevronExpand className="inline-block px-0.5 " />
+                      )
+                    ) : null} */}
+                  </span>
+
+                  {/* <span className="px-1 mb-1">
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <RiArrowDownSLine className="inline-block text-sky-500" />
+                      ) : (
+                        <RiArrowUpSLine className="inline-block text-sky-500" />
+                      )
+                    ) : (
+                      <BsChevronExpand className="inline-block px-0.5 " />
+                    )}
+                  </span> */}
+                </Th>
               ))}
             </tr>
           ))}

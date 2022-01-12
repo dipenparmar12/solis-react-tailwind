@@ -5,13 +5,12 @@ import FundTable from './Table'
 import CardV2 from '@/components/atoms/CardV2'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import Print from '@/components/atoms/Print'
-import omit from '@/utils/obj/omit'
 
 export default function FundsList() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
   return (
     <>
-      <div className={'container pb-20'}>
+      <div className={'pb-20'}>
         <CardV2>
           <h1 className="pt-2 mb-3 text-xl font-semibold text-gray-600 dark:text-gray-400">
             Users PettyCash
@@ -34,6 +33,8 @@ export default function FundsList() {
 
           <FundTable />
         </CardV2>
+
+        <Print data={qry} />
         {/* <Print data={omit(FundState?.paginationData, 'links')} /> */}
       </div>
     </>

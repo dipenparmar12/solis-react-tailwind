@@ -6,7 +6,7 @@ import React from 'react'
 import cn from '@/utils/classNames'
 import { spinnerMd } from '@/components/atoms/Spinner'
 import DropDownApp from '@/components/molecules/DropDownApp/DropDownApp'
-import usePaginationV1, { DOTS } from './usePaginationV1'
+import usePagination, { DOTS } from '@/hooks/usePagination'
 import Svg from '@/components/Svg/Svg'
 
 const HDivider = React.memo(() => (
@@ -25,7 +25,7 @@ export default function PaginatorV1({
   setPage = () => {},
   setPerPage = () => {},
 }) {
-  const paginationRange = usePaginationV1({
+  const paginationRange = usePagination({
     totalRecords,
     pageSize,
     siblingCount,

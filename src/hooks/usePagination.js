@@ -6,7 +6,7 @@ const { range } = Random
 
 export const DOTS = '..'
 
-export default function usePaginationV1({
+export default function usePagination({
   totalRecords,
   pageSize,
   siblingCount = 1,

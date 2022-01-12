@@ -233,3 +233,4 @@ module.exports = {
 - Tailwind Badge https://codepen.io/oidre/pen/jOqNpKQ
 - React Toggle Animation https://medium.com/clever-franke/create-a-react-slidetoggle-component-with-hooks-and-react-spring-748919c38667
 - Table custom pagination example https://react-table.tanstack.com/docs/examples/pagination-controlled
+- React table sorting logic: https://github.com/tannerlinsley/react-table/discussions/2033
