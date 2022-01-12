@@ -42,8 +42,10 @@ export default function useTableSorting(
       const sortByNew = sortBy.filter((e) => ![`-${col}`, col].includes(e))
       newSort = sortByNew
     }
+    // isMultiColumn && mergeState({ sortBy: newSort.join(',') })
+    // !isMultiColumn && mergeState({ sortBy: newSort[0] })
 
-    return mergeState({ sortBy: newSort })
+    return mergeState({ sortBy: isMultiColumn ? newSort : newSort[0] })
 
     // switch (column.sortDirection) {
     //   case 'ASC':
