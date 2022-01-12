@@ -44,7 +44,8 @@ export default function FundTable() {
   }, [FundState?.paginationData?.total])
 
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
-  const tableColumnHooks = (hooks) => {
+
+  const tableColumnHooks = React.useCallback((hooks) => {
     hooks.visibleColumns.push((columns) => {
       return [
         ...columns,
@@ -63,22 +64,22 @@ export default function FundTable() {
                 <h2 className="mb-3 mr-10 text-2xl">
                   Record ID: {row.values?.id}
                 </h2>
-                <Print>{row.values}</Print>
+                <Print>{row.original}</Print>
               </ModalV3>
 
-              <button>
+              {/* <button>
                 <RiEditLine className="text-yellow-600" />
               </button>
 
               <button>
                 <RiDeleteBin7Line className="text-red-400" />
-              </button>
+              </button> */}
             </div>
           ),
         },
       ]
     })
-  }
+  }, [])
 
   const {
     getTableProps,
@@ -109,7 +110,7 @@ export default function FundTable() {
     },
     useSortBy,
     usePagination,
-    // tableColumnHooks,
+    tableColumnHooks,
   )
 
   return (
@@ -196,6 +197,7 @@ const useFundColumns = () => {
         isSortable: true,
       },
       {
+        id: 'user_id',
         Header: 'Given To',
         accessor: 'given_to.name',
         isSortable: true,
@@ -222,12 +224,16 @@ const useFundColumns = () => {
         Cell: ({ value }) => formatDate(value),
       },
       {
+        id: 'created_by',
         Header: 'Received From',
+        isSortable: true,
         accessor: 'received_from.name',
       },
       {
+        id: 'project_id',
         Header: 'Project',
         accessor: 'project.title',
+        isSortable: true,
       },
       // {
       //   Header: 'Status',
