@@ -1,6 +1,6 @@
-import { spinnerLg, spinnerMd } from '@/components/atoms/Spinner'
 import classNames from 'classnames'
 import React from 'react'
+import { spinnerLg } from '@/components/atoms/Spinner'
 
 function TableV1({ children, className, ...rest }) {
   return (

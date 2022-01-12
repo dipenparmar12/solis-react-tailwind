@@ -10,7 +10,7 @@ const Context = React.createContext(null)
 export const useFundContext = () => React.useContext(Context)
 
 const FundContainer = ({ children }) => {
-  const [qry, setQry] = useObject({})
+  const [qry, setQry] = useObject({ per_page: 10 })
   const qryParams = useQryParams({ setParams: setQry.merge })
   const resProjects = useFetcher({
     apiCall: Api.funds.get,

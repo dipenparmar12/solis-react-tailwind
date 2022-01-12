@@ -1,7 +1,9 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-use-before-define */
 import React from 'react'
 import { usePagination, useTable } from 'react-table'
 import classNames from 'classnames'
+import { RiDeleteBin7Line, RiEditLine, RiEyeLine } from 'react-icons/ri'
 import { useFundContext } from './Funds'
 import TableV1, {
   Thead,
@@ -14,17 +16,56 @@ import TableV1, {
 import { spinnerLg, spinnerMd } from '@/components/atoms/Spinner'
 import formatDate from '@/utils/date/formatDate'
 import formatRs from '@/utils/str/formatRs'
+import ModalV3 from '@/components/molecules/Modal/ModalV3'
+import Print from '@/components/atoms/Print'
+import Button from '@/components/atoms/Button'
 
 export default function FundTable() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
-  const columns = useFundColumns()
-  // const fundData = React.memo(() => FundState?.data, [])
+  const fundColumns = useFundColumns()
+  const fundRows = FundState?.data // TOD0::MEMOIZE Table data
   // const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
   //   useTable({ columns, data: FundState?.data })
 
   const controlledPageCount = React.useMemo(() => {
     return FundState?.paginationData?.total || 0
   }, [FundState?.paginationData?.total])
+
+  const tableColumnHooks = (hooks) => {
+    hooks.visibleColumns.push((columns) => {
+      return [
+        ...columns,
+        {
+          Header: 'Status',
+          id: 'status',
+          Cell: ({ row }) => (
+            <div className="space-x-1.5">
+              <ModalV3
+                renderButton={({ setOpen }) => (
+                  <button onClick={setOpen}>
+                    <RiEyeLine className="text-blue-400" />
+                  </button>
+                )}
+              >
+                <h2 className="mb-3 mr-10 text-2xl">
+                  Record ID: {row.values?.id}
+                </h2>
+                <Print>{row.values}</Print>
+              </ModalV3>
+
+              <button>
+                <RiEditLine className="text-yellow-600" />
+              </button>
+
+              <button>
+                <RiDeleteBin7Line className="text-red-400" />
+              </button>
+            </div>
+          ),
+        },
+      ]
+    })
+  }
 
   const {
     getTableProps,
@@ -34,20 +75,20 @@ export default function FundTable() {
     // rows,
     // Pagination
     page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
+    // canPreviousPage,
+    // canNextPage,
+    // pageOptions,
+    // pageCount,
+    // gotoPage,
+    // nextPage,
+    // previousPage,
+    // setPageSize,
     // Get the state from the instance
     state: { pageIndex, pageSize },
   } = useTable(
     {
-      columns,
-      data: FundState?.data,
+      columns: fundColumns,
+      data: fundRows,
       initialState: { pageIndex: 0 }, // Pass our hoisted table state
       manualPagination: true, // Tell the usePagination
       // hook that we'll handle our own data fetching
@@ -56,6 +97,7 @@ export default function FundTable() {
       pageCount: controlledPageCount,
     },
     usePagination,
+    tableColumnHooks,
   )
 
   return (
@@ -136,10 +178,10 @@ const useFundColumns = () => {
         Header: 'Project',
         accessor: 'project.title',
       },
-      {
-        Header: 'Status',
-        accessor: 'status',
-      },
+      // {
+      //   Header: 'Status',
+      //   accessor: 'status',
+      // },
     ],
     [],
   )
