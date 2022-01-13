@@ -33,6 +33,43 @@
 
 ## Deployment, Production
 
+### Deploy React app by using Firebase Hosting, Firebase deployment [Doc](https://hackernoon.com/how-to-deploy-a-react-application-with-firebase-hosting-p92m37b7)
+- Login to Firebase in your terminal
+  - `yarn global add firebase-tools`
+  - `firebase login`  login using google account. 
+  - `yarn run build`
+  - Initialize Firebase in Your React App
+    - `firebase init`
+    - Select `Hosting: Configure and deploy Firebase Hosting sties ... and github page..`
+    - For Configure as a single-page app question enter **y** for this option.
+    - And the last part is the Hosting setup part here you will need to specify the folder where Firebase will look for assets to deploy. By default, the build folder will contain the production assets. So Enter build as an answer to this option.
+    - The last question is whether to overwrite your existing build/index.htmlfile. So You'll want to enter N (No) for this option because we want actual index.html file that Reacts is generated while creating the build.
+    - Once the initialization part is done you can check the directory, you should see two new files **.firebaserc**, **firebase.json**. These files are automatically generated.
+  - Deploy React app
+    1. `yarn build` 
+    2. `firebase deploy`
+    3. Firebase will then give you a unique hosting URL where your deployed app is located. For example https://reactdemo-f8d87.web.app
+  
+```json
+  // firebase.json
+  {
+    "hosting": {
+      "public": "build",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  }
+  ```
+
 ### Heroku deployment
 
 Modify `src/config/config.prod.json` or `src/config/config.dev.json`
@@ -60,8 +97,9 @@ View Heroku logs
 > `heroku logs --tail`
 
 Cancel heroku running build
-
-> `heroku builds:cancel -a your-app-name`
+- Install build `heroku plugins:install heroku-builds`
+- `heroku builds:cancel -a your-app-name`
+- `heroku builds:cancel -a solis-react-app-test`
 
 Url: https://solis-react-app-test.herokuapp.com/
 
@@ -213,7 +251,7 @@ module.exports = {
 - Table [doc](https://react-table.tanstack.com/)
 
 ### External resources and references
-
+- markdown.md [cheat-sheet](https://www.markdownguide.org/cheat-sheet/)
 - Icons: https://heroicons.dev/
 - How to use variants: https://gist.github.com/RobinMalfait/490a0560a7cfde985d435ad93f8094c5
 - Tailwindcss Overrides, Merge classes:
