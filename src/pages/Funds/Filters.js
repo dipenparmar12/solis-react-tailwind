@@ -12,6 +12,8 @@ import { inputDateStyles } from '@/components/molecules/Form/InputDate'
 import { useAppContext } from '@/context/AppContext'
 import Print from '@/components/atoms/Print'
 import InputSelect from '@/components/molecules/Form/InputSelect'
+import qryParams from '@/utils/miscellaneous/qryParams'
+import BadgeList from '@/components/atoms/BadgeList'
 
 function FundFilters({ isVisible }) {
   const appContext = useAppContext()
@@ -25,6 +27,10 @@ function FundFilters({ isVisible }) {
     }
   }, [])
 
+  // React.useEffect(() => {
+  //   console.log('Filters.js::[28]', qryParams.get('user_ids'))
+  // }, [])
+
   return (
     <ToggleAnim isVisible={isVisible}>
       <div className="p-5 py-3 my-4 space-y-2 text-gray-400 border dark:border-gray-600">
@@ -34,7 +40,6 @@ function FundFilters({ isVisible }) {
               multi
               searchable
               clearable
-              color="rgb(59 130 246)"
               label="Select Users"
               placeholder="Select User"
               delay={1500}
@@ -43,6 +48,8 @@ function FundFilters({ isVisible }) {
                 setQry.merge({ user_ids: values.map(({ value }) => value) })
               }
               valueField="id"
+              keepSelectedInList={false}
+              // color="rgb(59 130 246)"
             />
             <Print>{setQry?.user_ids}</Print>
           </div>
@@ -69,6 +76,8 @@ function FundFilters({ isVisible }) {
             />
           </div>
         </div>
+
+        <BadgeList qry={qry} setQry={setQry} />
       </div>
     </ToggleAnim>
   )

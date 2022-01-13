@@ -9,7 +9,6 @@ import Print from '@/components/atoms/Print'
 import useToggle from '@/hooks/useToggle'
 import Button from '@/components/atoms/Button'
 import FundFilters from './Filters'
-import BadgeList from '@/components/atoms/BadgeList'
 
 export default function FundsList() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
@@ -23,9 +22,17 @@ export default function FundsList() {
             <h1 className="pt-2 mb-3 text-xl font-semibold text-gray-600 dark:text-gray-400">
               Users PettyCash
             </h1>
-            <div>
+            <div className="space-x-2">
               <Button size="md" onClick={setFilterVisible.toggle}>
-                <RiFilter3Line className="inline-block mb-1" /> Filters
+                <RiFilter3Line className="inline-block mb-1" /> Filters{' '}
+                {/* {Object.keys(qry).length} */}
+              </Button>
+
+              <Button
+                size="md"
+                onClick={() => setQry.reset() || setFilterVisible.off()}
+              >
+                Clear Filters
               </Button>
             </div>
           </div>
@@ -46,8 +53,6 @@ export default function FundsList() {
           />
 
           <FundFilters isVisible={filtersVisible} />
-
-          {/* <BadgeList qry={qry} setQry={setQry} /> */}
 
           <FundTable />
         </CardV2>

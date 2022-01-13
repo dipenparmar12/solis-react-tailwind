@@ -42,12 +42,12 @@ export default function useTableSorting(
       newSort = [`-${col}`, ...newSorts]
     } else {
       const sortByNew = sortBy.filter((e) => ![`-${col}`, col].includes(e))
-      newSort = sortByNew
+      newSort = sortByNew || ''
     }
     // isMultiColumn && mergeState({ sortBy: newSort.join(',') })
     // !isMultiColumn && mergeState({ sortBy: newSort[0] })
 
-    return mergeState({ sortBy: isMultiColumn ? newSort : newSort[0] })
+    return mergeState({ sortBy: isMultiColumn ? newSort : newSort[0] || '' })
 
     // switch (column.sortDirection) {
     //   case 'ASC':
