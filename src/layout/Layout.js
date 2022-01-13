@@ -134,6 +134,7 @@ const Sidebar = () => {
       <NavLinkItem route={routes?.transaction} />
       <NavLinkItem route={routes?.profile} />
       <NavLinkItem route={routes?.examples} />
+      <NavLinkItem route={routes?.appContext} />
       {/* <NavDropDownItem route={routes?.dropdown} /> */}
     </nav>
   )

@@ -36,12 +36,21 @@ const AppContextProvider = ({ children }) => {
     }))
   }
 
+  const fetchUsers = () => {
+    fetchData({ resource: 'users' }, (user) => ({
+      value: user.id,
+      label: user?.label || user?.name,
+      ...(user || {}),
+    }))
+  }
+
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const contextValue = {
     staticData,
     setStaticData,
     fetchRoles,
     fetchPropertyTypes,
+    fetchUsers,
   }
 
   return (

@@ -69,6 +69,8 @@ module.exports = {
     'no-nested-ternary': 'warn',
     'react/destructuring-assignment': 'warn',
     'jsx-a11y/alt-text': 'warn',
+    'jsx-a11y/click-events-have-key-events': 'warn',
+    'jsx-a11y/no-static-element-interactions': 'warn',
     camelcase: 'warn',
     eqeqeq: 'warn',
     'no-useless-escape': 'off',

@@ -7,6 +7,7 @@ import {
   RiRefund2Line,
 } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
+import { MdOutlineRealEstateAgent } from 'react-icons/md'
 import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
 import ProjectContainer from '@/pages/Projects/ProjectContainer'
@@ -18,6 +19,7 @@ import Env from '@/utils/environment'
 import { ProjectFormContainer } from '@/pages/Projects/Form'
 import TransactionsContainer from '@/pages/Transactions/Transactions'
 import FundContainer from '@/pages/Funds/Funds'
+import AppContextState from '@/temp/Examples/AppContextState'
 
 export const testRoutes = {
   profile: {
@@ -25,6 +27,12 @@ export const testRoutes = {
     path: '/profile',
     element: <PrivateTemp />,
     icon: <RiUserFollowLine />,
+  },
+  appContext: {
+    label: 'AppContext',
+    path: '/app-context',
+    element: <AppContextState />,
+    icon: <MdOutlineRealEstateAgent />,
   },
   examples: {
     label: 'Examples',

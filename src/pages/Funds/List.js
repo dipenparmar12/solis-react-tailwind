@@ -13,7 +13,7 @@ import BadgeList from '@/components/atoms/BadgeList'
 
 export default function FundsList() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
-  const [filtersVisible, setFilterVisible] = useToggle(false)
+  const [filtersVisible, setFilterVisible] = useToggle(true)
 
   return (
     <>
