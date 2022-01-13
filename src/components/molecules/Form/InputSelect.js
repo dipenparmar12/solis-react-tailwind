@@ -10,44 +10,19 @@ import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 import debounce from '@/utils/function/debounce'
 import { inputDateStyles } from './InputDate'
 
-const selectInputBoxRenderer = ({ props, state, methods }) => {
-  // console.log('Filters.js::[26] ', state, props.labelField, methods)
-  return (
-    <span className={'relative px-2 w-full flex items-center '}>
-      <span className="absolute left-0 right-0 px-1 pr-3 overflow-hidden whitespace-nowrap text-ellipsis">
-        {state?.values?.map((item, index) => (
-          <span key={item[props.valueField] || index} className="px-0.5">
-            {item[props.labelField]},
-          </span>
-        ))}
-      </span>
-      {state?.values?.length > 0 && (
-        <span className="absolute -right-1">
-          <button
-            className="pt-1 text-gray-400 hover:text-red-400"
-            onClick={() => methods.clearAll()}
-          >
-            <RiCloseLine />
-          </button>
-        </span>
-      )}
-    </span>
-  )
-}
-
 function InputSelect(
   {
     as: Input = 'input',
     name,
     label,
     placeholder,
+    multi,
     values,
     options,
     onChange = () => {},
     // setOptions = () => {},
     valueField = 'value',
     labelField = 'label',
-    multi,
     delay = 100,
     error,
     isRequired,
@@ -58,6 +33,8 @@ function InputSelect(
 ) {
   const ownRef = React.useRef(null)
   const mergedRef = useMergeRefs([inputRef, ownRef])
+  // const [selectedOptions, setOptions] = React.useState([])
+  // onChange={(values) => setOptions(values)}
 
   const onChangeDebounced = debounce(onChange, delay)
   const onChangeDebouncedWrapper = (_values) => {
@@ -78,20 +55,21 @@ function InputSelect(
       </label>
       <div className="relative items-center flex-1">
         <Select
+          ref={mergedRef}
           style={{
             border: 'transparent',
             borderRadius: '0.5rem',
             minHeight: '40px',
           }}
+          placeholder={placeholder}
           multi={multi}
           className={classNames([inputDateStyles, ''])}
-          searchable
           options={options || []}
           onChange={onChangeDebouncedWrapper}
           values={values || []}
           valueField={valueField}
           labelField={labelField}
-          contentRenderer={selectInputBoxRenderer}
+          // contentRenderer={selectInputBoxRenderer}
           // itemRenderer={itemRenderer}
           // keepSelectedInList={false}
           {...inputProps}
@@ -104,6 +82,35 @@ function InputSelect(
 }
 export default React.forwardRef(InputSelect)
 
+export const InputSelectFormik = ({ ...props }, ...rest) => (
+  <WithFormik inputAs={InputSelect} {...props} /> // {...(rest || {})}
+)
+
+// const selectInputBoxRenderer = ({ props, state, methods }) => {
+//   // console.log('Filters.js::[26] ', state, props.labelField, methods)
+//   return (
+//     <span className={'relative px-2 w-full flex items-center '}>
+//       <span className="absolute left-0 right-0 px-1 pr-3 overflow-hidden whitespace-nowrap text-ellipsis">
+//         {state?.values?.map((item, index) => (
+//           <span key={item[props.valueField] || index} className="px-0.5">
+//             {item[props.labelField]},
+//           </span>
+//         ))}
+//       </span>
+//       {state?.values?.length > 0 && (
+//         <span className="absolute -right-1">
+//           <button
+//             className="pt-1 text-gray-400 hover:text-red-400"
+//             onClick={() => methods.clearAll()}
+//           >
+//             <RiCloseLine />
+//           </button>
+//         </span>
+//       )}
+//     </span>
+//   )
+// }
+
 // const itemRenderer = ({ item, itemIndex, props, state, methods }) => (
 //   <div key={item[props.valueField]} onClick={() => methods.addItem(item)}>
 //     <div className="px-3 py-2 hover:bg-sky-100">
@@ -112,7 +119,3 @@ export default React.forwardRef(InputSelect)
 //     </div>
 //   </div>
 // )
-
-export const InputSelectFormik = ({ ...props }, ...rest) => (
-  <WithFormik inputAs={InputSelect} {...props} /> // {...(rest || {})}
-)

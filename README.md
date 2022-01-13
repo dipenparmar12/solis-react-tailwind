@@ -249,6 +249,7 @@ module.exports = {
 - Formik handling forms [Doc](https://formik.org/docs/guides/validation)
 - Date helper methods [Doc](https://date-fns.org/v2.28.0/docs/format)
 - Table [doc](https://react-table.tanstack.com/)
+- React-select [doc](https://sanusart.github.io/react-dropdown-select)
 
 ### External resources and references
 - markdown.md [cheat-sheet](https://www.markdownguide.org/cheat-sheet/)

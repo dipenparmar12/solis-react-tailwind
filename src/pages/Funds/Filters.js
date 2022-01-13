@@ -19,8 +19,6 @@ function FundFilters({ isVisible }) {
   const [dateRange, setDateRange] = React.useState([null, null])
   const [startDate, endDate] = dateRange
 
-  const [selectedOptions, setOptions] = React.useState([])
-
   React.useEffect(() => {
     if (!appContext?.staticData?.users?.length) {
       appContext?.fetchUsers()
@@ -33,13 +31,20 @@ function FundFilters({ isVisible }) {
         <div className="flex gap-4 ">
           <div className="flex-1">
             <InputSelect
-              label="User Select"
+              multi
+              searchable
+              clearable
+              color="rgb(59 130 246)"
+              label="Select Users"
+              placeholder="Select User"
+              delay={1500}
               options={appContext?.staticData?.users || []}
-              onChange={(values) => setOptions(values)}
-              values={selectedOptions || []}
+              onChange={(values) =>
+                setQry.merge({ user_ids: values.map(({ value }) => value) })
+              }
               valueField="id"
             />
-            <Print>{selectedOptions}</Print>
+            <Print>{setQry?.user_ids}</Print>
           </div>
 
           <div className="flex-1 ">
@@ -51,6 +56,7 @@ function FundFilters({ isVisible }) {
               Date Range
             </label>
             <ReactDatePicker
+              isClearable
               dateFormat={'dd/MM/yyyy'}
               className={classNames([inputDateStyles, 'flex-1'])}
               selectsRange
