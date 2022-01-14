@@ -69,7 +69,7 @@ export default function DropDownApp({
         <FadeScaleAnim isVisible={isOpen}>
           <div
             className={cn([
-              `absolute right-0 z-20 py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl `,
+              `absolute right-0  py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl `,
               `border dark:border-sky-900`,
               isOpen ? 'block' : 'hidden',
             ])}

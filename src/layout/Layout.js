@@ -128,10 +128,13 @@ const Sidebar = () => {
   return (
     <nav
       className={cn([
-        'z-10 text-gray-700 absolute inset-y-0 left-0 px-2 space-y-2 transition duration-200 ease-in-out transform shadow-md py-7 md:relative md:translate-x-0 bg-white dark:bg-slate-900',
+        'z-20 text-gray-700 absolute inset-y-0 left-0 px-2 space-y-2 transition duration-200 ease-in-out transform shadow-md py-7 md:relative md:translate-x-0 bg-white dark:bg-slate-900',
         !sidebarIsVisible && '-translate-x-full',
         !Size.isSm && isMiniSidebar ? 'w-16' : 'w-64',
       ])}
+      style={{
+        zIndex: '21',
+      }}
       ref={sidebarRef}
     >
       <NavLinkItem route={routes?.userCreate} />
@@ -140,7 +143,6 @@ const Sidebar = () => {
       <NavLinkItem route={routes?.projects} />
       <NavLinkItem route={routes?.users} />
       <NavLinkItem route={routes?.transaction} />
-      <NavLinkItem route={routes?.profile} />
       <NavLinkItem route={routes?.examples} />
       <NavLinkItem route={routes?.appContext} />
       {/* <NavDropDownItem route={routes?.dropdown} /> */}
@@ -204,7 +206,7 @@ const DropDownMenu = ({ ...props }, forwardRef) => {
           </li>
 
           <Divider />
-          <li className="px-4 py-1 text-gray-600 divide-y divide-yellow-500 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 active:bg-sky-100">
+          <li className="px-4 py-2 text-gray-600 divide-y divide-yellow-500 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 active:bg-sky-100">
             <NavLink
               to={''}
               className="block"
