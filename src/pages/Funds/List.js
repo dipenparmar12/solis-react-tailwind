@@ -14,7 +14,7 @@ import FundFilters from './Filters'
 
 export default function FundsList() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
-  const [filtersVisible, setFilterVisible] = useToggle(true)
+  const [filtersVisible, setFilterVisible] = useToggle(false)
 
   return (
     <>
@@ -62,7 +62,7 @@ export default function FundsList() {
             siblingCount={1}
           />
 
-          <FundFilters isVisible={filtersVisible} />
+          {filtersVisible && <FundFilters isVisible={filtersVisible} />}
 
           <div className="overflow-x-auto">
             <FundTable />

@@ -22,13 +22,13 @@ function FundFilters({ isVisible }) {
   const [startDate, endDate] = dateRange
 
   React.useEffect(() => {
-    if (!appContext?.staticData?.users?.length) {
+    if (isVisible && !appContext?.staticData?.users?.length) {
       appContext?.fetchUsers()
     }
-  }, [])
+  }, [isVisible])
 
   // React.useEffect(() => {
-  //   console.log('Filters.js::[28]', qryParams.get('user_ids'))
+  //   console.log('Filters.js::[28]', qryParams.get('user_ids'), )
   // }, [])
 
   return (

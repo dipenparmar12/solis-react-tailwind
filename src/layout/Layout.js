@@ -1,5 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
+import {
+  RiSettingsLine,
+  RiShutDownLine,
+  RiUserFollowLine,
+} from 'react-icons/ri'
+import { AiOutlineExport } from 'react-icons/ai'
+import { NavLink } from 'react-router-dom'
 import Divider from '@/components/atoms/Divider'
 import FadeScaleAnim from '@/hoc/animation/FadeScaleAnim'
 import useOnOutsideClick from '@/hooks/useOnOutsideClick'
@@ -14,6 +21,7 @@ import ProfilePic from '../assets/img/dipen.jpg'
 import LogoIMG from '../assets/img/logo.png'
 import Svg from '../components/Svg/Svg'
 import cn from '../utils/classNames'
+import useToggle from '@/hooks/useToggle'
 
 /**
  *  @src https://codepen.io/chris__sev/pen/RwKWXpJ?editors=1000
@@ -141,19 +149,20 @@ const Sidebar = () => {
 }
 
 const DropDownMenu = ({ ...props }, forwardRef) => {
-  const [isVisible, setIsVisible] = useState(false)
-  const closeDropDown = () => setIsVisible(false)
+  // const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useToggle(false)
+  // const closeDropDown = () => setIsVisible(false)
 
   const dropDownRef = React.useRef()
-  useOnOutsideClick([dropDownRef], isVisible, closeDropDown)
-  useOnEscapeKeyDown(isVisible, closeDropDown)
+  useOnOutsideClick([dropDownRef], isVisible, setIsVisible.off)
+  useOnEscapeKeyDown(isVisible, setIsVisible.off)
 
   const auth = useAuth()
   return (
     <div ref={dropDownRef} className="relative text-base" style={{ zIndex: 5 }}>
       <button
         className="block mt-1 overflow-hidden rounded-full w-7 h-7"
-        onClick={() => setIsVisible(!isVisible)}
+        onClick={setIsVisible.toggle}
         // onMouseEnter={() => setIsVisible(true)}
       >
         <img src={ProfilePic} alt="Pic" className="w-full h-full" />
@@ -162,35 +171,47 @@ const DropDownMenu = ({ ...props }, forwardRef) => {
       <FadeScaleAnim isVisible={isVisible}>
         <ul
           className={cn(
-            'absolute z-30 right-0 mt-1 transform bg-white dark:bg-gray-900 dark:text-gray-100 py-3 pb-2 w-48 rounded-lg shadow-xl',
+            'absolute z-30 border dark:border-gray-700 right-0 mt-1 transform bg-white dark:bg-gray-900 dark:text-gray-100 py-3 pb-2 w-48 rounded-lg shadow-xl ',
             isVisible ? 'block' : 'hidden',
           )}
         >
-          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
-            <a href="#" className="block">
-              View Profile{' '}
-            </a>
+          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 active:bg-sky-100">
+            <NavLink
+              to={routes?.profile?.path || '/'}
+              className="block"
+              onClick={setIsVisible.off}
+            >
+              <RiUserFollowLine className="inline-block mx-1" /> View Profile{' '}
+            </NavLink>
           </li>
-          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
-            <a href="#" className="block">
-              Exports
-            </a>
+          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 active:bg-sky-100">
+            <NavLink
+              to={routes?.projects?.path || '/'}
+              className="block"
+              onClick={setIsVisible.off}
+            >
+              <AiOutlineExport className="inline-block mx-1" /> Exports
+            </NavLink>
           </li>
-          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
-            <a href="#" className="block">
-              Settings{' '}
-            </a>
+          <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 active:bg-sky-100">
+            <NavLink
+              to={routes?.funds?.path || '/'}
+              className="block"
+              onClick={setIsVisible.off}
+            >
+              <RiSettingsLine className="inline-block mx-1" /> Settings{' '}
+            </NavLink>
           </li>
 
           <Divider />
-          <li className="px-4 py-2 text-gray-600 divide-y divide-yellow-500 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100">
-            <a
-              href="#"
+          <li className="px-4 py-1 text-gray-600 divide-y divide-yellow-500 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 active:bg-sky-100">
+            <NavLink
+              to={''}
               className="block"
               onClick={() => auth.signOutRedirect()}
             >
-              Logout{' '}
-            </a>
+              <RiShutDownLine className="inline-block mx-1" /> Logout{' '}
+            </NavLink>
           </li>
         </ul>
       </FadeScaleAnim>

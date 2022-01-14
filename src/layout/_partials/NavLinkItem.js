@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useLayoutContext } from '../../context/LayoutContext'
 import { useWhichDevice } from '../../hooks/useMediaQuery'
 import useOutsideClicked from '../../hooks/useOutsideClickedV2'
@@ -6,6 +6,7 @@ import Svg from '../../components/Svg/Svg'
 import cn from '../../utils/classNames'
 
 export const NavLinkItem = ({ route }) => {
+  const location = useLocation()
   const { isMiniSidebar } = useLayoutContext()
   const { ...Size } = useWhichDevice()
 
@@ -15,8 +16,9 @@ export const NavLinkItem = ({ route }) => {
       to={route?.path || '/'}
       className={({ isActive }) => {
         return cn(
-          'group flex rounded transition duration-200 hover:bg-gray-200 hover:text-black dark:text-gray-400 dark:hover:bg-sky-800',
+          'group flex rounded transition duration-200 hover:bg-gray-200 text-gray-600 hover:text-black dark:text-gray-400 dark:hover:bg-sky-800',
           isActive &&
+            location?.pathname === route?.path &&
             'bg-gray-200 text-black dark:bg-sky-900 dark:text-gray-200 ',
         )
       }}
