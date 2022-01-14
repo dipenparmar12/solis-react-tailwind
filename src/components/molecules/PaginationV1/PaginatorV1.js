@@ -10,7 +10,7 @@ import usePagination, { DOTS } from '@/hooks/usePagination'
 import Svg from '@/components/Svg/Svg'
 
 const HDivider = React.memo(() => (
-  <span className="mx-3">
+  <span className="mx-1.5">
     <span className="border dark:border-gray-500" />
   </span>
 ))

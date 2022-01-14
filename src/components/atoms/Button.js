@@ -17,18 +17,20 @@ function ButtonUnMemo(
     isWorking,
     icon,
     iconSize,
+    variant = 'default',
     ...buttonProps
   },
   forwardRef,
 ) {
+
   const handleClick = () => {
-    if (!disabled && !isWorking) {
-      onClick()
-    }
+    if (!disabled && !isWorking) onClick()
   }
 
+  let styles = ''
+
   // button isWorking and disabled state
-  const _classNames = ['rounded-md shadow-sm', {
+  const variantDefault = ['rounded-md shadow-sm', {
     'shadow-lg ': true,
     'px-2 py-1 text-xs font-semibold': size === 'sm',
     'px-3 py-1 text-sm ': size === 'md',
@@ -44,11 +46,31 @@ function ButtonUnMemo(
     // 'focus:ring hover:ring-sky-200 dark:hover:ring-sky-600': true,
   }]
 
+  const variantSubtle = [
+    'text-gray-600',
+    ' transition-colors duration-200 transform border rounded',
+    'bg-gray-50 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none',
+    ' active:bg-gray-200 dark:active:bg-gray-600',
+  ]
+
+  switch (variant) {
+      case 'default':
+        styles = variantDefault
+        break;
+      case 'subtle':
+        styles = variantSubtle
+        break;
+  
+      default:
+        styles = variantDefault
+        break;
+  }
+  
   return (
     <button
       ref={forwardRef}
       onClick={handleClick}
-      className={classNames(_classNames, className)}    
+      className={classNames(styles, className)}    
       {...buttonProps}
     >
       {label || children} 

@@ -39,8 +39,8 @@ function SwitchSlide({
       <div
         className={classNames([
           'relative flex items-center justify-between p-2 py-1 rounded-full',
-          'text-sm leading-none text-gray-500 bg-gray-100 border-gray-100 rounded-full  ',
-          'dark:bg-gray-900 dark:border-gray-100 dark:text-gray-500',
+          'text-sm leading-none text-gray-500 bg-gray-100 border border-gray-100 dark:border-gray-600  rounded-full  ',
+          'dark:bg-slate-900 dark:text-gray-500',
         ])}
       >
         {options.map((option, index) => {
@@ -49,9 +49,9 @@ function SwitchSlide({
               <button
                 type="button"
                 className={classNames([
-                  ` flex-1 z-10 px-3 py-2 rounded-full`,
+                  ` flex-1 z-10 px-3 py-2 pb-2.5 rounded-full`,
                   active === option?.value &&
-                    `bg-white shadow-lg dark:bg-gray-700 text-gray-600 dark:text-gray-300`,
+                    `shadow-lg bg-white dark:bg-sky-800 text-gray-600 dark:text-sky-300`,
                 ])}
                 onClick={(e) => {
                   option?.value !== active && handleChange(option?.value, e)

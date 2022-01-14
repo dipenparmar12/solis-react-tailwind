@@ -253,7 +253,7 @@ export default function UserAddForm({
 
 export const UserAddFormContainer = ({ ...props }) => {
   return (
-    <div className="px-5 py-8 bg-white border shadow-md ">
+    <div className="px-5 py-8 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
       <UserAddForm {...props} />
     </div>
   )

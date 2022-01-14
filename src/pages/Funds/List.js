@@ -1,6 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
 import { RiFilter3Line } from 'react-icons/ri'
+import { GrPowerReset } from 'react-icons/gr'
+import { MdOutlineFormatColorReset } from 'react-icons/md'
 import { useFundContext } from './Funds'
 import FundTable from './Table'
 import CardV2 from '@/components/atoms/CardV2'
@@ -23,16 +25,24 @@ export default function FundsList() {
               Users PettyCash
             </h1>
             <div className="space-x-2">
-              <Button size="md" onClick={setFilterVisible.toggle}>
+              <Button
+                variant="subtle"
+                size="md"
+                className="px-2 py-1.5 text-sm "
+                onClick={setFilterVisible.toggle}
+              >
                 <RiFilter3Line className="inline-block mb-1" /> Filters{' '}
-                {/* {Object.keys(qry).length} */}
               </Button>
 
               <Button
+                variant="subtle"
                 size="md"
+                className="px-2 py-1.5 text-sm "
                 onClick={() => setQry.reset() || setFilterVisible.off()}
               >
-                Clear Filters
+                <MdOutlineFormatColorReset className="inline-block mb-1" />
+                Reset
+                {/* {Object.keys(qry).length} */}
               </Button>
             </div>
           </div>
@@ -54,7 +64,9 @@ export default function FundsList() {
 
           <FundFilters isVisible={filtersVisible} />
 
-          <FundTable />
+          <div className="overflow-x-auto">
+            <FundTable />
+          </div>
         </CardV2>
 
         <Print data={qry} />

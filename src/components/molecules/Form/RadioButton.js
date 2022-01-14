@@ -54,14 +54,16 @@ function RadioButton({
                 <label
                   className={classNames(
                     [
-                      'flex items-center outline-none py-1 px-2 ',
-                      'rounded-lg border border-gray-300  text-gray-700',
+                      'flex items-center outline-none py-1 px-2 rounded-lg border',
+                      ' border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300',
+                      'bg-white dark:bg-gray-700',
                       'focus:bg-white focus:border focus:shadow-outline-blue focus:border-blue-300 focus:shadow-outline',
                       'transition duration-100 ease-in-out',
                     ],
                     {
                       'hover:border-blue-300': checked != option?.value,
-                      'bg-gray-100 border-gray-400': checked == option?.value,
+                      'bg-gray-100 dark:bg-sky-800 border-gray-400 dark:text-sky-400':
+                        checked == option?.value,
                     },
                   )}
                   htmlFor={`${name}-${option?.value}`}

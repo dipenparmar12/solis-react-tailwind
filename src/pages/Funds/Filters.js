@@ -45,7 +45,10 @@ function FundFilters({ isVisible }) {
               delay={1500}
               options={appContext?.staticData?.users || []}
               onChange={(values) =>
-                setQry.merge({ user_ids: values.map(({ value }) => value) })
+                setQry.merge({
+                  page: 1,
+                  user_ids: values.map(({ value }) => value),
+                })
               }
               valueField="id"
               keepSelectedInList={false}
@@ -70,7 +73,11 @@ function FundFilters({ isVisible }) {
               startDate={startDate}
               endDate={endDate}
               onChange={(update) => {
-                setQry.merge({ from_date: update[0], to_date: update[1] })
+                setQry.merge({
+                  from_date: update[0],
+                  to_date: update[1],
+                  page: 1,
+                })
                 setDateRange(update)
               }}
             />

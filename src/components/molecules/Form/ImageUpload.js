@@ -74,7 +74,7 @@ function ImageUpload({
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleFileChange}
           className={classNames([
-            'relative flex flex-col items-center w-64 px-4 py-4 tracking-wide text-gray-600 bg-white border rounded-lg shadow-md cursor-pointer dark:text-gray-300 text-blue border-blue hover:bg-blue hover:text-gray-800',
+            'relative flex flex-col items-center w-64 px-4 py-4 tracking-wide text-gray-600 bg-white dark:bg-gray-800 dark:border-gray-600 border rounded-lg shadow-md cursor-pointer dark:text-gray-300 text-blue border-blue hover:bg-blue hover:text-gray-800',
             error &&
               'text-red-400  bg-red-100/80 hover:bg-red-100/80 active:bg-red-100/80 focus:bg-red-100/80',
           ])}

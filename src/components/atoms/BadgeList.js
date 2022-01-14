@@ -6,7 +6,7 @@ import BadgeButton from './BadgeButton'
 
 function BadgeList({ qry, setQry, className }) {
   return (
-    <div className={classNames(['flex gap-2 my-1'], className)}>
+    <div className={classNames(['flex flex-wrap gap-2 my-1'], className)}>
       {/* Filter Badges */}
       {Object.entries(qry || {}).map(([filterKey, value]) => (
         <div key={filterKey} className="">
