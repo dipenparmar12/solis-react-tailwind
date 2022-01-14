@@ -126,6 +126,7 @@ export default function FundTable() {
                     column?.isSortable &&
                       handleTableSorting(column?.id, qry.sortBy)
                   }}
+                  className={'whitespace-nowrap'}
                 >
                   {column.render('Header')}
 
@@ -153,7 +154,7 @@ export default function FundTable() {
 
           {<TLoading loading={FundState?.loading} />}
 
-          <tr className="text-right">
+          <tr className="text-left lg:text-right ">
             <td colSpan="10000" className="pt-4 px-2 py-2.5">
               {FundState?.loading
                 ? 'Loading... ' // Use our custom loading state to show a loading indicator

@@ -45,7 +45,7 @@ export default function TransactionCard({ data }) {
             )}
           </div>
 
-          <div className="absolute right-1">
+          <div className="absolute text-lg right-1 ">
             <ModalV3
               renderButton={({ setOpen }) => (
                 <button

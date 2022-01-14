@@ -129,7 +129,7 @@ export default function PaginatorV1({
 function ButtonP({ children, onClick, active, disabled, ...rest }) {
   if (active) {
     return (
-      <div className="px-3 py-1 text-sm text-blue-500 no-underline bg-blue-100 border border-blue-100 rounded-sm dark:bg-gray-900 dark:border-gray-600 dark:text-sky-500">
+      <div className="px-2.5 py-1 text-sm text-blue-500 no-underline bg-blue-100 border border-blue-100 rounded-sm dark:bg-gray-900 dark:border-gray-600 dark:text-sky-500">
         {children}
       </div>
     )
@@ -139,7 +139,7 @@ function ButtonP({ children, onClick, active, disabled, ...rest }) {
     return (
       <div
         className={cn([
-          `px-3 py-1 text-sm text-gray-600 no-underline border  border-gray-100 rounded-sm   `,
+          `px-2.5 py-1 text-sm text-gray-600 no-underline border  border-gray-100 rounded-sm   `,
           'dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 ',
           // 'dark:bg-gray-800 dark:border-gray-700 text-gray-700 dark:text-gray-600',
         ])}
@@ -153,7 +153,7 @@ function ButtonP({ children, onClick, active, disabled, ...rest }) {
     <button
       type="button"
       className={cn([
-        `px-3 py-1 dark:hover:bg-gray-900 text-sm text-gray-600 no-underline border border-gray-100 rounded-sm   `,
+        `px-2.5 py-1 dark:hover:bg-gray-900 text-sm text-gray-600 no-underline border border-gray-100 rounded-sm   `,
         `hover:shadow-md active:shadow-sm dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 hover:bg-gray-100`,
         // disabled &&
         //   'cursor-not-allowed bg-gray-100 dark:bg-gray-800 dark:border-gray-700 text-gray-700 dark:text-gray-500',
