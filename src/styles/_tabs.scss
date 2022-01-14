@@ -1,0 +1,11 @@
+/* 
+========================================================
+  Salaries Tab
+======================================================== 
+*/
+.btn_tab {
+  @apply px-4 py-2 text-gray-600 dark:text-gray-400  border-b-2 dark:border-gray-600 hover:text-sky-600 focus:outline-none;
+  &.active {
+    @apply text-sky-600 border-sky-500 dark:text-sky-600 dark:border-sky-600  dark:border-b-2;
+  }
+}

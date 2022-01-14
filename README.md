@@ -34,9 +34,10 @@
 ## Deployment, Production
 
 ### Deploy React app by using Firebase Hosting, Firebase deployment [Doc](https://hackernoon.com/how-to-deploy-a-react-application-with-firebase-hosting-p92m37b7)
+
 - Login to Firebase in your terminal
   - `yarn global add firebase-tools`
-  - `firebase login`  login using google account. 
+  - `firebase login` login using google account.
   - `yarn run build`
   - Initialize Firebase in Your React App
     - `firebase init`
@@ -46,29 +47,25 @@
     - The last question is whether to overwrite your existing build/index.htmlfile. So You'll want to enter N (No) for this option because we want actual index.html file that Reacts is generated while creating the build.
     - Once the initialization part is done you can check the directory, you should see two new files **.firebaserc**, **firebase.json**. These files are automatically generated.
   - Deploy React app
-    1. `yarn build` 
+    1. `yarn build`
     2. `firebase deploy`
     3. Firebase will then give you a unique hosting URL where your deployed app is located. For example https://reactdemo-f8d87.web.app
-  
+
 ```json
-  // firebase.json
-  {
-    "hosting": {
-      "public": "build",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    }
+// firebase.json
+{
+  "hosting": {
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
-  ```
+}
+```
 
 ### Heroku deployment
 
@@ -97,6 +94,7 @@ View Heroku logs
 > `heroku logs --tail`
 
 Cancel heroku running build
+
 - Install build `heroku plugins:install heroku-builds`
 - `heroku builds:cancel -a your-app-name`
 - `heroku builds:cancel -a solis-react-app-test`
@@ -250,8 +248,10 @@ module.exports = {
 - Date helper methods [Doc](https://date-fns.org/v2.28.0/docs/format)
 - Table [doc](https://react-table.tanstack.com/)
 - React-select [doc](https://sanusart.github.io/react-dropdown-select)
+- React Router [Doc](https://reactrouterdotcom.fly.dev/docs/en/v6/getting-started/overview)
 
 ### External resources and references
+
 - markdown.md [cheat-sheet](https://www.markdownguide.org/cheat-sheet/)
 - Icons: https://heroicons.dev/
 - How to use variants: https://gist.github.com/RobinMalfait/490a0560a7cfde985d435ad93f8094c5
@@ -273,3 +273,4 @@ module.exports = {
 - React Toggle Animation https://medium.com/clever-franke/create-a-react-slidetoggle-component-with-hooks-and-react-spring-748919c38667
 - Table custom pagination example https://react-table.tanstack.com/docs/examples/pagination-controlled
 - React table sorting logic: https://github.com/tannerlinsley/react-table/discussions/2033
+- Tab styles: https://tailwindcomponents.com/component/tab-navigation

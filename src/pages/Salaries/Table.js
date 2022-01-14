@@ -33,8 +33,8 @@ import useTableSorting from '@/hooks/useTableSorting'
 
 export default function SalariesTable() {
   const { State: FundState = {}, setQry, qry } = useSalariesContext()
-  const fundColumns = useFundColumns()
-  const fundRows = FundState?.data // TOD0::MEMOIZE Table data
+  const tableColumns = useTableColumns()
+  const tableRows = FundState?.data || [] // TOD0::MEMOIZE Table data
   // const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
   //   useTable({ columns, data: FundState?.data })
 
@@ -92,8 +92,8 @@ export default function SalariesTable() {
     state: { pageIndex, pageSize },
   } = useTable(
     {
-      columns: fundColumns,
-      data: fundRows,
+      columns: tableColumns,
+      data: tableRows,
 
       // Sorting
       manualSortBy: true,
@@ -166,7 +166,7 @@ export default function SalariesTable() {
   )
 }
 
-const useFundColumns = () => {
+const useTableColumns = () => {
   return React.useMemo(
     () => [
       {

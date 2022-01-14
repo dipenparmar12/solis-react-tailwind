@@ -3,6 +3,7 @@ import React from 'react'
 import { RiAddLine, RiFilter3Line } from 'react-icons/ri'
 import { MdOutlineFormatColorReset } from 'react-icons/md'
 import classNames from 'classnames'
+import { useParams, useSearchParams } from 'react-router-dom'
 import SalariesTable from './Table'
 import CardV2 from '@/components/atoms/CardV2'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
@@ -13,49 +14,64 @@ import FundFilters from './Filters'
 import { useSalariesContext } from '.'
 
 export default function SalariesList() {
-  const { State: FundState = {}, setQry, qry } = useSalariesContext()
+  const {
+    State: FundState = {},
+    setQry,
+    qry,
+    setTab,
+    activeTab,
+  } = useSalariesContext()
   const [filtersVisible, setFilterVisible] = useToggle(false)
 
   return (
     <>
       <div className={'pb-20'}>
         <div>
-          <div className="bg-white whitespace-nowrap">
+          <div className=" whitespace-nowrap">
             <nav className="flex pb-3 overflow-auto">
               <button
                 className={classNames([
-                  'px-4 py-2 font-semibold  border-b-2  hover:text-sky-600 focus:outline-none',
-                  'text-sky-600 border-sky-500',
+                  'btn_tab',
+                  activeTab === 'salaries' && 'active',
                 ])}
+                onClick={() => setTab('salaries')}
               >
                 Salaries
               </button>
               <button
                 className={classNames([
-                  'px-4 py-2 text-gray-600 border-b-2 hover:text-sky-500 focus:outline-none',
+                  'btn_tab',
+                  activeTab === 'advances' && ' active',
                 ])}
+                onClick={() => setTab('advances')}
               >
                 Advances
               </button>
               <button
                 className={classNames([
-                  'px-4 py-2 text-gray-600 border-b-2 hover:text-sky-500 focus:outline-none',
+                  'btn_tab',
+                  activeTab === 'advance_summary' && ' active',
                 ])}
+                onClick={() => setTab('advance_summary')}
               >
                 Advance Summary
               </button>
               <button
                 className={classNames([
-                  'px-4 py-2 text-gray-600 border-b-2 hover:text-sky-500 focus:outline-none',
+                  'btn_tab',
+                  activeTab === 'create_salary' && ' active',
                 ])}
+                onClick={() => setTab('create_salary')}
               >
                 <RiAddLine className="inline-block" /> Salary
               </button>
 
               <button
                 className={classNames([
-                  'px-4 py-2 text-gray-600 border-b-2 hover:text-sky-500 focus:outline-none',
+                  'btn_tab',
+                  activeTab === 'create_advance' && ' active',
                 ])}
+                onClick={() => setTab('create_advance')}
               >
                 <RiAddLine className="inline-block" /> Advance
               </button>

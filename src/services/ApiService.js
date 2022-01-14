@@ -37,6 +37,11 @@ const resources = {
       _axios.get(`/salaries?${encode(qry)}`, config),
   },
 
+  advances: {
+    get: async ({ qry, config }) =>
+      _axios.get(`/advances?${encode(qry)}`, config),
+  },
+
   transactions: {
     get: async ({ qry, config }) =>
       _axios.get(`/transactions?${encode(qry)}`, config),

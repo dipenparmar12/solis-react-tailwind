@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import flatten from '@/utils/obj/flatten'
+import omit from '@/utils/obj/omit'
 
 /**
  *
@@ -12,10 +13,11 @@ export default function useFetcher({
   qry,
   pagination,
   immediateInvoke = true,
+  omitParams,
 }) {
   const [data, setData] = React.useState([])
   const [error, setError] = React.useState(null)
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
   const [paginationData, setPaginationData] = React.useState(pagination)
   // const [metaInfo, setMetaInfo] = React.useState(null) // TODO::WHEN Required
   const [refresh, setRefresh] = React.useState(0)
@@ -41,7 +43,7 @@ export default function useFetcher({
     if (isMounted && immediateInvoke) {
       setLoading(true)
       // setData([])
-      apiCall({ qry, config })
+      apiCall({ qry: omit(qry, omitParams), config })
         .then((res) => res?.data)
         .then(paginationCb)
         .then((res) => setData(isMounted ? res : []))
