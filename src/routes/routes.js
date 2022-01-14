@@ -7,7 +7,7 @@ import {
   RiRefund2Line,
 } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
-import { MdOutlineRealEstateAgent } from 'react-icons/md'
+import { MdAttachMoney, MdOutlineRealEstateAgent } from 'react-icons/md'
 import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
 import ProjectContainer from '@/pages/Projects/ProjectContainer'
@@ -20,6 +20,7 @@ import { ProjectFormContainer } from '@/pages/Projects/Form'
 import TransactionsContainer from '@/pages/Transactions/Transactions'
 import FundContainer from '@/pages/Funds/Funds'
 import AppContextState from '@/temp/Examples/AppContextState'
+import SalaryContainer from '@/pages/Salaries'
 
 export const testRoutes = {
   profile: {
@@ -108,6 +109,12 @@ export const routesPrivate = {
     path: '/',
     element: <div className="text-2xl"> Home </div>,
     icon: <RiBuilding2Line />,
+  },
+  salaries: {
+    label: 'Salaries',
+    path: '/salaries',
+    element: <SalaryContainer />,
+    icon: <MdAttachMoney />,
   },
   funds: {
     label: 'PettyCase',
