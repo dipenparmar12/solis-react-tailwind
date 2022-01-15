@@ -51,9 +51,6 @@ export default function SalariesTable() {
       data: tableRows,
       manualSortBy: true,
       manualPagination: true,
-
-      // pageCount: totalRecords,
-      // initialState: { pageIndex: 0 },
     },
     useSortBy,
     useExpanded, // Use the useExpanded plugin hook
@@ -138,7 +135,10 @@ const useTableColumns = (type) => {
         id: 'expander',
         Cell: ({ row }) => {
           return (
-            <span className="" {...row.getToggleRowExpandedProps()}>
+            <span
+              className="inline-block w-full"
+              {...row.getToggleRowExpandedProps()}
+            >
               {row.isExpanded ? (
                 <VscChevronDown className="inline-block" />
               ) : (
