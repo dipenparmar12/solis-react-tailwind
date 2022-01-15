@@ -43,8 +43,10 @@ const SalaryContainer = ({ children }) => {
     pagination: true, // TODO::10 Throw's error if api has pagination and ui doesn't
   })
 
+  const apiStateMemo = React.useMemo(() => apiState, [apiState ])
+
   const contextValue = {
-    State: apiState, // data, error, loading, paginationData, reload,
+    State: apiStateMemo, // data, error, loading, paginationData, reload,
     qry,
     setQry,
     setTab,

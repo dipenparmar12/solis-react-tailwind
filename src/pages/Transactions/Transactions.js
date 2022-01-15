@@ -12,7 +12,7 @@ export const useTransactionContext = () => React.useContext(Context)
 const TransactionsContainer = ({ children }) => {
   const [qry, setQry] = useObject({ per_page: 15 })
   const qryParams = useQryParams({ setParams: setQry.merge })
-  const resTrans = useFetcher({
+  const apiState = useFetcher({
     apiCall: Api.transactions.get,
     qry,
     pagination: true, // TODO::10 Throw's error if api has pagination and ui doesn't
@@ -22,8 +22,10 @@ const TransactionsContainer = ({ children }) => {
     qryParams.set(qry)
   }, [qry])
 
+  const apiStateMemo = React.useMemo(() => apiState, [apiState])
+
   const contextValue = {
-    State: resTrans,
+    State: apiStateMemo,
     qry,
     setQry,
   }

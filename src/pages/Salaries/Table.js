@@ -17,6 +17,10 @@ import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
 
+const NestedRow = React.memo(({ row, loading }) => {
+  return <Print>{row.original}</Print>
+})
+
 export default function SalariesTable() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
@@ -102,7 +106,8 @@ export default function SalariesTable() {
                 {row.isExpanded && (
                   <tr>
                     <td colSpan={'100%'}>
-                      <Print>{row.original}</Print>
+                      <NestedRow row={row} />
+                      {/* <Print>{row.original}</Print> */}
                     </td>
                   </tr>
                 )}
