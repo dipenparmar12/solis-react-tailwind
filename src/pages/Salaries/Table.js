@@ -18,7 +18,11 @@ export default function SalariesTable() {
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
   const tableRows = FundState?.data || [] // TOD0::MEMOIZE Table data
   const TableColumns = useTableColumns(activeTab)
-  // const TableColumns = getTableColumns()
+
+  const totalRecords = React.useMemo(
+    () => FundState?.paginationData?.total || 0,
+    [FundState?.paginationData?.total],
+  )
 
   const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
     useTable(
@@ -27,6 +31,8 @@ export default function SalariesTable() {
         data: tableRows,
         manualSortBy: true,
         manualPagination: true,
+        // pageCount: totalRecords,
+        // initialState: { pageIndex: 0 },
       },
       useSortBy,
       usePagination,
@@ -77,9 +83,7 @@ export default function SalariesTable() {
             <td colSpan="10000" className="pt-4 px-2 py-2.5">
               {FundState?.loading
                 ? 'Loading... ' // Use our custom loading state to show a loading indicator
-                : `Showing ${page.length} of ~${
-                    FundState?.data?.length || ''
-                  } results`}
+                : `Showing ${page.length} of ~${totalRecords || ''} results`}
             </td>
           </tr>
         </tbody>
@@ -92,7 +96,7 @@ const useTableColumns = (type) => {
   const AdvanceColumns = React.useMemo(
     () => [
       {
-        Header: 'id',
+        Header: 'ID',
         accessor: 'id',
         isSortable: true,
       },
@@ -118,6 +122,15 @@ const useTableColumns = (type) => {
         ),
       },
       {
+        Header: 'Pending Amt',
+        accessor: (row) => (
+          <span className="text-red-400 ">
+            {formatRs(row.amount - row.paid_amount)}
+          </span>
+        ),
+        isSortable: true,
+      },
+      {
         Header: 'Date',
         accessor: 'date',
         isSortable: true,
@@ -132,15 +145,6 @@ const useTableColumns = (type) => {
             {formatRs(value || '-')}
           </span>
         ),
-      },
-      {
-        Header: 'Pending Amt',
-        accessor: (row) => (
-          <span className="text-red-400 ">
-            {formatRs(row.amount - row.paid_amount)}
-          </span>
-        ),
-        isSortable: true,
       },
     ],
     [],
