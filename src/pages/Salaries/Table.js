@@ -1,9 +1,6 @@
-/* eslint-disable no-unsafe-optional-chaining */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable indent */
-/* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-use-before-define */
+/* eslint-disable indent */
 import React from 'react'
 import { useTable, usePagination, useSortBy, useExpanded } from 'react-table'
 
@@ -17,9 +14,69 @@ import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
 
-const NestedRow = React.memo(({ row, loading }) => {
-  return <Print>{row.original}</Print>
-})
+const NestedRowTable = React.memo(
+  ({ row, rowProps, visibleColumns, loading }) => {
+    // React.useEffect(() => {
+    //   console.log('Table.js::[21] NestedRow', row)
+    // }, [row])
+    // return <Print>{row.original}</Print>
+
+    const tableData = row?.original?.emi_info || []
+    const TableColumns = React.useMemo(
+      () => [
+        { Header: '#', accessor: '' },
+        { Header: 'ID', accessor: 'id' },
+        {
+          Header: 'Deduction (Paid)',
+          accessor: 'deduction',
+          Cell: ({ value }) => (
+            <span className="text-green-600">{formatRs(value || '-')}</span>
+          ),
+        },
+        {
+          Header: 'Date',
+          accessor: 'date',
+          Cell: ({ value }) => (
+            <span className="text-green-600">
+              {formatDate(value, null, '-')}
+            </span>
+          ),
+        },
+        { Header: 'Desc', accessor: 'desc' },
+      ],
+      [],
+    )
+
+    const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
+      useTable({ columns: TableColumns, data: tableData })
+
+    return (
+      <table className="w-full" {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row_) => {
+            prepareRow(row_)
+            return (
+              <tr {...row_.getRowProps()}>
+                {row_.cells.map((cell) => {
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    )
+  },
+)
 
 export default function SalariesTable() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
@@ -103,7 +160,11 @@ export default function SalariesTable() {
                 {row.isExpanded && (
                   <tr>
                     <td colSpan={'100%'}>
-                      <NestedRow row={row} />
+                      <NestedRowTable
+                        row={row}
+                        rowProps={rowProps}
+                        visibleColumns={visibleColumns}
+                      />
                       {/* <Print>{row.original}</Print> */}
                     </td>
                   </tr>
@@ -131,12 +192,13 @@ const useTableColumns = (type) => {
   const AdvanceColumns = React.useMemo(
     () => [
       {
-        accessor: '-',
-        id: 'expander',
-        Cell: ({ row }) => {
+        accessor: 'emi_info',
+        id: '-',
+        Cell: ({ row, value: emiInfo, ...rest }) => {
+          if (!emiInfo?.length) return null
           return (
             <span
-              className="inline-block w-full"
+              className="inline-block w-full hover:text-black dark:text-gray-100"
               {...row.getToggleRowExpandedProps()}
             >
               {row.isExpanded ? (
