@@ -9,21 +9,23 @@ import WithFormik from '../FormicApp/WithFormik'
 import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 import debounce from '@/utils/function/debounce'
 import { inputDateStyles } from './InputDate'
+import isFunctionAndCall from '@/utils/function/isFunctionAndCall'
+import Types from '@/utils/validation/Types'
 
 function InputSelect(
   {
     as: Input = 'input',
+    onChange = () => {},
+    selectCallback,
+    valueField = 'id',
+    labelField = 'label',
+    delay = 100,
     name,
     label,
     placeholder,
     multi,
     values,
     options,
-    onChange = () => {},
-    // setOptions = () => {},
-    valueField = 'value',
-    labelField = 'label',
-    delay = 100,
     error,
     isRequired,
     className,
@@ -33,13 +35,14 @@ function InputSelect(
 ) {
   const ownRef = React.useRef(null)
   const mergedRef = useMergeRefs([inputRef, ownRef])
-  // const [selectedOptions, setOptions] = React.useState([])
-  // onChange={(values) => setOptions(values)}
 
   const onChangeDebounced = debounce(onChange, delay)
-  const onChangeDebouncedWrapper = (_values) => {
-    // setOptions(_values)
-    onChangeDebounced(_values)
+  const onChangeDebouncedWrapper = (selectedValues) => {
+    let selectedVals = multi ? selectedValues : selectedValues[0]
+    if (Types.isFunction(selectCallback)) {
+      selectedVals = selectCallback(selectedVals)
+    }
+    return onChangeDebounced(selectedVals)
   }
 
   return (

@@ -29,12 +29,12 @@ const SalaryContainer = ({ children }) => {
   const apiCall = React.useCallback(
     (...args) => {
       switch (activeTab) {
-        case 'salaries':
-          return Api.salaries.get(...args)
-        case 'advances':
-          return Api.advances.get(...args)
-        default:
-          break
+          case 'salaries':
+            return Api.salaries.get(...args)
+          case 'advances':
+            return Api.advances.get(...args)
+          default:
+            break
       }
       return new Promise((resolve, reject) => {
         resolve([])

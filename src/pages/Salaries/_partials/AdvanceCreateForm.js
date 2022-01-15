@@ -10,30 +10,26 @@ import { useAppContext } from '@/context/AppContext'
 import Api from '@/services/ApiService'
 import deepMerge from '@/utils/obj/deepMerge'
 import omitVal from '@/utils/obj/omitVal'
+import { InputSelectFormik } from '@/components/molecules/Form/InputSelect'
+import { useSalariesContext } from '..'
 
 const initialValues = {
-  id: '',
+  // id: '',
   user_id: '',
-  amount: '',
+  advance_amount: '',
   date: '',
 }
 
 export const InputLabels = {
-  id: 'ID',
+  // id: 'ID',
   user_id: 'User',
-  amount: 'Amount',
+  advance_amount: 'Amount',
   date: 'Date',
 }
 
 const validationSchemaCb = yup.object().shape({
-  user_id: yup
-    .string()
-    .required()
-    .min(2)
-    .max(100)
-    .nullable()
-    .label(InputLabels.user_id),
-  amount: yup
+  user_id: yup.string().required().nullable().label(InputLabels.user_id),
+  advance_amount: yup
     .number('Invalid Amount')
     .required()
     .nullable()
@@ -55,12 +51,13 @@ export default function AdvanceCreateForm({
   initialData,
   onSuccess = () => {},
 }) {
+  const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
   const modalCtx = useModalContext()
   const appContext = useAppContext()
 
   React.useEffect(() => {
     if (!appContext?.staticData?.users?.length) {
-      appContext?.fetchPropertyTypes()
+      appContext?.fetchUsers()
     }
   }, [])
 
@@ -100,18 +97,24 @@ export default function AdvanceCreateForm({
       >
         <div className="space-y-3">
           <div className="flex flex-col gap-3 md:flex-row">
-            <InputFormik
+            <InputSelectFormik
               isRequired
+              searchable
+              clearable
               className={'flex-1'}
               name="user_id"
-              label="User "
-              placeholder="User"
+              label="Select Users"
+              placeholder="Select User"
+              delay={300}
+              options={appContext?.staticData?.users || []}
+              selectCallback={(option) => option?.id || ''}
+              valueField="id"
             />{' '}
             <InputFormik
               isRequired
               className={'flex-1 '}
               type="number"
-              name="amount"
+              name="advance_amount"
               label="Advance"
               placeholder="Advance Amount"
             />
