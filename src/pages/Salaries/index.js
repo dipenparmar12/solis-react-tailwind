@@ -13,13 +13,10 @@ const Context = React.createContext(null)
 export const useSalariesContext = () => React.useContext(Context)
 
 const SalaryContainer = ({ children }) => {
+  const omitParams = ['tab']
   const [params, setParams] = useSearchParams()
   const [qry, setQry] = useObject({ per_page: 10 })
   const [activeTab, setTab] = React.useState(params.get('tab') || 'salaries')
-
-  // React.useEffect(() => {
-  //   console.log('List.js::[27]', params.get('tab'))
-  // }, [params])
 
   // // Enable query params
   const qryParams = useQryParams({ setParams: setQry.merge })
@@ -36,13 +33,13 @@ const SalaryContainer = ({ children }) => {
         default:
           break
     }
-    return Api.staticData.fetch({resource:'empty'})
+    return new Promise((resolve, reject) =>{ resolve([]) })
   }, [activeTab])
 
   const apiState = useFetcher({
     apiCall,
     qry,
-    omitParams: ['tab'],
+    omitParams,
     pagination: true, // TODO::10 Throw's error if api has pagination and ui doesn't
   })
 
@@ -52,6 +49,7 @@ const SalaryContainer = ({ children }) => {
     setQry,
     setTab,
     activeTab,
+    omitParams
   }
 
   // React.useEffect(() => {

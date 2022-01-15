@@ -50,7 +50,7 @@ export default function SalariesList() {
           </div>
 
           <PaginatorV1
-            label={'Total '}
+            // label={' '}
             setPage={(option) => {
               setQry?.merge({ page: option?.value || option })
             }}

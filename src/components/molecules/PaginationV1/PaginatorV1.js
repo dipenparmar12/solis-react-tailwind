@@ -16,7 +16,7 @@ const HDivider = React.memo(() => (
 ))
 
 export default function PaginatorV1({
-  label,
+  label = 'Total',
   totalRecords,
   pageSize,
   currentPage,

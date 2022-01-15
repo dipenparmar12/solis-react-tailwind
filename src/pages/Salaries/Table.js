@@ -4,27 +4,9 @@
 /* eslint-disable no-use-before-define */
 import React from 'react'
 import { useTable, usePagination, useSortBy } from 'react-table'
-import {
-  RiArrowDownLine,
-  RiArrowDownSLine,
-  RiArrowUpDownLine,
-  RiArrowUpLine,
-  RiArrowUpSLine,
-  RiDeleteBin7Line,
-  RiEditLine,
-  RiEyeLine,
-} from 'react-icons/ri'
-import { BsChevronExpand, BsSortUpAlt } from 'react-icons/bs'
 
 import { useSalariesContext } from '.'
-import TableV1, {
-  Thead,
-  Th,
-  Tbody,
-  Tr,
-  Td,
-  TLoading,
-} from '@/components/molecules/Table/TableV1'
+import TableLoading from '@/components/molecules/Table/TableLoading'
 import formatDate from '@/utils/date/formatDate'
 import formatRs from '@/utils/str/formatRs'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
@@ -32,94 +14,32 @@ import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
 
 export default function SalariesTable() {
-  const { State: FundState = {}, setQry, qry } = useSalariesContext()
-  const tableColumns = useTableColumns()
-  const tableRows = FundState?.data || [] // TOD0::MEMOIZE Table data
-  // const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-  //   useTable({ columns, data: FundState?.data })
-
-  const controlledPageCount = React.useMemo(() => {
-    return FundState?.paginationData?.total || 0
-  }, [FundState?.paginationData?.total])
-
+  const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
+  const tableRows = FundState?.data || [] // TOD0::MEMOIZE Table data
+  const TableColumns = useTableColumns(activeTab)
+  // const TableColumns = getTableColumns()
 
-  const tableColumnHooks = React.useCallback((hooks) => {
-    hooks.visibleColumns.push((columns) => {
-      return [
-        ...columns,
-        {
-          Header: 'Status',
-          id: 'status',
-          Cell: ({ row }) => (
-            <div className="space-x-1.5">
-              <ModalV3
-                renderButton={({ setOpen }) => (
-                  <button onClick={setOpen}>
-                    <RiEyeLine className="text-blue-400" />
-                  </button>
-                )}
-              >
-                <h2 className="mb-3 mr-10 text-2xl">
-                  Record ID: {row.values?.id}
-                </h2>
-                <Print>{row.original}</Print>
-              </ModalV3>
-
-              {/* <button>
-                <RiEditLine className="text-yellow-600" />
-              </button>
-
-              <button>
-                <RiDeleteBin7Line className="text-red-400" />
-              </button> */}
-            </div>
-          ),
-        },
-      ]
-    })
-  }, [])
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    // rows,
-    page,
-    // setPageSize,
-    // Get the state from the instance
-    state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns: tableColumns,
-      data: tableRows,
-
-      // Sorting
-      manualSortBy: true,
-      defaultCanSort: true,
-
-      // Pagination
-      initialState: { pageIndex: 0 }, // Pass our hoisted table state
-      manualPagination: true, // Tell the usePagination
-      // hook that we'll handle our own data fetching
-      // This means we'll also have to provide our own
-      // pageCount.
-      pageCount: controlledPageCount,
-    },
-    useSortBy,
-    usePagination,
-    tableColumnHooks,
-  )
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
+    useTable(
+      {
+        columns: TableColumns,
+        data: tableRows,
+        manualSortBy: true,
+        manualPagination: true,
+      },
+      useSortBy,
+      usePagination,
+    )
 
   return (
     <>
-      <TableV1 {...getTableProps()}>
-        <Thead>
+      <table className="table_v1" {...getTableProps()}>
+        <thead>
           {headerGroups.map((hGroup) => (
             <tr {...hGroup.getHeaderGroupProps()}>
               {hGroup.headers.map((column) => (
-                <Th
+                <th
                   {...column.getHeaderProps(column?.getSortByToggleProps())}
                   onClick={() => {
                     column?.isSortable &&
@@ -133,41 +53,43 @@ export default function SalariesTable() {
                     {column?.isSortable &&
                       getSortingIcon(column?.id, qry.sortBy)}
                   </span>
-                </Th>
+                </th>
               ))}
             </tr>
           ))}
-        </Thead>
+        </thead>
 
-        <Tbody {...getTableBodyProps} className={'relative'}>
+        <tbody {...getTableBodyProps} className={'relative'}>
           {page?.map((row, i) => {
             prepareRow(row)
             return (
-              <Tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
-                  return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
-              </Tr>
+              </tr>
             )
           })}
 
-          {<TLoading loading={FundState?.loading} />}
+          {<TableLoading loading={FundState?.loading} />}
 
           <tr className="text-left lg:text-right ">
             <td colSpan="10000" className="pt-4 px-2 py-2.5">
               {FundState?.loading
                 ? 'Loading... ' // Use our custom loading state to show a loading indicator
-                : `Showing ${page.length} of ~${controlledPageCount} results`}
+                : `Showing ${page.length} of ~${
+                    FundState?.data?.length || ''
+                  } results`}
             </td>
           </tr>
-        </Tbody>
-      </TableV1>
+        </tbody>
+      </table>
     </>
   )
 }
 
-const useTableColumns = () => {
-  return React.useMemo(
+const useTableColumns = (type) => {
+  const AdvanceColumns = React.useMemo(
     () => [
       {
         Header: 'id',
@@ -196,7 +118,7 @@ const useTableColumns = () => {
         ),
       },
       {
-        Header: 'Month',
+        Header: 'Date',
         accessor: 'date',
         isSortable: true,
         Cell: ({ value }) => formatDate(value),
@@ -218,4 +140,19 @@ const useTableColumns = () => {
     ],
     [],
   )
+  const SalariesColumn = React.useMemo(
+    () => [{ Header: 'ID', id: 'id', accessor: 'id' }],
+    [],
+  )
+
+  return React.useMemo(() => {
+    switch (type) {
+      case 'advances':
+        return AdvanceColumns
+      case 'salaries':
+        return SalariesColumn
+      default:
+        return [{ Header: 'ID', id: 'id', accessor: 'id' }]
+    }
+  }, [type])
 }

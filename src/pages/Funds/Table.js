@@ -4,46 +4,26 @@
 /* eslint-disable no-use-before-define */
 import React from 'react'
 import { useTable, usePagination, useSortBy } from 'react-table'
-import {
-  RiArrowDownLine,
-  RiArrowDownSLine,
-  RiArrowUpDownLine,
-  RiArrowUpLine,
-  RiArrowUpSLine,
-  RiDeleteBin7Line,
-  RiEditLine,
-  RiEyeLine,
-} from 'react-icons/ri'
+import { RiEyeLine } from 'react-icons/ri'
 import { BsChevronExpand, BsSortUpAlt } from 'react-icons/bs'
 
 import { useFundContext } from './Funds'
-import TableV1, {
-  Thead,
-  Th,
-  Tbody,
-  Tr,
-  Td,
-  TLoading,
-} from '@/components/molecules/Table/TableV1'
+import TableLoading from '@/components/molecules/Table/TableLoading'
 import formatDate from '@/utils/date/formatDate'
 import formatRs from '@/utils/str/formatRs'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
-import Button from '@/components/atoms/Button'
 import useTableSorting from '@/hooks/useTableSorting'
 
 export default function FundTable() {
   const { State: FundState = {}, setQry, qry } = useFundContext()
   const fundColumns = useFundColumns()
   const fundRows = FundState?.data // TOD0::MEMOIZE Table data
-  // const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-  //   useTable({ columns, data: FundState?.data })
+  const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
 
   const controlledPageCount = React.useMemo(() => {
     return FundState?.paginationData?.total || 0
   }, [FundState?.paginationData?.total])
-
-  const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
 
   const tableColumnHooks = React.useCallback((hooks) => {
     hooks.visibleColumns.push((columns) => {
@@ -81,46 +61,33 @@ export default function FundTable() {
     })
   }, [])
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    // rows,
-    page,
-    // setPageSize,
-    // Get the state from the instance
-    state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns: fundColumns,
-      data: fundRows,
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
+    useTable(
+      {
+        columns: fundColumns,
+        data: fundRows,
 
-      // Sorting
-      manualSortBy: true,
-      defaultCanSort: true,
+        // Sorting
+        manualSortBy: true,
+        defaultCanSort: true,
 
-      // Pagination
-      initialState: { pageIndex: 0 }, // Pass our hoisted table state
-      manualPagination: true, // Tell the usePagination
-      // hook that we'll handle our own data fetching
-      // This means we'll also have to provide our own
-      // pageCount.
-      pageCount: controlledPageCount,
-    },
-    useSortBy,
-    usePagination,
-    tableColumnHooks,
-  )
+        // Pagination
+        manualPagination: true, // Tell the usePagination
+        pageCount: controlledPageCount,
+      },
+      useSortBy,
+      usePagination,
+      tableColumnHooks,
+    )
 
   return (
     <>
-      <TableV1 {...getTableProps()}>
-        <Thead>
+      <table className="table_v1" {...getTableProps()}>
+        <thead>
           {headerGroups.map((hGroup) => (
             <tr {...hGroup.getHeaderGroupProps()}>
               {hGroup.headers.map((column) => (
-                <Th
+                <th
                   {...column.getHeaderProps(column?.getSortByToggleProps())}
                   onClick={() => {
                     column?.isSortable &&
@@ -134,25 +101,25 @@ export default function FundTable() {
                     {column?.isSortable &&
                       getSortingIcon(column?.id, qry.sortBy)}
                   </span>
-                </Th>
+                </th>
               ))}
             </tr>
           ))}
-        </Thead>
+        </thead>
 
-        <Tbody {...getTableBodyProps} className={'relative'}>
+        <tbody {...getTableBodyProps} className={'relative'}>
           {page?.map((row, i) => {
             prepareRow(row)
             return (
-              <Tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
-                  return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
-              </Tr>
+              </tr>
             )
           })}
 
-          {<TLoading loading={FundState?.loading} />}
+          {<TableLoading loading={FundState?.loading} />}
 
           <tr className="text-left lg:text-right ">
             <td colSpan="10000" className="pt-4 px-2 py-2.5">
@@ -161,8 +128,8 @@ export default function FundTable() {
                 : `Showing ${page.length} of ~${controlledPageCount} results`}
             </td>
           </tr>
-        </Tbody>
-      </TableV1>
+        </tbody>
+      </table>
     </>
   )
 }

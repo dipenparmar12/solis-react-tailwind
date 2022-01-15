@@ -17,7 +17,12 @@ import BadgeList from '@/components/atoms/BadgeList'
 
 function FundFilters({ isVisible }) {
   const appContext = useAppContext()
-  const { State: FundState = {}, setQry, qry } = useSalariesContext()
+  const {
+    State: FundState = {},
+    setQry,
+    qry,
+    omitParams,
+  } = useSalariesContext()
   const [dateRange, setDateRange] = React.useState([null, null])
   const [startDate, endDate] = dateRange
 
@@ -84,7 +89,7 @@ function FundFilters({ isVisible }) {
           </div>
         </div>
 
-        <BadgeList qry={qry} setQry={setQry} />
+        <BadgeList qry={qry} setQry={setQry} omitKeys={omitParams} />
       </div>
     </ToggleAnim>
   )

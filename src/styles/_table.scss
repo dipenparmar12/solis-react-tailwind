@@ -1,0 +1,29 @@
+/* 
+========================================================
+  Table Version 1.0.0
+  TODO::
+======================================================== 
+*/
+.table_v1 {
+  @apply w-full bg-white border-collapse rounded-sm dark:bg-gray-900;
+
+  & thead {
+    @apply scale-100 shadow;
+  }
+
+  & th {
+    @apply px-2 py-3 font-normal text-left border-b text-slate-500 dark:text-gray-400 dark:border-sky-800;
+  }
+
+  & tbody {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+
+  & tbody tr {
+    @apply border-b text-left dark:border-gray-700 hover:bg-sky-50 dark:hover:bg-black  text-gray-500 dark:text-gray-400 hover:dark:text-blue-300 hover:text-gray-700 transition duration-200 ease-in-out;
+  }
+
+  & td {
+    @apply px-2 py-2.5;
+  }
+}
