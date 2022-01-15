@@ -113,7 +113,7 @@ const useTableColumns = (type) => {
         isSortable: true,
         Cell: ({ value }) => (
           <span className="font-semibold text-green-600">
-            {formatRs(value)}
+            {formatRs(value || '-')}
           </span>
         ),
       },
@@ -124,22 +124,28 @@ const useTableColumns = (type) => {
         Cell: ({ value }) => formatDate(value),
       },
       {
-        Header: 'Deduction',
-        accessor: 'deduction',
+        Header: 'Paid',
+        accessor: 'paid_amount',
         isSortable: true,
+        Cell: ({ value }) => (
+          <span className="font-semibold text-green-600">
+            {formatRs(value || '-')}
+          </span>
+        ),
       },
       {
-        Header: 'In Hand',
-        accessor: 'in_hand',
+        Header: 'Pending Amt',
+        accessor: (row) => (
+          <span className="text-red-400 ">
+            {formatRs(row.amount - row.paid_amount)}
+          </span>
+        ),
         isSortable: true,
       },
-      // {
-      //   Header: 'Status',
-      //   accessor: 'status',
-      // },
     ],
     [],
   )
+
   const SalariesColumn = React.useMemo(
     () => [{ Header: 'ID', id: 'id', accessor: 'id' }],
     [],

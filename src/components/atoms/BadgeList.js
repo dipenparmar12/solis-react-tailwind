@@ -4,12 +4,15 @@ import classNames from 'classnames'
 import capitalize from '@/utils/str/capitalize'
 import BadgeButton from './BadgeButton'
 
+const isNotEmpty = (value) =>
+  value !== undefined && value !== null && value !== ''
+
 function BadgeList({ qry, setQry, omitKeys, className }) {
   return (
     <div className={classNames(['flex flex-wrap gap-2 my-1'], className)}>
       {/* Filter Badges */}
       {Object.entries(qry || {})
-        // .filter(([k, v]) => omitKeys.includes(k) && v?.length)
+        .filter(([_, v]) => isNotEmpty(v))
         .map(([filterKey, value]) => (
           <div key={filterKey} className="">
             <BadgeButton

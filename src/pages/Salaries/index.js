@@ -16,7 +16,7 @@ const SalaryContainer = ({ children }) => {
   const omitParams = ['tab']
   const [params, setParams] = useSearchParams()
   const [qry, setQry] = useObject({ per_page: 10 })
-  const [activeTab, setTab] = React.useState(params.get('tab') || 'salaries')
+  const [activeTab, setTab] = React.useState(params.get('tab') || 'advances')
 
   // // Enable query params
   const qryParams = useQryParams({ setParams: setQry.merge })
