@@ -3,7 +3,6 @@
 /* eslint-disable indent */
 import React from 'react'
 import { useTable, usePagination, useSortBy, useExpanded } from 'react-table'
-
 import { RiEyeLine } from 'react-icons/ri'
 import { VscChevronDown, VscChevronRight } from 'react-icons/vsc'
 import { useSalariesContext } from '.'

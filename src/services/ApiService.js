@@ -40,6 +40,9 @@ const resources = {
   advances: {
     get: async ({ qry, config }) =>
       _axios.get(`/advances?${encode(qry)}`, config),
+    create: async (data, config) => _axios.post(`/advances`, data, config),
+    update: async ({ id, data, config }) =>
+      _axios.put(`/advances/${id}`, data, config),
   },
 
   transactions: {

@@ -15,8 +15,8 @@ export default function Debug({ config }) {
         ...(config === true
           ? pick(formikProps, 'values', 'errors')
           : config === '*'
-            ? formikProps
-            : pick(formikProps, ...config)),
+          ? formikProps
+          : pick(formikProps, ...config)),
       }}
       className={'max-w-2xl overflow-x-auto'}
     />

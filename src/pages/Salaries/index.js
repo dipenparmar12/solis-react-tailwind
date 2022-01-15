@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import useFetcher from '@/hooks/useFetcher'
 import useQryParams from '@/hooks/useQryParams'
 import Api from '@/services/ApiService'
-import SalariesList from './List'
+import SalariesContainer from './List'
 import useObject from '@/hooks/useObject'
 import deepMerge from '@/utils/obj/deepMerge'
 
@@ -16,7 +16,9 @@ const SalaryContainer = ({ children }) => {
   const omitParams = ['tab']
   const [QryParams] = useSearchParams()
   const [qry, setQry] = useObject({ per_page: 10 })
-  const [activeTab, setTab] = React.useState(QryParams.get('tab') || 'advances')
+  const [activeTab, setTab] = React.useState(
+    QryParams.get('tab') || 'create_advance',
+  )
 
   // // Enable query params
   // const qryParams = useQryParams({ setParams: setQry.merge })
@@ -24,17 +26,22 @@ const SalaryContainer = ({ children }) => {
   //   qryParams.set(deepMerge(qry, { tab: activeTab }))
   // }, [qry, activeTab])
 
-  const apiCall = React.useCallback((...args) => {
-    switch (activeTab) {
+  const apiCall = React.useCallback(
+    (...args) => {
+      switch (activeTab) {
         case 'salaries':
           return Api.salaries.get(...args)
         case 'advances':
           return Api.advances.get(...args)
         default:
           break
-    }
-    return new Promise((resolve, reject) =>{ resolve([]) })
-  }, [activeTab])
+      }
+      return new Promise((resolve, reject) => {
+        resolve([])
+      })
+    },
+    [activeTab],
+  )
 
   const apiState = useFetcher({
     apiCall,
@@ -43,7 +50,7 @@ const SalaryContainer = ({ children }) => {
     pagination: true, // TODO::10 Throw's error if api has pagination and ui doesn't
   })
 
-  const apiStateMemo = React.useMemo(() => apiState, [apiState ])
+  const apiStateMemo = React.useMemo(() => apiState, [apiState])
 
   const contextValue = {
     State: apiStateMemo, // data, error, loading, paginationData, reload,
@@ -51,7 +58,7 @@ const SalaryContainer = ({ children }) => {
     setQry,
     setTab,
     activeTab,
-    omitParams
+    omitParams,
   }
 
   // React.useEffect(() => {
@@ -60,7 +67,7 @@ const SalaryContainer = ({ children }) => {
 
   return (
     <Context.Provider value={contextValue}>
-      <SalariesList />
+      <SalariesContainer />
     </Context.Provider>
   )
 }

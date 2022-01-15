@@ -74,7 +74,7 @@ export function ModalExampleTEMP() {
           modalRef.current?.toggle()
         }}
       >
-        Add User
+        Create User
       </Button>
 
       <ModalApp ref={modalRef} title={'Add user'}>

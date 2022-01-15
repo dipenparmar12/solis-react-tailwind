@@ -39,21 +39,20 @@ function Tabs() {
         <button
           className={classNames([
             'btn_tab',
-            activeTab === 'create_salary' && ' active',
-          ])}
-          onClick={() => setTab('create_salary')}
-        >
-          <RiAddLine className="inline-block" /> Salary
-        </button>
-
-        <button
-          className={classNames([
-            'btn_tab',
             activeTab === 'create_advance' && ' active',
           ])}
           onClick={() => setTab('create_advance')}
         >
           <RiAddLine className="inline-block" /> Advance
+        </button>
+        <button
+          className={classNames([
+            'btn_tab',
+            activeTab === 'create_salary' && ' active',
+          ])}
+          onClick={() => setTab('create_salary')}
+        >
+          <RiAddLine className="inline-block" /> Salary
         </button>
       </nav>
     </div>

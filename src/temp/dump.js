@@ -346,7 +346,7 @@ function AddUser() {
                     type="submit"
                     disabled={isSubmitting}
                   >
-                    Add User
+                    Create User
                   </Button>
                 </div>
               </>
@@ -361,7 +361,7 @@ function AddUser() {
 /*
  <ModalV1
     renderButton={(modal) => (
-      <Button onClick={modal.open} label={'Add User'} size="md" />
+      <Button onClick={modal.open} label={'Create User'} size="md" />
     )}
     renderContent={(modal) => (
       <>

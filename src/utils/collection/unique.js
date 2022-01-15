@@ -1,4 +1,3 @@
-
 // Scr: https://stackoverflow.com/a/64334282/8592918
 function unique(arr, props = []) {
   return [
@@ -36,7 +35,6 @@ export default unique
 // 0: {id: 1, name: "a", age: 17}
 // 1: {id: 6, name: "a", age: 18}
 // 2: {id: 4, name: "ab"}
-
 
 // /**
 //  *

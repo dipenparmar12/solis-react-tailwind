@@ -34,7 +34,7 @@ export default function UserList() {
           <ModalV3
             renderButton={({ setOpen }) => (
               <Button size="md" onClick={setOpen}>
-                Add User
+                Create User
               </Button>
             )}
           >
