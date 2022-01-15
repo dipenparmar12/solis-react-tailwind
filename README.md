@@ -274,3 +274,4 @@ module.exports = {
 - Table custom pagination example https://react-table.tanstack.com/docs/examples/pagination-controlled
 - React table sorting logic: https://github.com/tannerlinsley/react-table/discussions/2033
 - Tab styles: https://tailwindcomponents.com/component/tab-navigation
+- React-Table sub components: https://react-table.tanstack.com/docs/examples/sub-components

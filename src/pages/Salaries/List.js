@@ -3,7 +3,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
 import {
-  RiArrowDownLine,
   RiArrowDownSLine,
   RiArrowRightSLine,
   RiFilter3Line,

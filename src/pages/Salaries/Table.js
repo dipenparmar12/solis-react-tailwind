@@ -1,10 +1,14 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-use-before-define */
 import React from 'react'
-import { useTable, usePagination, useSortBy } from 'react-table'
+import { useTable, usePagination, useSortBy, useExpanded } from 'react-table'
 
+import { RiEyeLine } from 'react-icons/ri'
+import { VscChevronDown, VscChevronRight } from 'react-icons/vsc'
 import { useSalariesContext } from '.'
 import TableLoading from '@/components/molecules/Table/TableLoading'
 import formatDate from '@/utils/date/formatDate'
@@ -24,19 +28,34 @@ export default function SalariesTable() {
     [FundState?.paginationData?.total],
   )
 
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
-    useTable(
-      {
-        columns: TableColumns,
-        data: tableRows,
-        manualSortBy: true,
-        manualPagination: true,
-        // pageCount: totalRecords,
-        // initialState: { pageIndex: 0 },
-      },
-      useSortBy,
-      usePagination,
-    )
+  // const tableColumnHooks = React.useCallback((hooks) => {
+  //   hooks.visibleColumns.push((columns) => {
+  //     return [...columns, { Header: 'newColumn', id: 'newColumn' }]
+  //   })
+  // }, [])
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    visibleColumns,
+  } = useTable(
+    {
+      columns: TableColumns,
+      data: tableRows,
+      manualSortBy: true,
+      manualPagination: true,
+
+      // pageCount: totalRecords,
+      // initialState: { pageIndex: 0 },
+    },
+    useSortBy,
+    useExpanded, // Use the useExpanded plugin hook
+    usePagination,
+    // tableColumnHooks,
+  )
 
   return (
     <>
@@ -66,14 +85,28 @@ export default function SalariesTable() {
         </thead>
 
         <tbody {...getTableBodyProps} className={'relative'}>
-          {page?.map((row, i) => {
+          {page.map((row, i) => {
             prepareRow(row)
+            const rowProps = row.getRowProps()
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                })}
-              </tr>
+              // Use a React.Fragment here so the table markup is still valid
+              <React.Fragment key={rowProps.key}>
+                <tr {...rowProps}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    )
+                  })}
+                </tr>
+                {/* We could pass anything into this */}
+                {row.isExpanded && (
+                  <tr>
+                    <td colSpan={'100%'}>
+                      <Print>{row.original}</Print>
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
             )
           })}
 
@@ -96,9 +129,33 @@ const useTableColumns = (type) => {
   const AdvanceColumns = React.useMemo(
     () => [
       {
-        Header: 'ID',
+        accessor: '-',
+        id: 'expander',
+        Cell: ({ row }) => {
+          return (
+            <span className="" {...row.getToggleRowExpandedProps()}>
+              {row.isExpanded ? (
+                <VscChevronDown className="inline-block" />
+              ) : (
+                <VscChevronRight className="inline-block" />
+              )}
+            </span>
+          )
+          // return row.canExpand ? (
+          //   <span {...row.getToggleRowExpandedProps({})}>
+          //     {row.isExpanded ? (
+          //       <VscChevronDown className="inline-block" />
+          //     ) : (
+          //       <VscChevronRight className="inline-block" />
+          //     )}
+          //   </span>
+          // ) : null
+        },
+      },
+      {
         accessor: 'id',
         isSortable: true,
+        Header: 'ID',
       },
       {
         id: 'user_id',
@@ -144,6 +201,34 @@ const useTableColumns = (type) => {
           <span className="font-semibold text-green-600">
             {formatRs(value || '-')}
           </span>
+        ),
+      },
+      {
+        Header: 'Status',
+        id: 'status',
+        Cell: ({ row }) => (
+          <div className="space-x-1.5">
+            <ModalV3
+              renderButton={({ setOpen }) => (
+                <button onClick={setOpen}>
+                  <RiEyeLine className="text-blue-400" />
+                </button>
+              )}
+            >
+              <h2 className="mb-3 mr-10 text-2xl">
+                Record ID: {row.values?.id}
+              </h2>
+              <Print>{row.original}</Print>
+            </ModalV3>
+
+            {/* <button>
+                <RiEditLine className="text-yellow-600" />
+              </button>
+
+              <button>
+                <RiDeleteBin7Line className="text-red-400" />
+              </button> */}
+          </div>
         ),
       },
     ],

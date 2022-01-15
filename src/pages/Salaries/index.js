@@ -14,15 +14,15 @@ export const useSalariesContext = () => React.useContext(Context)
 
 const SalaryContainer = ({ children }) => {
   const omitParams = ['tab']
-  const [params, setParams] = useSearchParams()
+  const [QryParams] = useSearchParams()
   const [qry, setQry] = useObject({ per_page: 10 })
-  const [activeTab, setTab] = React.useState(params.get('tab') || 'advances')
+  const [activeTab, setTab] = React.useState(QryParams.get('tab') || 'advances')
 
   // // Enable query params
-  const qryParams = useQryParams({ setParams: setQry.merge })
-  React.useEffect(() => {
-    qryParams.set(deepMerge(qry, { tab: activeTab }))
-  }, [qry, activeTab])
+  // const qryParams = useQryParams({ setParams: setQry.merge })
+  // React.useEffect(() => {
+  //   qryParams.set(deepMerge(qry, { tab: activeTab }))
+  // }, [qry, activeTab])
 
   const apiCall = React.useCallback((...args) => {
     switch (activeTab) {
