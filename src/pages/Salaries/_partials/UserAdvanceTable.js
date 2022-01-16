@@ -10,6 +10,7 @@ import formatRs from '@/utils/str/formatRs'
 import formatDate from '@/utils/date/formatDate'
 import { useSalariesContext } from '..'
 import TableLoading from '@/components/molecules/Table/TableLoading'
+import Icons from '@/components/icons/Icons'
 
 function UserAdvanceTable({ user_id }) {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
@@ -94,15 +95,11 @@ function UserAdvanceTable({ user_id }) {
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render('Header')}
                   <span>
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <RiArrowDownSLine className="inline-block text-sky-500" />
-                      ) : (
-                        <RiArrowUpSLine className="inline-block text-sky-500" />
-                      )
-                    ) : (
-                      <BsChevronExpand className="inline-block px-0.5 " />
-                    )}
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? Icons.SortingDesc
+                        : Icons.SortingAsc
+                      : Icons.Sorting}
                   </span>
                 </th>
               ))}

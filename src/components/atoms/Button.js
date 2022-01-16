@@ -58,16 +58,16 @@ function ButtonUnMemo(
   ]
 
   switch (variant) {
-      case 'default':
-        styles = variantDefault
-        break
-      case 'subtle':
-        styles = variantSubtle
-        break
+    case 'default':
+      styles = variantDefault
+      break
+    case 'subtle':
+      styles = variantSubtle
+      break
 
-      default:
-        styles = variantDefault
-        break
+    default:
+      styles = variantDefault
+      break
   }
 
   return (

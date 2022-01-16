@@ -5,30 +5,16 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
-import {
-  RiArrowDownSLine,
-  RiArrowRightSLine,
-  RiFilter3Line,
-  RiEyeLine,
-} from 'react-icons/ri'
-import { MdOutlineFormatColorReset } from 'react-icons/md'
 import { useTable, usePagination, useSortBy, useExpanded } from 'react-table'
-import { VscChevronDown, VscChevronRight } from 'react-icons/vsc'
-import CardV2 from '@/components/atoms/CardV2'
-import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import Print from '@/components/atoms/Print'
-import useToggle from '@/hooks/useToggle'
-import Button from '@/components/atoms/Button'
-import Accordion from '@/components/molecules/Accordion/Accordion'
-import FundFilters from '@/pages/Salaries/Filters'
 import { useSalariesContext } from '@/pages/Salaries'
 
-import Tabs from '@/pages/Salaries/_partials/Tabs'
 import TableLoading from '@/components/molecules/Table/TableLoading'
 import formatDate from '@/utils/date/formatDate'
 import formatRs from '@/utils/str/formatRs'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import useTableSorting from '@/hooks/useTableSorting'
+import Icons from '@/components/icons/Icons'
 
 export default function AdvancesTable() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
@@ -155,11 +141,7 @@ const useTableColumns = (type) => {
               className="inline-block w-full hover:text-black dark:text-gray-100"
               {...row.getToggleRowExpandedProps()}
             >
-              {row.isExpanded ? (
-                <VscChevronDown className="inline-block" />
-              ) : (
-                <VscChevronRight className="inline-block" />
-              )}
+              {row.isExpanded ? Icons.ArrowDown : Icons.ArrowRight}
             </span>
           )
           // return row.canExpand ? (
@@ -232,7 +214,7 @@ const useTableColumns = (type) => {
             <ModalV3
               renderButton={({ setOpen }) => (
                 <button onClick={setOpen}>
-                  <RiEyeLine className="text-blue-400" />
+                  <Icons.Eye className="text-blue-400" />
                 </button>
               )}
             >

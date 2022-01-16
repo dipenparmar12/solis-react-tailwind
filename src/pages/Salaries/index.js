@@ -31,14 +31,14 @@ const SalaryContainer = ({ children }) => {
   const apiCall = React.useCallback(
     (...args) => {
       switch (activeTab) {
-          case 'salaries':
-            return Api.salaries.get(...args)
-          case 'advances':
-            return Api.advances.get(...args)
-          case 'create_advance':
-            // console.log('index.js::[39] qry?.user_id', qry)
-            if(qry?.user_id) return Api.users.advances.get(...args)
-            break
+        case 'salaries':
+          return Api.salaries.get(...args)
+        case 'advances':
+          return Api.advances.get(...args)
+        case 'create_advance':
+          // console.log('index.js::[39] qry?.user_id', qry)
+          if (qry?.user_id) return Api.users.advances.get(...args)
+          break
       }
       return new Promise((resolve, reject) => {
         resolve([])
@@ -46,7 +46,7 @@ const SalaryContainer = ({ children }) => {
     },
     [activeTab, qry?.user_id],
   )
-  
+
   const apiState = useFetcher({
     apiCall,
     qry,

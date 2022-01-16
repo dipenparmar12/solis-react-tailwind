@@ -10,10 +10,11 @@ import {
   RiArrowRightSLine,
   RiFilter3Line,
   RiEyeLine,
+  RiRefreshLine,
 } from 'react-icons/ri'
 import { MdOutlineFormatColorReset } from 'react-icons/md'
 import { useTable, usePagination, useSortBy, useExpanded } from 'react-table'
-import { VscChevronDown, VscChevronRight } from 'react-icons/vsc'
+import { VscChevronDown, VscChevronRight, VscRefresh } from 'react-icons/vsc'
 import CardV2 from '@/components/atoms/CardV2'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import Print from '@/components/atoms/Print'
@@ -30,6 +31,8 @@ import formatRs from '@/utils/str/formatRs'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import useTableSorting from '@/hooks/useTableSorting'
 import AdvancesTable from '@/pages/Salaries/_partials/AdvancesTable'
+import Icons from '@/components/icons/Icons'
+import { FiRefreshCcw } from 'react-icons/fi'
 
 export default function AdvanceContainer() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
@@ -48,11 +51,7 @@ export default function AdvanceContainer() {
                 className="pt-2 mb-3 text-xl font-semibold text-gray-600 cursor-pointer dark:text-gray-400"
               >
                 Salaries
-                {isOpen ? (
-                  <RiArrowDownSLine className="inline-block text-gray-400" />
-                ) : (
-                  <RiArrowRightSLine className="inline-block text-gray-400" />
-                )}
+                {isOpen ? Icons.Sorting.Asc : Icons.Sorting.Desc}
               </h1>
               <div className="flex my-2 space-x-2">
                 <Button
@@ -61,7 +60,7 @@ export default function AdvanceContainer() {
                   className="px-2 py-1.5 text-sm "
                   onClick={setFilterVisible.toggle}
                 >
-                  <RiFilter3Line className="inline-block mb-1" /> Filters{' '}
+                  <Icons.Filter className="inline-block mb-1" /> Filters{' '}
                 </Button>
 
                 <Button
@@ -70,7 +69,7 @@ export default function AdvanceContainer() {
                   className="px-2 py-1.5 text-sm "
                   onClick={() => setQry.reset() || setFilterVisible.off()}
                 >
-                  <MdOutlineFormatColorReset className="inline-block mb-1" />
+                  <Icons.Refresh className="inline-block mx-0.5 mb-1" />
                   Reset
                   {/* {Object.keys(qry).length} */}
                 </Button>
