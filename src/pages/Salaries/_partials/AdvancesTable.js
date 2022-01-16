@@ -208,10 +208,15 @@ const useTableColumns = (type) => {
       },
       {
         Header: 'Status',
-        id: 'status',
-        Cell: ({ row }) => (
-          <div className="space-x-1.5">
-            <ModalV3
+        accessor: 'settled',
+        id: 'settled',
+        isSortable: true,
+        Cell: ({ row, value }) => (
+          <div className="space-x-1.5 flex items-center">
+            {value === 1 && (
+              <Icons.Complete className="inline-block text-xl px-0.5 text-green-500 font-bold" />
+            )}
+            {/* <ModalV3
               renderButton={({ setOpen }) => (
                 <button onClick={setOpen}>
                   <Icons.Eye className="text-blue-400" />
@@ -222,7 +227,7 @@ const useTableColumns = (type) => {
                 Record ID: {row.values?.id}
               </h2>
               <Print>{row.original}</Print>
-            </ModalV3>
+            </ModalV3> */}
 
             {/* <button>
                 <RiEditLine className="text-yellow-600" />
