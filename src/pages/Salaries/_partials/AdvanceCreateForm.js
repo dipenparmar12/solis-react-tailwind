@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react'
 import * as yup from 'yup'
 import Button from '@/components/atoms/Button'
@@ -11,7 +12,8 @@ import Api from '@/services/ApiService'
 import deepMerge from '@/utils/obj/deepMerge'
 import omitVal from '@/utils/obj/omitVal'
 import { InputSelectFormik } from '@/components/molecules/Form/InputSelect'
-import { useSalariesContext } from '..'
+import { useSalariesContext } from '@/pages/Salaries/index'
+import UserAdvanceTable from '@/pages/Salaries/_partials/UserAdvanceTable'
 
 const initialValues = {
   // id: '',
@@ -36,7 +38,7 @@ const validationSchemaCb = yup.object().shape({
     .min(100, 'Value must be more then 100 Rs ')
     .max(10000000, 'Too much!')
     .typeError('Value must be a number')
-    .label(InputLabels.amount),
+    .label(InputLabels.advance_amount),
   date: yup
     .date()
     .required()
@@ -88,7 +90,7 @@ export default function AdvanceCreateForm({
   return (
     <>
       <FormikForm
-        debug={['values', 'errors']}
+        // debug={['values', 'errors']}
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         validationSchema={validationSchemaCb}
         onSubmit={handleSubmit}
@@ -131,6 +133,8 @@ export default function AdvanceCreateForm({
         <ButtonFormik as={Button} className="mt-5">
           {isEdit ? 'Update' : 'Add Advance'}
         </ButtonFormik>
+
+        <UserAdvanceTable />
       </FormikForm>
     </>
   )

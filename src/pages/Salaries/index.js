@@ -1,3 +1,5 @@
+/* eslint-disable default-case */
+/* eslint-disable camelcase */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React from 'react'
@@ -33,16 +35,18 @@ const SalaryContainer = ({ children }) => {
             return Api.salaries.get(...args)
           case 'advances':
             return Api.advances.get(...args)
-          default:
+          case 'create_advance':
+            // console.log('index.js::[39] qry?.user_id', qry)
+            if(qry?.user_id) return Api.users.advances.get(...args)
             break
       }
       return new Promise((resolve, reject) => {
         resolve([])
       })
     },
-    [activeTab],
+    [activeTab, qry?.user_id],
   )
-
+  
   const apiState = useFetcher({
     apiCall,
     qry,
@@ -51,7 +55,6 @@ const SalaryContainer = ({ children }) => {
   })
 
   const apiStateMemo = React.useMemo(() => apiState, [apiState])
-
   const contextValue = {
     State: apiStateMemo, // data, error, loading, paginationData, reload,
     qry,

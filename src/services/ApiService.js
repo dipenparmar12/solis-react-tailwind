@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import encode from '../utils/obj/qryString'
 import _axios, { StatusCode } from './AxiosService'
 import Notify from './NotifyService'
@@ -17,6 +18,11 @@ const resources = {
       _axios.put(`/users/${id}`, data, config),
     // getById: async ({ id, qry, config }) => _axios.get(`/users/${id}?${encode(qry)}`, config),
     // delete: async ({ id, config }) => _axios.delete(`/users/${id}`, config),
+
+    advances: {
+      get: async ({ qry: { user_id, ...qry }, config }) =>
+        _axios.get(`/users/${user_id}/advances?${encode(qry)}`, config),
+    },
   },
 
   projects: {

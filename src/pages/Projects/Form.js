@@ -208,7 +208,7 @@ export default function ProjectForm({
 
 export const ProjectFormContainer = ({ ...props }) => {
   return (
-    <div className="px-5 py-8 bg-white border shadow-md ">
+    <div className="px-5 py-8 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
       <ProjectForm {...props} />
     </div>
   )

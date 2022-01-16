@@ -24,7 +24,7 @@ export default function SalariesContainer() {
           </CardV2>
         )}
 
-        <Print data={qry} />
+        <Print data={{ qry, FundState }} />
       </div>
     </>
   )

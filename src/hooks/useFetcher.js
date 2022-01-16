@@ -26,6 +26,14 @@ export default function useFetcher({
     setRefresh((prev) => prev + 1)
   }, [])
 
+  const reset = React.useCallback(() => {
+    setData([])
+    setError(null)
+    setLoading(false)
+    setPaginationData()
+    // setMetaInfo(null)
+  }, [])
+
   const paginationCb = (res) => {
     if (pagination) {
       const { results, ...meta } = res
@@ -63,5 +71,6 @@ export default function useFetcher({
     loading,
     paginationData,
     reload,
+    reset,
   }
 }
