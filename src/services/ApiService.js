@@ -41,6 +41,7 @@ const resources = {
   salaries: {
     get: async ({ qry, config }) =>
       _axios.get(`/salaries?${encode(qry)}`, config),
+    create: async (data, config) => _axios.post(`/salaries`, data, config),
   },
 
   advances: {

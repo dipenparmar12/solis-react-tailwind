@@ -9,6 +9,7 @@ import AdvanceContainer from './_partials/AdvanceContainer'
 import AdvanceCreateForm from './_partials/AdvanceCreateForm'
 import CardV2 from '@/components/atoms/CardV2'
 import AdvancesSummaryTable from './_partials/AdvancesSummaryTable'
+import SalaryCreateForm from './_partials/SalaryCreateForm'
 
 export default function SalariesContainer() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
@@ -21,6 +22,7 @@ export default function SalariesContainer() {
         {activeTab === 'advances' && <AdvanceContainer />}
         {activeTab === 'advance_summary' && <AdvancesSummaryTable />}
         {activeTab === 'create_advance' && <AdvanceCreateForm />}
+        {activeTab === 'create_salary' && <SalaryCreateForm />}
 
         <Print data={{ qry, FundState }} />
       </div>

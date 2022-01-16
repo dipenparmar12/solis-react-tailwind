@@ -18,15 +18,13 @@ const SalaryContainer = ({ children }) => {
   const omitParams = ['tab']
   const [QryParams] = useSearchParams()
   const [qry, setQry] = useObject({ per_page: 10 })
-  const [activeTab, setTab] = React.useState(
-    QryParams.get('tab') || 'create_advance',
-  )
+  const [activeTab, setTab] = React.useState(QryParams.get('tab') || 'advances')
 
   // // Enable query params
-  // const qryParams = useQryParams({ setParams: setQry.merge })
-  // React.useEffect(() => {
-  //   qryParams.set(deepMerge(qry, { tab: activeTab }))
-  // }, [qry, activeTab])
+  const qryParams = useQryParams({ setParams: setQry.merge })
+  React.useEffect(() => {
+    qryParams.set(deepMerge(qry, { tab: activeTab }))
+  }, [qry, activeTab])
 
   const apiCall = React.useCallback(
     (...args) => {
@@ -38,6 +36,7 @@ const SalaryContainer = ({ children }) => {
           case 'advance_summary':
             return Api.advances.advance_summary(...args)
           case 'create_advance':
+          case 'create_salary':
           // console.log('index.js::[39] qry?.user_id', qry)
             if (qry?.user_id) return Api.users.advances.get(...args)
             break

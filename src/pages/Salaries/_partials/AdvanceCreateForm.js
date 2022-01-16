@@ -66,17 +66,8 @@ export default function AdvanceCreateForm({
 
   const handleSubmit = async (values, actions, rowValues) => {
     // console.log('AdvanceCreateForm.js::[37] values', values, rowValues)
-    const apiCall = () => {
-      if (isEdit && values?.id) {
-        return Api.advances.update({
-          id: values.id,
-          data: values,
-        })
-      }
-      return Api.advances.create(values)
-    }
-
-    apiCall()
+    Api.advances
+      .create(values)
       .then(Api.utils.getRes)
       .then(Api.utils.notifySuccess)
       .then((e) => {
@@ -99,7 +90,7 @@ export default function AdvanceCreateForm({
           // castFormData
           // transformValues={transformValues}
         >
-          <div className="space-y-3">
+          <div className="px-1 py-4 ">
             <div className="flex flex-col gap-3 md:flex-row">
               <InputSelectFormik
                 isRequired
@@ -107,7 +98,7 @@ export default function AdvanceCreateForm({
                 clearable
                 className={'flex-1'}
                 name="user_id"
-                label="Select Users"
+                label="Select User"
                 placeholder="Select User"
                 delay={300}
                 options={appContext?.staticData?.users || []}
@@ -119,7 +110,7 @@ export default function AdvanceCreateForm({
                 className={'flex-1 '}
                 type="number"
                 name="advance_amount"
-                label="Advance"
+                label="Amount"
                 placeholder="Advance Amount"
               />
               <DateFormik
@@ -132,7 +123,7 @@ export default function AdvanceCreateForm({
             </div>
           </div>
 
-          <ButtonFormik as={Button} className="mt-5">
+          <ButtonFormik as={Button} className="mt-5 ml-1 ">
             {isEdit ? 'Update' : 'Add Advance'}
           </ButtonFormik>
 

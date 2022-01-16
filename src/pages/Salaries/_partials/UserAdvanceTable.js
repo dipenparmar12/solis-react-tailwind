@@ -88,7 +88,7 @@ function UserAdvanceTable({ user_id }) {
 
   if (!userId) return null
   return (
-    <div className="my-4 mt-10 overflow-x-auto">
+    <div className="px-2 my-4 mt-8 overflow-x-auto">
       <h1 className="text-xl text-gray-600 dark:text-gray-400">
         Advance Status{' '}
       </h1>
