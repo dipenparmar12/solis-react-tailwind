@@ -49,7 +49,7 @@ function SwitchSlide({
               <button
                 type="button"
                 className={classNames([
-                  ` flex-1 z-10 px-3 py-2 pb-2.5 rounded-full`,
+                  ` flex-1 z-10 px-3 py-2 pb-2.5 rounded-full whitespace-nowrap`,
                   active === option?.value &&
                     `shadow-lg bg-white dark:bg-sky-800 text-gray-600 dark:text-sky-300`,
                 ])}

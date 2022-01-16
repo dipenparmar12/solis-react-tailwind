@@ -5,24 +5,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
-import {
-  RiArrowDownSLine,
-  RiArrowRightSLine,
-  RiFilter3Line,
-  RiEyeLine,
-  RiRefreshLine,
-} from 'react-icons/ri'
-import { MdOutlineFormatColorReset } from 'react-icons/md'
-import { useTable, usePagination, useSortBy, useExpanded } from 'react-table'
-import { VscChevronDown, VscChevronRight, VscRefresh } from 'react-icons/vsc'
-import { FiRefreshCcw } from 'react-icons/fi'
 import CardV2 from '@/components/atoms/CardV2'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import Print from '@/components/atoms/Print'
 import useToggle from '@/hooks/useToggle'
 import Button from '@/components/atoms/Button'
 import Accordion from '@/components/molecules/Accordion/Accordion'
-import FundFilters from '@/pages/Salaries/Filters'
+import AdvanceFilters from '@/pages/Salaries/Filters'
 import { useSalariesContext } from '@/pages/Salaries'
 
 import Tabs from '@/pages/Salaries/_partials/Tabs'
@@ -92,7 +81,7 @@ export default function AdvanceContainer() {
             siblingCount={1}
           />
         </Accordion>
-        {filtersVisible && <FundFilters isVisible={filtersVisible} />}
+        {filtersVisible && <AdvanceFilters isVisible={filtersVisible} />}
         <div className="div">
           <AdvancesTable />
         </div>

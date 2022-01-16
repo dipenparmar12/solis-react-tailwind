@@ -165,9 +165,7 @@ export default function SalaryCreateForm({
                       EMI or any other deduction from salary{' '}
                     </div>
                   </div>
-                  <div className="text-lg text-gray-700 dark:text-gray-400">
-                    {formatRs(1000)}
-                  </div>
+                  <div className="text-lg text-red-500 ">{formatRs(1000)}</div>
                 </li>
                 <li className="flex items-center justify-between h-full px-4 py-4 border-b dark:border-gray-800 ">
                   <div>
@@ -176,11 +174,11 @@ export default function SalaryCreateForm({
                     </div>
                     <div className="text-gray-500">In-hand amount</div>
                   </div>
-                  <div className="text-lg font-semibold text-green-700 ">
+                  <div className="text-xl text-green-600 ">
                     {formatRs(1000)}
                   </div>
                 </li>
-                <li className="flex items-center justify-between h-full px-4 py-5 ">
+                <li className="flex items-center justify-between h-full px-4 py-2 ">
                   <div>
                     <div className="text-lg text-gray-500">
                       Remaining advance

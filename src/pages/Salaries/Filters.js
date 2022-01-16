@@ -14,8 +14,9 @@ import Print from '@/components/atoms/Print'
 import InputSelect from '@/components/molecules/Form/InputSelect'
 import qryParams from '@/utils/miscellaneous/qryParams'
 import BadgeList from '@/components/atoms/BadgeList'
+import SwitchSlide from '@/components/molecules/Form/SwitchSlide'
 
-function FundFilters({ isVisible }) {
+function AdvanceFilters({ isVisible }) {
   const appContext = useAppContext()
   const {
     State: FundState = {},
@@ -39,7 +40,7 @@ function FundFilters({ isVisible }) {
   return (
     <ToggleAnim isVisible={isVisible}>
       <div className="p-5 py-3 my-4 space-y-2 text-gray-400 border dark:border-gray-600">
-        <div className="flex gap-4 ">
+        <div className="flex gap-4">
           <div className="flex-1">
             <InputSelect
               multi
@@ -89,10 +90,27 @@ function FundFilters({ isVisible }) {
           </div>
         </div>
 
+        <div className="pb-3">
+          <SwitchSlide
+            className={'flex-1'}
+            name="settled"
+            label="Advance Status"
+            value={qry?.settled}
+            onChange={(option) => {
+              setQry?.merge({ settled: option?.value || option })
+            }}
+            options={[
+              { value: '', label: 'All', onSet: () => setQry.omit('settled') },
+              { value: 1, label: 'Paid' },
+              { value: 0, label: 'UnPaid' },
+            ]}
+          />
+        </div>
+
         <BadgeList qry={qry} setQry={setQry} omitKeys={omitParams} />
       </div>
     </ToggleAnim>
   )
 }
 
-export default FundFilters
+export default AdvanceFilters

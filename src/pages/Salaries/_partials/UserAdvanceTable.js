@@ -89,7 +89,7 @@ function UserAdvanceTable({ user_id }) {
   if (!userId) return null
   return (
     <div className="px-2 my-4 mt-8 overflow-x-auto">
-      <h1 className="text-xl text-gray-600 dark:text-gray-400">
+      <h1 className="py-2 text-xl text-gray-600 dark:text-gray-400">
         Advance Status{' '}
       </h1>
       <table className="table_v1" {...getTableProps()}>
