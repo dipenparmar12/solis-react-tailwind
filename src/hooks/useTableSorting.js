@@ -1,8 +1,8 @@
 /* eslint-disable consistent-return */
-import Icons from '@/components/icons/Icons'
 import { useCallback } from 'react'
 import { BsChevronExpand } from 'react-icons/bs'
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri'
+import Icons from '@/components/icons/Icons'
 
 /**
  * @param {*} mergeState 

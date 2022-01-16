@@ -14,6 +14,7 @@ import omitVal from '@/utils/obj/omitVal'
 import { InputSelectFormik } from '@/components/molecules/Form/InputSelect'
 import { useSalariesContext } from '@/pages/Salaries/index'
 import UserAdvanceTable from '@/pages/Salaries/_partials/UserAdvanceTable'
+import CardV2 from '@/components/atoms/CardV2'
 
 const initialValues = {
   // id: '',
@@ -89,53 +90,55 @@ export default function AdvanceCreateForm({
 
   return (
     <>
-      <FormikForm
-        // debug={['values', 'errors']}
-        initialValues={deepMerge(initialValues, omitVal(initialData, null))}
-        validationSchema={validationSchemaCb}
-        onSubmit={handleSubmit}
-        // castFormData
-        // transformValues={transformValues}
-      >
-        <div className="space-y-3">
-          <div className="flex flex-col gap-3 md:flex-row">
-            <InputSelectFormik
-              isRequired
-              searchable
-              clearable
-              className={'flex-1'}
-              name="user_id"
-              label="Select Users"
-              placeholder="Select User"
-              delay={300}
-              options={appContext?.staticData?.users || []}
-              selectCallback={(option) => option?.id || ''}
-              valueField="id"
-            />{' '}
-            <InputFormik
-              isRequired
-              className={'flex-1 '}
-              type="number"
-              name="advance_amount"
-              label="Advance"
-              placeholder="Advance Amount"
-            />
-            <DateFormik
-              isRequired
-              className={'flex-1 '}
-              name="date"
-              label="Advance Date"
-              placeholder="mm/dd/yyyy"
-            />
+      <CardV2>
+        <FormikForm
+          // debug={['values', 'errors']}
+          initialValues={deepMerge(initialValues, omitVal(initialData, null))}
+          validationSchema={validationSchemaCb}
+          onSubmit={handleSubmit}
+          // castFormData
+          // transformValues={transformValues}
+        >
+          <div className="space-y-3">
+            <div className="flex flex-col gap-3 md:flex-row">
+              <InputSelectFormik
+                isRequired
+                searchable
+                clearable
+                className={'flex-1'}
+                name="user_id"
+                label="Select Users"
+                placeholder="Select User"
+                delay={300}
+                options={appContext?.staticData?.users || []}
+                selectCallback={(option) => option?.id || ''}
+                valueField="id"
+              />{' '}
+              <InputFormik
+                isRequired
+                className={'flex-1 '}
+                type="number"
+                name="advance_amount"
+                label="Advance"
+                placeholder="Advance Amount"
+              />
+              <DateFormik
+                isRequired
+                className={'flex-1 '}
+                name="date"
+                label="Advance Date"
+                placeholder="mm/dd/yyyy"
+              />
+            </div>
           </div>
-        </div>
 
-        <ButtonFormik as={Button} className="mt-5">
-          {isEdit ? 'Update' : 'Add Advance'}
-        </ButtonFormik>
+          <ButtonFormik as={Button} className="mt-5">
+            {isEdit ? 'Update' : 'Add Advance'}
+          </ButtonFormik>
 
-        <UserAdvanceTable />
-      </FormikForm>
+          <UserAdvanceTable />
+        </FormikForm>
+      </CardV2>
     </>
   )
 }

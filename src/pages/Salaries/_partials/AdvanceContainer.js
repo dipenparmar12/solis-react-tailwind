@@ -15,6 +15,7 @@ import {
 import { MdOutlineFormatColorReset } from 'react-icons/md'
 import { useTable, usePagination, useSortBy, useExpanded } from 'react-table'
 import { VscChevronDown, VscChevronRight, VscRefresh } from 'react-icons/vsc'
+import { FiRefreshCcw } from 'react-icons/fi'
 import CardV2 from '@/components/atoms/CardV2'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import Print from '@/components/atoms/Print'
@@ -32,7 +33,6 @@ import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import useTableSorting from '@/hooks/useTableSorting'
 import AdvancesTable from '@/pages/Salaries/_partials/AdvancesTable'
 import Icons from '@/components/icons/Icons'
-import { FiRefreshCcw } from 'react-icons/fi'
 
 export default function AdvanceContainer() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()

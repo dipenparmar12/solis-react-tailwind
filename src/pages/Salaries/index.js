@@ -31,14 +31,16 @@ const SalaryContainer = ({ children }) => {
   const apiCall = React.useCallback(
     (...args) => {
       switch (activeTab) {
-        case 'salaries':
-          return Api.salaries.get(...args)
-        case 'advances':
-          return Api.advances.get(...args)
-        case 'create_advance':
+          case 'salaries':
+            return Api.salaries.get(...args)
+          case 'advances':
+            return Api.advances.get(...args)
+          case 'advance_summary':
+            return Api.advances.advance_summary(...args)
+          case 'create_advance':
           // console.log('index.js::[39] qry?.user_id', qry)
-          if (qry?.user_id) return Api.users.advances.get(...args)
-          break
+            if (qry?.user_id) return Api.users.advances.get(...args)
+            break
       }
       return new Promise((resolve, reject) => {
         resolve([])
