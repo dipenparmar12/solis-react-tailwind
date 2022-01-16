@@ -56,7 +56,7 @@ export default function AdvancesSummaryTable() {
         ),
       },
       {
-        Header: 'Pending Amt',
+        Header: 'Outstanding',
         accessor: 'outstanding',
         Cell: ({ value }) => (
           <span className="text-red-400 ">{formatRs(value || '-')}</span>

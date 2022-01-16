@@ -26,6 +26,11 @@ function UserAdvanceTable({ user_id }) {
     setQry.merge({ user_id: userId })
   }, [userId])
 
+  const totalRecords = React.useMemo(
+    () => FundState?.data?.length || 0,
+    [FundState?.data?.length],
+  )
+
   const TableColumns = React.useMemo(
     () => [
       {
@@ -130,7 +135,7 @@ function UserAdvanceTable({ user_id }) {
             <td colSpan="10000" className="pt-4 px-2 py-2.5">
               {FundState?.loading
                 ? 'Loading... ' // Use our custom loading state to show a loading indicator
-                : `Showing ${rows?.length} of ~${100 || ''} results`}
+                : `Showing ${rows?.length} of ~${totalRecords || ''} results`}
             </td>
           </tr>
         </tbody>

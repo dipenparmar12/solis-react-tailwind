@@ -50,8 +50,8 @@ export default function AdvanceContainer() {
                 onClick={toggle}
                 className="pt-2 mb-3 text-xl font-semibold text-gray-600 cursor-pointer dark:text-gray-400"
               >
-                Salaries
-                {isOpen ? Icons.Sorting.Asc : Icons.Sorting.Desc}
+                Advances
+                {isOpen ? Icons.ArrowDown : Icons.ArrowRight}
               </h1>
               <div className="flex my-2 space-x-2">
                 <Button
