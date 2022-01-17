@@ -10,9 +10,9 @@ import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import useToggle from '@/hooks/useToggle'
 import Button from '@/components/atoms/Button'
 import Accordion from '@/components/molecules/Accordion/Accordion'
-import AdvanceFilters from '@/pages/Salaries/Filters'
+import AdvanceFilters from '@/pages/Salaries/AdvanceFilters'
 import { useSalariesContext } from '@/pages/Salaries'
-import AdvancesTable from '@/pages/Salaries/_partials/AdvancesTable'
+import SalariesAdvancesTable from '@/pages/Salaries/SalariesAdvancesTable'
 import Icons from '@/components/icons/Icons'
 
 export default function SalaryContainer() {
@@ -75,7 +75,7 @@ export default function SalaryContainer() {
         </Accordion>
         {filtersVisible && <AdvanceFilters isVisible={filtersVisible} />}
         <div className="div">
-          <AdvancesTable />
+          <SalariesAdvancesTable />
         </div>
       </CardV2>
     </>

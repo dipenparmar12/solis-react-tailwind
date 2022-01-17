@@ -16,7 +16,7 @@ import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import useTableSorting from '@/hooks/useTableSorting'
 import Icons from '@/components/icons/Icons'
 
-export default function AdvancesTable() {
+export default function SalariesAdvancesTable() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
   const tableRows = FundState?.data || [] // TOD0::MEMOIZE Table data

@@ -11,7 +11,7 @@ import Print from '@/components/atoms/Print'
 import useToggle from '@/hooks/useToggle'
 import Button from '@/components/atoms/Button'
 import Accordion from '@/components/molecules/Accordion/Accordion'
-import AdvanceFilters from '@/pages/Salaries/Filters'
+import AdvanceFilters from '@/pages/Salaries/AdvanceFilters'
 import { useSalariesContext } from '@/pages/Salaries'
 
 import Tabs from '@/pages/Salaries/_partials/Tabs'
@@ -20,7 +20,7 @@ import formatDate from '@/utils/date/formatDate'
 import formatRs from '@/utils/str/formatRs'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import useTableSorting from '@/hooks/useTableSorting'
-import AdvancesTable from '@/pages/Salaries/_partials/AdvancesTable'
+import SalariesAdvancesTable from '@/pages/Salaries/SalariesAdvancesTable'
 import Icons from '@/components/icons/Icons'
 
 export default function AdvanceContainer() {
@@ -83,7 +83,7 @@ export default function AdvanceContainer() {
         </Accordion>
         {filtersVisible && <AdvanceFilters isVisible={filtersVisible} />}
         <div className="div">
-          <AdvancesTable />
+          <SalariesAdvancesTable />
         </div>
       </CardV2>
     </>
