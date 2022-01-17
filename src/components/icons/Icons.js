@@ -1,7 +1,10 @@
 import { BsChevronExpand } from 'react-icons/bs'
 import {
+  RiAddLine,
   RiArrowDownSLine,
   RiArrowUpSLine,
+  RiDeleteBin7Line,
+  RiEditLine,
   RiEyeLine,
   RiFilter3Line,
   RiRefreshLine,
@@ -18,6 +21,10 @@ const Icons = {
   SortingDesc: <RiArrowDownSLine className="inline-block text-sky-500" />,
   ArrowRight: <VscChevronRight className="inline-block" />,
   ArrowDown: <VscChevronDown className="inline-block" />,
+
+  Add: RiAddLine,
+  Edit: RiEditLine,
+  Delete: RiDeleteBin7Line,
 
   Eye: RiEyeLine,
   Filter: RiFilter3Line,

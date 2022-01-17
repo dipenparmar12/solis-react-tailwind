@@ -364,7 +364,7 @@ const useTableColumns = (type) => {
         Header: 'Month-Year',
         accessor: 'month_year',
         isSortable: true,
-        Cell: ({ value }) => formatDate(value, 'MMM yyys'),
+        Cell: ({ value }) => formatDate(value, 'MMM yyyy'),
       },
       {
         Header: 'In Hand',
@@ -411,13 +411,13 @@ const useTableColumns = (type) => {
               <Print>{row.original}</Print>
             </ModalV3>
 
-            {/* <button>
-                <RiEditLine className="text-yellow-600" />
-              </button>
+            <button>
+              <Icons.Edit className="text-yellow-600" />
+            </button>
 
-              <button>
-                <RiDeleteBin7Line className="text-red-400" />
-              </button> */}
+            <button>
+              <Icons.Delete className="text-red-400" />
+            </button>
           </div>
         ),
       },

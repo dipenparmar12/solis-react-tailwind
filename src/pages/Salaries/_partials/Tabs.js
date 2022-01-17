@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
-import { RiAddLine } from 'react-icons/ri'
-import { useSalariesContext } from '..'
+import Icons from '@/components/icons/Icons'
+import { useSalariesContext } from '@/pages/Salaries'
 
 function Tabs() {
   const { setTab, activeTab } = useSalariesContext()
@@ -43,7 +43,7 @@ function Tabs() {
           ])}
           onClick={() => setTab('create_advance')}
         >
-          <RiAddLine className="inline-block" /> Advance
+          <Icons.Add className="inline-block" /> Advance
         </button>
         <button
           className={classNames([
@@ -52,7 +52,7 @@ function Tabs() {
           ])}
           onClick={() => setTab('create_salary')}
         >
-          <RiAddLine className="inline-block" /> Salary
+          <Icons.Add className="inline-block" /> Salary
         </button>
       </nav>
     </div>
