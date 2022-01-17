@@ -222,7 +222,6 @@ const useTableColumns = (type) => {
           )
           return <span className="">{formatRs(total || '-')}</span>
         },
-
         // Footer: (info) => {
         //   const { rows } = info
         //   console.log('AdvancesTable.js::[215] var', rows.values)
@@ -271,7 +270,7 @@ const useTableColumns = (type) => {
             {value === 1 && (
               <Icons.Complete className="inline-block text-xl px-0.5 text-green-500 font-bold" />
             )}
-            {/* <ModalV3
+            <ModalV3
               renderButton={({ setOpen }) => (
                 <button onClick={setOpen}>
                   <Icons.Eye className="text-blue-400" />
@@ -282,7 +281,135 @@ const useTableColumns = (type) => {
                 Record ID: {row.values?.id}
               </h2>
               <Print>{row.original}</Print>
-            </ModalV3> */}
+            </ModalV3>
+          </div>
+        ),
+      },
+    ],
+    [],
+  )
+
+  const SalariesColumn = React.useMemo(
+    () => [
+      {
+        id: 'user_id',
+        accessor: '#',
+        Header: '#',
+        Cell: ({ row, value: emiInfo, ...rest }) => {
+          if (!emiInfo?.length) return null
+          return (
+            <span
+              className="inline-block w-full hover:text-black dark:text-gray-100"
+              {...row.getToggleRowExpandedProps()}
+            >
+              {emiInfo}
+              {/* {row.isExpanded ? Icons.ArrowDown : Icons.ArrowRight} */}
+            </span>
+          )
+        },
+      },
+      {
+        accessor: 'id',
+        isSortable: true,
+        Header: 'ID',
+      },
+      {
+        id: 'user_name',
+        Header: 'User',
+        accessor: 'user.name',
+        isSortable: true,
+        Cell: ({ value }) => (
+          <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
+            {value}
+          </span>
+        ),
+      },
+      {
+        Header: 'Amount',
+        accessor: 'amount',
+        isSortable: true,
+        Cell: ({ value }) => (
+          <span className="font-semibold text-green-600">
+            {formatRs(value || '-')}
+          </span>
+        ),
+        Footer: ({ rows, ...rest }) => {
+          // Only calculate total visits if rows change
+          const total = React.useMemo(
+            () => rows.reduce((sum, row) => row.values.amount + sum, 0),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
+      },
+      {
+        Header: 'Deduction',
+        accessor: 'deduction',
+        isSortable: true,
+        Cell: ({ value }) => (
+          <span className="font-semibold text-red-400">
+            {formatRs(value || '-')}
+          </span>
+        ),
+        Footer: (info) => {
+          const { rows } = info
+          const total = React.useMemo(
+            () => rows.reduce((sum, row) => row.values.deduction + sum, 0),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
+      },
+      {
+        Header: 'Month-Year',
+        accessor: 'month_year',
+        isSortable: true,
+        Cell: ({ value }) => formatDate(value, 'MMM yyys'),
+      },
+      {
+        Header: 'In Hand',
+        isSortable: true,
+        accessor: (row) => (
+          <span className="text-green-600 ">
+            {/* <Print>{row}</Print> */}
+            {formatRs(row.amount - row.deduction)}
+          </span>
+        ),
+        Footer: ({ rows, ...rest }) => {
+          // Only calculate total visits if rows change
+          const total = React.useMemo(
+            () =>
+              rows.reduce(
+                (sum, row) => row.values.amount - row.values.deduction + sum,
+                0,
+              ),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
+      },
+      {
+        Header: 'Status',
+        accessor: 'settled',
+        id: 'settled',
+        isSortable: true,
+        Cell: ({ row, value }) => (
+          <div className="space-x-1.5 flex items-center">
+            {value === 1 && (
+              <Icons.Complete className="inline-block text-xl px-0.5 text-green-500 font-bold" />
+            )}
+            <ModalV3
+              renderButton={({ setOpen }) => (
+                <button onClick={setOpen}>
+                  <Icons.Eye className="text-blue-400" />
+                </button>
+              )}
+            >
+              <h2 className="mb-3 mr-10 text-2xl">
+                Record ID: {row.values?.id}
+              </h2>
+              <Print>{row.original}</Print>
+            </ModalV3>
 
             {/* <button>
                 <RiEditLine className="text-yellow-600" />
@@ -295,11 +422,6 @@ const useTableColumns = (type) => {
         ),
       },
     ],
-    [],
-  )
-
-  const SalariesColumn = React.useMemo(
-    () => [{ Header: 'ID', id: 'id', accessor: 'id' }],
     [],
   )
 
@@ -337,11 +459,7 @@ const NestedRowTable = React.memo(
         {
           Header: 'Date',
           accessor: 'date',
-          Cell: ({ value }) => (
-            <span className="text-green-600">
-              {formatDate(value, null, '-')}
-            </span>
-          ),
+          Cell: ({ value }) => <span className="">{formatDate(value)}</span>,
         },
         { Header: 'Desc', accessor: 'desc' },
       ],

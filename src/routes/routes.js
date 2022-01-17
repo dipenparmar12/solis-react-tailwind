@@ -20,7 +20,7 @@ import { ProjectFormContainer } from '@/pages/Projects/Form'
 import TransactionsContainer from '@/pages/Transactions/Transactions'
 import FundContainer from '@/pages/Funds/Funds'
 import AppContextState from '@/temp/Examples/AppContextState'
-import SalaryContainer from '@/pages/Salaries'
+import SalaryPage from '@/pages/Salaries'
 
 export const testRoutes = {
   profile: {
@@ -107,7 +107,7 @@ export const routesPrivate = {
   salaries: {
     label: 'Salaries',
     path: '/salaries',
-    element: <SalaryContainer />,
+    element: <SalaryPage />,
     icon: <MdAttachMoney />,
   },
   funds: {

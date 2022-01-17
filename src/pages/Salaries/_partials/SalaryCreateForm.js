@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable camelcase */
 import React from 'react'
 import * as yup from 'yup'
@@ -17,6 +18,7 @@ import UserAdvanceTable from '@/pages/Salaries/_partials/UserAdvanceTable'
 import CardV2 from '@/components/atoms/CardV2'
 import CardV1 from '@/components/atoms/CardV1'
 import formatRs from '@/utils/str/formatRs'
+import { isDevEnv } from '@/utils/environment'
 
 const initialValues = {
   // id: '',
@@ -40,14 +42,21 @@ const validationSchemaCb = yup.object().shape({
     .number()
     .required()
     .nullable()
-    .min(20, 'Amount must be more then 20 rs')
+    .default(isDevEnv ? 1000 : '')
+    .min(isDevEnv ? 10 : 100, 'Amount must be more then 20 rs')
     .max(1000000, 'Too much!')
     .typeError('Value must be a number')
     .label(InputLabels.salary_amount),
   deduction: yup
     .number()
-    .min(50, 'Deduction amount must be more then 50 rs')
+    .min(isDevEnv ? 10 : 100, 'Deduction amount must be more then 50 rs')
     .max(1000000, 'Too much!')
+    .when(
+      'salary_amount',
+      (value, schema) =>
+        value &&
+        schema.max(value, `Deduction amount must be less then ${value} rs`),
+    )
     .label(InputLabels.deduction),
   month_year: yup
     .date()
@@ -65,6 +74,7 @@ export default function SalaryCreateForm({
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
   const modalCtx = useModalContext()
   const appContext = useAppContext()
+  const formikRef = React.useRef()
 
   React.useEffect(() => {
     if (!appContext?.staticData?.users?.length) {
@@ -95,6 +105,7 @@ export default function SalaryCreateForm({
           initialValues={deepMerge(initialValues, omitVal(initialData, null))}
           validationSchema={validationSchemaCb}
           onSubmit={handleSubmit}
+          innerRef={formikRef}
         >
           <div className={'flex gap-5'}>
             <div className="flex-1 p-2 space-y-3">
@@ -143,58 +154,69 @@ export default function SalaryCreateForm({
               </div>
             </div>
 
-            <CardV2 className={'flex-1 dark:border-sky-800'}>
-              <ul className="flex flex-col justify-around h-full">
-                <li className="flex items-center justify-between h-full px-4 py-4 border-b dark:border-gray-800 ">
-                  <div>
-                    <div className="text-lg text-gray-600 dark:text-gray-400">
-                      Net salary
-                    </div>
-                    <div className="text-gray-500 "> Monthly payable </div>
-                  </div>
-                  <div className="text-lg text-gray-700 dark:text-gray-400">
-                    {formatRs(1000)}
-                  </div>
-                </li>
-                <li className="flex items-center justify-between h-full px-4 py-4 border-b dark:border-gray-800 ">
-                  <div>
-                    <div className="text-lg text-gray-600 dark:text-gray-400">
-                      Deductions
-                    </div>
-                    <div className="text-gray-500">
-                      EMI or any other deduction from salary{' '}
-                    </div>
-                  </div>
-                  <div className="text-lg text-red-500 ">{formatRs(1000)}</div>
-                </li>
-                <li className="flex items-center justify-between h-full px-4 py-4 border-b dark:border-gray-800 ">
-                  <div>
-                    <div className="text-lg text-gray-600 dark:text-gray-400">
-                      Payable salary
-                    </div>
-                    <div className="text-gray-500">In-hand amount</div>
-                  </div>
-                  <div className="text-xl text-green-600 ">
-                    {formatRs(1000)}
-                  </div>
-                </li>
-                <li className="flex items-center justify-between h-full px-4 py-2 ">
-                  <div>
-                    <div className="text-lg text-gray-500">
-                      Remaining advance
-                    </div>
-                  </div>
-                  <div className="text-lg text-gray-700 dark:text-gray-400">
-                    {formatRs(1000)}
-                  </div>
-                </li>
-              </ul>
-            </CardV2>
+            <SalaryStatusCard values={formikRef.current?.values || {}} />
           </div>
 
           <UserAdvanceTable />
         </FormikForm>
       </CardV2>
     </>
+  )
+}
+
+const SalaryStatusCard = ({ values }) => {
+  // const [values, setValues] = React.useState(parentValues)
+  // React.useEffect(() => {
+  //   setValues(parentValues)
+  //   console.log('SalaryCreateForm.js::[164]', values)
+  // }, [parentValues])
+
+  const { salary_amount, deduction } = values || {}
+  return (
+    <CardV2 className={'flex-1 dark:border-sky-800'}>
+      <ul className="flex flex-col justify-around h-full">
+        <li className="flex items-center justify-between h-full px-4 py-4 border-b dark:border-gray-800 ">
+          <div>
+            <div className="text-lg text-gray-600 dark:text-gray-400">
+              Net salary
+            </div>
+            <div className="text-gray-500 "> Monthly payable </div>
+          </div>
+          <div className="text-lg text-gray-700 dark:text-gray-400">
+            {formatRs(salary_amount)}
+          </div>
+        </li>
+        <li className="flex items-center justify-between h-full px-4 py-4 border-b dark:border-gray-800 ">
+          <div>
+            <div className="text-lg text-gray-600 dark:text-gray-400">
+              Deductions
+            </div>
+            <div className="text-gray-500">
+              EMI or any other deduction from salary{' '}
+            </div>
+          </div>
+          <div className="text-lg text-red-500 ">{formatRs(deduction)}</div>
+        </li>
+        <li className="flex items-center justify-between h-full px-4 py-4 border-b dark:border-gray-800 ">
+          <div>
+            <div className="text-lg text-gray-600 dark:text-gray-400">
+              Payable salary
+            </div>
+            <div className="text-gray-500">In-hand amount</div>
+          </div>
+          <div className="text-xl text-green-600 ">
+            {formatRs(salary_amount - deduction)}
+          </div>
+        </li>
+        <li className="flex items-center justify-between h-full px-4 py-2 ">
+          <div>
+            <div className="text-lg text-gray-500">
+              Outstanding advance after deduction
+            </div>
+          </div>
+          <div className="text-lg text-gray-700 dark:text-gray-400">#todo</div>
+        </li>
+      </ul>
+    </CardV2>
   )
 }
