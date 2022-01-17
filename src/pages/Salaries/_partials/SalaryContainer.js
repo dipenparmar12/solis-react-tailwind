@@ -14,6 +14,7 @@ import AdvanceFilters from '@/pages/Salaries/AdvanceFilters'
 import { useSalariesContext } from '@/pages/Salaries'
 import SalariesAdvancesTable from '@/pages/Salaries/SalariesAdvancesTable'
 import Icons from '@/components/icons/Icons'
+import SalaryFilters from '../SalaryFilters'
 
 export default function SalaryContainer() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()
@@ -73,7 +74,7 @@ export default function SalaryContainer() {
             siblingCount={1}
           />
         </Accordion>
-        {filtersVisible && <AdvanceFilters isVisible={filtersVisible} />}
+        {filtersVisible && <SalaryFilters isVisible={filtersVisible} />}
         <div className="div">
           <SalariesAdvancesTable />
         </div>

@@ -447,8 +447,11 @@ const NestedRowTable = React.memo(
     const tableData = row?.original?.emi_info || []
     const TableColumns = React.useMemo(
       () => [
-        { Header: '#', accessor: '' },
-        { Header: 'ID', accessor: 'id' },
+        {
+          Header: 'ID',
+          accessor: 'id',
+          // Header: (info) => 'ID',
+        },
         {
           Header: 'Deduction (Paid)',
           accessor: 'deduction',
