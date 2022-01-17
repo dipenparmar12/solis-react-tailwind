@@ -47,6 +47,14 @@ function UserAdvanceTable({ user_id }) {
             {formatRs(value || '-')}
           </span>
         ),
+        Footer: (info) => {
+          const { rows } = info
+          const total = React.useMemo(
+            () => rows.reduce((sum, row) => row.values.amount + sum, 0),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
       },
       {
         Header: 'Paid',
@@ -57,15 +65,35 @@ function UserAdvanceTable({ user_id }) {
             {formatRs(value || '-')}
           </span>
         ),
+        Footer: (info) => {
+          const { rows } = info
+          const total = React.useMemo(
+            () => rows.reduce((sum, row) => row.values.paid_amount + sum, 0),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
       },
       {
         Header: 'Pending Amt',
+        isSortable: true,
         accessor: (row) => (
           <span className="text-red-400 ">
             {formatRs(row.amount - row.paid_amount)}
           </span>
         ),
-        isSortable: true,
+        Footer: (info) => {
+          const { rows } = info
+          const total = React.useMemo(
+            () =>
+              rows.reduce(
+                (sum, row) => row.values.amount - row.values.paid_amount + sum,
+                0,
+              ),
+            [rows],
+          )
+          return <span className="font-semibold">{formatRs(total || '-')}</span>
+        },
       },
       {
         Header: 'Date',
@@ -77,14 +105,20 @@ function UserAdvanceTable({ user_id }) {
     [],
   )
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns: TableColumns,
-        data: FundState?.data || [],
-      },
-      useSortBy,
-    )
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    footerGroups,
+    rows,
+    prepareRow,
+  } = useTable(
+    {
+      columns: TableColumns,
+      data: FundState?.data || [],
+    },
+    useSortBy,
+  )
 
   if (!userId) return null
   return (
@@ -139,6 +173,16 @@ function UserAdvanceTable({ user_id }) {
             </td>
           </tr>
         </tbody>
+
+        <tfoot>
+          {footerGroups.map((group) => (
+            <tr {...group.getFooterGroupProps()}>
+              {group.headers.map((column) => (
+                <td {...column.getFooterProps()}>{column.render('Footer')}</td>
+              ))}
+            </tr>
+          ))}
+        </tfoot>
       </table>
     </div>
   )

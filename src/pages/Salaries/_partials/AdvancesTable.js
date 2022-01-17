@@ -37,6 +37,7 @@ export default function AdvancesTable() {
     getTableProps,
     getTableBodyProps,
     headerGroups,
+    footerGroups,
     prepareRow,
     page,
     visibleColumns,
@@ -122,6 +123,18 @@ export default function AdvancesTable() {
               </td>
             </tr>
           </tbody>
+
+          <tfoot>
+            {footerGroups.map((group) => (
+              <tr {...group.getFooterGroupProps()}>
+                {group.headers.map((column) => (
+                  <td {...column.getFooterProps()}>
+                    {column.render('Footer')}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tfoot>
         </table>
       </div>
     </>
@@ -180,15 +193,49 @@ const useTableColumns = (type) => {
             {formatRs(value || '-')}
           </span>
         ),
+        Footer: ({ rows, ...rest }) => {
+          // Only calculate total visits if rows change
+          const total = React.useMemo(
+            () => rows.reduce((sum, row) => row.values.amount + sum, 0),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
       },
       {
         Header: 'Pending Amt',
+        isSortable: true,
         accessor: (row) => (
           <span className="text-red-400 ">
             {formatRs(row.amount - row.paid_amount)}
           </span>
         ),
-        isSortable: true,
+        Footer: (info) => {
+          const { rows } = info
+          const total = React.useMemo(
+            () =>
+              rows.reduce(
+                (sum, row) => row.values.amount - row.values.paid_amount + sum,
+                0,
+              ),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
+
+        // Footer: (info) => {
+        //   const { rows } = info
+        //   console.log('AdvancesTable.js::[215] var', rows.values)
+        //   const total = React.useMemo(
+        //     () =>
+        //       rows.reduce(
+        //         (sum, row) => row.values.amount - row.paid_amount + sum,
+        //         0,
+        //       ),
+        //     [rows],
+        //   )
+        //   return <span className="font-semibold">{total}</span>
+        // },
       },
       {
         Header: 'Date',
@@ -205,6 +252,14 @@ const useTableColumns = (type) => {
             {formatRs(value || '-')}
           </span>
         ),
+        Footer: ({ rows, ...rest }) => {
+          // Only calculate total visits if rows change
+          const total = React.useMemo(
+            () => rows.reduce((sum, row) => row.values.paid_amount + sum, 0),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
       },
       {
         Header: 'Status',

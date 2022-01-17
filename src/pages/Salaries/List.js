@@ -24,7 +24,7 @@ export default function SalariesContainer() {
         {activeTab === 'create_advance' && <AdvanceCreateForm />}
         {activeTab === 'create_salary' && <SalaryCreateForm />}
 
-        <Print data={{ qry, FundState }} />
+        <Print data={{ qry }} />
       </div>
     </>
   )
