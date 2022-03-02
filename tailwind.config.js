@@ -15,11 +15,11 @@ module.exports = {
     },
   },
   plugins: [],
-  purge: {
-    enabled: true,
-    content: ['./src/**/*.{js,jsx,ts,tsx}'],
-    options: {
-      safelist: ['dark'], // specific classes
-    },
-  },
+  // content: {
+  //   enabled: true,
+  //   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  //   options: {
+  //     safelist: ['dark'], // specific classes
+  //   },
+  // },
 }

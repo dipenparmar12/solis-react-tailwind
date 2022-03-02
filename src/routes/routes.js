@@ -21,6 +21,9 @@ import TransactionsContainer from '@/pages/Transactions/Transactions'
 import FundContainer from '@/pages/Funds/Funds'
 import AppContextState from '@/temp/Examples/AppContextState'
 import SalaryPage from '@/pages/Salaries'
+import IncomeList from '@/pages/Incomes/List'
+import Icons from '@/components/icons/Icons'
+import Incomes from '@/pages/Incomes/Context'
 
 export const testRoutes = {
   profile: {
@@ -109,6 +112,12 @@ export const routesPrivate = {
     path: '/salaries',
     element: <SalaryPage />,
     icon: <MdAttachMoney />,
+  },
+  incomes: {
+    label: 'Incomes',
+    path: '/incomes',
+    element: <Incomes />,
+    icon: <Icons.Dollar className="" />,
   },
   funds: {
     label: 'PettyCase',

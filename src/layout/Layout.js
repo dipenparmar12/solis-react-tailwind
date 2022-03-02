@@ -22,6 +22,7 @@ import LogoIMG from '../assets/img/logo.png'
 import Svg from '../components/Svg/Svg'
 import cn from '../utils/classNames'
 import useToggle from '@/hooks/useToggle'
+import SidebarNavList from './_partials/SidebarNavList'
 
 /**
  *  @src https://codepen.io/chris__sev/pen/RwKWXpJ?editors=1000
@@ -137,7 +138,8 @@ const Sidebar = () => {
       }}
       ref={sidebarRef}
     >
-      <NavLinkItem route={routes?.userCreate} />
+      <SidebarNavList routes={routes} />
+      {/* <NavLinkItem route={routes?.userCreate} />
       <NavLinkItem route={routes?.projectCreate} />
       <NavLinkItem route={routes?.salaries} />
       <NavLinkItem route={routes?.funds} />
@@ -145,7 +147,7 @@ const Sidebar = () => {
       <NavLinkItem route={routes?.users} />
       <NavLinkItem route={routes?.transaction} />
       <NavLinkItem route={routes?.examples} />
-      <NavLinkItem route={routes?.appContext} />
+      <NavLinkItem route={routes?.appContext} /> */}
       {/* <NavDropDownItem route={routes?.dropdown} /> */}
     </nav>
   )
