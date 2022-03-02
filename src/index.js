@@ -2,6 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import AuthProvider from './context/AuthContext'
@@ -15,15 +18,21 @@ import './index.scss'
 
 console.info('index.js::[12] env', process.env.NODE_ENV)
 
+// Create a client
+const queryClient = new QueryClient()
+
 ReactDOM.render(
   <React.StrictMode>
     <AppContextProvider>
       <LayoutProvider>
         <BrowserRouter>
-          <AuthProvider>
-            <App />
-            <ToastContainer />
-          </AuthProvider>
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <AuthProvider>
+              <App />
+              <ToastContainer />
+            </AuthProvider>
+          </QueryClientProvider>
         </BrowserRouter>
       </LayoutProvider>
     </AppContextProvider>
