@@ -12,13 +12,13 @@ const [IncomeProvider, useIncomeContext, Context] = ContextFactory({
 export { useIncomeContext }
 
 export default function Incomes() {
-  const [qry, setQry] = useObject({ page: 1, per_page: 2 })
+  const [qry, setQry] = useObject({ page: 1, per_page: 7 })
 
   // // Enable query params
-  const qryParams = useQryParams({ setParams: setQry.merge })
-  React.useEffect(() => {
-    qryParams.set(qry)
-  }, [qry])
+  // const qryParams = useQryParams({ setParams: setQry.merge })
+  // React.useEffect(() => {
+  //   qryParams.set(qry)
+  // }, [qry])
 
   // API call
   const apiState = useQuery(['incomes', qry], () => Api.incomes.get({ qry }), {
@@ -26,10 +26,12 @@ export default function Incomes() {
   })
 
   const apiStateMemo = React.useMemo(() => {
-    const { data, ...rest } = apiState?.data?.data?.results || {}
+    const { data, total, ...rest } = apiState?.data?.data?.results || {}
     return {
       rest,
       data,
+      total,
+      isLoading: apiState?.isLoading,
     }
   }, [apiState])
 
@@ -40,8 +42,8 @@ export default function Incomes() {
   }
 
   // React.useEffect(() => {
-  //   console.log('Context.js::[35]', contextValue)
-  // }, [contextValue])
+  //   console.log('Context.js::[44] ', apiState)
+  // }, [apiState])
 
   return (
     <IncomeProvider value={contextValue}>

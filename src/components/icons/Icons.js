@@ -3,6 +3,7 @@ import {
   RiAddLine,
   RiArrowDownSLine,
   RiArrowUpSLine,
+  RiAttachmentLine,
   RiDeleteBin7Line,
   RiEditLine,
   RiEyeLine,
@@ -42,6 +43,7 @@ const Icons = {
 
   GrMoney,
   Dollar: BiDollar,
+  Attachment: RiAttachmentLine,
 }
 
 export default Icons
