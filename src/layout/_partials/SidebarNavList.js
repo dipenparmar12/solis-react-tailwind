@@ -13,6 +13,7 @@ export default function SidebarNavList({ routes }) {
       <NavLinkItem route={routes?.projects} />
       <NavLinkItem route={routes?.users} />
       <NavLinkItem route={routes?.transaction} />
+      <NavLinkItem route={routes?.dealers} />
       <NavLinkItem route={routes?.examples} />
       <NavLinkItem route={routes?.appContext} />
     </>

@@ -24,6 +24,7 @@ import SalaryPage from '@/pages/Salaries'
 import IncomeList from '@/pages/Incomes/List'
 import Icons from '@/components/icons/Icons'
 import Incomes from '@/pages/Incomes/Context'
+import DealersContext from '@/pages/Dealers/Context'
 import { IncomeFormContainer } from '@/pages/Incomes/Form'
 
 export const testRoutes = {
@@ -125,6 +126,12 @@ export const routesPrivate = {
     path: '/incomes',
     element: <Incomes />,
     icon: <Icons.Dollar className="" />,
+  },
+  dealers: {
+    label: 'Dealers',
+    path: '/dealers',
+    element: <DealersContext />,
+    icon: <Icons.Bag className="" />,
   },
   funds: {
     label: 'PettyCase',

@@ -9,13 +9,15 @@ import {
   RiEyeLine,
   RiFilter3Line,
   RiRefreshLine,
+  RiShoppingBag3Line,
 } from 'react-icons/ri'
 import { VscChevronDown, VscChevronRight } from 'react-icons/vsc'
 import { FcPaid } from 'react-icons/fc'
 import { IoMdDoneAll } from 'react-icons/io'
-import { MdOutlineCloudDone } from 'react-icons/md'
+import { MdOutlineCloudDone, MdOutlineDoNotDisturbOff } from 'react-icons/md'
 import { GrMoney } from 'react-icons/gr'
 import { BiDollar } from 'react-icons/bi'
+import { FiCheckCircle } from 'react-icons/fi'
 
 /**
  * Icons for the application
@@ -44,6 +46,10 @@ const Icons = {
   GrMoney,
   Dollar: BiDollar,
   Attachment: RiAttachmentLine,
+  Bag: RiShoppingBag3Line,
+
+  DND: MdOutlineDoNotDisturbOff,
+  // CheckCircle: FiCheckCircle,
 }
 
 export default Icons
