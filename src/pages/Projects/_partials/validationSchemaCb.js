@@ -10,6 +10,7 @@ export const SUPPORTED_IMG_FORMATS = [
   'image/gif',
   'image/png',
 ]
+
 export const projectInputLabels = {
   id: 'ID',
   client: 'Client Name',

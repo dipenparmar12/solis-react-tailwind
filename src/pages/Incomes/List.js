@@ -17,10 +17,12 @@ import formatRs from '@/utils/str/formatRs'
 import formatDate from '@/utils/date/formatDate'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
+import useTableSorting from '@/hooks/useTableSorting'
 
 function IncomeList() {
   const { qry, setQry, State: IncomeState } = useIncomeContext()
   const [filtersVisible, setFilterVisible] = useToggle(false)
+  const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
 
   const TableRows = IncomeState?.data || [] // TOD0::MEMOIZE Table data
 
@@ -29,11 +31,13 @@ function IncomeList() {
       {
         accessor: 'id',
         Header: '#',
+        isSortable: true,
       },
       {
-        id: 'project',
+        id: 'project_id',
         Header: 'Project',
         accessor: 'project.title',
+        isSortable: true,
         Cell: ({ value }) => (
           <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
             {value}
@@ -49,6 +53,7 @@ function IncomeList() {
       {
         Header: 'Amount',
         accessor: 'amount',
+        isSortable: true,
         Cell: ({ value }) => (
           <span className="font-semibold text-green-600">
             {formatRs(value || '-')}
@@ -58,6 +63,12 @@ function IncomeList() {
       {
         Header: 'Tran Type',
         accessor: 'transaction.type',
+        id: 'transaction_id',
+      },
+      {
+        Header: 'From',
+        accessor: 'from',
+        id: 'from',
       },
       {
         Header: ' ',
@@ -120,10 +131,15 @@ function IncomeList() {
     page,
     rows,
     prepareRow,
-  } = useTable({
-    columns: TableColumns,
-    data: TableRows,
-  })
+  } = useTable(
+    {
+      columns: TableColumns,
+      data: TableRows,
+      manualSortBy: true,
+    },
+
+    useSortBy,
+  )
 
   return (
     <>
@@ -141,14 +157,14 @@ function IncomeList() {
                 {isOpen ? Icons.ArrowDown : Icons.ArrowRight}
               </h1>
               <div className="flex my-2 space-x-2">
-                <Button
+                {/* <Button
                   variant="subtle"
                   size="md"
                   className="px-2 py-1.5 text-sm "
                   onClick={setFilterVisible.toggle}
                 >
                   <Icons.Filter className="inline-block mb-1" /> Filters{' '}
-                </Button>
+                </Button> */}
 
                 <Button
                   variant="subtle"
@@ -186,9 +202,12 @@ function IncomeList() {
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
-                      {...column.getHeaderProps(
-                        column?.getSortByToggleProps?.(),
-                      )}
+                      {...column.getHeaderProps(column?.getSortByToggleProps())}
+                      onClick={() => {
+                        column?.isSortable &&
+                          handleTableSorting(column?.id, qry.sortBy)
+                      }}
+                      className={'whitespace-nowrap'}
                     >
                       {column.render('Header')}
                       {column.isSortable && (

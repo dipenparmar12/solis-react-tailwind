@@ -22,7 +22,7 @@ export default function Incomes() {
 
   // API call
   const apiState = useQuery(['incomes', qry], () => Api.incomes.get({ qry }), {
-    staleTime: 2000,
+    staleTime: 60000,
   })
 
   const apiStateMemo = React.useMemo(() => {

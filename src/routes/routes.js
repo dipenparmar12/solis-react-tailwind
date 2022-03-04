@@ -24,6 +24,7 @@ import SalaryPage from '@/pages/Salaries'
 import IncomeList from '@/pages/Incomes/List'
 import Icons from '@/components/icons/Icons'
 import Incomes from '@/pages/Incomes/Context'
+import { IncomeFormContainer } from '@/pages/Incomes/Form'
 
 export const testRoutes = {
   profile: {
@@ -93,13 +94,19 @@ export const routesPrivate = {
     label: 'User',
     path: '/users/create',
     element: <UserAddFormContainer />,
-    icon: <RiAddLine />,
+    icon: <Icons.Add />,
+  },
+  incomeCreate: {
+    label: 'New Income',
+    path: '/incomes/create',
+    element: <IncomeFormContainer />,
+    icon: <Icons.Add className="" />,
   },
   projectCreate: {
     label: 'New Project',
     path: '/projects/create',
     element: <ProjectFormContainer />,
-    icon: <RiAddLine />,
+    icon: <Icons.Add />,
   },
   home: {
     label: 'Home',

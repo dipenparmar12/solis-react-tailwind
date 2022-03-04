@@ -18,6 +18,7 @@ function WithFormik(
 
   const handleChange = React.useCallback(
     (e, ...args) => {
+      // console.log('WithFormik.js::[21] onChange', e)
       const value = e?.target ? get(e, 'target.value') : e
       setFieldValue(name, value)
       if (onChange) onChange(e, value, ...args)

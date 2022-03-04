@@ -38,11 +38,12 @@ function InputSelect(
 
   const onChangeDebounced = debounce(onChange, delay)
   const onChangeDebouncedWrapper = (selectedValues) => {
-    let selectedVals = multi ? selectedValues : selectedValues[0]
+    // eslint-disable-next-line no-underscore-dangle
+    let _selectedValues = multi ? selectedValues : selectedValues[0]
     if (Types.isFunction(selectCallback)) {
-      selectedVals = selectCallback(selectedVals)
+      _selectedValues = selectCallback(_selectedValues)
     }
-    return onChangeDebounced(selectedVals)
+    return onChangeDebounced(_selectedValues)
   }
 
   return (
@@ -88,6 +89,24 @@ export default React.forwardRef(InputSelect)
 export const InputSelectFormik = ({ ...props }, ...rest) => (
   <WithFormik inputAs={InputSelect} {...props} /> // {...(rest || {})}
 )
+
+/**
+ *  <InputSelectFormik
+        // clearable
+        // searchable
+        // delay={1500}
+        className={'flex-1'}
+        label="Project"
+        placeholder="Select Project"
+        options={appContext?.staticData?.projects || [{id:1, label: 'Project 1'}]}
+        selectCallback={(value) => {
+          return value?.id || value?.label
+        }}
+        name="project_id"
+        valueField="id"
+        keepSelectedInList={false}
+      />
+*/
 
 // const selectInputBoxRenderer = ({ props, state, methods }) => {
 //   // console.log('Filters.js::[26] ', state, props.labelField, methods)
