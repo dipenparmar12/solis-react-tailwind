@@ -60,6 +60,6 @@ export default function validationSchemaCb(isEdit) {
     //   .nullable()
     //   .label(incomeInputLabels.transaction_id),
 
-    desc: yup.string().nullable().label(incomeInputLabels.desc),
+    desc: yup.string().trim().nullable().label(incomeInputLabels.desc),
   })
 }

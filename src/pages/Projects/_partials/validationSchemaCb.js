@@ -71,10 +71,10 @@ function validationSchemaCb(isEdit) {
       )
       .label(projectInputLabels.e_date),
 
-    address: yup.string().nullable().label(projectInputLabels.address),
-    wip: yup.string().nullable().label(projectInputLabels.wip),
-    p_type: yup.string().nullable().label(projectInputLabels.p_type),
-    sqft: yup.string().nullable().label(projectInputLabels.p_type),
+    address: yup.string().trim().nullable().label(projectInputLabels.address),
+    wip: yup.string().trim().nullable().label(projectInputLabels.wip),
+    p_type: yup.string().trim().nullable().label(projectInputLabels.p_type),
+    sqft: yup.string().trim().nullable().label(projectInputLabels.p_type),
 
     // Not required fields
     // income,

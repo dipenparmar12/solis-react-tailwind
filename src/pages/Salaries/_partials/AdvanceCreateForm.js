@@ -31,7 +31,7 @@ export const InputLabels = {
 }
 
 const validationSchemaCb = yup.object().shape({
-  user_id: yup.string().required().nullable().label(InputLabels.user_id),
+  user_id: yup.string().trim().required().nullable().label(InputLabels.user_id),
   advance_amount: yup
     .number('Invalid Amount')
     .required()

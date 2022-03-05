@@ -60,9 +60,9 @@ export default function TransactionForm({
         debug
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         validationSchema={yup.object().shape({
-          type: yup.string().nullable().required('Type is required'),
-          desc: yup.string().nullable().label('Description'),
-          status: yup.string().nullable().label('Status'),
+          type: yup.string().trim().nullable().required('Type is required'),
+          desc: yup.string().trim().nullable().label('Description'),
+          status: yup.string().trim().nullable().label('Status'),
         })}
         onSubmit={handleSubmit}
       >

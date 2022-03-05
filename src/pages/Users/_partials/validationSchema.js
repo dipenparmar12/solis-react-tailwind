@@ -12,8 +12,8 @@ export const SUPPORTED_IMG_FORMATS = [
 
 function addUserSchema(isEdit) {
   return yup.object().shape({
-    email: yup.string().email().required().nullable().label('Email'),
-    name: yup.string().min(2).max(50).nullable().label('Name'),
+    email: yup.string().trim().email().required().nullable().label('Email'),
+    name: yup.string().trim().min(2).max(50).nullable().label('Name'),
     password: yup
       .string()
       .when('isEdit', () => {
@@ -59,12 +59,12 @@ function addUserSchema(isEdit) {
       .typeError('Invalid date')
       .label('Date of joining'),
 
-    user_type: yup.string().nullable().label('User type'),
+    user_type: yup.string().trim().nullable().label('User type'),
 
-    address: yup.string().nullable().label('Address'),
-    active: yup.string().nullable().label('Active'),
+    address: yup.string().trim().nullable().label('Address'),
+    active: yup.string().trim().nullable().label('Active'),
 
-    role_id: yup.string().required().nullable().label('Role'),
+    role_id: yup.string().trim().required().nullable().label('Role'),
 
     // Js file object validations
     profile_pic: yup

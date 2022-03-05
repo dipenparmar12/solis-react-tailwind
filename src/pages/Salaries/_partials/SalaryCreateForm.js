@@ -37,7 +37,12 @@ export const InputLabels = {
 }
 
 const validationSchemaCb = yup.object().shape({
-  user_id: yup.string().required().nullable().label(InputLabels.month_year),
+  user_id: yup
+    .string()
+    .trim()
+    .required()
+    .nullable()
+    .label(InputLabels.month_year),
   salary_amount: yup
     .number()
     .required()

@@ -1,9 +1,11 @@
+/* eslint-disable indent */
 /* eslint-disable no-promise-executor-return */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react'
 import { wait } from '@testing-library/user-event/dist/utils'
 import { useMutation } from 'react-query'
+import { FieldArray, useFormikContext, getIn } from 'formik'
 import Button from '@/components/atoms/Button'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
 import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
@@ -17,8 +19,8 @@ import { useAppContext } from '@/context/AppContext'
 import omitVal from '@/utils/obj/omitVal'
 import Print from '@/components/atoms/Print'
 import { InputSelectFormik } from '@/components/molecules/Form/InputSelect'
-import { FieldArray } from 'formik'
 import EstimateValidators from './_partials/EstimateValidators'
+import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 
 const initialValues = {
   id: '',
@@ -26,7 +28,11 @@ const initialValues = {
   s_date: '',
   e_date: '',
   desc: '',
-  estimates: [],
+  estimates: [
+    {
+      amount: 0,
+    },
+  ],
 }
 
 export default function EstimateCreate({
@@ -36,7 +42,7 @@ export default function EstimateCreate({
 }) {
   const modalCtx = useModalContext()
   const appContext = useAppContext()
-  const [estimatesRows, setEstimatesRows] = React.useState([1, 2])
+  const [estimatesRows, setEstimatesRows] = React.useState([1, 2, 3])
 
   React.useEffect(() => {
     if (
@@ -78,7 +84,7 @@ export default function EstimateCreate({
         debug={['values', 'errors']}
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         onSubmit={handleSubmit}
-        // validationSchema={EstimateValidators(isEdit)}
+        validationSchema={EstimateValidators(isEdit)}
         // inputLabels={projectInputLabels}
         // transformValues={transformValues}
         // castFormData
@@ -117,66 +123,10 @@ export default function EstimateCreate({
             />
           </div>
 
-          <FieldArray
-            name="estimates"
-            render={(arrayHelpers) => (
-              <div>
-                {estimatesRows?.map((row, index) => (
-                  <div key={index} className="flex flex-col gap-3 md:flex-row">
-                    <InputSelectFormik
-                      // clearable
-                      searchable
-                      // delay={1500}
-                      isRequired
-                      className={'flex-1'}
-                      label="Vendor"
-                      placeholder="Select Vendor"
-                      options={appContext?.staticData?.dealers || []}
-                      selectCallback={(value) => value?.id || value?.label}
-                      // name="dealer_id"
-                      name={`estimates.${index}.dealer_id`}
-                      valueField="id"
-                      keepSelectedInList={false}
-                    />
-                    <InputFormik
-                      isRequired
-                      type="number"
-                      className={'flex-1'}
-                      name={`estimates.${index}.amount`}
-                      label="Amount"
-                    />
-                    {estimatesRows.length > 1 && (
-                      <div className="flex items-end py-2">
-                        <Button
-                          onClick={() => {
-                            if (estimatesRows.length > 1) {
-                              arrayHelpers.remove(index)
-                              setEstimatesRows(
-                                estimatesRows.filter((_, i) => i !== index),
-                              )
-                            }
-                          }}
-                          size="sm"
-                        >
-                          Remove
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <Button
-                  onClick={() => {
-                    arrayHelpers.push({})
-                    setEstimatesRows([...estimatesRows, 1])
-                  }}
-                  size="sm"
-                  type="button"
-                  className="mt-2"
-                >
-                  Add Estimate
-                </Button>
-              </div>
-            )}
+          <InputEstimates
+            appContext={appContext}
+            estimatesRows={estimatesRows}
+            setEstimatesRows={setEstimatesRows}
           />
 
           <div className="flex flex-col gap-3 md:flex-row">
@@ -204,6 +154,125 @@ export const EstimateFormContainer = ({ ...props }) => {
   return (
     <div className="px-5 py-3 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
       <EstimateCreate {...props} />
+    </div>
+  )
+}
+
+const generateKey = (pre) => {
+  return `${pre}__${new Date().getTime()}`
+}
+
+const ErrorMessage = ({ form, name }) => {
+  const error = getIn(form.errors, name)
+  const touch = getIn(form.touched, name)
+  return touch && error ? (
+    <div className={'text-red-400 mt-1 text-sm font-medium'}>{error}</div>
+  ) : null
+}
+
+function InputEstimates({ appContext, estimatesRows, setEstimatesRows }) {
+  const { setFieldValue, values, validateForm, ...formikProps } =
+    useFormikContext()
+
+  // React.useEffect(() => {
+  //   Object.keys(values?.estimates || {}).forEach((index) => {
+  //     setFieldValue(`estimates.${index}`, values?.estimates?.[index])
+  //   })
+  // }, [estimatesRows])
+
+  return (
+    <div>
+      {
+        <FieldArray
+          name="estimates"
+          render={(arrayHelpers) => (
+            <div>
+              {values?.estimates &&
+                values?.estimates?.length > 0 &&
+                values?.estimates?.map((estimate, index) => (
+                  <div key={index} className="flex flex-col gap-3 md:flex-row">
+                    <div className="flex-1">
+                      <InputSelectFormik
+                        // clearable
+                        searchable
+                        // delay={1500}
+                        isRequired
+                        className={'flex-1'}
+                        label="Vendor"
+                        placeholder="Select Vendor"
+                        options={appContext?.staticData?.dealers || []}
+                        selectCallback={(value) => value?.id || value?.label}
+                        // name="dealer_id"
+                        name={`estimates.${index}.dealer_id`}
+                        valueField="id"
+                        keepSelectedInList={false}
+                      />
+
+                      {/* <ErrorMessage
+                        form={formikProps}
+                        name={`estimates.${index}.dealer_id`}
+                      /> */}
+
+                      {/* <ErrorFeedback
+                        error={
+                          formikProps?.errors?.estimates?.[index]?.dealer_id
+                        }
+                      /> */}
+                    </div>
+
+                    <div className="flex-1">
+                      <InputFormik
+                        isRequired
+                        type="number"
+                        className={'flex-1'}
+                        name={`estimates.${index}.amount`}
+                        label="Amount"
+                      />
+
+                      {/* <ErrorFeedback
+                        error={
+                          formikProps?.errors?.estimates?.[index]?.dealer_id
+                        }
+                      /> */}
+                    </div>
+
+                    {values.estimates.length > 1 &&
+                      estimatesRows.length > 1 &&
+                      values.estimates.length === index + 1 && (
+                        // // Remove btn only on last element
+                        <div className="flex items-end py-2">
+                          <Button
+                            onClick={() => {
+                              arrayHelpers.remove(index)
+                              setEstimatesRows(
+                                estimatesRows.filter((_, i) => i !== index),
+                              )
+                            }}
+                            size="sm"
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      )}
+                  </div>
+                ))}
+
+              <Button
+                onClick={() => {
+                  arrayHelpers.push('')
+                  // arrayHelpers.insert(index, '')
+                  setEstimatesRows([...estimatesRows, estimatesRows?.length])
+                }}
+                size="sm"
+                type="button"
+                className="mt-2"
+              >
+                Add Estimate
+              </Button>
+            </div>
+          )}
+        />
+      }
     </div>
   )
 }
