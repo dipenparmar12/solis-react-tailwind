@@ -17,6 +17,8 @@ import { useAppContext } from '@/context/AppContext'
 import omitVal from '@/utils/obj/omitVal'
 import Print from '@/components/atoms/Print'
 import { InputSelectFormik } from '@/components/molecules/Form/InputSelect'
+import { FieldArray } from 'formik'
+import EstimateValidators from './_partials/EstimateValidators'
 
 const initialValues = {
   id: '',
@@ -27,13 +29,14 @@ const initialValues = {
   estimates: [],
 }
 
-export default function EstimateForm({
+export default function EstimateCreate({
   isEdit,
   initialData,
   onSuccess = () => {},
 }) {
   const modalCtx = useModalContext()
   const appContext = useAppContext()
+  const [estimatesRows, setEstimatesRows] = React.useState([1, 2])
 
   React.useEffect(() => {
     if (
@@ -70,25 +73,12 @@ export default function EstimateForm({
 
   return (
     <>
-      <button
-        onClick={() => {
-          appContext.setResources([
-            'projects',
-            'transactions',
-            // {
-            //   transactions: (v) => v,
-            // },
-          ])
-        }}
-      >
-        Fetch
-      </button>
       <FormikForm
         // debug={'*'}
         debug={['values', 'errors']}
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         onSubmit={handleSubmit}
-        // validationSchema={validationSchemaCb(isEdit)}
+        // validationSchema={EstimateValidators(isEdit)}
         // inputLabels={projectInputLabels}
         // transformValues={transformValues}
         // castFormData
@@ -127,22 +117,67 @@ export default function EstimateForm({
             />
           </div>
 
-          <div className="flex flex-col gap-3 md:flex-row">
-            <InputSelectFormik
-              clearable
-              // searchable
-              // delay={1500}
-              isRequired
-              className={'flex-1'}
-              label="Vendor"
-              placeholder="Select Vendor"
-              options={appContext?.staticData?.dealers || []}
-              selectCallback={(value) => value?.id || value?.label}
-              name="dealer_id"
-              valueField="id"
-              keepSelectedInList={false}
-            />
-          </div>
+          <FieldArray
+            name="estimates"
+            render={(arrayHelpers) => (
+              <div>
+                {estimatesRows?.map((row, index) => (
+                  <div key={index} className="flex flex-col gap-3 md:flex-row">
+                    <InputSelectFormik
+                      // clearable
+                      searchable
+                      // delay={1500}
+                      isRequired
+                      className={'flex-1'}
+                      label="Vendor"
+                      placeholder="Select Vendor"
+                      options={appContext?.staticData?.dealers || []}
+                      selectCallback={(value) => value?.id || value?.label}
+                      // name="dealer_id"
+                      name={`estimates.${index}.dealer_id`}
+                      valueField="id"
+                      keepSelectedInList={false}
+                    />
+                    <InputFormik
+                      isRequired
+                      type="number"
+                      className={'flex-1'}
+                      name={`estimates.${index}.amount`}
+                      label="Amount"
+                    />
+                    {estimatesRows.length > 1 && (
+                      <div className="flex items-end py-2">
+                        <Button
+                          onClick={() => {
+                            if (estimatesRows.length > 1) {
+                              arrayHelpers.remove(index)
+                              setEstimatesRows(
+                                estimatesRows.filter((_, i) => i !== index),
+                              )
+                            }
+                          }}
+                          size="sm"
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <Button
+                  onClick={() => {
+                    arrayHelpers.push({})
+                    setEstimatesRows([...estimatesRows, 1])
+                  }}
+                  size="sm"
+                  type="button"
+                  className="mt-2"
+                >
+                  Add Estimate
+                </Button>
+              </div>
+            )}
+          />
 
           <div className="flex flex-col gap-3 md:flex-row">
             <InputFormik
@@ -168,7 +203,7 @@ export default function EstimateForm({
 export const EstimateFormContainer = ({ ...props }) => {
   return (
     <div className="px-5 py-3 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
-      <EstimateForm {...props} />
+      <EstimateCreate {...props} />
     </div>
   )
 }

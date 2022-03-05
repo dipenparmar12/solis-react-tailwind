@@ -19,6 +19,7 @@ function ButtonUnMemo(
     icon,
     iconSize,
     variant = 'default',
+    type = 'button',
     ...buttonProps
   },
   forwardRef,
@@ -76,6 +77,7 @@ function ButtonUnMemo(
       ref={forwardRef}
       onClick={handleClick}
       className={classNames(styles, className)}
+      type={type}
       {...buttonProps}
     >
       {label || children}
