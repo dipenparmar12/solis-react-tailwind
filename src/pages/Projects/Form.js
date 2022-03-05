@@ -53,7 +53,15 @@ export default function ProjectForm({
 
   React.useEffect(() => {
     if (!appContext?.staticData?.property_types?.length) {
-      appContext?.fetchPropertyTypes()
+      appContext.setResources([
+        {
+          resource: 'property_types',
+          mapper: (item) => ({
+            value: item,
+            label: item,
+          }),
+        },
+      ])
     }
   }, [])
 

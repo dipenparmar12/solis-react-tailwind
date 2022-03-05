@@ -68,7 +68,7 @@ export default function UserAddForm({
 
   React.useEffect(() => {
     if (!appContext?.staticData?.roles?.length) {
-      appContext?.fetchRoles()
+      appContext.setResources(['roles'])
     }
   }, [])
 

@@ -21,25 +21,26 @@ console.info('index.js::[12] env', process.env.NODE_ENV)
 // Create a client
 const queryClient = new QueryClient()
 
-ReactDOM.render(
+export default ReactDOM.render(
   <React.StrictMode>
-    <AppContextProvider>
-      <LayoutProvider>
-        <BrowserRouter>
-          <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AppContextProvider>
+        <LayoutProvider>
+          <BrowserRouter>
             <ReactQueryDevtools initialIsOpen={false} />
             <AuthProvider>
               <App />
               <ToastContainer />
             </AuthProvider>
-          </QueryClientProvider>
-        </BrowserRouter>
-      </LayoutProvider>
-    </AppContextProvider>
+          </BrowserRouter>
+        </LayoutProvider>
+      </AppContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )
 
+export { queryClient }
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

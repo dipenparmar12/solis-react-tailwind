@@ -17,21 +17,17 @@ import { useAppContext } from '@/context/AppContext'
 import omitVal from '@/utils/obj/omitVal'
 import Print from '@/components/atoms/Print'
 import { InputSelectFormik } from '@/components/molecules/Form/InputSelect'
-import validationSchemaCb from './_partials/validationSchemaCb'
 
 const initialValues = {
   id: '',
-  received_by: '',
   project_id: '',
-  transaction_id: '',
-  from: '',
-  amount: '',
-  date: '',
-  particular: '',
+  s_date: '',
+  e_date: '',
   desc: '',
+  estimates: [],
 }
 
-export default function IncomeForm({
+export default function EstimateForm({
   isEdit,
   initialData,
   onSuccess = () => {},
@@ -41,26 +37,23 @@ export default function IncomeForm({
 
   React.useEffect(() => {
     if (
-      !appContext?.staticData?.transactions?.length ||
+      !appContext?.staticData?.dealers?.length ||
       !appContext?.staticData?.projects?.length
     ) {
-      appContext.setResources(['projects', 'transactions'])
+      appContext.setResources(['projects', 'dealers'])
     }
   }, [])
 
-  const mutation = useMutation(Api.incomes.create)
-  // const mutationEdit = useMutation(Api.incomes.update)
+  const mutation = useMutation(Api.estimates.create)
   const mutationOptions = (actions) => {
     return {
       onSuccess: (res) => {
-        // console.log('Form.js::[56] onSuccess', res, actions)
         Api.utils.notifySuccess(res)
         actions.resetForm()
         modalCtx?.close()
         onSuccess()
       },
       onError: (error, variables, context) => {
-        // console.log('Form.js::[59] error', { error, variables })
         actions?.setErrors(error?.response?.data?.errors)
       },
       // Just like finally, but for mutation
@@ -71,41 +64,39 @@ export default function IncomeForm({
   }
 
   const handleSubmit = async (values, actions, rowValues) => {
-    // console.log('Form.js::[54] values, rowValues', values, rowValues)
+    // console.log('Create.js::[70] values, rowValues', values, rowValues)
     mutation.mutate(values, mutationOptions(actions))
   }
 
   return (
     <>
+      <button
+        onClick={() => {
+          appContext.setResources([
+            'projects',
+            'transactions',
+            // {
+            //   transactions: (v) => v,
+            // },
+          ])
+        }}
+      >
+        Fetch
+      </button>
       <FormikForm
         // debug={'*'}
         debug={['values', 'errors']}
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         onSubmit={handleSubmit}
-        validationSchema={validationSchemaCb(isEdit)}
+        // validationSchema={validationSchemaCb(isEdit)}
         // inputLabels={projectInputLabels}
         // transformValues={transformValues}
         // castFormData
       >
-        <h3 className="my-2 text-xl">New Income</h3>
+        <h3 className="my-2 text-xl">New Estimate</h3>
 
         <div className="space-y-3">
           <div className="flex flex-col gap-3 md:flex-row">
-            <InputFormik
-              isRequired
-              className={'flex-1'}
-              name="from"
-              label="From"
-              placeholder="Person name"
-            />
-            <InputFormik
-              isRequired
-              className={'flex-1'}
-              name="particular"
-              label="Particular"
-              placeholder="Reflected on client recept"
-            />
-
             <InputSelectFormik
               clearable
               // searchable
@@ -120,38 +111,37 @@ export default function IncomeForm({
               valueField="id"
               keepSelectedInList={false}
             />
-          </div>
-
-          <div className="flex flex-col gap-3 md:flex-row">
-            <InputFormik
-              isRequired
-              type="number"
-              className={'flex-1'}
-              name="amount"
-              label="Amount (RS)"
-            />
             <DateFormik
               isRequired
               className={'flex-1 '}
-              name="date"
-              label="Received at"
+              name="s_date"
+              label="Start Date"
               placeholder="mm/dd/yyyy"
             />
+            <DateFormik
+              isRequired
+              className={'flex-1'}
+              name="e_date"
+              label="End Date"
+              placeholder="mm/dd/yyyy"
+            />
+          </div>
 
-            <div className="flex-1">
-              <InputSelectFormik
-                clearable
-                // searchable
-                // delay={1500}
-                label="Transaction type"
-                placeholder="Transaction type"
-                options={appContext?.staticData?.transactions || []}
-                selectCallback={(value) => value?.id || value?.label}
-                name="transaction_id"
-                valueField="id"
-                keepSelectedInList={false}
-              />
-            </div>
+          <div className="flex flex-col gap-3 md:flex-row">
+            <InputSelectFormik
+              clearable
+              // searchable
+              // delay={1500}
+              isRequired
+              className={'flex-1'}
+              label="Vendor"
+              placeholder="Select Vendor"
+              options={appContext?.staticData?.dealers || []}
+              selectCallback={(value) => value?.id || value?.label}
+              name="dealer_id"
+              valueField="id"
+              keepSelectedInList={false}
+            />
           </div>
 
           <div className="flex flex-col gap-3 md:flex-row">
@@ -160,30 +150,13 @@ export default function IncomeForm({
               as="textarea"
               type="textarea"
               name="desc"
-              label="Extra note"
+              label="Description"
               placeholder="Description of the income"
               rows="3"
             />
           </div>
-
-          {/* <div className="flex flex-col gap-3 md:flex-row">
-            <RadioButtonFormik
-              className={'flex-1'}
-              name="transaction_format"
-              label="Transaction Format"
-              options={[
-                {
-                  value: 'cash',
-                  label: 'Cash',
-                },
-                {
-                  value: 'account',
-                  label: 'Account',
-                },
-              ]}
-            />
-          </div> */}
         </div>
+
         <ButtonFormik as={Button} className="mt-5">
           {isEdit ? 'Update' : 'Submit'}
         </ButtonFormik>
@@ -192,10 +165,10 @@ export default function IncomeForm({
   )
 }
 
-export const IncomeFormContainer = ({ ...props }) => {
+export const EstimateFormContainer = ({ ...props }) => {
   return (
     <div className="px-5 py-3 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
-      <IncomeForm {...props} />
+      <EstimateForm {...props} />
     </div>
   )
 }

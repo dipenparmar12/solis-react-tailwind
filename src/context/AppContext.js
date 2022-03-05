@@ -1,87 +1,61 @@
 import React, { useState } from 'react'
-import { useQuery } from 'react-query'
+import { useQueries, useQuery } from 'react-query'
 import useMergeState from '@/hooks/useMergeState'
 import Api from '@/services/ApiService'
+import Types from '@/utils/validation/Types'
 
 const AppContext = React.createContext(null)
 export const useAppContext = () => React.useContext(AppContext)
 
 const AppContextProvider = ({ children }) => {
-  // TODO::latter global context for static data
-  const [resource, setResource] = useState()
-
+  const [resources, setResources] = useState([])
   const [staticData, setStaticData] = useMergeState({
     roles: [],
-    permissions: [],
     propertyTypes: [],
     transactions: [],
+    dealers: [],
+    permissions: [],
   })
 
-  // TODO::IMP static data fetchers
-  // const apiState = useQuery(
-  //   ['incomes', resource],
-  //   (qry) => Api.incomes.get({ qry }),
-  //   {
-  //     staleTime: 60000,
-  //   },
-  // )
-
-  const fetchData = (qry, mapper = () => {}) => {
+  const fetchData = (
+    qry,
+    mapper = (item) => ({
+      value: item.id,
+      label: item?.label || item?.name,
+      ...(item || {}),
+    }),
+  ) => {
     Api.staticData
       .fetch(qry)
-      .then(Api.utils.getRes)
-      .then(({ results = [] }) => {
-        setStaticData({ [qry?.resource]: results?.map(mapper) })
+      .then((res) => res?.data)
+      .then((res) => {
+        setStaticData({ [qry?.resource]: res?.results?.map(mapper) })
       })
   }
 
-  const fetchRoles = () => {
-    fetchData({ resource: 'roles' }, (role) => ({
-      value: role.id,
-      label: role?.display_name || role?.name,
-    }))
-  }
+  // Static data fetchers
+  const apiState = useQueries(
+    resources?.map((item) => {
+      const [resource, mapper] = Types.isObject(item)
+        ? Object.values(item)
+        : [item]
 
-  const fetchPropertyTypes = () => {
-    fetchData({ resource: 'property_types' }, (item) => ({
-      value: item,
-      label: item,
-    }))
-  }
+      return {
+        queryKey: ['staticData', resource],
+        queryFn: () => fetchData({ resource }, mapper),
+        // config: { enabled: false },
+      }
+    }),
+  )
 
-  const fetchUsers = () => {
-    fetchData({ resource: 'users' }, (user) => ({
-      value: user.id,
-      label: user?.label || user?.name,
-      ...(user || {}),
-    }))
-  }
-
-  const fetchTransaction = () => {
-    fetchData({ resource: 'transactions' }, (user) => ({
-      value: user.id,
-      label: user?.label || user?.name,
-      ...(user || {}),
-    }))
-  }
-
-  const fetchProjects = () => {
-    fetchData({ resource: 'projects' }, (user) => ({
-      value: user.id,
-      label: user?.label || user?.name,
-      ...(user || {}),
-    }))
-  }
+  React.useEffect(() => {}, [resources])
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const contextValue = {
     staticData,
     setStaticData,
-    fetchRoles,
-    fetchPropertyTypes,
-    fetchUsers,
-    fetchProjects,
-    fetchTransaction,
+    setResources,
+    apiState,
   }
 
   return (
@@ -89,3 +63,26 @@ const AppContextProvider = ({ children }) => {
   )
 }
 export default AppContextProvider
+
+/**
+ * 
+ * if (
+      !appContext?.staticData?.transactions?.length ||
+      !appContext?.staticData?.projects?.length
+    ) {
+      appContext.setResources(['projects', 'transactions'])
+    }
+    
+ *  appContext.setResources([
+        {
+          resource: 'property_types',
+          mapper: (item) => ({
+            value: item,
+            label: item,
+          }),
+        },
+      ])
+
+
+
+ */

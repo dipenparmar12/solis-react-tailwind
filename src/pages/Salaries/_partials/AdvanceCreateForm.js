@@ -60,7 +60,7 @@ export default function AdvanceCreateForm({
 
   React.useEffect(() => {
     if (!appContext?.staticData?.users?.length) {
-      appContext?.fetchUsers()
+      appContext.setResources(['users'])
     }
   }, [])
 

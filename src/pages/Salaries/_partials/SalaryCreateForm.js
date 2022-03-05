@@ -78,7 +78,7 @@ export default function SalaryCreateForm({
 
   React.useEffect(() => {
     if (!appContext?.staticData?.users?.length) {
-      appContext?.fetchUsers()
+      appContext.setResources(['users'])
     }
   }, [])
 

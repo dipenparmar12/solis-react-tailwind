@@ -6,7 +6,7 @@
 import React from 'react'
 import { useSortBy, useTable } from 'react-table'
 import useToggle from '@/hooks/useToggle'
-import { useDealerContext } from './Context'
+import { useEstimateContext } from './Context'
 import TableLoading from '@/components/molecules/Table/TableLoading'
 import Icons from '@/components/icons/Icons'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
@@ -19,12 +19,12 @@ import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
 
-function DealerList() {
-  const { qry, setQry, State: DealerState } = useDealerContext()
+function EstimateList() {
+  const { qry, setQry, State: EstimateState } = useEstimateContext()
   const [filtersVisible, setFilterVisible] = useToggle(false)
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
 
-  const TableRows = DealerState?.data || [] // TOD0::MEMOIZE Table data
+  const TableRows = EstimateState?.data || [] // TOD0::MEMOIZE Table data
 
   const TableColumns = React.useMemo(
     () => [
@@ -34,29 +34,68 @@ function DealerList() {
         isSortable: true,
       },
       {
-        Header: 'name',
-        accessor: 'name',
-      },
-      {
-        Header: 'mobile',
-        accessor: 'mobile',
+        id: 'project_id',
+        Header: 'Project',
+        accessor: 'project.title',
+        isSortable: true,
         Cell: ({ value }) => (
-          <a
-            target={'_blank'}
-            href={`https://wa.me/+91${value}`}
-            rel="noreferrer"
-          >
+          <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
             {value}
-          </a>
+          </span>
         ),
       },
       {
-        Header: 'Store',
-        accessor: 'firm',
+        id: 'dealer_id',
+        Header: 'Dealer',
+        accessor: 'dealer.firm',
+        isSortable: true,
+        Cell: ({ value }) => (
+          <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
+            {value}
+          </span>
+        ),
       },
       {
+        Header: 'From Date',
+        accessor: 's_date',
+        isSortable: true,
+        Cell: ({ value }) => formatDate(value),
+      },
+      {
+        Header: 'To Date',
+        accessor: 'e_date',
+        isSortable: true,
+        Cell: ({ value }) => formatDate(value),
+      },
+      {
+        Header: 'Amount',
+        accessor: 'amount',
+        isSortable: true,
+        Cell: ({ value }) => (
+          <span className="font-semibold text-green-600">
+            {formatRs(value || '-')}
+          </span>
+        ),
+      },
+
+      {
+        Header: ' ',
+        accessor: 'attachment',
+        id: 'attachment',
+        isSortable: false,
+        Cell: ({ row, value }) => (
+          <div className="cursor-pointer hover:underline hover:text-sky-600">
+            <button>
+              <Icons.Attachment className="" />
+            </button>
+          </div>
+        ),
+      },
+
+      {
         Header: 'Status',
-        accessor: 'status',
+        accessor: 'id',
+        id: 'status',
         isSortable: false,
         Cell: ({ row, value }) => (
           <div className="space-x-1.5 flex items-center">
@@ -73,8 +112,6 @@ function DealerList() {
               <Print>{row.original}</Print>
             </ModalV3>
 
-            {value !== 1 && <Icons.DND className="text-red-500" />}
-
             {/* <button>
               <Icons.Edit className="hover:text-yellow-600" />
             </button>
@@ -89,8 +126,8 @@ function DealerList() {
   )
 
   const totalRecords = React.useMemo(
-    () => DealerState?.total || 0,
-    [DealerState?.total],
+    () => EstimateState?.total || 0,
+    [EstimateState?.total],
   )
 
   const {
@@ -124,7 +161,7 @@ function DealerList() {
                 onClick={toggle}
                 className="pt-2 mb-3 text-xl font-semibold text-gray-600 cursor-pointer dark:text-gray-400"
               >
-                Dealers
+                Estimates
                 {isOpen ? Icons.ArrowDown : Icons.ArrowRight}
               </h1>
               <div className="flex my-2 space-x-2">
@@ -159,10 +196,10 @@ function DealerList() {
             setPerPage={(option) => {
               setQry?.merge({ page: 1, per_page: option?.value || option })
             }}
-            loading={DealerState?.isLoading}
-            totalRecords={DealerState?.total || 0}
-            pageSize={DealerState?.rest?.per_page || 0}
-            currentPage={DealerState?.rest?.current_page || 0}
+            loading={EstimateState?.isLoading}
+            totalRecords={EstimateState?.total || 0}
+            pageSize={EstimateState?.rest?.per_page || 0}
+            currentPage={EstimateState?.rest?.current_page || 0}
             siblingCount={1}
           />
         </Accordion>
@@ -215,11 +252,11 @@ function DealerList() {
                 )
               })}
 
-              {<TableLoading loading={DealerState?.isLoading} />}
+              {<TableLoading loading={EstimateState?.isLoading} />}
 
               <tr className="text-left lg:text-right ">
                 <td colSpan="10000" className="pt-4 px-2 py-2.5">
-                  {DealerState?.isLoading
+                  {EstimateState?.isLoading
                     ? 'Loading... ' // Use our custom loading state to show a loading indicator
                     : `Showing ${rows?.length} of ~${
                         totalRecords || ''
@@ -246,4 +283,4 @@ function DealerList() {
   )
 }
 
-export default DealerList
+export default EstimateList

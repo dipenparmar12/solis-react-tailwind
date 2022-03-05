@@ -26,6 +26,8 @@ import Icons from '@/components/icons/Icons'
 import Incomes from '@/pages/Incomes/Context'
 import DealersContext from '@/pages/Dealers/Context'
 import { IncomeFormContainer } from '@/pages/Incomes/Form'
+import EstimatesContext from '@/pages/Estimates/Context'
+import EstimateForm from '@/pages/Estimates/Create'
 
 export const testRoutes = {
   profile: {
@@ -127,12 +129,6 @@ export const routesPrivate = {
     element: <Incomes />,
     icon: <Icons.Dollar className="" />,
   },
-  dealers: {
-    label: 'Dealers',
-    path: '/dealers',
-    element: <DealersContext />,
-    icon: <Icons.Bag className="" />,
-  },
   funds: {
     label: 'PettyCase',
     path: '/funds',
@@ -144,6 +140,24 @@ export const routesPrivate = {
     path: '/projects',
     element: <ProjectContainer />,
     icon: <RiBuilding2Line />,
+  },
+  dealers: {
+    label: 'Dealers',
+    path: '/dealers',
+    element: <DealersContext />,
+    icon: <Icons.Bag className="" />,
+  },
+  estimates: {
+    label: 'Estimates',
+    path: '/estimates',
+    element: <EstimatesContext />,
+    icon: <Icons.Bag className="" />,
+  },
+  estimateCreate: {
+    label: 'New Estimate',
+    path: '/estimates/create',
+    element: <EstimateForm />,
+    icon: <Icons.Add />,
   },
   users: {
     label: 'Users',

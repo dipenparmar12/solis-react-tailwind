@@ -29,7 +29,7 @@ function AdvanceFilters({ isVisible }) {
 
   React.useEffect(() => {
     if (isVisible && !appContext?.staticData?.users?.length) {
-      appContext?.fetchUsers()
+      appContext.setResources(['users'])
     }
   }, [isVisible])
 
