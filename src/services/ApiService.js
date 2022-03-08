@@ -87,6 +87,8 @@ const resources = {
     paginate: async ({ qry, config }) =>
       _axios.get(`/test/paginate?${encode(qry)}`, config),
     notFound: async () => _axios.get(`/notfound`),
+    fileUpload: async (id, data, config) =>
+      _axios.post(`/test/file_upload/${id}`, data, config), // headers: { "Content-Type": "multipart/form-data" }
   },
 }
 

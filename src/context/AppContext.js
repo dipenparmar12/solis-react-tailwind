@@ -43,7 +43,13 @@ const AppContextProvider = ({ children }) => {
       return {
         queryKey: ['staticData', resource],
         queryFn: () => fetchData({ resource }, mapper),
-        // config: { enabled: false },
+        // config: {
+        //   cacheTime: 3000,
+        //   refetchInterval: 10000,
+        //   refetchOnMount: false,
+        //   refetchOnWindowFocus: false,
+        //   refetchOnReconnect: false,
+        // },
       }
     }),
   )

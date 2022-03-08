@@ -27,7 +27,7 @@ export default function EstimateSchemaCB(isEdit) {
       .date()
       .required()
       .nullable()
-      .max(new Date(), 'Start date can not be future date') // Date can be future date
+      // .max(new Date(), 'Start date can not be future date') // Date can be future date
       .typeError('Invalid date')
       .label(EstimateInputLabels.s_date),
 

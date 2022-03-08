@@ -5,6 +5,7 @@ import {
   RiArrowUpSLine,
   RiAttachmentLine,
   RiDeleteBin7Line,
+  RiDeleteBinLine,
   RiEditLine,
   RiEyeLine,
   RiFilter3Line,
@@ -49,6 +50,8 @@ const Icons = {
   Bag: RiShoppingBag3Line,
 
   DND: MdOutlineDoNotDisturbOff,
+
+  // Delete1: RiDeleteBinLine,
   // CheckCircle: FiCheckCircle,
 }
 

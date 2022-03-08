@@ -26,6 +26,7 @@ specifiers:
   react-datepicker: ^4.5.0
   react-dom: ^17.0.2
   react-dropdown-select: ^4.8.0
+  react-dropzone: ^12.0.4
   react-icons: ^4.3.1
   react-query: ^3.34.16
   react-responsive-modal: ^6.2.0
@@ -39,7 +40,7 @@ specifiers:
   yup: ^0.32.11
 
 dependencies:
-  '@craco/craco': 6.4.3_f6a52f210399191319b65bcc9b05d59f
+  '@craco/craco': 6.4.3_react-scripts@5.0.0-next.58
   '@reach/dialog': 0.16.2_react-dom@17.0.2+react@17.0.2
   '@testing-library/jest-dom': 5.16.1
   '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
@@ -54,6 +55,7 @@ dependencies:
   react-datepicker: 4.5.0_react-dom@17.0.2+react@17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-dropdown-select: 4.8.0_react-dom@17.0.2+react@17.0.2
+  react-dropzone: 12.0.4_react@17.0.2
   react-icons: 4.3.1_react@17.0.2
   react-query: 3.34.16_react-dom@17.0.2+react@17.0.2
   react-responsive-modal: 6.2.0_react-dom@17.0.2+react@17.0.2
@@ -1443,7 +1445,7 @@ packages:
       react: 17.0.2
     dev: false
 
-  /@craco/craco/6.4.3_f6a52f210399191319b65bcc9b05d59f:
+  /@craco/craco/6.4.3_react-scripts@5.0.0-next.58:
     resolution: {integrity: sha512-RzkXYmNzRCGUyG7mM+IUMM+nvrpSfA34352sPSGQN76UivAmCAht3sI4v5JKgzO05oUK9Zwi6abCKD7iKXI8hQ==}
     engines: {node: '>=6'}
     hasBin: true
@@ -3051,6 +3053,11 @@ packages:
     resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==}
     engines: {node: '>= 4.5.0'}
     hasBin: true
+    dev: false
+
+  /attr-accept/2.2.2:
+    resolution: {integrity: sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==}
+    engines: {node: '>=4'}
     dev: false
 
   /autoprefixer/10.4.0_postcss@8.4.4:
@@ -5066,6 +5073,13 @@ packages:
       loader-utils: 2.0.2
       schema-utils: 3.1.1
       webpack: 5.65.0
+    dev: false
+
+  /file-selector/0.4.0:
+    resolution: {integrity: sha512-iACCiXeMYOvZqlF1kTiYINzgepRBymz1wwjiuup9u9nayhb6g4fSwiyJ/6adli+EPwrWtpgQAh2PoS7HukEGEg==}
+    engines: {node: '>= 10'}
+    dependencies:
+      tslib: 2.3.1
     dev: false
 
   /filelist/1.0.2:
@@ -8494,6 +8508,14 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
 
+  /prop-types/15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
   /property-expr/2.0.4:
     resolution: {integrity: sha512-sFPkHQjVKheDNnPvotjQmm3KD3uk1fWKUN7CrpdbwmUx3CrG3QiM8QpTSimvig5vTXmTvjz7+TDvXOI9+4rkcg==}
     dev: false
@@ -8679,6 +8701,18 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
+  /react-dropzone/12.0.4_react@17.0.2:
+    resolution: {integrity: sha512-fcqHEYe1MzAghU6/Hz86lHDlBNsA+lO48nAcm7/wA+kIzwS6uuJbUG33tBZjksj7GAZ1iUQ6NHwjUURPmSGang==}
+    engines: {node: '>= 10.13'}
+    peerDependencies:
+      react: '>= 16.8'
+    dependencies:
+      attr-accept: 2.2.2
+      file-selector: 0.4.0
+      prop-types: 15.8.1
+      react: 17.0.2
+    dev: false
+
   /react-error-overlay/7.0.0-next.65:
     resolution: {integrity: sha512-tOAxyTOaOrwon2GMS6cTfFdTHBIifyf7i/SphLxHZtWVhD/dk+pfEp/ACaQe3J1lO7qEv/ei2np3XxRezyedrg==}
     dev: false
@@ -8698,7 +8732,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.16.3
       focus-lock: 0.10.1
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 17.0.2
       react-clientside-effect: 1.2.5_react@17.0.2
       use-callback-ref: 1.2.5_react@17.0.2

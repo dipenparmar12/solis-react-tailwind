@@ -3,7 +3,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react'
-import { wait } from '@testing-library/user-event/dist/utils'
 import { useMutation } from 'react-query'
 import { FieldArray, useFormikContext, getIn } from 'formik'
 import Button from '@/components/atoms/Button'
@@ -21,6 +20,12 @@ import Print from '@/components/atoms/Print'
 import { InputSelectFormik } from '@/components/molecules/Form/InputSelect'
 import EstimateValidators from './_partials/EstimateValidators'
 import ErrorFeedback from '@/components/atoms/ErrorFeedback'
+import FilesUpload, {
+  FilesUploadFormik,
+} from '@/components/molecules/Form/FilesUpload'
+import castFormData from '@/utils/miscellaneous/castFormData'
+import omit from '@/utils/obj/omit'
+import formatDate from '@/utils/date/formatDate'
 
 const initialValues = {
   id: '',
@@ -33,6 +38,7 @@ const initialValues = {
       amount: 0,
     },
   ],
+  files: 123,
 }
 
 export default function EstimateCreate({
@@ -43,6 +49,7 @@ export default function EstimateCreate({
   const modalCtx = useModalContext()
   const appContext = useAppContext()
   const [estimatesRows, setEstimatesRows] = React.useState([1, 2, 3])
+  const [files, setFiles] = React.useState([])
 
   React.useEffect(() => {
     if (
@@ -52,6 +59,10 @@ export default function EstimateCreate({
       appContext.setResources(['projects', 'dealers'])
     }
   }, [])
+
+  React.useEffect(() => {
+    console.log('Create.js::[60]', files)
+  }, [files])
 
   const mutation = useMutation(Api.estimates.create)
   const mutationOptions = (actions) => {
@@ -74,7 +85,22 @@ export default function EstimateCreate({
 
   const handleSubmit = async (values, actions, rowValues) => {
     // console.log('Create.js::[70] values, rowValues', values, rowValues)
-    mutation.mutate(values, mutationOptions(actions))
+    // return actions?.setSubmitting(false)
+    const formValues = omit(values, ['files'])
+    const postData = new FormData()
+
+    Object.keys(formValues).forEach((key) => {
+      postData.append(key, JSON.stringify(values[key]))
+    })
+
+    postData.append('s_date', formatDate(values?.s_date, 'yyyy-MM-dd HH:mm:ss'))
+    postData.append('e_date', formatDate(values?.e_date, 'yyyy-MM-dd HH:mm:ss'))
+
+    files.forEach((file) => {
+      postData.append(`files[]`, file.blob, file.name)
+    })
+
+    mutation.mutate(postData, mutationOptions(actions))
   }
 
   return (
@@ -84,7 +110,7 @@ export default function EstimateCreate({
         debug={['values', 'errors']}
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         onSubmit={handleSubmit}
-        validationSchema={EstimateValidators(isEdit)}
+        // validationSchema={EstimateValidators(isEdit)}
         // inputLabels={projectInputLabels}
         // transformValues={transformValues}
         // castFormData
@@ -138,6 +164,17 @@ export default function EstimateCreate({
               label="Description"
               placeholder="Description of the income"
               rows="3"
+            />
+          </div>
+
+          <div className="flex flex-col gap-3 md:flex-row">
+            <FilesUploadFormik
+              className={'flex-1'}
+              name="files"
+              label="Attachments"
+              placeholder="Attachments"
+              files={files}
+              setFiles={setFiles}
             />
           </div>
         </div>
@@ -211,12 +248,6 @@ function InputEstimates({ appContext, estimatesRows, setEstimatesRows }) {
                       {/* <ErrorMessage
                         form={formikProps}
                         name={`estimates.${index}.dealer_id`}
-                      /> */}
-
-                      {/* <ErrorFeedback
-                        error={
-                          formikProps?.errors?.estimates?.[index]?.dealer_id
-                        }
                       /> */}
                     </div>
 
