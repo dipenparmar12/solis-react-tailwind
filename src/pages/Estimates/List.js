@@ -1,4 +1,8 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable default-param-last */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+// /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-nested-ternary */
@@ -18,6 +22,10 @@ import formatDate from '@/utils/date/formatDate'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
+import config from '@/config/config'
+import formatBytes from '@/utils/number/formatBytes'
+import axiosApp from '@/services/AxiosService'
+import Api from '@/services/ApiService'
 
 function EstimateList() {
   const { qry, setQry, State: EstimateState } = useEstimateContext()
@@ -85,9 +93,69 @@ function EstimateList() {
         isSortable: false,
         Cell: ({ row, value }) => (
           <div className="cursor-pointer hover:underline hover:text-sky-600">
-            <button>
-              <Icons.Attachment className="" />
-            </button>
+            {row.original?.media?.length > 0 && (
+              <ModalV3
+                renderButton={({ setOpen }) => (
+                  <button onClick={setOpen} className="text-sm ">
+                    <Icons.Attachment className="" />{' '}
+                  </button>
+                )}
+              >
+                <h2 className="mb-3 mr-10 text-2xl">
+                  Estimates files: {row.values?.id}
+                </h2>
+                <Print>{value}</Print>
+
+                <table className="table_v1">
+                  <thead>
+                    <td> ID </td>
+                    <td> Name </td>
+                    <td> Size </td>
+                    <td> File Type </td>
+                    <td> - </td>
+                    <td> - </td>
+                  </thead>
+                  <tbody>
+                    {row.original?.media?.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.id}</td>
+                        <td>{item.file_name}</td>
+                        <td>{formatBytes(item.size)}</td>
+                        <td>{item.mime_type}</td>
+                        <td>
+                          <a
+                            onClick={() =>
+                              Api.utils.fetchFile(
+                                item?.id,
+                                item?.file_name,
+                                'view',
+                              )
+                            }
+                            className="cursor-pointer hover:underline text-sky-500 hover:text-sky-600"
+                          >
+                            View
+                          </a>
+                        </td>{' '}
+                        <td>
+                          <a
+                            onClick={() =>
+                              Api.utils.fetchFile(
+                                item?.id,
+                                item?.file_name,
+                                'download',
+                              )
+                            }
+                            className="cursor-pointer hover:underline text-sky-500 hover:text-sky-600"
+                          >
+                            Download
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </ModalV3>
+            )}
           </div>
         ),
       },

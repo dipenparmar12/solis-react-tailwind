@@ -105,6 +105,23 @@ const utils = {
   //     toastId: 'API_ERROR',
   //   })
   // },
+
+  fetchFile: async (id, fileName, action = 'download') => {
+    const res = await _axios.get(`/download?id=${id}`, {
+      responseType: 'blob', // important
+    })
+    const fileUrl = window.URL.createObjectURL(new Blob([res?.data]))
+
+    if (action === 'download') {
+      const anchor = document.createElement('a')
+      anchor.href = fileUrl
+      anchor.target = '_blank'
+      anchor.download = fileName
+      anchor.click()
+    } else if (action === 'view') {
+      window.open(fileUrl)
+    }
+  },
 }
 
 const Api = {

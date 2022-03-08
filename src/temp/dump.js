@@ -370,3 +370,39 @@ function AddUser() {
     )}
   />
 */
+
+/*
+
+  const filePreview = (blobData) => {
+    // console.log('List.js::[37] blobData', blobData)
+    const fileUrl = window.URL.createObjectURL(new Blob([blobData]))
+    window.open(fileUrl)
+    // const tab = window.open()
+    // tab.location.href = fileUrl
+  }
+
+  const fileDownload = (blobData, fileName = 'solis-downloads') => {
+    // console.log('List.js::[46] blobData', blobData)
+    const link = document.createElement('a')
+    const fileUrl = window.URL.createObjectURL(new Blob([blobData]))
+    const anchor = document.createElement('a')
+    anchor.href = fileUrl
+    anchor.target = '_blank'
+    anchor.download = fileName
+    anchor.click()
+  }
+
+  const fetchFile = (id, fileName = 'solis-downloaded', cb = filePreview) => {
+    const url = `/download?id=${id}`
+    axiosApp({
+      url,
+      method: 'GET',
+      responseType: 'blob', // important
+    })
+      .then((res) => cb(res?.data, fileName))
+      .catch((error) => {
+        console.error('List.js::[42] error', error)
+      })
+  }
+  
+*/

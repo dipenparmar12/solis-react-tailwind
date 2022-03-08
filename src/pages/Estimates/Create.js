@@ -60,10 +60,6 @@ export default function EstimateCreate({
     }
   }, [])
 
-  React.useEffect(() => {
-    console.log('Create.js::[60]', files)
-  }, [files])
-
   const mutation = useMutation(Api.estimates.create)
   const mutationOptions = (actions) => {
     return {
