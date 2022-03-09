@@ -12,7 +12,7 @@ const [ExpenseProvider, useExpenseContext, Context] = ContextFactory({
 export { useExpenseContext }
 
 export default function ExpensesContext() {
-  const [qry, setQry] = useObject({ page: 1, per_page: 7 })
+  const [qry, setQry] = useObject({ page: 1, per_page: 15 })
 
   // // Enable query params
   // const qryParams = useQryParams({ setParams: setQry.merge })

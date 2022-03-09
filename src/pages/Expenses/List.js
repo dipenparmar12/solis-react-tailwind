@@ -264,16 +264,6 @@ function EstimateList() {
               })}
 
               {<TableLoading loading={EstimateState?.isLoading} />}
-
-              <tr className="text-left lg:text-right ">
-                <td colSpan="10000" className="pt-4 px-2 py-2.5">
-                  {EstimateState?.isLoading
-                    ? 'Loading... ' // Use our custom loading state to show a loading indicator
-                    : `Showing ${rows?.length} of ~${
-                        totalRecords || ''
-                      } results`}
-                </td>
-              </tr>
             </tbody>
 
             <tfoot>
@@ -286,6 +276,15 @@ function EstimateList() {
                   ))}
                 </tr>
               ))}
+              <tr className="text-left  lg:text-right">
+                <td colSpan="10000" className="pt-4 px-2 py-2.5">
+                  {EstimateState?.isLoading
+                    ? 'Loading... ' // Use our custom loading state to show a loading indicator
+                    : `Showing ${rows?.length} of ~${
+                        totalRecords || ''
+                      } results`}
+                </td>
+              </tr>
             </tfoot>
           </table>
         </div>

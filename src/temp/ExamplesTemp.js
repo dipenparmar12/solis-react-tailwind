@@ -8,10 +8,11 @@ import ButtonsExample from './Examples/ButtonsExample'
 import SvgExamples from './Examples/SvgExamples'
 import ModalV1Example from './Examples/ModalV1Example'
 import BadgeExamples1 from './Examples/BadgeExamples1'
+import TooltipExample from './Examples/TooltipExample'
 
 export default function ExamplesTemp() {
   return (
-    <div className="flex flex-col pb-20 space-y-4">
+    <div className="flex flex-col space-y-4 pb-96">
       {/* ModalV1 example */}
       <ModalV1Example />
       <hr />
@@ -21,6 +22,12 @@ export default function ExamplesTemp() {
       {/* Buttons  */}
       <ButtonsExample />
       <hr />
+      <br />
+      <br />
+      {/* Tooltip  */}
+      <TooltipExample />
+      <hr />
+      <br />
       <br />
       {/* Fetch example */}
       Fetch Data example
@@ -38,7 +45,6 @@ export default function ExamplesTemp() {
       {/* Badges */}
       <BadgeExamples1 />
       <hr />
-      <br />
     </div>
   )
 }
