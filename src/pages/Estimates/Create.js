@@ -26,6 +26,7 @@ import FilesUpload, {
 import castFormData from '@/utils/miscellaneous/castFormData'
 import omit from '@/utils/obj/omit'
 import formatDate from '@/utils/date/formatDate'
+import generateKey from '@/utils/miscellaneous/generateKey'
 
 const initialValues = {
   id: '',
@@ -191,7 +192,7 @@ export const EstimateFormContainer = ({ ...props }) => {
   )
 }
 
-const generateKey = (pre) => {
+const generateKey2 = (pre) => {
   return `${pre}__${new Date().getTime()}`
 }
 
@@ -223,7 +224,10 @@ function InputEstimates({ appContext, estimatesRows, setEstimatesRows }) {
               {values?.estimates &&
                 values?.estimates?.length > 0 &&
                 values?.estimates?.map((estimate, index) => (
-                  <div key={index} className="flex flex-col gap-3 md:flex-row">
+                  <div
+                    key={generateKey(index)}
+                    className="flex flex-col gap-3 md:flex-row"
+                  >
                     <div className="flex-1">
                       <InputSelectFormik
                         // clearable
