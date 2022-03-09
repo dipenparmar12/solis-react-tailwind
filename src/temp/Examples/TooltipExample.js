@@ -4,7 +4,7 @@ import Popover from '@/components/molecules/Popover/Popover'
 
 /**
  * Badge examples
- * @see
+ * @see https://atomiks.github.io/tippyjs/v6/all-props/#trigger
  */
 function TooltipExample() {
   const [arrow, setArrow] = React.useState(null)

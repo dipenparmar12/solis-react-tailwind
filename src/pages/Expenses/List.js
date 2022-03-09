@@ -22,6 +22,8 @@ import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
 import { useExpenseContext } from './Context'
+import Popover from '@/components/molecules/Popover/Popover'
+import ToolTip from '@/components/molecules/Popover/Tooltip'
 
 function EstimateList() {
   const { qry, setQry, State: EstimateState } = useExpenseContext()
@@ -29,6 +31,7 @@ function EstimateList() {
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
 
   const TableRows = EstimateState?.data || [] // TOD0::MEMOIZE Table data
+  const buttonRef = React.useRef()
 
   const TableColumns = React.useMemo(
     () => [
@@ -103,6 +106,49 @@ function EstimateList() {
           </span>
         ),
       },
+
+      {
+        Header: 'Action',
+        // accessor: 'approval',
+        isSortable: false,
+        Cell: ({ value }) => (
+          <div className="flex justify-center">
+            <ToolTip
+              placement="left"
+              // trigger="click"
+              content={
+                <div className="z-40 p-2 px-5 bg-white border rounded-lg shadow-lg space-2">
+                  <div className="pb-2"> Accept or Reject expense?</div>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      className="text-green-600 bg-green-100 hover:bg-green-200 active:bg-green-200"
+                    >
+                      Accept
+                    </Button>
+
+                    <Button
+                      size="sm"
+                      className="text-red-400 bg-red-100 hover:bg-red-200 active:bg-red-200"
+                    >
+                      Reject
+                    </Button>
+                  </div>
+                </div>
+              }
+            >
+              <button
+                className="px-1 py-1 text-sm rounded-full shadow-lg cursor-pointer bg-amber-300 hover:scale-125 text-amber-600 hover:text-amber-400 hover:shadow-sm"
+                onClick={() => setQry.reset() || setFilterVisible.off()}
+                ref={buttonRef}
+              >
+                <Icons.Question className="inline-block text-green-900 mx-0.5 mb-1" />
+              </button>
+            </ToolTip>
+          </div>
+        ),
+      },
+
       {
         Header: 'Status',
         accessor: 'id',
@@ -276,7 +322,7 @@ function EstimateList() {
                   ))}
                 </tr>
               ))}
-              <tr className="text-left  lg:text-right">
+              <tr className="text-left lg:text-right">
                 <td colSpan="10000" className="pt-4 px-2 py-2.5">
                   {EstimateState?.isLoading
                     ? 'Loading... ' // Use our custom loading state to show a loading indicator

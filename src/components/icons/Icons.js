@@ -1,4 +1,4 @@
-import { BsChevronExpand } from 'react-icons/bs'
+import { BsCheck2Circle, BsChevronExpand, BsQuestion } from 'react-icons/bs'
 import {
   RiAddLine,
   RiArrowDownSLine,
@@ -7,19 +7,23 @@ import {
   RiDeleteBin7Line,
   RiDeleteBinLine,
   RiEditLine,
+  RiErrorWarningLine,
   RiEyeLine,
   RiFilter3Line,
   RiHandCoinLine,
+  RiIndeterminateCircleLine,
+  RiQuestionMark,
   RiRefreshLine,
   RiShoppingBag3Line,
 } from 'react-icons/ri'
-import { VscChevronDown, VscChevronRight } from 'react-icons/vsc'
+import { VscCheckAll, VscChevronDown, VscChevronRight } from 'react-icons/vsc'
 import { FcPaid } from 'react-icons/fc'
-import { IoMdDoneAll } from 'react-icons/io'
+import { IoIosCloseCircleOutline, IoMdDoneAll } from 'react-icons/io'
 import { MdOutlineCloudDone, MdOutlineDoNotDisturbOff } from 'react-icons/md'
 import { GrMoney } from 'react-icons/gr'
 import { BiDollar } from 'react-icons/bi'
 import { FiCheckCircle } from 'react-icons/fi'
+import { TiDelete } from 'react-icons/ti'
 
 /**
  * Icons for the application
@@ -44,6 +48,10 @@ const Icons = {
   Refresh: RiRefreshLine,
 
   Complete: MdOutlineCloudDone,
+  // Check: BsCheck2Circle,
+  Check: VscCheckAll,
+  Question: BsQuestion,
+  Terminate: TiDelete,
 
   GrMoney,
   Dollar: BiDollar,

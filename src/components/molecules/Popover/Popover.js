@@ -10,23 +10,32 @@ const PopoverContainer = ({ children, ...rest }) => {
     </div>
   )
 }
-
-const Popover = React.forwardRef(({ children, placement, ...rest }, ref) => {
-  return (
-    <Tippy
-      interactive
-      content={<PopoverContainer> {children} </PopoverContainer>}
-      placement={placement}
-      reference={ref}
-      trigger="click"
-      animation="shift-away"
-      className="arrow-light"
-      {...rest}
-    />
-  )
-})
-
-export default Popover
+/**
+ * @see https://github.com/atomiks/tippyjs-react
+ * @see https://atomiks.github.io/tippyjs/v6/all-props/#trigger
+ */
+const Popover = React.forwardRef(
+  ({ children, container = true, placement, ...rest }, ref) => {
+    return (
+      <Tippy
+        interactive
+        content={
+          container ? (
+            <PopoverContainer> {children} </PopoverContainer>
+          ) : (
+            children
+          )
+        }
+        placement={placement}
+        reference={ref}
+        trigger="click"
+        animation="shift-away"
+        className="arrow-light"
+        {...rest}
+      />
+    )
+  },
+)
 
 Popover.Heading = ({ className, children }) => (
   <>
@@ -43,3 +52,5 @@ Popover.Body = ({ className, children }) => (
     </div>
   </>
 )
+
+export default Popover
