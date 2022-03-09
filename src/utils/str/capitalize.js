@@ -7,7 +7,7 @@
  * capitalize('hello_World') // 'Hello World'
  * capitalize('hello-word_how_are-you') // 'Hello word how are you'
  */
-const capitalize = (str, regex = /[_-]/g, replacer = ' ') => {
+function capitalize(str, regex = /[_-]/g, replacer = ' ') {
   const sanitized = str.replace(regex, replacer)
   return sanitized.charAt(0).toUpperCase() + sanitized.slice(1)
 }

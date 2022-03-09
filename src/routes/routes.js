@@ -21,13 +21,14 @@ import TransactionsContainer from '@/pages/Transactions/Transactions'
 import FundContainer from '@/pages/Funds/Funds'
 import AppContextState from '@/temp/Examples/AppContextState'
 import SalaryPage from '@/pages/Salaries'
-import IncomeList from '@/pages/Incomes/List'
 import Icons from '@/components/icons/Icons'
-import Incomes from '@/pages/Incomes/Context'
+import IncomesContext from '@/pages/Incomes/Context'
+import ExpenseContext from '@/pages/Expenses/Context'
 import DealersContext from '@/pages/Dealers/Context'
 import { IncomeFormContainer } from '@/pages/Incomes/Form'
 import EstimatesContext from '@/pages/Estimates/Context'
 import EstimateCreate from '@/pages/Estimates/Create'
+import { ExpenseFormContainer } from '@/pages/Expenses/Create'
 
 export const testRoutes = {
   profile: {
@@ -94,10 +95,16 @@ export const routesPublic = {
 
 export const routesPrivate = {
   userCreate: {
-    label: 'User',
+    label: 'New User',
     path: '/users/create',
     element: <UserAddFormContainer />,
     icon: <Icons.Add />,
+  },
+  expenseCreate: {
+    label: 'New Expense',
+    path: '/expense/create',
+    element: <ExpenseFormContainer />,
+    icon: <Icons.Add className="" />,
   },
   incomeCreate: {
     label: 'New Income',
@@ -110,6 +117,12 @@ export const routesPrivate = {
     path: '/projects/create',
     element: <ProjectFormContainer />,
     icon: <Icons.Add />,
+  },
+  expenses: {
+    label: 'Expenses',
+    path: '/expenses',
+    element: <ExpenseContext />,
+    icon: <Icons.Dollar className="" />,
   },
   home: {
     label: 'Home',
@@ -126,8 +139,8 @@ export const routesPrivate = {
   incomes: {
     label: 'Incomes',
     path: '/incomes',
-    element: <Incomes />,
-    icon: <Icons.Dollar className="" />,
+    element: <IncomesContext />,
+    icon: <Icons.HandCoin className="" />,
   },
   funds: {
     label: 'PettyCase',

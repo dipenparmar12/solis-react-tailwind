@@ -1,4 +1,8 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable default-param-last */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+// /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-nested-ternary */
@@ -6,7 +10,6 @@
 import React from 'react'
 import { useSortBy, useTable } from 'react-table'
 import useToggle from '@/hooks/useToggle'
-import { useIncomeContext } from './Context'
 import TableLoading from '@/components/molecules/Table/TableLoading'
 import Icons from '@/components/icons/Icons'
 import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
@@ -18,13 +21,14 @@ import formatDate from '@/utils/date/formatDate'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
+import { useExpenseContext } from './Context'
 
-function IncomeList() {
-  const { qry, setQry, State: IncomeState } = useIncomeContext()
+function EstimateList() {
+  const { qry, setQry, State: EstimateState } = useExpenseContext()
   const [filtersVisible, setFilterVisible] = useToggle(false)
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
 
-  const TableRows = IncomeState?.data || [] // TOD0::MEMOIZE Table data
+  const TableRows = EstimateState?.data || [] // TOD0::MEMOIZE Table data
 
   const TableColumns = React.useMemo(
     () => [
@@ -34,9 +38,14 @@ function IncomeList() {
         isSortable: true,
       },
       {
-        id: 'project_id',
-        Header: 'Project',
-        accessor: 'project.title',
+        Header: 'Particular',
+        accessor: 'particular',
+        id: 'particular',
+      },
+      {
+        id: 'expense_by_user',
+        Header: 'Expense By',
+        accessor: 'expense_by_user.name',
         isSortable: true,
         Cell: ({ value }) => (
           <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
@@ -69,29 +78,31 @@ function IncomeList() {
         },
       },
       {
-        Header: 'Tran Type',
-        accessor: 'transaction.type',
-        id: 'transaction_id',
+        Header: 'Category',
+        accessor: 'category',
       },
       {
-        Header: 'From',
-        accessor: 'from',
-        id: 'from',
-      },
-      {
-        Header: ' ',
-        accessor: 'attachment',
-        id: 'attachment',
-        isSortable: false,
-        Cell: ({ row, value }) => (
-          <div className="cursor-pointer hover:underline hover:text-sky-600">
-            <button>
-              <Icons.Attachment className="" />
-            </button>
-          </div>
+        id: 'dealer_id',
+        Header: 'Dealer',
+        accessor: 'dealer.firm',
+        isSortable: true,
+        Cell: ({ value }) => (
+          <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
+            {value}
+          </span>
         ),
       },
-
+      {
+        id: 'project_id',
+        Header: 'Project',
+        accessor: 'project.title',
+        isSortable: true,
+        Cell: ({ value }) => (
+          <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
+            {value}
+          </span>
+        ),
+      },
       {
         Header: 'Status',
         accessor: 'id',
@@ -126,8 +137,8 @@ function IncomeList() {
   )
 
   const totalRecords = React.useMemo(
-    () => IncomeState?.total || 0,
-    [IncomeState?.total],
+    () => EstimateState?.total || 0,
+    [EstimateState?.total],
   )
 
   const {
@@ -161,7 +172,7 @@ function IncomeList() {
                 onClick={toggle}
                 className="pt-2 mb-3 text-xl font-semibold text-gray-600 cursor-pointer dark:text-gray-400"
               >
-                Incomes
+                Expenses
                 {isOpen ? Icons.ArrowDown : Icons.ArrowRight}
               </h1>
               <div className="flex my-2 space-x-2">
@@ -196,10 +207,10 @@ function IncomeList() {
             setPerPage={(option) => {
               setQry?.merge({ page: 1, per_page: option?.value || option })
             }}
-            loading={IncomeState?.isLoading}
-            totalRecords={IncomeState?.total || 0}
-            pageSize={IncomeState?.rest?.per_page || 0}
-            currentPage={IncomeState?.rest?.current_page || 0}
+            loading={EstimateState?.isLoading}
+            totalRecords={EstimateState?.total || 0}
+            pageSize={EstimateState?.rest?.per_page || 0}
+            currentPage={EstimateState?.rest?.current_page || 0}
             siblingCount={1}
           />
         </Accordion>
@@ -252,11 +263,11 @@ function IncomeList() {
                 )
               })}
 
-              {<TableLoading loading={IncomeState?.isLoading} />}
+              {<TableLoading loading={EstimateState?.isLoading} />}
 
               <tr className="text-left lg:text-right ">
                 <td colSpan="10000" className="pt-4 px-2 py-2.5">
-                  {IncomeState?.isLoading
+                  {EstimateState?.isLoading
                     ? 'Loading... ' // Use our custom loading state to show a loading indicator
                     : `Showing ${rows?.length} of ~${
                         totalRecords || ''
@@ -283,4 +294,4 @@ function IncomeList() {
   )
 }
 
-export default IncomeList
+export default EstimateList

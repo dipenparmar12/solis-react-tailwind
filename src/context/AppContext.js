@@ -3,6 +3,7 @@ import { useQueries, useQuery } from 'react-query'
 import useMergeState from '@/hooks/useMergeState'
 import Api from '@/services/ApiService'
 import Types from '@/utils/validation/Types'
+import capitalize from '@/utils/str/capitalize'
 
 const AppContext = React.createContext(null)
 export const useAppContext = () => React.useContext(AppContext)
@@ -21,7 +22,7 @@ const AppContextProvider = ({ children }) => {
     qry,
     mapper = (item) => ({
       value: item.id,
-      label: item?.label || item?.name,
+      label: capitalize(item?.label || item?.name || item?.title),
       ...(item || {}),
     }),
   ) => {

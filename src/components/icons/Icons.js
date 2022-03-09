@@ -9,6 +9,7 @@ import {
   RiEditLine,
   RiEyeLine,
   RiFilter3Line,
+  RiHandCoinLine,
   RiRefreshLine,
   RiShoppingBag3Line,
 } from 'react-icons/ri'
@@ -50,6 +51,8 @@ const Icons = {
   Bag: RiShoppingBag3Line,
 
   DND: MdOutlineDoNotDisturbOff,
+
+  HandCoin: RiHandCoinLine,
 
   // Delete1: RiDeleteBinLine,
   // CheckCircle: FiCheckCircle,

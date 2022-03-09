@@ -75,16 +75,16 @@ function FilesUpload({
     // accept: ['image/*', 'video/*', '.pdf'],
   })
 
-  const onSubmit = () => {
-    const formData = new FormData()
-    files.forEach((file) => {
-      formData.append(`${name}[]`, file.blob, file.name)
-    })
+  // const onSubmit = () => {
+  //   const formData = new FormData()
+  //   files.forEach((file) => {
+  //     formData.append(`${name}[]`, file.blob, file.name)
+  //   })
 
-    Api.test.fileUpload(2, formData).then((res) => {
-      console.log(res)
-    })
-  }
+  //   Api.test.fileUpload(2, formData).then((res) => {
+  //     console.log(res)
+  //   })
+  // }
 
   return (
     <div className={classNames('flex flex-col mt-2 ', className)}>
@@ -128,10 +128,6 @@ function FilesUpload({
       ))}
 
       <ErrorFeedback error={error} />
-
-      <button type="button" onClick={onSubmit}>
-        Submit
-      </button>
     </div>
   )
 }

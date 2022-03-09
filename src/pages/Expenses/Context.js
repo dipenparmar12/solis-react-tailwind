@@ -1,17 +1,17 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import ContextFactory from '@/context/ContextFactory'
-import IncomeList from '@/pages/Incomes/List'
+import ExpenseList from '@/pages/Expenses/List'
 import useObject from '@/hooks/useObject'
 import Api from '@/services/ApiService'
 import useQryParams from '@/hooks/useQryParams'
 
-const [IncomeProvider, useIncomeContext, Context] = ContextFactory({
-  name: 'IncomeContext',
+const [ExpenseProvider, useExpenseContext, Context] = ContextFactory({
+  name: 'ExpenseContext',
 })
-export { useIncomeContext }
+export { useExpenseContext }
 
-export default function IncomesContext() {
+export default function ExpensesContext() {
   const [qry, setQry] = useObject({ page: 1, per_page: 7 })
 
   // // Enable query params
@@ -21,9 +21,13 @@ export default function IncomesContext() {
   // }, [qry])
 
   // API call
-  const apiState = useQuery(['incomes', qry], () => Api.incomes.get({ qry }), {
-    staleTime: 60000,
-  })
+  const apiState = useQuery(
+    ['expenses', qry],
+    () => Api.expenses.get({ qry }),
+    {
+      staleTime: 60000,
+    },
+  )
 
   const apiStateMemo = React.useMemo(() => {
     const { data, total, ...rest } = apiState?.data?.data?.results || {}
@@ -46,8 +50,8 @@ export default function IncomesContext() {
   // }, [apiState])
 
   return (
-    <IncomeProvider value={contextValue}>
-      <IncomeList />
-    </IncomeProvider>
+    <ExpenseProvider value={contextValue}>
+      <ExpenseList />
+    </ExpenseProvider>
   )
 }

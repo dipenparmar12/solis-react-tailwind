@@ -26,6 +26,7 @@ import config from '@/config/config'
 import formatBytes from '@/utils/number/formatBytes'
 import axiosApp from '@/services/AxiosService'
 import Api from '@/services/ApiService'
+import generateKey from '@/utils/miscellaneous/generateKey'
 
 function EstimateList() {
   const { qry, setQry, State: EstimateState } = useEstimateContext()
@@ -84,6 +85,14 @@ function EstimateList() {
             {formatRs(value || '-')}
           </span>
         ),
+        Footer: ({ rows, ...rest }) => {
+          // Only calculate total visits if rows change
+          const total = React.useMemo(
+            () => rows.reduce((sum, row) => row.values.amount + sum, 0),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
       },
 
       {
@@ -108,16 +117,18 @@ function EstimateList() {
 
                 <table className="table_v1">
                   <thead>
-                    <td> ID </td>
-                    <td> Name </td>
-                    <td> Size </td>
-                    <td> File Type </td>
-                    <td> - </td>
-                    <td> - </td>
+                    <tr>
+                      <td> ID </td>
+                      <td> Name </td>
+                      <td> Size </td>
+                      <td> File Type </td>
+                      <td> - </td>
+                      <td> - </td>
+                    </tr>
                   </thead>
                   <tbody>
                     {row.original?.media?.map((item, index) => (
-                      <tr key={index}>
+                      <tr key={generateKey(index)}>
                         <td>{item.id}</td>
                         <td>{item.file_name}</td>
                         <td>{formatBytes(item.size)}</td>
