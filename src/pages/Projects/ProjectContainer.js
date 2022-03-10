@@ -3,7 +3,7 @@ import React from 'react'
 import useFetcher from '@/hooks/useFetcher'
 import useQryParams from '@/hooks/useQryParams'
 import Api from '@/services/ApiService'
-import ProjectList from './List'
+import ProjectCardList from './CardList'
 import useObject from '@/hooks/useObject'
 
 const Context = React.createContext(null)
@@ -30,7 +30,7 @@ const ProjectContainer = ({ children }) => {
 
   return (
     <Context.Provider value={contextValue}>
-      <ProjectList />
+      <ProjectCardList />
     </Context.Provider>
   )
 }

@@ -48,7 +48,7 @@ export default function ExpensesContext() {
         )
         return curApiState
       })
-      Api.utils.notifySuccess(res)
+      // Api.utils.notifySuccess(res)
     },
   })
 

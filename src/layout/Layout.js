@@ -129,7 +129,7 @@ const Sidebar = () => {
   return (
     <nav
       className={cn([
-        'z-20 text-gray-700 absolute inset-y-0 left-0 px-2 space-y-2 transition duration-200 ease-in-out transform shadow-md py-7 md:relative md:translate-x-0 bg-white dark:bg-slate-900',
+        'z-20 text-gray-700 absolute inset-y-0 left-0 px-2 space-y-2 transition duration-200 ease-in-out transform shadow-md py-7 md:relative md:translate-x-0 bg-white dark:bg-slate-900 overflow-y-auto pb-20',
         !sidebarIsVisible && '-translate-x-full',
         !Size.isSm && isMiniSidebar ? 'w-16' : 'w-64',
       ])}

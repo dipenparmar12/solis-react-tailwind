@@ -22,9 +22,7 @@ import formatDate from '@/utils/date/formatDate'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
-import config from '@/config/config'
 import formatBytes from '@/utils/number/formatBytes'
-import axiosApp from '@/services/AxiosService'
 import Api from '@/services/ApiService'
 import generateKey from '@/utils/miscellaneous/generateKey'
 
@@ -100,75 +98,8 @@ function EstimateList() {
         accessor: 'attachment',
         id: 'attachment',
         isSortable: false,
-        Cell: ({ row, value }) => (
-          <div className="cursor-pointer hover:underline hover:text-sky-600">
-            {row.original?.media?.length > 0 && (
-              <ModalV3
-                renderButton={({ setOpen }) => (
-                  <button onClick={setOpen} className="text-sm ">
-                    <Icons.Attachment className="" />{' '}
-                  </button>
-                )}
-              >
-                <h2 className="mb-3 mr-10 text-2xl">
-                  Estimates files: {row.values?.id}
-                </h2>
-                <Print>{value}</Print>
-
-                <table className="table_v1">
-                  <thead>
-                    <tr>
-                      <td> ID </td>
-                      <td> Name </td>
-                      <td> Size </td>
-                      <td> File Type </td>
-                      <td> - </td>
-                      <td> - </td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {row.original?.media?.map((item, index) => (
-                      <tr key={generateKey(index)}>
-                        <td>{item.id}</td>
-                        <td>{item.file_name}</td>
-                        <td>{formatBytes(item.size)}</td>
-                        <td>{item.mime_type}</td>
-                        <td>
-                          <a
-                            onClick={() =>
-                              Api.utils.fetchFile(
-                                item?.id,
-                                item?.file_name,
-                                'view',
-                              )
-                            }
-                            className="cursor-pointer hover:underline text-sky-500 hover:text-sky-600"
-                          >
-                            View
-                          </a>
-                        </td>{' '}
-                        <td>
-                          <a
-                            onClick={() =>
-                              Api.utils.fetchFile(
-                                item?.id,
-                                item?.file_name,
-                                'download',
-                              )
-                            }
-                            className="cursor-pointer hover:underline text-sky-500 hover:text-sky-600"
-                          >
-                            Download
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </ModalV3>
-            )}
-          </div>
-        ),
+        // eslint-disable-next-line no-use-before-define
+        Cell: AttachmentCell,
       },
 
       {
@@ -363,3 +294,65 @@ function EstimateList() {
 }
 
 export default EstimateList
+
+const AttachmentCell = React.memo(({ row, value }) => (
+  <div className="cursor-pointer hover:underline hover:text-sky-600">
+    {row.original?.media?.length > 0 && (
+      <ModalV3
+        renderButton={({ setOpen }) => (
+          <button onClick={setOpen} className="text-sm ">
+            <Icons.Attachment className="" />{' '}
+          </button>
+        )}
+      >
+        <h2 className="mb-3 mr-10 text-2xl">
+          Estimates files: {row.values?.id}
+        </h2>
+        <Print>{value}</Print>
+
+        <table className="table_v1">
+          <thead>
+            <tr>
+              <td> ID </td>
+              <td> Name </td>
+              <td> Size </td>
+              <td> File Type </td>
+              <td> - </td>
+              <td> - </td>
+            </tr>
+          </thead>
+          <tbody>
+            {row.original?.media?.map((item, index) => (
+              <tr key={generateKey(index)}>
+                <td>{item.id}</td>
+                <td>{item.file_name}</td>
+                <td>{formatBytes(item.size)}</td>
+                <td>{item.mime_type}</td>
+                <td>
+                  <a
+                    onClick={() =>
+                      Api.utils.fetchFile(item?.id, item?.file_name, 'view')
+                    }
+                    className="cursor-pointer hover:underline text-sky-500 hover:text-sky-600"
+                  >
+                    View
+                  </a>
+                </td>{' '}
+                <td>
+                  <a
+                    onClick={() =>
+                      Api.utils.fetchFile(item?.id, item?.file_name, 'download')
+                    }
+                    className="cursor-pointer hover:underline text-sky-500 hover:text-sky-600"
+                  >
+                    Download
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </ModalV3>
+    )}
+  </div>
+))

@@ -32,6 +32,9 @@ const resources = {
     update: async ({ id, data, config }) =>
       _axios.put(`/projects/${id}`, data, config),
     // getById: async ({ id, qry, config }) => _axios.get(`/projects/${id}?${encode(qry)}`, config),
+
+    expenses: async ({ qry: { id, ...qry } }) =>
+      _axios.get(`/projects/${id}/expenses?${encode(qry)}`),
   },
 
   funds: {

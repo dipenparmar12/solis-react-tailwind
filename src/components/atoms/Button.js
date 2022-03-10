@@ -109,3 +109,16 @@ export const BtnVariant = {
   ]),
 }
  */
+
+
+/* ------------------------------------
+  Button Examples 
+ ------------------------------------ */
+/* ------------------------------------
+     <Button
+        size="sm"
+        className="text-green-600 bg-green-100 border-0 dark:border dark:border-green-800 hover:bg-green-200 active:bg-green-200"
+      >
+        Accept{' '}
+      </Button>
+ ------------------------------------ */

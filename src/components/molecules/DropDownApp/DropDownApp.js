@@ -6,14 +6,25 @@ import React, { useState } from 'react'
 import cn from '@/utils/classNames'
 import isFunctionAndCall from '@/utils/function/isFunctionAndCall'
 import FadeScaleAnim from '@/hoc/animation/FadeScaleAnim'
-import useOnOutsideClick, {
-  useOnOutsideClickWithState,
-} from '@/hooks/useOnOutsideClick'
+import { useOnOutsideClickWithState } from '@/hooks/useOnOutsideClick'
 import useOnEscapeKeyDown from '@/hooks/useOnEscapeKeyDown'
 
+/**
+ * TODO:: Cherovn ICON (up/down)
+ * @param label
+ * @param options
+ * @param stateLess
+ * @param onChange
+ * @param onSelect
+ * @param styles
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function DropDownApp({
   label,
   options = [],
+  stateLess = false,
   onChange = () => {},
   onSelect = () => {},
   styles = {
@@ -24,6 +35,7 @@ export default function DropDownApp({
     dropdownItemDisabled: undefined, // {},
     dropdownItemSelected: undefined, // {},
   },
+
   ...props
 }) {
   const [_label, _setLabel] = useState(label)
@@ -36,11 +48,18 @@ export default function DropDownApp({
 
   // eslint-disable-next-line no-underscore-dangle
   const _onSelect = (option) => {
+    // For simple dropdown list component
+    if (stateLess) {
+      option?.onSelect(option)
+      setOpen(false)
+      return null
+    }
     // _setSelected(option)
     _setLabel(option?.label || option)
     onSelect(option)
     setOpen(false)
     isFunctionAndCall(onChange, option)
+    return null
   }
 
   React.useEffect(() => {
@@ -58,18 +77,15 @@ export default function DropDownApp({
 
   return (
     <>
-      <div ref={dropDownContainerRef} className="relative z-20 inline-block">
-        <button
-          className="block px-2 overflow-hidden border border-gray-300 rounded-md cursor-pointer dark:border-gray-700 bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-900 hover:bg-slate-100"
-          onClick={() => setOpen(!isOpen)}
-        >
+      <div ref={dropDownContainerRef} className="relative inline-block">
+        <button className="px-2 btn-subtle" onClick={() => setOpen(!isOpen)}>
           {_label}
         </button>
 
         <FadeScaleAnim isVisible={isOpen}>
           <div
             className={cn([
-              `absolute right-0  py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl `,
+              `absolute right-0 py-2 text-sm bg-white rounded-lg shadow-lg dark:bg-gray-900 dark:shadow-xl `,
               `border dark:border-sky-900`,
               isOpen ? 'block' : 'hidden',
             ])}
@@ -94,7 +110,37 @@ export default function DropDownApp({
   )
 }
 
+/* ------------------------------------
+  EXAMPLES
+ 1 ----------- Simple dropdown select (ex. navigation list stateless)
+    <DropDownApp
+      stateLess
+      label={'View'}
+      options={[
+        {
+          label: `1111`,
+          onSelect: () => {  console.log('List.js::97 111')  },
+        },
+        {
+          label: `2222`,
+          onSelect: () => {  console.log('List.js::97 222')  },
+        },
+      ]}
+    />
+
+ 3 ----------- Reactive (state) select Dropdown
+ <DropDownApp
+    label={currentPage}
+    onSelect={setPage}
+    options={Array.from({ length: <totalPages> }, (_, i) => ({
+      label: `${i}`,
+      value: i,
+    }))}
+  />
+ ------------------------------------ */
+
 /**
+ *
  TODO:::OPTIONAL Features 
   const [isOpen, setIsOpen] = useState(false) // // Feature:On Open event
   

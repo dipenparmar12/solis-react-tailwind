@@ -4,6 +4,7 @@ import {
   RiArrowDownSLine,
   RiArrowUpSLine,
   RiAttachmentLine,
+  RiBuilding2Line,
   RiDeleteBin7Line,
   RiDeleteBinLine,
   RiEditLine,
@@ -61,6 +62,8 @@ const Icons = {
   DND: MdOutlineDoNotDisturbOff,
 
   HandCoin: RiHandCoinLine,
+
+  Building: RiBuilding2Line,
 
   // Delete1: RiDeleteBinLine,
   // CheckCircle: FiCheckCircle,

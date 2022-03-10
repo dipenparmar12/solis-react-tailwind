@@ -1,4 +1,81 @@
 /* eslint-disable */
+
+/* ------------------------------------
+  React table dump
+
+  const TableColumns = React.useMemo(
+    () => [
+      {
+        accessor: 'id',
+        // accessor: 'dealer.firm',
+        Header: '#',
+        isSortable: true,
+      },
+      {
+        Header: 'Date',
+        accessor: 'date',
+        isSortable: true,
+        Cell: ({ value }) => formatDate(value),
+      },
+      {
+        Header: 'Income',
+        accessor: 'income',
+        // isSortable: true,
+        Cell: ({ value }) => (
+          <span className="font-semibold text-green-600">
+            {formatRs(value)}
+          </span>
+        ),
+        Footer: ({ rows, ...rest }) => {
+          // Only calculate total visits if rows change
+          const total = React.useMemo(
+            () => rows.reduce((sum, row) => row.values.income + sum, 0),
+            [rows],
+          )
+          return <span className="">{formatRs(total || '-')}</span>
+        },
+      },
+      {
+        Header: 'Status',
+        accessor: 'id',
+        id: 'status',
+        isSortable: false,
+        Cell: ({ row, value }) => (
+          <div className="space-x-1.5 flex items-center">
+            <ModalV3
+              renderButton={({ setOpen }) => (
+                <button onClick={setOpen} className="text-sm ">
+                  <Icons.Eye className="hover:text-sky-600" />
+                </button>
+              )}
+            >
+              <h2 className="mb-3 mr-10 text-2xl">
+                Record ID: {row.values?.id}
+              </h2>
+              <Print>{row.original}</Print>
+            </ModalV3>
+
+            <button>
+              <Icons.Edit className="hover:text-yellow-600" />
+            </button>
+            <button>
+              <Icons.Delete className=" hover:text-red-600" />
+            </button>
+          </div>
+        ),
+      },
+    ],
+    [],
+  )
+ ------------------------------------ */
+
+
+
+
+
+
+
+
 const axios = {}
 const store = {}
 
@@ -374,7 +451,7 @@ function AddUser() {
 /*
 
   const filePreview = (blobData) => {
-    // console.log('List.js::[37] blobData', blobData)
+    // console.log('CardList.js::[37] blobData', blobData)
     const fileUrl = window.URL.createObjectURL(new Blob([blobData]))
     window.open(fileUrl)
     // const tab = window.open()
@@ -382,7 +459,7 @@ function AddUser() {
   }
 
   const fileDownload = (blobData, fileName = 'solis-downloads') => {
-    // console.log('List.js::[46] blobData', blobData)
+    // console.log('CardList.js::[46] blobData', blobData)
     const link = document.createElement('a')
     const fileUrl = window.URL.createObjectURL(new Blob([blobData]))
     const anchor = document.createElement('a')
@@ -401,7 +478,7 @@ function AddUser() {
     })
       .then((res) => cb(res?.data, fileName))
       .catch((error) => {
-        console.error('List.js::[42] error', error)
+        console.error('CardList.js::[42] error', error)
       })
   }
   
