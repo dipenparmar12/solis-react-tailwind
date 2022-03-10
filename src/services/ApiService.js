@@ -51,6 +51,8 @@ const resources = {
   expenses: {
     get: async ({ qry }) => _axios.get(`/expenses?${encode(qry)}`),
     create: async (data) => _axios.post(`/expenses`, data),
+    approval: async ({ id, data }) =>
+      _axios.post(`/expenses/${id}/approval`, data),
   },
 
   dealers: {

@@ -4,10 +4,10 @@ import classNames from 'classnames'
 import React from 'react'
 import ReactDatePicker from 'react-datepicker'
 import useMergeRefs from '@/hooks/useMergeRefs'
-import WithFormik from '../FormicApp/WithFormik'
 import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 import Types from '@/utils/validation/Types'
 import debounce from '@/utils/function/debounce'
+import WithFormik from '@/components/molecules/FormicApp/WithFormik'
 
 export const inputDateStyles = classNames([
   'outline-none w-full ',

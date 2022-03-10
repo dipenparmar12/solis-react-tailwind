@@ -47,9 +47,9 @@ const Icons = {
   Filter: RiFilter3Line,
   Refresh: RiRefreshLine,
 
-  Complete: MdOutlineCloudDone,
+  // Complete: MdOutlineCloudDone,
   // Check: BsCheck2Circle,
-  Check: VscCheckAll,
+  CheckDouble: VscCheckAll,
   Question: BsQuestion,
   Terminate: TiDelete,
 

@@ -1,10 +1,11 @@
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import ContextFactory from '@/context/ContextFactory'
 import ExpenseList from '@/pages/Expenses/List'
 import useObject from '@/hooks/useObject'
 import Api from '@/services/ApiService'
-import useQryParams from '@/hooks/useQryParams'
+import Print from '@/components/atoms/Print'
+import deepMerge from '@/utils/obj/deepMerge'
 
 const [ExpenseProvider, useExpenseContext, Context] = ContextFactory({
   name: 'ExpenseContext',
@@ -12,7 +13,8 @@ const [ExpenseProvider, useExpenseContext, Context] = ContextFactory({
 export { useExpenseContext }
 
 export default function ExpensesContext() {
-  const [qry, setQry] = useObject({ page: 1, per_page: 15 })
+  const [qry, setQry] = useObject({ page: 1, per_page: 7 })
+  const queryClient = useQueryClient()
 
   // // Enable query params
   // const qryParams = useQryParams({ setParams: setQry.merge })
@@ -25,9 +27,30 @@ export default function ExpensesContext() {
     ['expenses', qry],
     () => Api.expenses.get({ qry }),
     {
-      staleTime: 60000,
+      // staleTime: 60000,
     },
   )
+
+  // TODO::Mutate query Create Expense
+
+  // //
+  const approvalMutation = useMutation(Api.expenses.approval, {
+    onSuccess: (res, variables) => {
+      queryClient.setQueryData(['expenses', qry], (curApiState) => {
+        // eslint-disable-next-line no-param-reassign
+        curApiState.data.results.data = curApiState?.data?.results?.data?.map(
+          (expense) => {
+            if (expense?.id === res?.data?.results?.id) {
+              return deepMerge(expense, res.data?.results)
+            }
+            return expense
+          },
+        )
+        return curApiState
+      })
+      Api.utils.notifySuccess(res)
+    },
+  })
 
   const apiStateMemo = React.useMemo(() => {
     const { data, total, ...rest } = apiState?.data?.data?.results || {}
@@ -43,6 +66,9 @@ export default function ExpensesContext() {
     State: apiStateMemo,
     qry,
     setQry,
+    mutations: {
+      approvalApi: approvalMutation,
+    },
   }
 
   // React.useEffect(() => {
@@ -52,6 +78,7 @@ export default function ExpensesContext() {
   return (
     <ExpenseProvider value={contextValue}>
       <ExpenseList />
+      <Print>{qry}</Print>
     </ExpenseProvider>
   )
 }
