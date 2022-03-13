@@ -24,6 +24,8 @@ import { useProjectContext } from '@/pages/Projects/Context'
 import TableFooterTotal from '@/components/molecules/Table/TableFooterTotal'
 import DropDownApp from '@/components/molecules/DropDownApp/DropDownApp'
 import ExpenseList from '@/pages/Projects/_partials/ExpenseModal'
+import EstimateList from '@/pages/Projects/_partials/EstimateModal'
+import IncomeList from '@/pages/Projects/_partials/IncomesModal'
 
 function ProjectList() {
   const { qry, setQry, State: ProjectState } = useProjectContext() || {}
@@ -51,36 +53,42 @@ function ProjectList() {
         accessor: 'budget',
         id: 'budget',
         Cell: ({ value }) => (
-          <span className=" text-yellow-600">{formatRs(value)}</span>
+          <span className="">{formatRs(value)}</span>
+          // <span className=" text-yellow-600">{formatRs(value)}</span>
         ),
         Footer: TableFooterTotal,
       },
       {
-        Header: 'Income',
-        accessor: 'income',
-        // isSortable: true,
-        Cell: ({ value }) => (
-          <span className="text-green-600">{formatRs(value)}</span>
-        ),
+        Header: 'Estimate',
+        accessor: 'estimates_sum_amount',
+        Cell: ({ value, row }) => <EstimateList project={row.original} />,
         Footer: TableFooterTotal,
       },
       {
         Header: 'Expense',
-        accessor: 'expense',
+        accessor: 'expenses_sum_amount',
         isSortable: false,
-        Cell: ({ value }) => (
-          <span className=" text-red-500">{formatRs(value || '-')}</span>
-        ),
+        Cell: ({ value, row }) => <ExpenseList project={row.original} />,
+        Footer: TableFooterTotal,
+      },
+      {
+        Header: 'Income',
+        accessor: 'incomes_sum_amount',
+        // isSortable: true,
+        Cell: ({ value, row }) => <IncomeList project={row.original} />,
         Footer: TableFooterTotal,
       },
       {
         Header: 'Balance',
         accessor: 'balance',
         Cell: ({ value, row, ...rest }) => {
-          const { expense = 0, income = 0 } = row.original
+          const { expenses_sum_amount = 0, incomes_sum_amount = 0 } =
+            row.original
+          const balance = expenses_sum_amount - incomes_sum_amount
+
           return (
-            <span className=" text-red-500">
-              {formatRs(expense - income, '-')}
+            <span className={balance > 0 ? 'text-green-600' : 'text-red-500'}>
+              {formatRs(balance, '-')}
             </span>
           )
         },
@@ -257,7 +265,7 @@ export default ProjectList
 
 const ProjectStatusCell = React.memo(({ row, value }) => (
   <div className="space-x-1.5 flex items-center">
-    <ExpenseList project={row.original} />
+    {/* <ExpenseList project={row.original} /> */}
 
     <ModalV3
       renderButton={({ setOpen }) => (

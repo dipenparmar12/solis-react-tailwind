@@ -1,33 +1,26 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import classNames from 'classnames'
 import capitalize from '@/utils/str/capitalize'
-import CardV2 from '@/components/atoms/CardV2'
 import formatRs from '@/utils/str/formatRs'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
-import DropDownApp from '@/components/molecules/DropDownApp/DropDownApp'
-import generateKey from '@/utils/miscellaneous/generateKey'
-import formatBytes from '@/utils/number/formatBytes'
 import Api from '@/services/ApiService'
 import formatDate from '@/utils/date/formatDate'
 import LoadingSkeletonTable from '@/components/atoms/LoadingSkeletonTable'
 import Print from '@/components/atoms/Print'
-import Button from '@/components/atoms/Button'
-import { TrueValues } from '@/store/types'
 
-function ExpenseList({ project }) {
+function EstimateList({ project }) {
   // API call
   const {
     isLoading,
-    data: Expense,
+    data: Estimates,
     refetch,
     isFetching,
     error,
   } = useQuery(
-    ['projects_expenses', { id: project?.id }],
+    ['project_estimates', { id: project?.id }],
     () =>
       Api.projects
-        .expenses({ qry: { id: project?.id } })
+        .estimates({ qry: { id: project?.id } })
         .then((res) => res?.data?.results),
     {
       enabled: false,
@@ -49,16 +42,8 @@ function ExpenseList({ project }) {
             refetch()
           }}
         >
-          {formatRs(project?.expenses_sum_amount)}
+          {formatRs(project?.estimates_sum_amount)}
         </a>
-        // <DropDownApp
-        //   stateLess
-        //   label={'View'}
-        //   options={[
-        //     { label: `Expenses`, onSelect:u () => setOpen(tre), },
-        //     { label: `Incomes`, onSelect: () => {console.log('List.js::97 222')},},
-        //   ]}
-        // />
       )}
     >
       <h2 className="mb-6 mr-10 text-2xl ">
@@ -66,54 +51,39 @@ function ExpenseList({ project }) {
       </h2>
 
       <div className={'text-xl text-gray-600'}>
-        Expenses
+        Estimates{' '}
         <span className={'pl-1 text-green-600 font-semibold'}>
-          {formatRs(project.expenses_sum_amount)}
+          {formatRs(project.estimates_sum_amount)}
         </span>
       </div>
 
       <table className="table_v1 my-3 ">
         <thead>
           <tr>
+            <th> ID</th>
             <th> Date</th>
             <th> Particular</th>
-            <th> User</th>
-            <th> Transaction Type</th>
+            <th> Vendor</th>
             <th> Amount</th>
-            <th> Approval</th>
           </tr>
         </thead>
         <tbody>
-          {Expense?.expenses?.map((expense) => {
+          {Estimates?.estimates?.map((estimate) => {
             return (
-              <tr key={expense?.id}>
-                <td> {formatDate(expense?.date)} </td>
-                <td> {expense?.particular} </td>
-                <td> {expense?.expense_by_user?.name} </td>
-                <td> {expense?.transaction?.type} </td>
+              <tr key={estimate?.id}>
+                <td> {estimate?.id} </td>
+                <td> {formatDate(estimate?.s_date)} </td>
+                <td> {estimate?.desc} </td>
+                <td> {estimate?.dealer?.firm} </td>
                 <td className="text-green-600 font-semibold">
-                  {formatRs(expense?.amount)}
-                </td>
-                <td className="">
-                  <Button
-                    size="sm"
-                    className={classNames([
-                      `btn_badge `,
-                      TrueValues.includes(expense?.is_approved) && 'green',
-                      [0, false].includes(expense?.is_approved) && 'red',
-                    ])}
-                  >
-                    {[null, ''].includes(expense?.is_approved) && 'Pending'}
-                    {TrueValues.includes(expense?.is_approved) && 'Accepted'}
-                    {[0, false].includes(expense?.is_approved) && 'Rejected'}
-                  </Button>
+                  {formatRs(estimate?.amount)}
                 </td>
               </tr>
             )
           })}
           {isLoading && <LoadingSkeletonTable />}
 
-          {Expense?.expenses?.length === 0 && !isLoading && (
+          {Estimates?.estimates?.length === 0 && !isLoading && (
             <tr>
               <td colSpan={'100%'} className="text-center">
                 No data found
@@ -123,12 +93,12 @@ function ExpenseList({ project }) {
         </tbody>
       </table>
 
-      {/* <Print>{Expense}</Print> */}
+      {/* <Print>{Estimates}</Print> */}
     </ModalV3>
   )
 }
 
-export default ExpenseList
+export default EstimateList
 
 /*
 <div className={'flex gap-4 py-3'}>

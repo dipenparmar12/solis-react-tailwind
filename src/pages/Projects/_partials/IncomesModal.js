@@ -1,33 +1,26 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import classNames from 'classnames'
 import capitalize from '@/utils/str/capitalize'
-import CardV2 from '@/components/atoms/CardV2'
 import formatRs from '@/utils/str/formatRs'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
-import DropDownApp from '@/components/molecules/DropDownApp/DropDownApp'
-import generateKey from '@/utils/miscellaneous/generateKey'
-import formatBytes from '@/utils/number/formatBytes'
 import Api from '@/services/ApiService'
 import formatDate from '@/utils/date/formatDate'
 import LoadingSkeletonTable from '@/components/atoms/LoadingSkeletonTable'
 import Print from '@/components/atoms/Print'
-import Button from '@/components/atoms/Button'
-import { TrueValues } from '@/store/types'
 
-function ExpenseList({ project }) {
+function IncomeList({ project }) {
   // API call
   const {
     isLoading,
-    data: Expense,
+    data: IncomesData,
     refetch,
     isFetching,
     error,
   } = useQuery(
-    ['projects_expenses', { id: project?.id }],
+    ['project_incomes', { id: project?.id }],
     () =>
       Api.projects
-        .expenses({ qry: { id: project?.id } })
+        .incomes({ qry: { id: project?.id } })
         .then((res) => res?.data?.results),
     {
       enabled: false,
@@ -41,7 +34,6 @@ function ExpenseList({ project }) {
   return (
     <ModalV3
       renderButton={({ setOpen }) => (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <a
           className="link"
           onClick={() => {
@@ -49,16 +41,8 @@ function ExpenseList({ project }) {
             refetch()
           }}
         >
-          {formatRs(project?.expenses_sum_amount)}
+          {formatRs(project?.incomes_sum_amount)}
         </a>
-        // <DropDownApp
-        //   stateLess
-        //   label={'View'}
-        //   options={[
-        //     { label: `Expenses`, onSelect:u () => setOpen(tre), },
-        //     { label: `Incomes`, onSelect: () => {console.log('List.js::97 222')},},
-        //   ]}
-        // />
       )}
     >
       <h2 className="mb-6 mr-10 text-2xl ">
@@ -66,54 +50,40 @@ function ExpenseList({ project }) {
       </h2>
 
       <div className={'text-xl text-gray-600'}>
-        Expenses
+        Incomes{' '}
         <span className={'pl-1 text-green-600 font-semibold'}>
-          {formatRs(project.expenses_sum_amount)}
+          {formatRs(project.incomes_sum_amount)}
         </span>
       </div>
 
       <table className="table_v1 my-3 ">
         <thead>
           <tr>
+            <th> ID</th>
             <th> Date</th>
             <th> Particular</th>
-            <th> User</th>
-            <th> Transaction Type</th>
+            <th> Desc</th>
             <th> Amount</th>
-            <th> Approval</th>
           </tr>
         </thead>
         <tbody>
-          {Expense?.expenses?.map((expense) => {
+          {IncomesData?.incomes?.map((item) => {
             return (
-              <tr key={expense?.id}>
-                <td> {formatDate(expense?.date)} </td>
-                <td> {expense?.particular} </td>
-                <td> {expense?.expense_by_user?.name} </td>
-                <td> {expense?.transaction?.type} </td>
+              <tr key={item?.id}>
+                <td> {item?.id} </td>
+                <td> {formatDate(item?.date)} </td>
+                <td> {item?.particular} </td>
+                <td> {item?.desc} </td>
                 <td className="text-green-600 font-semibold">
-                  {formatRs(expense?.amount)}
-                </td>
-                <td className="">
-                  <Button
-                    size="sm"
-                    className={classNames([
-                      `btn_badge `,
-                      TrueValues.includes(expense?.is_approved) && 'green',
-                      [0, false].includes(expense?.is_approved) && 'red',
-                    ])}
-                  >
-                    {[null, ''].includes(expense?.is_approved) && 'Pending'}
-                    {TrueValues.includes(expense?.is_approved) && 'Accepted'}
-                    {[0, false].includes(expense?.is_approved) && 'Rejected'}
-                  </Button>
+                  {formatRs(item?.amount)}
                 </td>
               </tr>
             )
           })}
+
           {isLoading && <LoadingSkeletonTable />}
 
-          {Expense?.expenses?.length === 0 && !isLoading && (
+          {IncomesData?.incomes?.length === 0 && !isLoading && (
             <tr>
               <td colSpan={'100%'} className="text-center">
                 No data found
@@ -123,12 +93,12 @@ function ExpenseList({ project }) {
         </tbody>
       </table>
 
-      {/* <Print>{Expense}</Print> */}
+      {/* <Print>{IncomesData}</Print> */}
     </ModalV3>
   )
 }
 
-export default ExpenseList
+export default React.memo(IncomeList)
 
 /*
 <div className={'flex gap-4 py-3'}>

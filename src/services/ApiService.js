@@ -35,6 +35,12 @@ const resources = {
 
     expenses: async ({ qry: { id, ...qry } }) =>
       _axios.get(`/projects/${id}/expenses?${encode(qry)}`),
+
+    estimates: async ({ qry: { id, ...qry } }) =>
+      _axios.get(`/projects/${id}/estimates?${encode(qry)}`),
+
+    incomes: async ({ qry: { id, ...qry } }) =>
+      _axios.get(`/projects/${id}/incomes?${encode(qry)}`),
   },
 
   funds: {

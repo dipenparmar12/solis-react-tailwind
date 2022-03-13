@@ -39,9 +39,9 @@ function IncomeList() {
         accessor: 'project.title',
         isSortable: true,
         Cell: ({ value }) => (
-          <span className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
+          <a className="cursor-pointer hover:underline dark:text-blue-400 text-sky-500 hover:text-sky-600">
             {value}
-          </span>
+          </a>
         ),
       },
       {
