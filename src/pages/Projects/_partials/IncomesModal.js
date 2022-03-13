@@ -34,6 +34,7 @@ function IncomeList({ project }) {
   return (
     <ModalV3
       renderButton={({ setOpen }) => (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <a
           className="link"
           onClick={() => {

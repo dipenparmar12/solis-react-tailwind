@@ -1,4 +1,4 @@
-/* eslint-disable default-param-last */
+/* eslint-disable default-param-last,camelcase */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
