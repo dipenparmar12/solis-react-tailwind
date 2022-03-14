@@ -72,6 +72,14 @@ function DealerList() {
         Cell: ({ value }) => <span className=" ">{formatRs(value, '-')}</span>,
         Footer: TableFooterTotal,
       },
+      {
+        Header: 'Payments',
+        accessor: 'payments_sum_amount',
+        isSortable: false,
+        Cell: ({ value }) => <span className=" ">{formatRs(value, '-')}</span>,
+        Footer: TableFooterTotal,
+      },
+
       // {
       //   Header: 'Balance ',
       //   accessor: 'balance',

@@ -79,20 +79,27 @@ function ProjectList() {
         Footer: TableFooterTotal,
       },
       {
-        Header: 'Balance',
-        accessor: 'balance',
-        Cell: ({ value, row, ...rest }) => {
-          const { expenses_sum_amount = 0, incomes_sum_amount = 0 } =
-            row.original
-          const balance = expenses_sum_amount - incomes_sum_amount
-
-          return (
-            <span className={balance > 0 ? 'text-green-600' : 'text-red-500'}>
-              {formatRs(balance, '-')}
-            </span>
-          )
-        },
+        Header: 'Payment',
+        accessor: 'payments_sum_amount',
+        // isSortable: true,
+        Cell: ({ value, row }) => <ExpenseList project={row.original} />,
+        Footer: TableFooterTotal,
       },
+      // {
+      //   Header: 'Balance',
+      //   accessor: 'balance',
+      //   Cell: ({ value, row, ...rest }) => {
+      //     const { expenses_sum_amount = 0, incomes_sum_amount = 0 } =
+      //       row.original
+      //     const balance = expenses_sum_amount - incomes_sum_amount
+      //
+      //     return (
+      //       <span className={balance > 0 ? 'text-green-600' : 'text-red-500'}>
+      //         {formatRs(balance, '-')}
+      //       </span>
+      //     )
+      //   },
+      // },
       {
         Header: 'Status',
         accessor: 'id',

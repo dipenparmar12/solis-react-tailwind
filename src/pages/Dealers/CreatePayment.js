@@ -32,10 +32,10 @@ const initialValues = {
   date: '',
   desc: '',
   particular: '',
-  category: '',
+  category: 'dealer',
 }
 
-export default function ExpenseCreate({
+export default function DealerPaymentCreate({
   isEdit,
   initialData,
   onSuccess = () => {},
@@ -48,15 +48,9 @@ export default function ExpenseCreate({
   React.useEffect(() => {
     if (
       !appContext?.staticData?.dealers?.length ||
-      !appContext?.staticData?.transactions?.length ||
-      !appContext?.staticData?.projects?.length
+      !appContext?.staticData?.transactions?.length
     ) {
-      appContext.setResources([
-        'projects',
-        'dealers',
-        'transactions',
-        'expense_categories',
-      ])
+      appContext.setResources(['dealers', 'transactions'])
     }
   }, [])
 
@@ -104,7 +98,7 @@ export default function ExpenseCreate({
         // transformValues={transformValues}
         // castFormData
       >
-        <h3 className="my-2 text-xl">New Expense</h3>
+        <h3 className="my-2 text-xl">New Vendor Payment</h3>
 
         <div className="space-y-3">
           <ExpenseCreateFields />
@@ -118,10 +112,10 @@ export default function ExpenseCreate({
   )
 }
 
-export const ExpenseFormContainer = ({ ...props }) => {
+export const DealerPaymentFormContainer = ({ ...props }) => {
   return (
     // <div className="px-5 py-3 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
-    <ExpenseCreate {...props} />
+    <DealerPaymentCreate {...props} />
     // </div>
   )
 }
@@ -159,47 +153,21 @@ function ExpenseCreateFields() {
       </div>
 
       <div className="flex flex-col gap-3 md:flex-row">
-        <RadioButtonFormik
+        <InputSelectFormik
+          clearable
+          // searchable
+          // delay={1500}
+          isRequired
           className={'flex-1'}
-          name="category"
-          label="Expense Category"
-          options={appContext?.staticData?.expense_categories || []}
+          label="Vendor"
+          placeholder="Select Vendor"
+          options={appContext?.staticData?.dealers || []}
+          selectCallback={(value) => value?.id || value?.label}
+          name="dealer_id"
+          valueField="id"
+          keepSelectedInList={false}
         />
       </div>
-
-      {formikProps?.values?.category === ExpCategories.Project && (
-        <div className="flex flex-col gap-3 md:flex-row">
-          <InputSelectFormik
-            clearable
-            // searchable
-            // delay={1500}
-            isRequired
-            className={'flex-1'}
-            label="Project"
-            placeholder="Select Project"
-            options={appContext?.staticData?.projects || []}
-            selectCallback={(value) => value?.id || value?.label}
-            name="project_id"
-            valueField="id"
-            keepSelectedInList={false}
-          />
-
-          <InputSelectFormik
-            clearable
-            // searchable
-            // delay={1500}
-            isRequired
-            className={'flex-1'}
-            label="Vendor"
-            placeholder="Select Vendor"
-            options={appContext?.staticData?.dealers || []}
-            selectCallback={(value) => value?.id || value?.label}
-            name="dealer_id"
-            valueField="id"
-            keepSelectedInList={false}
-          />
-        </div>
-      )}
 
       <div className="flex flex-col gap-3 md:flex-row">
         <div className="flex-1">

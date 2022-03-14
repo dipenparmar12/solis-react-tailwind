@@ -30,6 +30,7 @@ import EstimatesContext from '@/pages/Estimates/Context'
 import EstimateCreate from '@/pages/Estimates/Create'
 import { ExpenseFormContainer } from '@/pages/Expenses/Create'
 import ProjectsContext from '@/pages/Projects'
+import { DealerPaymentFormContainer } from '@/pages/Dealers/CreatePayment'
 
 export const testRoutes = {
   profile: {
@@ -117,6 +118,12 @@ export const routesPrivate = {
     label: 'New Project',
     path: '/projects/create',
     element: <ProjectFormContainer />,
+    icon: <Icons.Add />,
+  },
+  dealerPaymentCreate: {
+    label: 'New Payment',
+    path: '/dealers/payment/create',
+    element: <DealerPaymentFormContainer />,
     icon: <Icons.Add />,
   },
   expenses: {

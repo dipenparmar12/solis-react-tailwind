@@ -9,6 +9,7 @@ export default function SidebarNavList({ routes }) {
       <NavLinkItem route={routes?.estimateCreate} />
       <NavLinkItem route={routes?.projectCreate} />
       <NavLinkItem route={routes?.userCreate} />
+      <NavLinkItem route={routes?.dealerPaymentCreate} />
       <NavLinkItem route={routes?.dealers} />
       <NavLinkItem route={routes?.projects} />
       <NavLinkItem route={routes?.expenses} />

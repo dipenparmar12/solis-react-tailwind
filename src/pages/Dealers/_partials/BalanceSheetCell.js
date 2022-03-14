@@ -1,6 +1,7 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import React from 'react'
 import { useQuery } from 'react-query'
+import classNames from 'classnames'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Icons from '@/components/icons/Icons'
 import Print from '@/components/atoms/Print'
@@ -31,6 +32,11 @@ const BalanceSheetCell = React.memo(({ row, ...rest }) => {
     },
   )
 
+  const EstimateTotal = parseInt(dealer?.estimates_sum_amount || 0, 10)
+  const ExpenseTotal = parseInt(dealer?.expenses_sum_amount || 0, 10)
+  const PaymentsTotal = parseInt(dealer?.payments_sum_amount || 0, 10)
+  const Balance = EstimateTotal + ExpenseTotal - PaymentsTotal
+
   return (
     <div className="cursor-pointer">
       <ModalV3
@@ -56,7 +62,7 @@ const BalanceSheetCell = React.memo(({ row, ...rest }) => {
               Estimate
             </h6>
             <h3 className="text-gray-600 dark:text-gray-400 text-2xl font-semibold">
-              {formatRs(dealer?.estimates_sum_amount, 0)}
+              {formatRs(EstimateTotal, 0)}
             </h3>
           </div>
 
@@ -65,7 +71,7 @@ const BalanceSheetCell = React.memo(({ row, ...rest }) => {
               Expense
             </h6>
             <h3 className="text-gray-600 dark:text-gray-400 text-2xl font-semibold">
-              {formatRs(dealer?.expenses_sum_amount, 0)}
+              {formatRs(ExpenseTotal, 0)}
             </h3>
           </div>
 
@@ -74,19 +80,21 @@ const BalanceSheetCell = React.memo(({ row, ...rest }) => {
               Payments
             </h6>
             <h3 className="text-green-600 dark:text-gray-400 text-2xl font-semibold">
-              ??
+              {formatRs(PaymentsTotal, 0)}
             </h3>
           </div>
 
           <div className={'card_v1 shadow-sm  flex-1'}>
             <h6 className="text-gray-600 dark:text-gray-500 text-lg whitespace-nowrap">
-              Balance
+              Balance (!)
             </h6>
-            <h3 className="text-gray-600 dark:text-gray-400 text-2xl font-semibold">
-              {formatRs(
-                dealer?.estimates_sum_amount + dealer?.expenses_sum_amount,
-              )}
-              {/* TODO::IMP dealer?.payment_sum_amount */}
+            <h3
+              className={classNames([
+                'text-2xl font-semibold',
+                Balance > 0 ? 'text-green-600' : 'text-red-500',
+              ])}
+            >
+              {formatRs(Balance)}
             </h3>
           </div>
         </div>
@@ -118,12 +126,21 @@ const BalanceSheetCell = React.memo(({ row, ...rest }) => {
                 <td>{item?.desc || '-'}</td>
 
                 <td className="text-red-500">
-                  {item?.resource === 'estimate' && formatRs(item?.amount, 0)}
+                  {item?.resource === 'estimate'
+                    ? formatRs(item?.amount, '-')
+                    : '-'}
                 </td>
                 <td className="text-red-500">
-                  {item?.resource === 'expense' && formatRs(item?.amount, 0)}
+                  {item?.resource === 'expense'
+                    ? formatRs(item?.amount, '-')
+                    : '-'}
                 </td>
-                <td className="text-green-600">0</td>
+                <td className="text-green-500">
+                  {item?.resource === 'payment'
+                    ? formatRs(item?.amount, '-')
+                    : '-'}
+                </td>
+
                 <td>
                   <ModalV3
                     renderButton={({ setOpen }) => (
@@ -138,7 +155,7 @@ const BalanceSheetCell = React.memo(({ row, ...rest }) => {
               </tr>
             ))}
 
-            {isLoading && <LoadingSkeletonTable columns={7} />}
+            {isLoading && <LoadingSkeletonTable columns={9} />}
 
             {BalanceSheetData?.balance_sheet?.length === 0 && !isLoading && (
               <tr>
