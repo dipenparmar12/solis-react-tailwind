@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
 import { RiFilter3Line } from 'react-icons/ri'
-import { GrPowerReset } from 'react-icons/gr'
 import { MdOutlineFormatColorReset } from 'react-icons/md'
 import { useFundContext } from './Funds'
 import FundTable from './Table'

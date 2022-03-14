@@ -176,9 +176,8 @@ const useFundColumns = () => {
         accessor: 'received_from.name',
       },
       {
-        id: 'project_id',
-        Header: 'Project',
-        accessor: 'project.title',
+        Header: 'Desc',
+        accessor: 'desc',
         isSortable: true,
       },
       // {
