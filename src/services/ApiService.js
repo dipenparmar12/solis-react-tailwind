@@ -66,6 +66,9 @@ const resources = {
 
   dealers: {
     get: async ({ qry }) => _axios.get(`/dealers?${encode(qry)}`),
+
+    balance_sheet: async ({ qry: { id, ...qry } }) =>
+      _axios.get(`/dealers/${id}/balance_sheet?${encode(qry)}`),
   },
 
   salaries: {

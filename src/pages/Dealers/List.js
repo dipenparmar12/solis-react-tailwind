@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/click-events-have-key-events,camelcase */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-nested-ternary */
@@ -18,6 +18,10 @@ import formatDate from '@/utils/date/formatDate'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
+import BalanceSheetCell from '@/pages/Dealers/_partials/BalanceSheetCell'
+import EstimateList from '@/pages/Projects/_partials/EstimateModal'
+import TableFooterTotal from '@/components/molecules/Table/TableFooterTotal'
+import ExpenseList from '@/pages/Projects/_partials/ExpenseModal'
 
 function DealerList() {
   const { qry, setQry, State: DealerState } = useDealerContext()
@@ -54,6 +58,44 @@ function DealerList() {
         Header: 'Store',
         accessor: 'firm',
       },
+
+      {
+        Header: 'Estimate',
+        accessor: 'estimates_sum_amount',
+        Cell: ({ value }) => <span className=" ">{formatRs(value, '-')}</span>,
+        Footer: TableFooterTotal,
+      },
+      {
+        Header: 'Expenses',
+        accessor: 'expenses_sum_amount',
+        isSortable: false,
+        Cell: ({ value }) => <span className=" ">{formatRs(value, '-')}</span>,
+        Footer: TableFooterTotal,
+      },
+      // {
+      //   Header: 'Balance ',
+      //   accessor: 'balance',
+      //   Cell: ({ value, row, ...rest }) => {
+      //     const { estimates_sum_amount = 0, expenses_sum_amount = 0 } =
+      //       row.original
+      //     const balance = estimates_sum_amount - expenses_sum_amount
+      //     return (
+      //       <span className={balance >= 0 ? 'text-green-600' : 'text-red-500'}>
+      //         {formatRs(balance || '-')}
+      //       </span>
+      //     )
+      //   },
+      // },
+
+      {
+        Header: 'Balance Sheet ',
+        accessor: 'balance_sheet',
+        id: 'balance_sheet',
+        isSortable: false,
+        // eslint-disable-next-line no-use-before-define
+        Cell: BalanceSheetCell,
+      },
+
       {
         Header: 'Status',
         accessor: 'status',

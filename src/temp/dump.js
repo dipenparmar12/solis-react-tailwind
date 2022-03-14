@@ -35,6 +35,23 @@
           return <span className="">{formatRs(total || '-')}</span>
         },
       },
+
+      {
+        Header: 'Balance populated cell',
+        accessor: 'balance',
+        Cell: ({ value, row, ...rest }) => {
+          const { expenses_sum_amount = 0, incomes_sum_amount = 0 } =
+            row.original
+          const balance = expenses_sum_amount - incomes_sum_amount
+
+          return (
+            <span className={balance > 0 ? 'text-green-600' : 'text-red-500'}>
+              {formatRs(balance, '-')}
+            </span>
+          )
+        },
+      },
+
       {
         Header: 'Status',
         accessor: 'id',
