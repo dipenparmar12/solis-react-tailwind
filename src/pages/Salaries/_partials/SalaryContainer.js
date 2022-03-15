@@ -10,11 +10,10 @@ import PaginatorV1 from '@/components/molecules/PaginationV1/PaginatorV1'
 import useToggle from '@/hooks/useToggle'
 import Button from '@/components/atoms/Button'
 import Accordion from '@/components/molecules/Accordion/Accordion'
-import AdvanceFilters from '@/pages/Salaries/AdvanceFilters'
 import { useSalariesContext } from '@/pages/Salaries'
-import SalariesAdvancesTable from '@/pages/Salaries/SalariesAdvancesTable'
 import Icons from '@/components/icons/Icons'
 import SalaryFilters from '../SalaryFilters'
+import SalariesAdvancesTable from '@/pages/Salaries/SalariesAdvancesTable'
 
 export default function SalaryContainer() {
   const { State: FundState = {}, setQry, qry, activeTab } = useSalariesContext()

@@ -20,7 +20,11 @@ import {
 import { VscCheckAll, VscChevronDown, VscChevronRight } from 'react-icons/vsc'
 import { FcPaid } from 'react-icons/fc'
 import { IoIosCloseCircleOutline, IoMdDoneAll } from 'react-icons/io'
-import { MdOutlineCloudDone, MdOutlineDoNotDisturbOff } from 'react-icons/md'
+import {
+  MdAttachMoney,
+  MdOutlineCloudDone,
+  MdOutlineDoNotDisturbOff,
+} from 'react-icons/md'
 import { GrMoney } from 'react-icons/gr'
 import { BiDollar } from 'react-icons/bi'
 import { FiCheckCircle } from 'react-icons/fi'
@@ -48,7 +52,7 @@ const Icons = {
   Filter: RiFilter3Line,
   Refresh: RiRefreshLine,
 
-  // Complete: MdOutlineCloudDone,
+  Complete: MdOutlineCloudDone,
   // Check: BsCheck2Circle,
   CheckDouble: VscCheckAll,
   Question: BsQuestion,
@@ -65,6 +69,7 @@ const Icons = {
 
   Building: RiBuilding2Line,
 
+  Dollar2: MdAttachMoney,
   // Delete1: RiDeleteBinLine,
   // CheckCircle: FiCheckCircle,
 }

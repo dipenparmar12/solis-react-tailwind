@@ -149,7 +149,7 @@ export const routesPrivate = {
     label: 'Salaries',
     path: '/salaries',
     element: <SalaryPage />,
-    icon: <MdAttachMoney />,
+    icon: <Icons.Dollar2 />,
   },
   incomes: {
     label: 'Incomes',
