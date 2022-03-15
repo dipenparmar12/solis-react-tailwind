@@ -1,7 +1,6 @@
 import React from 'react'
 import UserAddForm from './AddForm'
-import { useUserContext } from '.'
-import { useModalContext } from '@/components/molecules/Modal/ModalV3'
+import { useUserContext } from '@/pages/Users/Context'
 
 function UserEditForm({ data, ...props }) {
   // const modalCtx = useModalContext()

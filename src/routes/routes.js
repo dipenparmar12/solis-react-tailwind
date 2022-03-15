@@ -10,9 +10,8 @@ import { FiUsers } from 'react-icons/fi'
 import { MdAttachMoney, MdOutlineRealEstateAgent } from 'react-icons/md'
 import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
-import ProjectContainer from '@/pages/Projects/ProjectContainer'
 import { UserAddFormContainer } from '@/pages/Users/AddForm'
-import UserContainer from '@/pages/Users'
+import UsersContext from '@/pages/Users'
 import ExamplesTemp from '@/temp/ExamplesTemp'
 import PrivateTemp from '@/temp/PrivateTemp'
 import Env from '@/utils/environment'
@@ -191,7 +190,7 @@ export const routesPrivate = {
   users: {
     label: 'Users',
     path: '/users',
-    element: <UserContainer />,
+    element: <UsersContext />,
     icon: <FiUsers />,
   },
   transaction: {

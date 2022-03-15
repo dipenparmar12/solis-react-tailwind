@@ -119,11 +119,11 @@ export default function DropDownApp({
       options={[
         {
           label: `1111`,
-          onSelect: () => {  console.log('List.js::97 111')  },
+          onSelect: () => {  console.log('CardList.js::97 111')  },
         },
         {
           label: `2222`,
-          onSelect: () => {  console.log('List.js::97 222')  },
+          onSelect: () => {  console.log('CardList.js::97 222')  },
         },
       ]}
     />

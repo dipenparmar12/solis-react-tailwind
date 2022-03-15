@@ -56,7 +56,7 @@ function ExpenseList({ project }) {
         //   label={'View'}
         //   options={[
         //     { label: `Expenses`, onSelect:u () => setOpen(tre), },
-        //     { label: `Incomes`, onSelect: () => {console.log('List.js::97 222')},},
+        //     { label: `Incomes`, onSelect: () => {console.log('CardList.js::97 222')},},
         //   ]}
         // />
       )}

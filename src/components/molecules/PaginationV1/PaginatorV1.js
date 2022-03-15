@@ -48,7 +48,7 @@ export default function PaginatorV1({
 
   // list of pages Memoized array
   const pagesOptions = React.useMemo(() => {
-    return Array.from({ length: totalPages }, (_, i) => ({
+    return Array.from({ length: totalPages || 0 }, (_, i) => ({
       label: `${i + 1}`,
       value: i + 1,
     }))

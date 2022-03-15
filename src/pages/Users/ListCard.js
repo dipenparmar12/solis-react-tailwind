@@ -5,12 +5,12 @@ import ErrorState from '@/components/atoms/ErrorState'
 import ModalV3 from '@/components/molecules/Modal/ModalV3'
 import UserAddForm from './AddForm'
 import Button from '@/components/atoms/Button'
-import { useUserContext } from '.'
 import Print from '@/components/atoms/Print'
 import { CardLoading } from '@/components/atoms/LoadingSkeleton'
+import { useUserContext } from '@/pages/Users/Context'
 
-export default function UserList() {
-  const { UsersState = {}, setApiQry } = useUserContext()
+export default function UserListCard() {
+  const { State: UsersState = {}, setQry } = useUserContext()
 
   return (
     <>
@@ -18,15 +18,15 @@ export default function UserList() {
         <PaginatorV1
           label={'Users'}
           setPage={(option) => {
-            setApiQry({ page: option?.value || option })
+            setQry({ page: option?.value || option })
           }}
           setPerPage={(option) => {
-            setApiQry({ page: 1, per_page: option?.value || option })
+            setQry({ page: 1, per_page: option?.value || option })
           }}
-          totalRecords={UsersState?.paginationData?.total || 0}
+          totalRecords={UsersState?.total || 0}
           pageSize={UsersState?.paginationData?.per_page || 0}
           currentPage={UsersState?.paginationData?.current_page || 0}
-          loading={UsersState?.loading}
+          loading={UsersState?.isLoading}
           siblingCount={1}
         />
 
@@ -44,16 +44,19 @@ export default function UserList() {
             </div>
           </ModalV3>
         </div>
-        <ErrorState error={!UsersState?.loading && UsersState?.error} />
+
+        <ErrorState
+          error={!UsersState?.state?.isLoading && UsersState?.state?.isError}
+        />
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5 ">
+          {/* loading  */}
+          <CardLoading loading={UsersState?.state?.isLoading} />
+
           {/* Data List */}
           {UsersState?.data?.map((user, i) => (
             <UserCard key={`user__${Math.random()}`} data={user} />
           ))}
-
-          {/* loading  */}
-          <CardLoading loading={UsersState?.loading} />
         </div>
 
         {/* <Print data={resUsers?.paginationData} maxHeight={'250px'} /> */}

@@ -3,11 +3,10 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
 import Print from '@/components/atoms/Print'
-import SalaryPage, { useSalariesContext } from '@/pages/Salaries'
+import { useSalariesContext } from '@/pages/Salaries'
 import Tabs from './_partials/Tabs'
 import AdvanceContainer from './_partials/AdvanceContainer'
 import AdvanceCreateForm from './_partials/AdvanceCreateForm'
-import CardV2 from '@/components/atoms/CardV2'
 import AdvancesSummaryTable from './_partials/AdvancesSummaryTable'
 import SalaryCreateForm from './_partials/SalaryCreateForm'
 import SalaryContainer from './_partials/SalaryContainer'

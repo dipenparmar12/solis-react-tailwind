@@ -6,15 +6,11 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
-import { useTable, usePagination, useSortBy, useExpanded } from 'react-table'
-import Print from '@/components/atoms/Print'
+import { useTable, useSortBy } from 'react-table'
 import { useSalariesContext } from '@/pages/Salaries'
 
 import TableLoading from '@/components/molecules/Table/TableLoading'
-import formatDate from '@/utils/date/formatDate'
 import formatRs from '@/utils/str/formatRs'
-import ModalV3 from '@/components/molecules/Modal/ModalV3'
-import useTableSorting from '@/hooks/useTableSorting'
 import Icons from '@/components/icons/Icons'
 import CardV2 from '@/components/atoms/CardV2'
 
