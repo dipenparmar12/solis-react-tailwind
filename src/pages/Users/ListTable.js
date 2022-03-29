@@ -19,6 +19,8 @@ import Print from '@/components/atoms/Print'
 import useTableSorting from '@/hooks/useTableSorting'
 import { useUserContext } from '@/pages/Users/Context'
 import TableFooterTotal from '@/components/molecules/Table/TableFooterTotal'
+import ExpenseList from '@/pages/Projects/_partials/ExpenseModal'
+import ExpenseFundList from '@/pages/Users/_partials/ExpenseFundModal'
 
 function UserListTable() {
   const { qry, setQry, State: UserState } = useUserContext()
@@ -57,20 +59,27 @@ function UserListTable() {
         Cell: ({ value }) => <span className=" ">{formatRs(value)}</span>,
         Footer: TableFooterTotal,
       },
-
+      // {
+      //   Header: 'Outstanding',
+      //   accessor: 'outstanding',
+      //   Cell: ({ value, row, ...rest }) => {
+      //     const { funds_sum_amount = 0, expenses_sum_amount = 0 } = row.original
+      //     const balance = funds_sum_amount - expenses_sum_amount
+      //     return (
+      //       <span className={balance > 0 ? 'text-green-600' : 'text-red-500'}>
+      //         {formatRs(balance, '-')}
+      //       </span>
+      //     )
+      //   },
+      // },
       {
-        Header: 'Outstanding',
+        Header: 'Ledger',
         accessor: 'outstanding',
-        Cell: ({ value, row, ...rest }) => {
-          const { funds_sum_amount = 0, expenses_sum_amount = 0 } = row.original
-          const balance = funds_sum_amount - expenses_sum_amount
-          return (
-            <span className={balance > 0 ? 'text-green-600' : 'text-red-500'}>
-              {formatRs(balance, '-')}
-            </span>
-          )
-        },
+        isSortable: false,
+        Cell: ({ value, row }) => <ExpenseFundList data={row.original} />,
+        // Footer: TableFooterTotal,
       },
+
       {
         Header: 'Status',
         accessor: 'id',
