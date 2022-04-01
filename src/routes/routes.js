@@ -170,7 +170,7 @@ export const routesPrivate = {
     icon: <Icons.Building />,
   },
   dealers: {
-    label: 'Dealers',
+    label: 'Vendors',
     path: '/dealers',
     element: <DealersContext />,
     icon: <Icons.Bag className="" />,

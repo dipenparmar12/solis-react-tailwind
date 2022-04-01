@@ -23,6 +23,21 @@ const resources = {
       get: async ({ qry: { user_id, ...qry }, config }) =>
         _axios.get(`/users/${user_id}/advances?${encode(qry)}`, config),
     },
+
+    expenses: {
+      get: async ({ qry: { user_id, ...qry }, config }) =>
+        _axios.get(`/users/${user_id}/expenses?${encode(qry)}`, config),
+    },
+
+    funds: {
+      get: async ({ qry: { user_id, ...qry }, config }) =>
+        _axios.get(`/users/${user_id}/funds?${encode(qry)}`, config),
+    },
+
+    permissions: {
+      get: async ({ qry: { user_id, ...qry }, config }) =>
+        _axios.get(`/users/${user_id}/permissions?${encode(qry)}`, config),
+    },
   },
 
   projects: {

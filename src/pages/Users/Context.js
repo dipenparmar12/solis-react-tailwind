@@ -9,7 +9,7 @@ import Tabs from '@/components/molecules/Tabs/Tabs'
 import Print from '@/components/atoms/Print'
 import useObject from '@/hooks/useObject'
 import UserListTable from '@/pages/Users/ListTable'
-import QryParams from '@/utils/miscellaneous/qryParams'
+import UserPermissions from '@/pages/Users/Permissions'
 
 // const UserContext = React.createContext(null)
 // export const useUserContext = () => React.useContext(UserContext)
@@ -21,13 +21,14 @@ export { useUserContext }
 
 const UserTabs = {
   List: 'User List',
+  Permissions: 'Permissions',
 }
 
 const UsersContext = ({ children }) => {
   const [qry, setQry] = useObject({ per_page: 15, tab: UserTabs.List })
 
   const [QryParams] = useSearchParams()
-  const [tab, setTab] = React.useState(QryParams.get('tab') || '')
+  const [tab, setTab] = React.useState(QryParams.get('tab') || UserTabs.List)
 
   // // Enable query params
   const qryParams = useQryParams({ setParams: setQry.merge })
@@ -51,7 +52,7 @@ const UsersContext = ({ children }) => {
   const apiState = useQuery(
     ['users', qry],
     () => Api.users.get({ qry }).then((res) => res?.data),
-    { enabled: false },
+    { enabled: true },
   )
 
   const apiStateMemo = React.useMemo(() => {
@@ -85,15 +86,16 @@ const UsersContext = ({ children }) => {
       <Tabs
         active={tab}
         setActive={setTab}
-        items={[{ name: UserTabs.List }, { name: 'PettyCash summary' }]}
+        items={[{ name: UserTabs.List }, { name: UserTabs.Permissions }]}
         callback={(active5Tab) => {
           setQry.merge({ tab: active5Tab })
         }}
       />
 
       {tab === UserTabs.List && <UserListTable />}
+      {tab === UserTabs.Permissions && <UserPermissions />}
 
-      <Print>{apiStateMemo}</Print>
+      {/* <Print>{apiStateMemo}</Print> */}
     </UserProvider>
   )
 }

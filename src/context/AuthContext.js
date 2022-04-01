@@ -75,3 +75,10 @@ export const RequireAuth = function ({ children }) {
 
   return children
 }
+
+/* ------------------------------------
+  Example
+  const auth = useAuth()
+  console.log(auth?.user?.id)
+  console.log(auth?.user?.name)
+ ------------------------------------ */
