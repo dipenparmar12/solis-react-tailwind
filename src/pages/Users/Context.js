@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React from 'react'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { useSearchParams } from 'react-router-dom'
 import useQryParams from '@/hooks/useQryParams'
 import Api from '@/services/ApiService'
@@ -55,6 +55,25 @@ const UsersContext = ({ children }) => {
     { enabled: true },
   )
 
+  const mutationOptions = React.useCallback((actions, options) => {
+    return {
+      onSuccess: (res) => {
+        Api.utils.notifySuccess(res)
+        actions.resetForm()
+        options?.onSuccess?.(res?.data)
+      },
+      onError: (error, variables, context) => {
+        actions?.setErrors(error?.response?.data?.errors)
+        options?.onError?.(error?.response)
+      },
+      // Just like finally, but for mutation
+      onSettled: (data, error, variables, context) => {
+        actions?.setSubmitting(false)
+        options?.onSettled?.(data, error, variables, context)
+      },
+    }
+  }, [])
+
   const apiStateMemo = React.useMemo(() => {
     // console.log('Context.js::51  apiState.data', apiState)
     if (!apiState?.data || !apiState?.data?.results) return {}
@@ -75,6 +94,7 @@ const UsersContext = ({ children }) => {
     State: apiStateMemo,
     qry,
     setQry,
+    mutationOptions,
   }
 
   React.useEffect(() => {

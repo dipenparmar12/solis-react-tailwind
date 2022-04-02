@@ -37,6 +37,8 @@ const resources = {
     permissions: {
       get: async ({ qry: { user_id, ...qry }, config }) =>
         _axios.get(`/users/${user_id}/permissions?${encode(qry)}`, config),
+      assign: async ({ user_id, data }, config = undefined) =>
+        _axios.post(`/users/${user_id}/assign_permissions`, data, config),
     },
   },
 

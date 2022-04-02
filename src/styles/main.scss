@@ -5,8 +5,23 @@
 @import './card';
 
 
+/*
+========================================================
+  custom styles (override)
+========================================================
+*/
 body {
   @apply bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-300;
+}
+
+.react-dropdown-select-content {
+  @apply px-3;
+}
+.react-dropdown-select-dropdown {
+  @apply dark:bg-gray-800 dark:border-gray-700;
+}
+.react-dropdown-select-item {
+  @apply dark:border-b dark:border-b-gray-900;
 }
 
 

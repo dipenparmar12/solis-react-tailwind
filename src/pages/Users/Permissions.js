@@ -1,20 +1,26 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/click-events-have-key-events,react/jsx-no-bind */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable indent */
-import React from 'react'
-import { useQuery } from 'react-query'
+import React, { useState } from 'react'
+import { useMutation, useQuery } from 'react-query'
 import classNames from 'classnames'
-import { FieldArray, useFormikContext } from 'formik'
+import { Field } from 'formik'
 import Api from '@/services/ApiService'
 import { useAuth } from '@/context/AuthContext'
 import keyBy from '@/utils/collection/groupBy'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
 import deepMerge from '@/utils/obj/deepMerge'
-import omitVal from '@/utils/obj/omitVal'
-import { InputFormik } from '@/components/molecules/Form/InputApp'
 import generateKey from '@/utils/miscellaneous/generateKey'
+import Print from '@/components/atoms/Print'
+import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
+import Button from '@/components/atoms/Button'
+import CardV2 from '@/components/atoms/CardV2'
+import InputApp from '@/components/molecules/Form/InputApp'
+import { useUserContext } from '@/pages/Users/Context'
+import InputSelect from '@/components/molecules/Form/InputSelect'
+import { useAppContext } from '@/context/AppContext'
 
 const initialValues = {
   user_id: '',
@@ -23,6 +29,17 @@ const initialValues = {
 
 function UserPermissions() {
   const auth = useAuth()
+  const appContext = useAppContext()
+  const { mutationOptions } = useUserContext()
+  const [userHasPermissions, setUserHasPermissions] = useState([])
+  const [search, setSearch] = useState('')
+  const [userId, setUserId] = useState(auth?.user?.id)
+
+  React.useEffect(() => {
+    if (!appContext?.staticData?.users?.length) {
+      appContext.setResources(['users'])
+    }
+  }, [])
 
   // API call
   const {
@@ -32,11 +49,19 @@ function UserPermissions() {
     isFetching,
     error,
   } = useQuery(
-    ['user_permissions', { id: auth?.user?.id }],
+    ['user_permissions', { id: userId }],
     () =>
       Api.users.permissions
-        .get({ qry: { user_id: auth?.user?.id } })
+        .get({ qry: { user_id: userId } })
         .then((res) => res?.data?.results)
+        .then((res) => {
+          const userPermissions = []
+          res?.forEach((permission) => {
+            if (permission?.hsa_access) userPermissions.push(permission.name)
+          })
+          setUserHasPermissions(userPermissions)
+          return res
+        })
         .then((results) => keyBy(results, 'group'))
         .then((permissionGroup) => Object.entries(permissionGroup)),
     {
@@ -44,52 +69,142 @@ function UserPermissions() {
     },
   )
 
+  const mutation = useMutation(Api.users.permissions.assign)
   const handleSubmit = async (values, actions, rowValues) => {
     // console.log('AddForm.js::[75] values', values, rowValues)
-    console.log('Permissions.js::46 values', values)
+    mutation.mutate(
+      { user_id: userId, data: values },
+      mutationOptions(actions, {
+        onSuccess: (res) => {
+          const userPermissions = res?.results?.permissions?.map(
+            (permission) => {
+              return permission.name
+            },
+          )
+          setUserHasPermissions(userPermissions)
+          setSearch('')
+        },
+      }),
+    )
+  }
+
+  function onClick() {
+    console.log('Permissions.js::92 onlick')
   }
 
   return (
     <>
       <FormikForm
         debug={['values']}
-        initialValues={initialValues}
+        enableReinitialize
+        initialValues={deepMerge(initialValues, {
+          permissions: userHasPermissions || [],
+          user_id: userId,
+        })}
         onSubmit={handleSubmit}
       >
-        <div className="container mx-auto px-2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 gap-x-8">
-            {Permissions?.map(([group, groupItems], index) => {
-              // console.log('Permissions.js::43 item', group)
-              return (
-                <div key={generateKey(group + index)}>
-                  <span className="text-xl text-orange-400">
-                    {group || '-'}
-                  </span>
+        <CardV2>
+          <div className="flex flex-col justify-end my-2">
+            <InputSelect
+              // clearable
+              // searchable
+              // delay={1500}
+              label="User"
+              placeholder="Select User"
+              options={appContext?.staticData?.users || []}
+              selectCallback={(value) => {
+                setUserId(value?.id)
+                // console.log('Permissions.js::110 value', value)
+                // return value?.id || value?.label
+              }}
+              keepSelectedInList={false}
+              delay={1000}
+            />
 
-                  <InputCheckBox items={groupItems} />
+            <InputApp
+              delay={1000}
+              placeholder={'Search Permission'}
+              onChange={(e) => setSearch(e?.target?.value)}
+            />
 
-                  {/* <ul> */}
-                  {/*  {groupItems?.map((item) => { */}
-                  {/*    return ( */}
-                  {/*      <li */}
-                  {/*        key={generateKey(item)} */}
-                  {/*        className={classNames([ */}
-                  {/*          'text-sm  my-3 shadow px-4 py-3 hover:scale-105 cursor-pointer text-gray-600 ', */}
-                  {/*          { */}
-                  {/*            'bg-emerald-100 ': item?.hsa_access, */}
-                  {/*          }, */}
-                  {/*        ])} */}
-                  {/*      > */}
-                  {/*        {item?.display_name || ''} */}
-                  {/*      </li> */}
-                  {/*    ) */}
-                  {/*  })} */}
-                  {/* </ul> */}
-                </div>
-              )
-            })}
+            <div className="flex justify-end my-2 ">
+              <Button
+                className="px-6 py-1 text-sm my-2 mx-2 "
+                variant="subtle"
+                type="reset"
+              >
+                Reset
+              </Button>
+
+              <ButtonFormik
+                as={Button}
+                className="px-6 py-1 text-sm my-2 mx-2 bg-sky-200"
+                variant="subtle"
+              >
+                Save
+              </ButtonFormik>
+            </div>
           </div>
-        </div>
+
+          <div className="container mx-auto px-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 gap-x-8">
+              {Permissions?.map(([group, groupItems], index) => {
+                // console.log('Permissions.js::43 item', group)
+                return (
+                  <div
+                    key={generateKey(group + index)}
+                    className="cursor-pointer"
+                    onClick={() => {
+                      console.log('Permissions.js::151 group', group)
+                    }}
+                  >
+                    <span className="text-xl text-orange-400">
+                      {group || '-'}
+                    </span>
+                    {groupItems?.map((permission) => {
+                      return (
+                        <Checkbox
+                          key={generateKey(group + permission.name)}
+                          name="permissions"
+                          value={permission.name}
+                          displayValue={permission?.display_name}
+                          // searchTerm={search}
+                          isHidden={
+                            search
+                              ? permission?.display_name?.search(
+                                  new RegExp(search, 'i'),
+                                ) !== -1
+                              : true
+                          }
+                        />
+                      )
+                    })}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {!isLoading && (
+            <div className="flex justify-end ">
+              <Button
+                className="px-6 py-1 text-sm my-2 mx-2 "
+                variant="subtle"
+                type="reset"
+              >
+                Reset
+              </Button>
+
+              <ButtonFormik
+                as={Button}
+                className="px-6 py-1 text-sm my-2 mx-2 bg-sky-200"
+                variant="subtle"
+              >
+                Save
+              </ButtonFormik>
+            </div>
+          )}
+        </CardV2>
       </FormikForm>
     </>
   )
@@ -97,47 +212,56 @@ function UserPermissions() {
 
 export default UserPermissions
 
-const InputCheckBox = React.memo(({ items }) => {
-  const { setFieldValue, validateForm, ...formikProps } =
-    useFormikContext?.() || {}
-
+/**
+ *
+ * @param name {String}
+ * @param value
+ * @param displayValue
+ * @param searchTerm
+ * @returns {JSX.Element}
+ * @constructor
+ * @see https://codesandbox.io/s/formik-checkbox-example-96miz?file=/src/index.js:1067-1440
+ */
+function Checkbox({ name, value, displayValue, isHidden }) {
   return (
-    <FieldArray
-      name="permissions"
-      render={(arrayHelpers) => (
-        <div>
-          {items?.map((permission) => {
-            // console.log('Permissions.js::119 permission', permission)
-            const idx = formikProps?.values?.permissions?.indexOf(
-              permission.name,
-            )
-
-            return (
-              <label
-                key={permission.value}
-                className="block text-sm  my-3 shadow px-4 py-3 hover:scale-105 cursor-pointer text-gray-600"
-              >
-                <input
-                  name="tags"
-                  type="checkbox"
-                  value={permission?.name}
-                  checked={formikProps?.values?.permissions?.includes(
-                    permission.name,
-                  )}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      arrayHelpers.push(permission.name)
-                    } else {
-                      arrayHelpers.remove(idx)
-                    }
-                  }}
-                />
-                <span className="px-1"> {permission?.display_name}</span>
-              </label>
-            )
-          })}
-        </div>
-      )}
-    />
+    <Field name={name}>
+      {({ field, form }) => {
+        const isChecked = field?.value?.includes(value)
+        return (
+          <label
+            className={classNames([
+              'block text-sm  my-2 shadow px-4 py-3 hover:scale-105 cursor-pointer dark:border dark:border-gray-700 ',
+              {
+                // 'dark:bg-gray-900': !isChecked,
+                'bg-emerald-100 dark:bg-sky-900': isChecked,
+                'hidden ': !isHidden,
+              },
+            ])}
+            // style={{ backgroundColor: 'rgba(175, 247, 211, 0.459)', }}
+          >
+            <input
+              {...field}
+              type="checkbox"
+              checked={isChecked}
+              onChange={() => {
+                const set = new Set(field.value)
+                if (set.has(value)) {
+                  set.delete(value)
+                } else {
+                  set.add(value)
+                }
+                form.setFieldValue(name, Array.from(set))
+              }}
+            />
+            <span
+              className="px-1 dark:text-gray-400"
+              // style={{ color: '#2b335e' }}
+            >
+              {displayValue || value}
+            </span>
+          </label>
+        )
+      }}
+    </Field>
   )
-})
+}
