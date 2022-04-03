@@ -9,6 +9,11 @@ const resources = {
     login: async (d, c) => _axios.post(`/sanctum/login`, d, c),
     logout: async () => _axios.get(`/sanctum/logout`),
     me: async () => _axios.get(`/me`),
+
+    permissions: {
+      get: async ({ qry: { user_id, ...qry } }) =>
+        _axios.get(`/users/${user_id}/permissions?${encode(qry)}`),
+    },
   },
 
   users: {

@@ -5,7 +5,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react'
 import { useMutation } from 'react-query'
-import { FieldArray, useFormikContext, getIn } from 'formik'
+import { FieldArray, useFormikContext } from 'formik'
 import Button from '@/components/atoms/Button'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
 import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
@@ -19,9 +19,10 @@ import { useAppContext } from '@/context/AppContext'
 import omitVal from '@/utils/obj/omitVal'
 import Print from '@/components/atoms/Print'
 import { InputSelectFormik } from '@/components/molecules/Form/InputSelect'
-import { RadioButtonFormik } from '@/components/molecules/Form/RadioButton'
 import { ExpCategories } from '@/store/types'
 import expenseSchemaCB from '@/pages/Expenses/_partials/expenseValidators'
+import { usePermissionContext } from '@/context/PermissionContext'
+import AccessControl from '@/components/atoms/AccessControl'
 
 const initialValues = {
   id: '',
@@ -42,6 +43,7 @@ export default function DealerPaymentCreate({
 }) {
   const modalCtx = useModalContext()
   const appContext = useAppContext()
+  // const { authPermissions } = usePermissionContext()
   // const [estimatesRows, setExpensesRows] = React.useState([1, 2, 3])
   // const [files, setFiles] = React.useState([])
 
@@ -83,35 +85,34 @@ export default function DealerPaymentCreate({
     mutation.mutate(values, mutationOptions(actions))
   }
 
-  const formRef = React.useRef()
-
   return (
     <>
-      <FormikForm
-        // debug={'*'}
-        debug={['values', 'errors']}
-        initialValues={deepMerge(initialValues, omitVal(initialData, null))}
-        onSubmit={handleSubmit}
-        validationSchema={expenseSchemaCB(isEdit)}
-        innerRef={formRef}
-        // inputLabels={projectInputLabels}
-        // transformValues={transformValues}
-        // castFormData
-      >
-        <h3 className="my-2 text-xl">New Vendor Payment</h3>
-
-        <div className="space-y-3">
-          <ExpenseCreateFields />
-        </div>
-
-        <ButtonFormik
-          as={Button}
-          variant="reset"
-          className="mt-5 px-6 py-1 btn_subtle__blue"
+      <AccessControl permissionsRequired={'payment-create'}>
+        <FormikForm
+          // debug={'*'}
+          debug={['values', 'errors']}
+          initialValues={deepMerge(initialValues, omitVal(initialData, null))}
+          onSubmit={handleSubmit}
+          validationSchema={expenseSchemaCB(isEdit)}
+          // inputLabels={projectInputLabels}
+          // transformValues={transformValues}
+          // castFormData
         >
-          {isEdit ? 'Update' : 'Submit'}
-        </ButtonFormik>
-      </FormikForm>
+          <h3 className="my-2 text-xl">New Vendor Payment</h3>
+
+          <div className="space-y-3">
+            <ExpenseCreateFields />
+          </div>
+
+          <ButtonFormik
+            as={Button}
+            variant="reset"
+            className="mt-5 px-6 py-1 btn_subtle__blue"
+          >
+            {isEdit ? 'Update' : 'Submit'}
+          </ButtonFormik>
+        </FormikForm>
+      </AccessControl>
     </>
   )
 }

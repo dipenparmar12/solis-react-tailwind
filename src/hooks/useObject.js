@@ -36,6 +36,16 @@ const useObject = (initialState = {}, cb = () => {}) => {
 
 export default useObject
 
+/* ------------------------------------
+  useObject example
+ ------------------------------------
+  const [qry, setQry] = useObject({ per_page: 10 })
+  // onClick={() => setQry.merge({   page: 1,  user_ids: [1,2,3]  }) }
+  // onClick={() => setQry.omit('page') }
+  // onClick={() => setQry.omit(['page','user_ids']) }
+  // onClick={() => setQry.reset() }
+ */
+
 // const MyApp = () => {
 //   const [data, setData] = useMergeState({ name: 'John', age: 20 });
 //   return (

@@ -17,7 +17,12 @@ import {
   RiRefreshLine,
   RiShoppingBag3Line,
 } from 'react-icons/ri'
-import { VscCheckAll, VscChevronDown, VscChevronRight } from 'react-icons/vsc'
+import {
+  VscCheckAll,
+  VscChevronDown,
+  VscChevronRight,
+  VscLock,
+} from 'react-icons/vsc'
 import { FcPaid } from 'react-icons/fc'
 import { IoIosCloseCircleOutline, IoMdDoneAll } from 'react-icons/io'
 import {
@@ -72,6 +77,7 @@ const Icons = {
   Dollar2: MdAttachMoney,
   // Delete1: RiDeleteBinLine,
   // CheckCircle: FiCheckCircle,
+  Lock: VscLock,
 }
 
 export default Icons

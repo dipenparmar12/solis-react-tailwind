@@ -22,6 +22,8 @@ import { useUserContext } from '@/pages/Users/Context'
 import InputSelect from '@/components/molecules/Form/InputSelect'
 import { useAppContext } from '@/context/AppContext'
 import { CardLoading } from '@/components/atoms/LoadingSkeleton'
+import SwitchSlide from '@/components/molecules/Form/SwitchSlide'
+import useObject from '@/hooks/useObject'
 
 const initialValues = {
   user_id: '',
@@ -33,7 +35,9 @@ function UserPermissions() {
   const appContext = useAppContext()
   const { mutationOptions } = useUserContext()
   const [userHasPermissions, setUserHasPermissions] = useState([])
-  const [search, setSearch] = useState('')
+  // const [search, setSearch] = useState('')
+  const [filters, SetFilters] = useObject({ search: '', checked: null })
+
   const [userId, setUserId] = useState(auth?.user?.id)
 
   React.useEffect(() => {
@@ -83,7 +87,7 @@ function UserPermissions() {
             },
           )
           setUserHasPermissions(userPermissions)
-          setSearch('')
+          SetFilters.merge({ search: '' })
         },
       }),
     )
@@ -125,8 +129,23 @@ function UserPermissions() {
             <InputApp
               delay={1000}
               placeholder={'Search Permission'}
-              onChange={(e) => setSearch(e?.target?.value)}
+              onChange={(e) => SetFilters.merge({ search: e?.target?.value })}
             />
+
+            <div className="pt-3">
+              <SwitchSlide
+                className={'flex-1'}
+                name="wip"
+                onChange={(option) => {
+                  SetFilters?.merge({ checked: option?.value || option })
+                }}
+                options={[
+                  { value: null, label: 'All' },
+                  { value: true, label: 'Checked' },
+                  { value: false, label: 'UnChecked' },
+                ]}
+              />
+            </div>
 
             <div className="flex justify-end my-2 ">
               <Button
@@ -172,10 +191,12 @@ function UserPermissions() {
                           value={permission.name}
                           displayValue={permission?.display_name}
                           // searchTerm={search}
+                          filters={filters}
+                          isHiddenChecked={filters.checked}
                           isHidden={
-                            search
+                            filters?.search
                               ? permission?.display_name?.search(
-                                  new RegExp(search, 'i'),
+                                  new RegExp(filters?.search, 'i'),
                                 ) !== -1
                               : true
                           }
@@ -225,11 +246,19 @@ export default UserPermissions
  * @constructor
  * @see https://codesandbox.io/s/formik-checkbox-example-96miz?file=/src/index.js:1067-1440
  */
-function Checkbox({ name, value, displayValue, isHidden }) {
+function Checkbox({ name, value, displayValue, filters }) {
   return (
     <Field name={name}>
       {({ field, form }) => {
         const isChecked = field?.value?.includes(value)
+
+        const isSearchTerm = filters?.search
+          ? displayValue?.search(new RegExp(filters?.search, 'i')) !== -1
+          : true
+
+        const isRowHidden =
+          filters.checked !== null ? filters.checked !== isChecked : false
+
         return (
           <label
             className={classNames([
@@ -237,7 +266,7 @@ function Checkbox({ name, value, displayValue, isHidden }) {
               {
                 // 'dark:bg-gray-900': !isChecked,
                 'bg-emerald-100 dark:bg-sky-900': isChecked,
-                'hidden ': !isHidden,
+                'hidden ': !isSearchTerm || isRowHidden,
               },
             ])}
             // style={{ backgroundColor: 'rgba(175, 247, 211, 0.459)', }}

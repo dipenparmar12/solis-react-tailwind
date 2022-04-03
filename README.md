@@ -10,19 +10,26 @@
 
 - [x] Tailwind Theme, Config
 - [x] SASS with Tailwind
+- [x] Light/Dark mode
 - [x] Responsive Sidebar
 - [x] Dark Mode, +toggle button
 - [x] Auth Service (Without API)
 - [x] Private and Public routes
 - [x] Prettier and EsLint
 - [x] Custom dropdown button
-- [ ] API
-- [ ] Forms And Input Controls
-- [ ] Notifications
+- [x] API
+- [x] React Query
+- [x] Forms And Input Controls
+- [x] Notifications
 - [ ] WebHook
 - [ ] Redux
-- [ ] filter
-- [ ] Table, Expandable, Sort, Search and Filters
+- [x] filter
+- [x] Table, Expandable, Sort, Search and Filters
+- [ ] Permission based access control
+- [ ] custom scroll bar
+- [ ] tooltip
+- [ ] responsive modal, Modal history api (navigation back/forward)
+- [ ] ...
 
 ### HOOKS
 
@@ -275,3 +282,4 @@ module.exports = {
 - React table sorting logic: https://github.com/tannerlinsley/react-table/discussions/2033
 - Tab styles: https://tailwindcomponents.com/component/tab-navigation
 - React-Table sub components: https://react-table.tanstack.com/docs/examples/sub-components-lazy
+- Permission based access control: https://levelup.gitconnected.com/access-control-in-a-react-ui-71f1df60f354

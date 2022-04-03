@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-responsive-modal/styles.css'
 import './index.scss'
+import PermissionsContext from '@/context/PermissionContext'
 
 console.info('index.js::[12] env', process.env.NODE_ENV)
 
@@ -29,8 +30,10 @@ export default ReactDOM.render(
           <BrowserRouter>
             <ReactQueryDevtools initialIsOpen={false} />
             <AuthProvider>
-              <App />
-              <ToastContainer />
+              <PermissionsContext>
+                <App />
+                <ToastContainer />
+              </PermissionsContext>
             </AuthProvider>
           </BrowserRouter>
         </LayoutProvider>

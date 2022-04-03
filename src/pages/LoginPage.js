@@ -1,12 +1,12 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import axios from 'axios'
-import { useAuth } from '../context/AuthContext'
-import Api from '../services/ApiService'
-import { isDevEnv } from '../utils/environment'
+import { useAuth } from '@/context/AuthContext'
+
+import { isDevEnv } from '@/utils/environment'
 import useDarkMode from '../hooks/useDarkMode'
 import Notify, { appToast } from '@/services/NotifyService'
+import Api from '@/services/ApiService'
 
 /**
  * @src https://tailwindcomponents.com/component/simple-sign-in
@@ -71,6 +71,7 @@ export default function LoginPage() {
                   Email Address
                 </label>
                 <input
+                  tabIndex="1"
                   type="email"
                   name="email"
                   id="email"
@@ -89,6 +90,7 @@ export default function LoginPage() {
                     Password
                   </label>
                   <a
+                    tabIndex="4"
                     href="#!"
                     className="text-sm text-gray-400 focus:outline-none focus:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-300"
                   >
@@ -97,6 +99,7 @@ export default function LoginPage() {
                 </div>
 
                 <input
+                  tabIndex="2"
                   type="password"
                   name="password"
                   id="password"
@@ -107,6 +110,7 @@ export default function LoginPage() {
               </div>
               <div className="mb-7">
                 <button
+                  tabIndex="3"
                   type="submit"
                   className="w-full px-3 py-3 text-gray-800 border rounded-md dark:text-gray-100 hover:text-white hover:bg-gray-700 dark:hover:bg-gray-800 focus:outline-none"
                 >

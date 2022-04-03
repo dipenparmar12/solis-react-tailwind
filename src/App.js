@@ -5,7 +5,6 @@ import { RequireAuth } from '@/context/AuthContext'
 import Layout from '@/layout/Layout'
 import { routesPrivate, routesPublic } from './routes/routes'
 import NotFound from './pages/NotFound'
-import LoginPage from './pages/LoginPage'
 
 export const routes = { ...routesPrivate, ...routesPublic }
 export const routesPrivateArr = Object.entries(routesPrivate)

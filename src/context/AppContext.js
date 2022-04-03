@@ -36,23 +36,33 @@ const AppContextProvider = ({ children }) => {
 
   // Static data fetchers
   const apiState = useQueries(
-    resources?.map((item) => {
-      const [resource, mapper] = Types.isObject(item)
-        ? Object.values(item)
-        : [item]
+    resources?.map(
+      (item) => {
+        const [resource, mapper] = Types.isObject(item)
+          ? Object.values(item)
+          : [item]
 
-      return {
-        queryKey: ['staticData', resource],
-        queryFn: () => fetchData({ resource }, mapper),
-        // config: {
-        //   cacheTime: 3000,
-        //   refetchInterval: 10000,
-        //   refetchOnMount: false,
-        //   refetchOnWindowFocus: false,
-        //   refetchOnReconnect: false,
-        // },
-      }
-    }),
+        return {
+          queryKey: ['staticData', resource],
+          queryFn: () => fetchData({ resource }, mapper),
+          config: {
+            enabled: false,
+            refetchOnWindowFocus: false,
+          },
+          // config: {
+          //   cacheTime: 3000,
+          //   refetchInterval: 10000,
+          //   refetchOnMount: false,
+          //   refetchOnWindowFocus: false,
+          //   refetchOnReconnect: false,
+          // },
+        }
+      },
+      {
+        enabled: false,
+        refetchOnWindowFocus: false,
+      },
+    ),
   )
 
   React.useEffect(() => {}, [resources])
