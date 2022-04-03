@@ -239,8 +239,12 @@ export default function UserAddForm({
           </div>
         </div>
 
-        <ButtonFormik as={Button} className="mt-5">
-          {isEdit ? 'Update' : 'Register'}
+        <ButtonFormik
+          as={Button}
+          variant="reset"
+          className="mt-5 px-6 py-1 btn_subtle__blue"
+        >
+          {isEdit ? 'Update' : 'Submit'}
         </ButtonFormik>
 
         {/* <Button className="mt-5 " type="submit">

@@ -184,7 +184,11 @@ export default function IncomeForm({
             />
           </div> */}
         </div>
-        <ButtonFormik as={Button} className="mt-5">
+        <ButtonFormik
+          as={Button}
+          variant="reset"
+          className="mt-5 px-6 py-1 btn_subtle__blue"
+        >
           {isEdit ? 'Update' : 'Submit'}
         </ButtonFormik>
       </FormikForm>

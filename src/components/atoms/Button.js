@@ -52,19 +52,22 @@ function ButtonUnMemo(
     },
   ]
 
-  const variantSubtle = [
+  const subtal = [
     'text-gray-600',
     ' transition-colors duration-200 transform border rounded',
     'bg-gray-50 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none',
-    ' active:bg-gray-200 dark:active:bg-gray-600',
+    'active:bg-gray-200 dark:active:bg-gray-600',
   ]
 
   switch (variant) {
+    case 'reset':
+      styles = ''
+      break
     case 'default':
       styles = variantDefault
       break
     case 'subtle':
-      styles = variantSubtle
+      styles = subtal
       break
 
     default:

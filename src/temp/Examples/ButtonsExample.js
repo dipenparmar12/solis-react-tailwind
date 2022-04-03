@@ -1,11 +1,20 @@
 import React from 'react'
 import Button from '@/components/atoms/Button'
+import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
 
 export default function ButtonsExample() {
   return (
     <>
       <div className="space-x-2 ">
         <button className="btn btn-primary">Button Default</button>
+      </div>
+      <div className="space-x-2 ">
+        <Button
+          className="px-6 py-1 text-sm my-2 mx-2 btn_subtle__blue"
+          variant="reset"
+        >
+          Save
+        </Button>
       </div>
       <div className="space-x-2 ">
         <button className="btn disabled"> Default disable</button>
