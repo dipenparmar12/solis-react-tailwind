@@ -2,10 +2,10 @@ import cn from '@/utils/classNames'
 
 const SpinnerSizes = {
   sm: 'w-3 h-3 border',
-  md: 'w-4 h-4 mb-1 border-2',
-  lg: 'w-5 h-5 mb-1 border-2',
-  xl: 'w-5 h-5 mb-1 border-2',
-  '2xl': 'w-5 h-5 mb-1 border-2',
+  md: 'w-4 h-4 mt-0.5 border-2',
+  lg: 'w-5 h-5 mb-0.5 border-2',
+  xl: 'w-5 h-5 mb-0.5 border-2',
+  '2xl': 'w-5 h-5 mb-0.5 border-2',
 }
 
 /**
@@ -16,7 +16,7 @@ export default function SpinnerV2({ size = 'md', className }) {
   return (
     <div
       className={cn(
-        'inline-block m-auto ml-2 align-middle rounded-full animate-spin border-gray-400 border-t-gray-500 dark:border-t-gray-600',
+        'inline-block m-auto align-middle rounded-full animate-spin border-gray-400 border-t-gray-500 dark:border-t-gray-600',
         SpinnerSizes[size] || size,
         className,
       )}

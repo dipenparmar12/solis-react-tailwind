@@ -21,6 +21,7 @@ import InputApp from '@/components/molecules/Form/InputApp'
 import { useUserContext } from '@/pages/Users/Context'
 import InputSelect from '@/components/molecules/Form/InputSelect'
 import { useAppContext } from '@/context/AppContext'
+import { CardLoading } from '@/components/atoms/LoadingSkeleton'
 
 const initialValues = {
   user_id: '',
@@ -148,19 +149,21 @@ function UserPermissions() {
 
           <div className="container mx-auto px-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 gap-x-8">
+              {/* loading  */}
+
+              <CardLoading loading={isLoading} count={12} />
+
               {Permissions?.map(([group, groupItems], index) => {
                 // console.log('Permissions.js::43 item', group)
                 return (
                   <div
                     key={generateKey(group + index)}
-                    className="cursor-pointer"
-                    onClick={() => {
-                      console.log('Permissions.js::151 group', group)
-                    }}
+                    // className="cursor-pointer"
                   >
                     <span className="text-xl text-orange-400">
                       {group || '-'}
                     </span>
+
                     {groupItems?.map((permission) => {
                       return (
                         <Checkbox

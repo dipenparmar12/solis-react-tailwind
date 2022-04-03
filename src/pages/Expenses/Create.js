@@ -188,7 +188,6 @@ function ExpenseCreateFields() {
             clearable
             // searchable
             // delay={1500}
-            isRequired
             className={'flex-1'}
             label="Vendor"
             placeholder="Select Vendor"

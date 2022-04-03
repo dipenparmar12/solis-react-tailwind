@@ -1,11 +1,11 @@
 import React from 'react'
 
-export const CardLoading = ({ loading }) => {
+export const CardLoading = ({ loading, count = 15 }) => {
   if (!loading) return null
 
   return (
     <>
-      {[...Array(15)].map((i) => (
+      {[...Array(count)].map((i) => (
         <div
           key={`user__skeleton__${Math.random()}`}
           className="w-full max-w-lg p-3 px-2 py-2 mx-auto bg-white border rounded-md shadow-md lg:px-4 hover:shadow-lg dark:bg-gray-900 hover:border-gray-400 dark:border-gray-900 dark:hover:border-gray-800 "

@@ -38,15 +38,21 @@ axiosApp.interceptors.response.use(null, (error) => {
   if (error.response) {
     // console.log('AxiosService.js::[39] error.response', error.response?.data)
     /// TODO::: Logger Service
+    console.info(
+      'AxiosService.js::[29] error response',
+      `[${error.response.status}]`,
+      error.response?.data?.message || error.response?.data,
+    )
+
     if (config.REACT_APP_NOTIFY_ERROR) {
       if (error.response?.data?.message) {
-        Notify.error(error.response?.data?.message, {
+        return Notify.error(error.response?.data?.message, {
           position: 'top-center',
           toastId: error.response.status,
         })
       }
       if ([StatusCode.NOT_FOUND].includes(error.response.status)) {
-        Notify.error(
+        return Notify.error(
           `${error.response.status} - ${error.response.statusText}`,
           {
             position: 'top-center',
@@ -55,12 +61,6 @@ axiosApp.interceptors.response.use(null, (error) => {
         )
       }
     }
-
-    console.info(
-      'AxiosService.js::[29] error response',
-      `[${error.response.status}]`,
-      error.response?.data?.message || error.response?.data,
-    )
   }
 
   if (

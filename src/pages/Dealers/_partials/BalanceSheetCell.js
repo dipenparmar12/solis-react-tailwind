@@ -35,7 +35,7 @@ const BalanceSheetCell = React.memo(({ row, ...rest }) => {
   const EstimateTotal = parseInt(dealer?.estimates_sum_amount || 0, 10)
   const ExpenseTotal = parseInt(dealer?.expenses_sum_amount || 0, 10)
   const PaymentsTotal = parseInt(dealer?.payments_sum_amount || 0, 10)
-  const Balance = EstimateTotal + ExpenseTotal - PaymentsTotal
+  const Balance = EstimateTotal - ExpenseTotal - PaymentsTotal
 
   return (
     <div className="cursor-pointer">
@@ -79,7 +79,7 @@ const BalanceSheetCell = React.memo(({ row, ...rest }) => {
             <h6 className="text-gray-600 dark:text-gray-500 text-lg whitespace-nowrap">
               Payments
             </h6>
-            <h3 className="text-green-600 dark:text-gray-400 text-2xl font-semibold">
+            <h3 className="text-gray-600 dark:text-gray-400 text-2xl font-semibold">
               {formatRs(PaymentsTotal, 0)}
             </h3>
           </div>

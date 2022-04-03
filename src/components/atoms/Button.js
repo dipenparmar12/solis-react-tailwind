@@ -80,8 +80,8 @@ function ButtonUnMemo(
       type={type}
       {...buttonProps}
     >
-      {label || children}
-      {isWorking && <SpinnerV2 size={size} />}
+
+       {isWorking ? <SpinnerV2 size={size} /> : label || children}
     </button>
   )
 }

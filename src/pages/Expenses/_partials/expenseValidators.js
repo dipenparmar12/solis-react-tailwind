@@ -43,10 +43,10 @@ export default function expenseSchemaCB(isEdit) {
     dealer_id: yup
       .number()
       .nullable()
-      .when(['category'], {
-        is: (category) => category === ExpCategories.Project,
-        then: yup.number().required(),
-      })
+      // .when(['category'], {
+      //   is: (category) => category === ExpCategories.Project,
+      //   then: yup.number().required(),
+      // })
       .label(ExpenseInputLabels.dealer_id),
 
     transaction_id: yup
