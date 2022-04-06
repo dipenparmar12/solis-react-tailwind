@@ -11,11 +11,15 @@ import {
   RiErrorWarningLine,
   RiEyeLine,
   RiFilter3Line,
+  RiFilterLine,
   RiHandCoinLine,
   RiIndeterminateCircleLine,
   RiQuestionMark,
   RiRefreshLine,
+  RiSettingsLine,
   RiShoppingBag3Line,
+  RiShutDownLine,
+  RiUserFollowLine,
 } from 'react-icons/ri'
 import {
   VscCheckAll,
@@ -34,6 +38,8 @@ import { GrMoney } from 'react-icons/gr'
 import { BiDollar } from 'react-icons/bi'
 import { FiCheckCircle } from 'react-icons/fi'
 import { TiDelete } from 'react-icons/ti'
+import { AiOutlineExport } from 'react-icons/ai'
+import { IoShieldOutline } from 'react-icons/io5'
 
 /**
  * Icons for the application
@@ -48,6 +54,9 @@ const Icons = {
   SortingDesc: <RiArrowDownSLine className="inline-block text-sky-500" />,
   ArrowRight: <VscChevronRight className="inline-block" />,
   ArrowDown: <VscChevronDown className="inline-block" />,
+
+  User: RiUserFollowLine,
+  Settings: RiSettingsLine,
 
   Add: RiAddLine,
   Edit: RiEditLine,
@@ -78,6 +87,10 @@ const Icons = {
   // Delete1: RiDeleteBinLine,
   // CheckCircle: FiCheckCircle,
   Lock: VscLock,
+  Shield: IoShieldOutline,
+  Export: AiOutlineExport,
+  ShutDown: RiShutDownLine,
+  Filter2: RiFilterLine,
 }
 
 export default Icons

@@ -28,7 +28,7 @@ const UsersContext = ({ children }) => {
   const [qry, setQry] = useObject({ per_page: 15, tab: UserTabs.List })
 
   const [QryParams] = useSearchParams()
-  const [tab, setTab] = React.useState(QryParams.get('tab') || UserTabs.List)
+  const [tab, setTab] = React.useState(QryParams.get('tab') || 'User List')
 
   // // Enable query params
   const qryParams = useQryParams({ setParams: setQry.merge })

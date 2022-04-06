@@ -23,6 +23,7 @@ import Svg from '../components/Svg/Svg'
 import cn from '../utils/classNames'
 import useToggle from '@/hooks/useToggle'
 import SidebarNavList from './_partials/SidebarNavList'
+import Icons from '@/components/icons/Icons'
 
 /**
  *  @src https://codepen.io/chris__sev/pen/RwKWXpJ?editors=1000
@@ -186,9 +187,18 @@ const DropDownMenu = ({ ...props }, forwardRef) => {
               className="block"
               onClick={setIsVisible.off}
             >
-              <RiUserFollowLine className="inline-block mx-1" /> View Profile{' '}
+              <Icons.User className="inline-block mx-1" /> View Profile{' '}
             </NavLink>
           </li>
+          {/* <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 active:bg-sky-100"> */}
+          {/*  <NavLink */}
+          {/*    to={routes?.permissions?.path || '/'} */}
+          {/*    className="block" */}
+          {/*    onClick={setIsVisible.off} */}
+          {/*  > */}
+          {/*    <Icons.Shield className="inline-block mx-1" /> Permissions */}
+          {/*  </NavLink> */}
+          {/* </li> */}
           <li className="px-4 py-2 text-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 active:bg-sky-100">
             <NavLink
               to={routes?.projects?.path || '/'}
@@ -204,7 +214,7 @@ const DropDownMenu = ({ ...props }, forwardRef) => {
               className="block"
               onClick={setIsVisible.off}
             >
-              <RiSettingsLine className="inline-block mx-1" /> Settings{' '}
+              <Icons.Settings className="inline-block mx-1" /> Settings{' '}
             </NavLink>
           </li>
 
@@ -215,7 +225,7 @@ const DropDownMenu = ({ ...props }, forwardRef) => {
               className="block"
               onClick={() => auth.signOutRedirect()}
             >
-              <RiShutDownLine className="inline-block mx-1" /> Logout{' '}
+              <Icons.ShutDown className="inline-block mx-1" /> Logout{' '}
             </NavLink>
           </li>
         </ul>

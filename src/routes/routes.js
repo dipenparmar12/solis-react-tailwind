@@ -31,6 +31,7 @@ import { ExpenseFormContainer } from '@/pages/Expenses/Create'
 import ProjectsContext from '@/pages/Projects'
 import { DealerPaymentFormContainer } from '@/pages/Dealers/CreatePayment'
 import { FundFormContainer } from '@/pages/Funds/Create'
+import UserPermissions from '@/pages/Users/Permissions'
 
 export const testRoutes = {
   profile: {
@@ -199,6 +200,12 @@ export const routesPrivate = {
     element: <TransactionsContainer />,
     icon: <RiBankCardLine />,
   },
+  // permissions: {
+  //   label: 'Permissions',
+  //   path: '/users?tab=permissions',
+  //   element: <UsersContext />,
+  //   icon: <RiBankCardLine />,
+  // },
   ...(Env.IsDev ? testRoutes : {}),
 }
 

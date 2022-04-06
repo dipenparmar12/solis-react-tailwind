@@ -11,6 +11,7 @@ import { usePermissionContext } from '@/context/PermissionContext'
  * @param renderNoAccess
  * @param accessCheck
  * @param children
+ * @param fallback
  * @returns {*|JSX.Element}
  * @constructor
  * @see https://levelup.gitconnected.com/access-control-in-a-react-ui-71f1df60f354
@@ -21,6 +22,7 @@ const AccessControl = ({
   renderNoAccess,
   accessCheck,
   children,
+  fallback,
 }) => {
   const { authPermissions } = usePermissionContext() || {}
   const appPermissions = authPermissionsProp || authPermissions
@@ -35,9 +37,9 @@ const AccessControl = ({
     ? get(appPermissions, `${permissionsRequired}.hsa_access`)
     : true
 
-  if (permitted && hasPermission) {
-    return children
-  }
+  if (permitted && hasPermission) return children
+
+  if (fallback !== undefined) return fallback
 
   return renderNoAccess ? renderNoAccess() : <AccessDenied />
 }

@@ -114,6 +114,7 @@ function UserPermissions() {
               // clearable
               // searchable
               // delay={1500}
+              values={''}
               label="User"
               placeholder="Select User"
               options={appContext?.staticData?.users || []}
@@ -134,6 +135,7 @@ function UserPermissions() {
 
             <div className="pt-3">
               <SwitchSlide
+                value={''}
                 className={'flex-1'}
                 name="wip"
                 onChange={(option) => {
@@ -147,9 +149,9 @@ function UserPermissions() {
               />
             </div>
 
-            <div className="flex justify-end my-2 ">
+            <div className="flex justify-end my-1 ">
               <Button
-                className="px-6 py-1 text-sm my-2 mx-2 "
+                className="px-6 py-1 text-sm my-1 mx-2 "
                 variant="subtle"
                 type="reset"
               >
@@ -158,7 +160,7 @@ function UserPermissions() {
 
               <ButtonFormik
                 as={Button}
-                className="px-6 py-1 text-sm my-2 mx-2 bg-sky-200"
+                className="px-6 py-1 text-sm my-1 mx-2 bg-sky-200"
                 variant="subtle"
               >
                 Save

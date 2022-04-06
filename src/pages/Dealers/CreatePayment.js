@@ -5,7 +5,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react'
 import { useMutation } from 'react-query'
-import { FieldArray, useFormikContext } from 'formik'
+import { useFormikContext } from 'formik'
 import Button from '@/components/atoms/Button'
 import FormikForm from '@/components/molecules/FormicApp/FormFormik'
 import ButtonFormik from '@/components/molecules/FormicApp/ButtonFormik'
