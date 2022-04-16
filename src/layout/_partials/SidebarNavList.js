@@ -73,6 +73,10 @@ export default function SidebarNavList({ routes }) {
       </AccessControl>
 
       <AccessControl fallback={null} permissionsRequired={'debug'}>
+        <NavLinkItem route={routes?.permissions} />
+      </AccessControl>
+
+      <AccessControl fallback={null} permissionsRequired={'debug'}>
         <NavLinkItem route={routes?.examples} />
       </AccessControl>
 

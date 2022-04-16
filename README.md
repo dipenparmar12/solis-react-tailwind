@@ -1,5 +1,12 @@
 ## PHP Laravel Front-end application
 
+## Publish Application
+Publish app to Firebase 
+`yarn publish:firebase`
+
+Publish app to Heroku
+`yarn publish:heroku`
+
 ## Development
 
 1. Modify `src/config/config.dev.json` file as per requirement **REACT_APP_BASE_API** should must exact match with backend url
