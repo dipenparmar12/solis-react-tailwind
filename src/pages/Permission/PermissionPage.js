@@ -5,6 +5,8 @@ import Button from '@/components/atoms/Button'
 import { usePermissionContext } from '@/context/PermissionContext'
 import Print from '@/components/atoms/Print'
 import Api from '@/services/ApiService'
+import Accordion from '@/components/molecules/Accordion/Accordion'
+import Icons from '@/components/icons/Icons'
 
 const PermissionPage = () => {
   return (
@@ -27,16 +29,26 @@ const PermissionList = () => {
           return (
             <div
               key={perm?.name}
-              className={
-                'flex border my-2 gap-2 bg-sky-100 dark:bg-sky-900 mx-1 p-2'
-              }
+              // className={
+              //   'flex border my-2 gap-2 bg-sky-100 dark:bg-sky-900 mx-1 p-2'
+              // }
+              className={'hover:bg-gray-100 dark:hover:bg-gray-800'}
             >
-              <div className="p-1">{i}</div>
-              <div className="p-1 ">{perm?.group}</div>
-              <div className="p-1 flex-1">{perm?.name}</div>
-              <div className="p-1 px-2 flex-1 bg-sky-200 dark:bg-sky-800">
-                {perm?.display_name || '-'}
-              </div>
+              <Accordion
+                initialIsOpen={false}
+                renderButton={({ toggle, isOpen }) => (
+                  <div className={'flex py-1'}>
+                    <div className="p-1">{i}</div>
+                    {/* <div className="p-1 ">{perm?.group}</div> */}
+                    <div className="p-1 flex-1">{perm?.name}</div>
+                    <div className="p-1 flex-1 px-2 flex-1  ">
+                      {perm?.display_name || '-'}
+                    </div>
+                  </div>
+                )}
+              >
+                <Print>{perm}</Print>
+              </Accordion>
             </div>
           )
         })}
