@@ -37,6 +37,7 @@ const initialValues = {
   estimates: [
     {
       amount: 0,
+      dealer_id: 1,
     },
   ],
   files: 123,
@@ -228,10 +229,8 @@ function InputEstimates({ appContext, estimatesRows, setEstimatesRows }) {
               {values?.estimates &&
                 values?.estimates?.length > 0 &&
                 values?.estimates?.map((estimate, index) => (
-                  <div
-                    key={generateKey(index)}
-                    className="flex flex-col gap-3 md:flex-row"
-                  >
+                  // eslint-disable-next-line react/no-array-index-key
+                  <div key={index} className="flex flex-col gap-3 md:flex-row">
                     <div className="flex-1">
                       <InputSelectFormik
                         // clearable
@@ -243,7 +242,6 @@ function InputEstimates({ appContext, estimatesRows, setEstimatesRows }) {
                         placeholder="Select Vendor"
                         options={appContext?.staticData?.dealers || []}
                         selectCallback={(value) => value?.id || value?.label}
-                        // name="dealer_id"
                         name={`estimates.${index}.dealer_id`}
                         valueField="id"
                         keepSelectedInList={false}
