@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-nested-ternary */

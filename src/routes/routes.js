@@ -52,19 +52,6 @@ export const testRoutes = {
     element: <ExamplesTemp />,
     icon: <RiInformationLine />,
   },
-  a: {
-    label: 'Route expenses',
-    path: '/expenses',
-    element: <div> path: /expenses </div>,
-    icon: <Svg.InfoCircle />,
-  },
-  b: {
-    label: 'Route incomes',
-    path: '/incomes',
-    element: <div> path: /Route incomes </div>,
-    icon: <Svg.InfoCircle />,
-  },
-
   dropdown: {
     label: 'Dropdown',
     path: '/dropdown',
@@ -169,6 +156,7 @@ export const routesPrivate = {
     element: <ProjectsContext />,
     // element: <ProjectContainer />,
     icon: <Icons.Building />,
+    permissionsRequired: ['project-list-all'],
   },
   dealers: {
     label: 'Vendors',
@@ -211,3 +199,23 @@ export const routesPrivate = {
 
 const routes = {}
 export default routes
+
+/* ------------------------------------
+  route = [
+  {
+    label: 'Projects',
+    path: '/projects',
+    element: <ProjectsContext />,
+    icon: <Icons.Building />,
+    permissionsRequired: ['project-list-all'],
+    children: {
+      b: {
+        label: 'Route incomes',
+        path: '/incomes',
+        element: <div> path: /Route incomes </div>,
+        icon: <Svg.InfoCircle />,
+      },
+   }
+  ]
+
+ ------------------------------------ */

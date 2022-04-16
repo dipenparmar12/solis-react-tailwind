@@ -5,6 +5,7 @@ import { RequireAuth } from '@/context/AuthContext'
 import Layout from '@/layout/Layout'
 import { routesPrivate, routesPublic } from './routes/routes'
 import NotFound from './pages/NotFound'
+import AccessControl from '@/components/atoms/AccessControl'
 
 export const routes = { ...routesPrivate, ...routesPublic }
 export const routesPrivateArr = Object.entries(routesPrivate)
@@ -23,7 +24,13 @@ const App = function () {
               exact
               element={
                 <RequireAuth>
-                  <Layout> {route.element} </Layout>
+                  <Layout>
+                    <AccessControl
+                      permissionsRequired={route?.permissionsRequired}
+                    >
+                      {route.element}
+                    </AccessControl>
+                  </Layout>
                 </RequireAuth>
               }
             />

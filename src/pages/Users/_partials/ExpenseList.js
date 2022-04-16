@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-nested-ternary */
@@ -48,6 +48,7 @@ function ExpenseList({ data: user }) {
       <ModalV3
         renderButton={({ setOpen }) => (
           <a
+            role={'link'}
             className="link"
             onClick={() => {
               setOpen(true)

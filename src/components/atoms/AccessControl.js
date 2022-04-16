@@ -1,8 +1,10 @@
 import React from 'react'
-import { isFunction } from '@craco/craco/lib/utils'
 import get from '@/utils/obj/get'
 import AccessDenied from '@/components/atoms/AccessDenied'
 import { usePermissionContext } from '@/context/PermissionContext'
+import Assertion from '@/utils/Assertion'
+
+const { isFunction, isString, isArray } = Assertion
 
 /**
  *
@@ -28,14 +30,22 @@ const AccessControl = ({
   const appPermissions = authPermissionsProp || authPermissions
 
   let permitted = true
+  let hasPermission = null
+
   // when an accessCheck function is provided, ensure that passes as well as the permissions
   if (isFunction(accessCheck)) {
     permitted = accessCheck()
   }
 
-  const hasPermission = permissionsRequired
-    ? get(appPermissions, `${permissionsRequired}.hsa_access`)
-    : true
+  if (isString(permissionsRequired)) {
+    hasPermission = get(appPermissions, `${permissionsRequired}.hsa_access`)
+  } else if (isArray(permissionsRequired)) {
+    hasPermission = permissionsRequired.some((permi) => {
+      return get(appPermissions, `${permi}.hsa_access`)
+    })
+  } else {
+    hasPermission = true
+  }
 
   if (permitted && hasPermission) return children
 

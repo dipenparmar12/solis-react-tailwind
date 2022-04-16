@@ -235,8 +235,8 @@ function InputEstimates({ appContext, estimatesRows, setEstimatesRows }) {
                     <div className="flex-1">
                       <InputSelectFormik
                         // clearable
-                        searchable
                         // delay={1500}
+                        searchable
                         isRequired
                         className={'flex-1'}
                         label="Vendor"

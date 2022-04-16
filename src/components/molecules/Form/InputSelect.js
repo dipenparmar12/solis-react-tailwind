@@ -2,14 +2,12 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react'
 import classNames from 'classnames'
-import { RiCloseLine } from 'react-icons/ri'
 import Select from 'react-dropdown-select'
 import useMergeRefs from '@/hooks/useMergeRefs'
 import WithFormik from '../FormicApp/WithFormik'
 import ErrorFeedback from '@/components/atoms/ErrorFeedback'
 import debounce from '@/utils/function/debounce'
 import { inputDateStyles } from './InputDate'
-import isFunctionAndCall from '@/utils/function/isFunctionAndCall'
 import Types from '@/utils/validation/Types'
 
 function InputSelect(
