@@ -68,10 +68,7 @@ export default function SidebarNavList({ routes }) {
         <NavLinkItem route={routes?.users} />
       </AccessControl>
 
-      <AccessControl
-        fallback={null}
-        permissionsRequired={'transaction-list-all'}
-      >
+      <AccessControl fallback={null} permissionsRequired={'transaction-list'}>
         <NavLinkItem route={routes?.transaction} />
       </AccessControl>
 

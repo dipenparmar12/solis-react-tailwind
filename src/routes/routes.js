@@ -2,12 +2,11 @@ import {
   RiBuilding2Line,
   RiUserFollowLine,
   RiInformationLine,
-  RiAddLine,
   RiBankCardLine,
   RiRefund2Line,
 } from 'react-icons/ri'
 import { FiUsers } from 'react-icons/fi'
-import { MdAttachMoney, MdOutlineRealEstateAgent } from 'react-icons/md'
+import { MdOutlineRealEstateAgent } from 'react-icons/md'
 import Svg from '@/components/Svg/Svg'
 import LoginPage from '@/pages/LoginPage'
 import { UserAddFormContainer } from '@/pages/Users/AddForm'
@@ -32,6 +31,7 @@ import ProjectsContext from '@/pages/Projects'
 import { DealerPaymentFormContainer } from '@/pages/Dealers/CreatePayment'
 import { FundFormContainer } from '@/pages/Funds/Create'
 import UserPermissions from '@/pages/Users/Permissions'
+import PermissionPage from '@/pages/Permission/PermissionPage'
 
 export const testRoutes = {
   profile: {
@@ -186,14 +186,14 @@ export const routesPrivate = {
     label: 'Transactions',
     path: '/transactions',
     element: <TransactionsContainer />,
-    icon: <RiBankCardLine />,
+    icon: <Icons.CardLine />,
   },
-  // permissions: {
-  //   label: 'Permissions',
-  //   path: '/users?tab=permissions',
-  //   element: <UsersContext />,
-  //   icon: <RiBankCardLine />,
-  // },
+  permissions: {
+    label: 'Permissions',
+    path: '/permissions',
+    element: <PermissionPage />,
+    icon: <Icons.Lock />,
+  },
   ...(Env.IsDev ? testRoutes : {}),
 }
 

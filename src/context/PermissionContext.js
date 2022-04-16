@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values,camelcase */
 import React, { useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
-import { isFunction } from '@craco/craco/lib/utils'
 import Api from '@/services/ApiService'
 import ContextFactory from '@/context/ContextFactory'
 import Print from '@/components/atoms/Print'
@@ -11,6 +10,9 @@ import get from '@/utils/obj/get'
 import NotFound from '@/pages/NotFound'
 import AccessDenied from '@/components/atoms/AccessDenied'
 import AccessControlComponent from '@/components/atoms/AccessControl'
+import Assertion from '@/utils/Assertion'
+
+const { isFunction, isString, isArray } = Assertion
 
 const [PermissionProvider, usePermissionContext, Context] = ContextFactory({
   name: 'PermissionContext',
@@ -44,9 +46,29 @@ const PermissionsContext = ({ children }) => {
     return apiState?.data
   }, [apiState?.data])
 
+  /**
+   * Check Auth user has specified perm
+   * @example  userHasPermission('permission_name')
+   */
+  const userHasPermission = React.useCallback(
+    (permission) => {
+      if (isString(permission)) {
+        return get(authPermissions, `${permission}.hsa_access`)
+      }
+      if (isArray(permission)) {
+        return permission.some((permi) => {
+          return get(authPermissions, `${permi}.hsa_access`)
+        })
+      }
+      return true
+    },
+    [authPermissions],
+  )
+
   const contextValue = {
     State: apiStateMemo,
     authPermissions,
+    userHasPermission,
   }
 
   return (

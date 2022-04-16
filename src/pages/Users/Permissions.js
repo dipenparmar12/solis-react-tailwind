@@ -129,7 +129,7 @@ function UserPermissions() {
 
             <InputApp
               delay={500}
-              placeholder={'Search Permission'}
+              placeholder={'Search PermissionPage'}
               onChange={(e) => SetFilters.merge({ search: e?.target?.value })}
             />
 

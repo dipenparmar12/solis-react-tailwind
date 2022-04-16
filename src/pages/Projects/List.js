@@ -26,11 +26,14 @@ import DropDownApp from '@/components/molecules/DropDownApp/DropDownApp'
 import ExpenseList from '@/pages/Projects/_partials/ExpenseModal'
 import EstimateList from '@/pages/Projects/_partials/EstimateModal'
 import IncomeList from '@/pages/Projects/_partials/IncomesModal'
+import { usePermissionContext } from '@/context/PermissionContext'
 
 function ProjectList() {
   const { qry, setQry, State: ProjectState } = useProjectContext() || {}
   const [filtersVisible, setFilterVisible] = useToggle(false)
   const { handleTableSorting, getSortingIcon } = useTableSorting(setQry.merge)
+  const { authPermissions, userHasPermission } =
+    usePermissionContext(undefined) || {}
 
   const TableRows = ProjectState?.data || [] // TOD0::MEMOIZE Table data
   const TableColumns = React.useMemo(
@@ -80,31 +83,37 @@ function ProjectList() {
       },
       {
         Header: 'P & L',
-        accessor: 'payments_sum_amount',
+        accessor: 'p_and_l',
         // isSortable: true,
-        Cell: ({ value, row }) => {
-          const { budget, estimates_sum_amount, expenses_sum_amount } =
-            row.original
-
-          const balance = budget - estimates_sum_amount - expenses_sum_amount
-
-          return (
-            <span className={balance > 0 ? 'text-green-600' : 'text-red-400'}>
-              {formatRs(balance)}
-            </span>
-          )
-        },
+        // Cell: ({ value, row }) => {
+        //   const { budget, estimates_sum_amount, expenses_sum_amount } =
+        //     row.original
+        //
+        //   const balance = budget - estimates_sum_amount - expenses_sum_amount
+        //
+        //   return (
+        //     <span className={balance > 0 ? 'text-green-600' : 'text-red-400'}>
+        //       {formatRs(balance)}
+        //     </span>
+        //   )
+        // },
+        Cell: ({ value }) => (
+          <span className={value > 0 ? 'text-green-600' : 'text-red-400'}>
+            {formatRs(value)}
+          </span>
+        ),
         Footer: TableFooterTotal,
       },
       {
         Header: 'Collection',
         accessor: 'collection',
         // isSortable: true,
-        Cell: ({ value, row }) => {
-          const { budget, incomes_sum_amount } = row.original
-          const balance = budget - incomes_sum_amount
-          return <span className={''}>{formatRs(balance)}</span>
-        },
+        Cell: ({ value }) => <span>{formatRs(value)}</span>,
+        // Cell: ({ value, row }) => {
+        //   const { budget, incomes_sum_amount } = row.original
+        //   const balance = budget - incomes_sum_amount
+        //   return <span className={''}>{formatRs(balance)}</span>
+        // },
         Footer: TableFooterTotal,
       },
       {
@@ -133,6 +142,8 @@ function ProjectList() {
     page,
     rows,
     prepareRow,
+    getToggleHideAllColumnsProps,
+    allColumns,
   } = useTable(
     {
       columns: TableColumns,

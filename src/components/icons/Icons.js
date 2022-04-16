@@ -4,6 +4,7 @@ import {
   RiArrowDownSLine,
   RiArrowUpSLine,
   RiAttachmentLine,
+  RiBankCardLine,
   RiBuilding2Line,
   RiDeleteBin7Line,
   RiDeleteBinLine,
@@ -91,6 +92,8 @@ const Icons = {
   Export: AiOutlineExport,
   ShutDown: RiShutDownLine,
   Filter2: RiFilterLine,
+
+  CardLine: RiBankCardLine,
 }
 
 export default Icons

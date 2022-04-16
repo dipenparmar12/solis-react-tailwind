@@ -20,7 +20,7 @@ const { isFunction, isString, isArray } = Assertion
  */
 const AccessControl = ({
   authPermissionsProp,
-  permissionsRequired,
+  permissionsRequired: permission,
   renderNoAccess,
   accessCheck,
   children,
@@ -37,10 +37,10 @@ const AccessControl = ({
     permitted = accessCheck()
   }
 
-  if (isString(permissionsRequired)) {
-    hasPermission = get(appPermissions, `${permissionsRequired}.hsa_access`)
-  } else if (isArray(permissionsRequired)) {
-    hasPermission = permissionsRequired.some((permi) => {
+  if (isString(permission)) {
+    hasPermission = get(appPermissions, `${permission}.hsa_access`)
+  } else if (isArray(permission)) {
+    hasPermission = permission.some((permi) => {
       return get(appPermissions, `${permi}.hsa_access`)
     })
   } else {

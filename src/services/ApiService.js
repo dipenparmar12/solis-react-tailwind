@@ -13,6 +13,7 @@ const resources = {
     permissions: {
       get: async ({ qry: { user_id, ...qry } }) =>
         _axios.get(`/users/${user_id}/permissions?${encode(qry)}`),
+      create: async (data) => _axios.post(`/permissions`, data),
     },
   },
 
