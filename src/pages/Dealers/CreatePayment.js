@@ -119,9 +119,9 @@ export default function DealerPaymentCreate({
 
 export const DealerPaymentFormContainer = ({ ...props }) => {
   return (
-    // <div className="px-5 py-3 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
-    <DealerPaymentCreate {...props} />
-    // </div>
+    <div className="px-5 py-5 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
+      <DealerPaymentCreate {...props} />
+    </div>
   )
 }
 

@@ -108,7 +108,7 @@ export default function EstimateCreate({
         debug={['values', 'errors']}
         initialValues={deepMerge(initialValues, omitVal(initialData, null))}
         onSubmit={handleSubmit}
-        // validationSchema={EstimateValidators(isEdit)}
+        validationSchema={EstimateValidators(isEdit)}
         // inputLabels={projectInputLabels}
         // transformValues={transformValues}
         // castFormData
@@ -191,7 +191,7 @@ export default function EstimateCreate({
 
 export const EstimateFormContainer = ({ ...props }) => {
   return (
-    <div className="px-5 py-3 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
+    <div className="px-5 py-5 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
       <EstimateCreate {...props} />
     </div>
   )

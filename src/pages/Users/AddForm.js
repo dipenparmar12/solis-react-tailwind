@@ -115,6 +115,7 @@ export default function UserAddForm({
 
   return (
     <>
+      <h3 className="my-2 text-xl">New User</h3>
       <FormikForm
         debug={'*'}
         // debug={['isSubmitting']}
@@ -257,7 +258,7 @@ export default function UserAddForm({
 
 export const UserAddFormContainer = ({ ...props }) => {
   return (
-    <div className="px-5 py-8 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
+    <div className="px-5 py-5 bg-white border shadow-md dark:bg-gray-900 dark:border-gray-700 ">
       <UserAddForm {...props} />
     </div>
   )
