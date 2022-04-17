@@ -6,81 +6,84 @@ export default function SidebarNavList({ routes }) {
   return (
     <>
       {/* fallback=null <
-      AccessControl permissionsRequired={'payment-create'} /> */}
+      AccessControl permissions={'payment-create'} /> */}
 
-      <AccessControl fallback={null} permissionsRequired={'expense-create'}>
+      <AccessControl fallback={null} permissions={'expense-create'}>
         <NavLinkItem route={routes?.expenseCreate} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'fund-create'}>
+      <AccessControl fallback={null} permissions={'fund-create'}>
         <NavLinkItem route={routes?.fundCreate} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'income-create'}>
+      <AccessControl fallback={null} permissions={'income-create'}>
         <NavLinkItem route={routes?.incomeCreate} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'estimate-create'}>
+      <AccessControl fallback={null} permissions={'estimate-create'}>
         <NavLinkItem route={routes?.estimateCreate} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'project-create'}>
+      <AccessControl fallback={null} permissions={'project-create'}>
         <NavLinkItem route={routes?.projectCreate} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'user-create'}>
+      <AccessControl fallback={null} permissions={'user-create'}>
         <NavLinkItem route={routes?.userCreate} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'dealer-create'}>
+      <AccessControl fallback={null} permissions={'dealer-create'}>
         <NavLinkItem route={routes?.dealerPaymentCreate} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'dealer-list-all'}>
+      <AccessControl fallback={null} permissions={'dealer-list-all'}>
         <NavLinkItem route={routes?.dealers} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'project-list-all'}>
+      <AccessControl fallback={null} permissions={'project-list-all'}>
         <NavLinkItem route={routes?.projects} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'expense-list-all'}>
+      <AccessControl
+        fallback={null}
+        permissions={['expense-list-all', 'expense-list-self']}
+      >
         <NavLinkItem route={routes?.expenses} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'income-list-all'}>
+      <AccessControl fallback={null} permissions={'income-list-all'}>
         <NavLinkItem route={routes?.incomes} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'estimate-list-all'}>
+      <AccessControl fallback={null} permissions={'estimate-list-all'}>
         <NavLinkItem route={routes?.estimates} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'salary-list-all'}>
+      <AccessControl fallback={null} permissions={'salary-list-all'}>
         <NavLinkItem route={routes?.salaries} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'fund-list-all'}>
+      <AccessControl fallback={null} permissions={'fund-list-all'}>
         <NavLinkItem route={routes?.funds} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'user-list-all'}>
+      <AccessControl fallback={null} permissions={'user-list-all'}>
         <NavLinkItem route={routes?.users} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'transaction-list'}>
+      <AccessControl fallback={null} permissions={'transaction-list'}>
         <NavLinkItem route={routes?.transaction} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'debug'}>
+      <AccessControl fallback={null} permissions={'debug'}>
         <NavLinkItem route={routes?.permissions} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'debug'}>
+      <AccessControl fallback={null} permissions={'debug'}>
         <NavLinkItem route={routes?.examples} />
       </AccessControl>
 
-      <AccessControl fallback={null} permissionsRequired={'debug'}>
+      <AccessControl fallback={null} permissions={'debug'}>
         <NavLinkItem route={routes?.appContext} />
       </AccessControl>
     </>

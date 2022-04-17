@@ -25,9 +25,7 @@ const App = function () {
               element={
                 <RequireAuth>
                   <Layout>
-                    <AccessControl
-                      permissionsRequired={route?.permissionsRequired}
-                    >
+                    <AccessControl permissions={route?.permissions}>
                       {route.element}
                     </AccessControl>
                   </Layout>

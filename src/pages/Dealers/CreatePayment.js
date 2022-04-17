@@ -87,7 +87,7 @@ export default function DealerPaymentCreate({
 
   return (
     <>
-      <AccessControl permissionsRequired={'payment-create'}>
+      <AccessControl permission={'payment-create'}>
         <FormikForm
           // debug={'*'}
           debug={['values', 'errors']}

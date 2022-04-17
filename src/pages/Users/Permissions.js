@@ -160,7 +160,7 @@ function UserPermissions() {
 
               <ButtonFormik
                 as={Button}
-                className="px-6 py-1 text-sm my-1 mx-2 bg-sky-200"
+                className="px-6 py-1 text-sm my-1 mx-2 bg-sky-200 "
                 variant="subtle"
               >
                 Save
