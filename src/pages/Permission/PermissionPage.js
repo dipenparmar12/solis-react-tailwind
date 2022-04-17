@@ -39,7 +39,7 @@ const PermissionList = () => {
                 renderButton={({ toggle, isOpen }) => (
                   <div className={'flex py-1'}>
                     <div className="p-1">{i}</div>
-                    {/* <div className="p-1 ">{perm?.group}</div> */}
+                    <div className="p-1 text-gray-300">{perm?.group}</div>
                     <div className="p-1 flex-1">{perm?.name}</div>
                     <div className="p-1 flex-1 px-2 flex-1  ">
                       {perm?.display_name || '-'}

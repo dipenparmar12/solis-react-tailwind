@@ -124,6 +124,7 @@ export const routesPrivate = {
     label: 'Expenses',
     path: '/expenses',
     element: <ExpenseContext />,
+    permissions: ['expense-list-all', 'expense-list-self'],
     icon: <Icons.Dollar className="" />,
   },
   home: {
@@ -142,6 +143,7 @@ export const routesPrivate = {
     label: 'Incomes',
     path: '/incomes',
     element: <IncomesContext />,
+    permissions: ['income-list-all'],
     icon: <Icons.HandCoin className="" />,
   },
   funds: {
@@ -156,7 +158,7 @@ export const routesPrivate = {
     element: <ProjectsContext />,
     // element: <ProjectContainer />,
     icon: <Icons.Building />,
-    permissionsRequired: ['project-list-all'],
+    permissions: ['project-list-all'],
   },
   dealers: {
     label: 'Vendors',
@@ -168,6 +170,7 @@ export const routesPrivate = {
     label: 'Estimates',
     path: '/estimates',
     element: <EstimatesContext />,
+    permissions: 'estimate-list-all',
     icon: <Icons.Bag className="" />,
   },
   estimateCreate: {
@@ -207,7 +210,7 @@ export default routes
     path: '/projects',
     element: <ProjectsContext />,
     icon: <Icons.Building />,
-    permissionsRequired: ['project-list-all'],
+    permissions: ['project-list-all'],
     children: {
       b: {
         label: 'Route incomes',

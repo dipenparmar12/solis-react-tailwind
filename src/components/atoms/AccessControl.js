@@ -9,7 +9,7 @@ const { isFunction, isString, isArray } = Assertion
 /**
  *
  * @param authPermissionsProp
- * @param permissionsRequired
+ * @param permissions
  * @param renderNoAccess
  * @param accessCheck
  * @param children
@@ -18,9 +18,9 @@ const { isFunction, isString, isArray } = Assertion
  * @constructor
  * @see https://levelup.gitconnected.com/access-control-in-a-react-ui-71f1df60f354
  */
-const AccessControl = ({
+const AccessControlCore = ({
   authPermissionsProp,
-  permissionsRequired: permission,
+  permissions,
   renderNoAccess,
   accessCheck,
   children,
@@ -37,10 +37,10 @@ const AccessControl = ({
     permitted = accessCheck()
   }
 
-  if (isString(permission)) {
-    hasPermission = get(appPermissions, `${permission}.hsa_access`)
-  } else if (isArray(permission)) {
-    hasPermission = permission.some((permi) => {
+  if (isString(permissions)) {
+    hasPermission = get(appPermissions, `${permissions}.hsa_access`)
+  } else if (isArray(permissions)) {
+    hasPermission = permissions.some((permi) => {
       return get(appPermissions, `${permi}.hsa_access`)
     })
   } else {
@@ -54,15 +54,16 @@ const AccessControl = ({
   return renderNoAccess ? renderNoAccess() : <AccessDenied />
 }
 
-export default React.memo(AccessControl)
+const AccessControl = React.memo(AccessControlCore)
+export default AccessControl
 
 /* ------------------------------------
-  AccessControl Exapmle
+  AccessControl Example
  ------------------------------------
 
  <AccessControl
     // authPermissions={authPermissions}
-    permissionsRequired={'payment-create'}
+    permission={'payment-create'}
     accessCheck={() => auth && auth.id === created_by_id }
   >
       I have Access
@@ -70,7 +71,7 @@ export default React.memo(AccessControl)
 
   <AccessControl
     // authPermissions={authPermissions}
-    permissionsRequired={'payment-create'}
+    permission={'payment-create'}
     accessCheck={() => auth && auth.id === created_by_id }
     renderNoAccess={() => (
       <div>

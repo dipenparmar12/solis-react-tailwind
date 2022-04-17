@@ -8,8 +8,6 @@ import { useAuth } from '@/context/AuthContext'
 import keyBy from '@/utils/collection/keyBy'
 import get from '@/utils/obj/get'
 import NotFound from '@/pages/NotFound'
-import AccessDenied from '@/components/atoms/AccessDenied'
-import AccessControlComponent from '@/components/atoms/AccessControl'
 import Assertion from '@/utils/Assertion'
 
 const { isFunction, isString, isArray } = Assertion
@@ -77,3 +75,12 @@ const PermissionsContext = ({ children }) => {
 }
 
 export default PermissionsContext
+
+/* ------------------------------------
+  Example
+
+const { authPermissions, userHasPermission } =  usePermissionContext(undefined) || {}
+userHasPermission('permission-name')
+userHasPermission(['permission-1','permission-2'])
+
+ ------------------------------------ */

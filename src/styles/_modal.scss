@@ -4,5 +4,9 @@
 ======================================================== 
 */
 .react-responsive-modal-modal {
-  @apply dark:bg-gray-800;
+  @apply dark:bg-gray-800 ;
+}
+
+.react-responsive-modal-container {
+  overflow-x: auto !important;
 }

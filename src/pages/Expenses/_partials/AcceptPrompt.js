@@ -4,6 +4,7 @@ import Icons from '@/components/icons/Icons'
 import ToolTip from '@/components/molecules/Popover/Tooltip'
 import Button from '@/components/atoms/Button'
 import SpinnerV2 from '@/components/atoms/SpinnerV2'
+import { usePermissionContext } from '@/context/PermissionContext'
 
 const AcceptPrompt = React.memo(({ id, isApproved }) => {
   const buttonRef = React.useRef()
@@ -11,6 +12,8 @@ const AcceptPrompt = React.memo(({ id, isApproved }) => {
     mutations: { approvalApi },
   } = useExpenseContext()
   const [verdict, setVerdict] = React.useState(null)
+  const { authPermissions, userHasPermission } =
+    usePermissionContext(undefined) || {}
 
   const handleApproval = () => {
     setVerdict(1)
@@ -62,6 +65,8 @@ const AcceptPrompt = React.memo(({ id, isApproved }) => {
       </div>
     )
   }
+
+  if (!userHasPermission('expense-approval')) return 'Pending'
 
   return (
     <div className="flex justify-center">
