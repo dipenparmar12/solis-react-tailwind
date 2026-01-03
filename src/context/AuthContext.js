@@ -28,10 +28,10 @@ export default function AuthProvider({ children }) {
   const navigate = useNavigate()
 
   const signIn = (userObj, callback) => {
-    return authService.signIn(() => {
-      setUser(userObj)
+    setUser(userObj)
+    if (callback) {
       callback({ user: userObj })
-    })
+    }
   }
 
   const signOut = (callback) => {
