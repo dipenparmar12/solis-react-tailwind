@@ -1,5 +1,5 @@
 {
-  "REACT_APP_BASE_API": "http://solis.test",
+  "REACT_APP_BASE_API": "http://localhost:8000",
   "REACT_APP_BASE_API_": "//solis-interiors.tk",
   "REACT_APP_TITLE": "Solis App (Development)",
   "REACT_APP_NOTIFY_ERROR": true,

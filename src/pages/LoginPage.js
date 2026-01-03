@@ -33,16 +33,16 @@ export default function LoginPage() {
       const authUser = authRes?.data?.data
       if (token) {
         Cookies.set('token', token)
-        auth.signIn(authUser, (arg) => {
-          navigate(from, { replace: true })
-        })
+        auth.signIn(authUser) // useEffect will handle navigation
       }
     })
   }
 
   React.useEffect(() => {
-    if (auth?.user) navigate(from, { replace: true })
-    return () => {}
+    if (auth?.user) {
+      console.log('LoginPage.js::[46] User authenticated, redirecting to:', from)
+      navigate(from, { replace: true })
+    }
   }, [auth.user, from, navigate])
 
   return (
